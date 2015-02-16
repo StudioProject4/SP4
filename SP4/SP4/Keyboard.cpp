@@ -4,8 +4,7 @@ CKeyboard* CKeyboard::instance = 0;
 
 CKeyboard::CKeyboard(void)
 {
-	tag = "keyboard";
-	Reset();
+	Init();
 }
 
 
@@ -24,9 +23,26 @@ CKeyboard* CKeyboard::GetInstance()
 
 bool CKeyboard::Reset()
 {
+	return Init();
+}
+
+bool CKeyboard::Update()
+{
+	return true;
+}
+
+bool CKeyboard::Init()
+{
+	tag = "keyboard";
+
 	for(unsigned short i = 0; i<255; ++i)
 	{
 		myKeys[i] = false;
 	}
+	return true;
+}
+
+bool CKeyboard::CleanUp()
+{
 	return true;
 }

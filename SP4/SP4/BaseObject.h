@@ -7,11 +7,18 @@
 
 class CBaseObject:public CEntity
 {
-	CBaseObject();
-	~CBaseObject();
+public:
+	bool active;
 	Vector3 pos;
 	Vector3 dir;
-	virtual bool Render()=0;
+public:
+	CBaseObject()
+		:active(true)
+	{};
+
+	~CBaseObject(){};
+	virtual bool OnCollision(CBaseObject* a_obj) = 0;
+	virtual bool Render() = 0;
 };
 
 

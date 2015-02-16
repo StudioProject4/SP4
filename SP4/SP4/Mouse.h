@@ -16,5 +16,8 @@ public:
 	CMouse(void);
 	~CMouse(void);
 	bool Reset();
+	bool Update();
+	bool Init() ;
+	bool CleanUp();
 };
 

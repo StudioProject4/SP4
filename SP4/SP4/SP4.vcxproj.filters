@@ -99,6 +99,9 @@
     <ClCompile Include="AI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myApplication.h">
@@ -195,6 +198,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

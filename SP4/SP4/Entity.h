@@ -14,26 +14,14 @@ public:
 		, id(0)
 	{
 	}
-
 	virtual ~CEntity(void)
 	{
 	}
-	virtual bool Update()
-	{
-		return true;
-	}
-	virtual bool Init()
-	{
-		return true;
-	}
-	virtual bool Reset()
-	{
-		return true;
-	}
-	virtual bool CleanUp()
-	{
-		return true;
-	}
+	virtual bool Update() = 0;
+	virtual bool Init() = 0;
+	virtual bool Reset()= 0;
+	virtual bool CleanUp() = 0;
+
 	virtual bool Release()
 	{
 		delete this;

@@ -91,6 +91,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MusicSystem\MusicSystem.cpp" />
     <ClCompile Include="myApplication.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="ObjLoader.c" />
     <ClCompile Include="RandomGeneratorSystem\RandomGenerator.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -99,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.h" />
+    <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="DatabaseLibrary.h" />
     <ClInclude Include="DatatypeDefination.h" />
@@ -119,6 +121,7 @@
     <ClInclude Include="myApplication.h" />
     <ClInclude Include="myLibrary.h" />
     <ClInclude Include="MyMath.h" />
+    <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="RandomGeneratorSystem\MathPlus.h" />
     <ClInclude Include="RandomGeneratorSystem\RandomGenerator.h" />

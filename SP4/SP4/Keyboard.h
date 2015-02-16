@@ -11,5 +11,8 @@ public:
 	static CKeyboard* GetInstance();
 	~CKeyboard(void);
 	bool Reset();
+	bool Update();
+	bool Init() ;
+	bool CleanUp();
 };
 

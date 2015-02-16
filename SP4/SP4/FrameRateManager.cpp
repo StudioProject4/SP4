@@ -17,6 +17,8 @@ CFrameRateManager* CFrameRateManager::GetInstance()
 }
 bool CFrameRateManager::Init()
 {
+	name = "frameratemanager";
+
 	frameCount = 0;
 	fps = 0;
 	currentTime = 0;
@@ -34,7 +36,7 @@ CFrameRateManager::~CFrameRateManager(void)
 {
 }
 
-bool CFrameRateManager::UpdateAndCheckTimeThreehold()
+bool CFrameRateManager::Update()
 {
 	deltaTime = (timeGetTime()-timelastcall);
 
@@ -48,6 +50,21 @@ bool CFrameRateManager::UpdateAndCheckTimeThreehold()
 		return true;
 	}
 	return false;
+}
+
+bool CFrameRateManager::Reset()
+{
+	return Init();
+}
+
+bool CFrameRateManager::CleanUp()
+{
+	return true;
+}
+
+bool CFrameRateManager::UpdateAndCheckTimeThreehold()
+{
+	return Update();
 }
 void CFrameRateManager::CalculateFPS()
 {

@@ -23,11 +23,14 @@ public:
 
 	static CFrameRateManager* instance;
 private:
+	bool Update();
 	CFrameRateManager(void);
 public:
 	static CFrameRateManager* GetInstance();
 	~CFrameRateManager(void);
 	bool Init();
+	bool Reset();
+	bool CleanUp();
 	bool UpdateAndCheckTimeThreehold();
 	void drawFPS(float xpos = 25.f,float ypos = 25.f);
 	void CalculateFPS();
