@@ -1,0 +1,60 @@
+
+int numberOfGrid
+
+
+func GetNumberOfIndex//
+
+class CSomething
+
+
+typef vector<int> TObjectList;
+TObjectList objectList
+
+emum EEnemyType
+{
+ENEMY_NONE
+ENEMY_TOTAL
+}
+
+task List
+
+character programming
+	1)movement-easy 1
+	2)controls-easy 1
+3)sprite animations-yellow hard 8
+4)map
+	load from csv-medium 6
+5)powerup - medium 5
+	speed up
+	point modifier
+	recovery
+	invinceible
+	jump height
+UI programming vaires(decide after its done)
+	power up timer
+	health
+	
+	
+6)factory class - medium 7
+7)physics - hard
+	8)gravity - medium 6
+	9)slopes - hard 10**
+10)obstacle
+	11)AI - medium 7+
+	12)Specific character blocks 3
+	trap doors
+13)multiplayer hard 9
+14 health and points system easy 3
+
+sound(non programming) 5(effort)
+level design(non programming)7(effort)
+textures(non proggramming)5(effort)
+
+
+
+
+character programming
+	1)movement-easy 1
+	2)controls-easy 1
+14 health and points system easy 3
+	12)Specific character blocks 3
