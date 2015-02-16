@@ -16,6 +16,8 @@
 #include "myLibrary.h"
 #include "GameStateManager.h"
 #include "MenuState.h"
+#include "MalayFemale.h"
+
 class myApplication:public CGameState
 {
 public:
@@ -55,6 +57,7 @@ public:
 	//CLuaManager* LM;
 	//CMouse* mouse;
 	//CKeyboard* keyboard;
+	
 
 private:
 	myApplication(void);

@@ -13,7 +13,12 @@ class CChineseMale : public CCharacter
 		~CChineseMale();
 		bool Init(Vector3 newPos,Vector3 newDir,int entityID);
 		bool Update();
+		bool Init();
+		bool Reset();
+		bool CleanUp();
 		bool Render();
+
+		bool OnCollision(CBaseObject* a_obj);
 	private:
 		TextureImage Texture;
 };

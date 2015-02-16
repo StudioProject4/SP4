@@ -6,7 +6,9 @@ class CAI
 
 	enum AIState
 	{
-		ai_idle
+		AI_NONE,
+		AI_IDLE,
+		AI_TOTAL
 	};
 
 	public:

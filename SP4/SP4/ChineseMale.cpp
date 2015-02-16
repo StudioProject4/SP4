@@ -2,14 +2,12 @@
 
 CChineseMale :: CChineseMale()
 {
-	name = "GenericChineseKid";
-	tag = "ChineseMale";
-	genericTag = "Character";
+
 }
 
 CChineseMale :: ~CChineseMale()
 {
-	
+	Init();
 }
 
 bool CChineseMale :: Init(Vector3 newPos,Vector3 newDir,int entityID)
@@ -20,7 +18,31 @@ bool CChineseMale :: Init(Vector3 newPos,Vector3 newDir,int entityID)
 	LoadTGA(&Texture,"sonia2.tga");
 	return true;
 }
+
 bool CChineseMale :: Update()
+{
+	return true;
+}
+
+bool CChineseMale :: Init()
+{
+	name = "GenericChineseKid";
+	tag = "ChineseMale";
+	genericTag = "Character";
+
+	return true;
+}
+
+bool CChineseMale :: Reset()
+{
+	return Init();
+}
+
+bool CChineseMale :: CleanUp()
+{
+	return true;
+}
+bool CChineseMale :: OnCollision(CBaseObject* a_obj)
 {
 	return true;
 }
