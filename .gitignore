@@ -24,3 +24,16 @@
 *.exe
 *.out
 *.app
+*.tlog
+*.ipch
+*.ilk
+*.pdb
+*.manifest
+*.res
+*.lastbuildstate
+*.log
+*.cache
+*.rc
+*.idb
+*.opensdf
+*.sdf
