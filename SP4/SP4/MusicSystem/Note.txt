@@ -1,0 +1,3 @@
+Note from creator:
+
+the following files are created during sp3 and with some bug. New Music System class needs to be created soon,since current method is ugly.

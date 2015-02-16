@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Helper">
+      <UniqueIdentifier>{6f678c0b-6237-4684-91ad-f2177d394c9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper\MathHelper">
+      <UniqueIdentifier>{7322d515-c09a-4341-9595-4049a69feeb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper\RenderHelper">
+      <UniqueIdentifier>{7dac4584-8f10-4194-864a-e4b2c8d6b83c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper\GenericCodeHelper">
+      <UniqueIdentifier>{427d0e18-b090-4ff9-82dd-3691a0da5461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper\Defination">
+      <UniqueIdentifier>{96aa740b-b870-4ce1-b6db-97dc7ac57b50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper\PackageIncludes">
+      <UniqueIdentifier>{8b642cec-5897-4d6c-bc98-c16779ae3a2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper\CustomDataType">
+      <UniqueIdentifier>{985bb204-a305-4649-8c14-13f7766b365c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper\RandomGenerator">
+      <UniqueIdentifier>{38787029-4425-4412-ab33-f318a693dede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper\MusicSystem">
+      <UniqueIdentifier>{aec95703-e1d5-4055-864c-dfeef01700c4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="myApplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameRateManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Helper\MathHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjLoader.c">
+      <Filter>Helper\RenderHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="tgaLoader.c">
+      <Filter>Helper\RenderHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix4x4.cpp">
+      <Filter>Helper\MathHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaManager.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomGeneratorSystem\RandomGenerator.cpp">
+      <Filter>Helper\RandomGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicSystem\MusicSystem.cpp">
+      <Filter>Helper\MusicSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="myApplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUntilty.h">
+      <Filter>Helper\RenderHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Helper\MathHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="tgaLoader.h">
+      <Filter>Helper\RenderHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjLoader.h">
+      <Filter>Helper\RenderHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureImage.h">
+      <Filter>Helper\RenderHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="MyMath.h">
+      <Filter>Helper\MathHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4.h">
+      <Filter>Helper\MathHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameRateManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolLibrary.h">
+      <Filter>Helper\GenericCodeHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseLibrary.h">
+      <Filter>Helper\GenericCodeHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="DatatypeDefination.h">
+      <Filter>Helper\Defination</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemDefination.h">
+      <Filter>Helper\Defination</Filter>
+    </ClInclude>
+    <ClInclude Include="myLibrary.h">
+      <Filter>Helper\PackageIncludes</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Helper\CustomDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="SContainer2D.h">
+      <Filter>Helper\CustomDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomGeneratorSystem\MathPlus.h">
+      <Filter>Helper\RandomGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomGeneratorSystem\RandomGenerator.h">
+      <Filter>Helper\RandomGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicSystem\DatabaseTool.h">
+      <Filter>Helper\MusicSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicSystem\MusicSystem.h">
+      <Filter>Helper\MusicSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Mind.h">
+      <Filter>Helper\CustomDataType</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalVariable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="RandomGeneratorSystem\Note.txt">
+      <Filter>Helper\RandomGenerator</Filter>
+    </None>
+    <None Include="MusicSystem\Note.txt">
+      <Filter>Helper\MusicSystem</Filter>
+    </None>
+  </ItemGroup>
+</Project>

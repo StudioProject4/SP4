@@ -1,0 +1,18 @@
+Intention(Setting up basic framework)
+Added by Kee Yang,Commited at 16thFeb 2.25AM
+-music system
+-random generator
+-2D map class
+-GameStateManager
+-Math helper library, vector3,MyMath,Matrix4x4
+-Simple database manipliation and data conversion function
+-keyboard class, singeton keyboardclass for tracking keyboardinfo
+-mouse class, singeton mouse class for tracking mouse info
+-Frame Rate manager class,,singeton for a centred management of fps,dt.
+-sprite class ,for creating sprite animation
+-Lua manager class,for a level of managment of using lua
+-global varible,for tracking window width and height
+-Renderunility header file,for global collection of generic loading textures
+-entity class,for a very simple template for all class to have,mainly use for debugging and indentifying objects
+-mind class ,a prototype idea of easy way to make classes into FMS,idea is similar to unity component design.
+-SCOntainer2d class,for a struct to handle duo varible handling
