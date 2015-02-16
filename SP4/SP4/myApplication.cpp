@@ -77,6 +77,38 @@ bool myApplication::Update()
 	{
 		CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
 	}
+	if(keyboard->myKeys[VK_LEFT])
+	{
+		
+	}
+	if(keyboard->myKeys[VK_RIGHT])
+	{
+		
+	}
+	if(keyboard->myKeys[VK_UP])
+	{
+		
+	}
+	if(keyboard->myKeys[VK_DOWN])
+	{
+		
+	}
+	if(keyboard->myKeys['a'])
+	{
+		
+	}
+	if(keyboard->myKeys['d'])
+	{
+		
+	}
+	if(keyboard->myKeys['w'])
+	{
+		
+	}
+	if(keyboard->myKeys['s'])
+	{
+		
+	}
 	if(keyboard->myKeys[VK_ESCAPE] == true)
 	{
 		exit(0);
