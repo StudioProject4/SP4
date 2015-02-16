@@ -17,6 +17,7 @@
 #include "GameStateManager.h"
 #include "MenuState.h"
 #include "MalayFemale.h"
+#include "WindowManager.h"
 
 class myApplication:public CGameState
 {

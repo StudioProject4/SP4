@@ -1,8 +1,6 @@
 #include "SystemDefination.h"
 #include "myApplication.h"
 
-int WINDOW_WIDTH;
-int WINDOW_HEIGHT;
 void changeSize(int w, int h) {
 	//myApplication::GetInstance()->changeSize(w,h);
 	CGameStateManager::GetInstance()->changeSize(w,h);
@@ -50,24 +48,24 @@ void CleanUpUponExit(void)
 
 int main(int argc, char **argv )
 {
-
+		CWindowManager* WM = CWindowManager::GetInstance();
 		CGameStateManager* GSM = CGameStateManager::GetInstance();
-		GSM->ChangeState(myApplication::GetInstance());
-		
 		CLuaManager* LM = CLuaManager::GetInstance();
 		LM->Init("mylua.lua");
-		WINDOW_WIDTH = LM->GetWithCheckNumber<int>("WINDOW_WIDTH");
-		WINDOW_HEIGHT = LM->GetWithCheckNumber<int>("WINDOW_HEIGHT");
+		
+		GSM->ChangeState(myApplication::GetInstance());
 
 		glutInit(&argc, argv);
 		glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-		glutInitWindowPosition(LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"));
-		glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
-		glutCreateWindow(LM->GetWithCheckString("PROGRAM_NAME").c_str());
-		if(LM->GetWithCheckBoolean("FULLSCREEN") == true)
-		{
-			glutFullScreen();
-		}
+		WM->Init(LM->GetWithCheckNumber<int>("WINDOW_WIDTH"),LM->GetWithCheckNumber<int>("WINDOW_HEIGHT"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"),LM->GetWithCheckBoolean("FULLSCREEN"),LM->GetWithCheckString("PROGRAM_NAME").c_str());
+		
+		//glutInitWindowPosition(LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"));
+		//glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
+		//glutCreateWindow(LM->GetWithCheckString("PROGRAM_NAME").c_str());
+		//if(LM->GetWithCheckBoolean("FULLSCREEN") == true)
+		//{
+		//	glutFullScreen();
+		//}
 		atexit(CleanUpUponExit);
 
 		glutReshapeFunc(changeSize);

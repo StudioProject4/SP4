@@ -99,6 +99,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="tgaLoader.c" />
     <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.h" />
@@ -111,7 +112,6 @@
     <ClInclude Include="FrameRateManager.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
-    <ClInclude Include="GlobalVariable.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="MalayFemale.h" />
@@ -137,6 +137,7 @@
     <ClInclude Include="tgaLoader.h" />
     <ClInclude Include="ToolLibrary.h" />
     <ClInclude Include="Vector3.h" />
+    <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MusicSystem\Note.txt" />

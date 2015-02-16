@@ -32,6 +32,7 @@ public:
 
 	virtual void PrintDebugInformation()
 	{
+		printf("\n");
 		printf("\n ID: %d",id);
 		printf("\n Name: %s",name);
 		printf("\n Tag: %s",tag);

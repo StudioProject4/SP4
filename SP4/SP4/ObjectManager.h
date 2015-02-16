@@ -21,6 +21,13 @@ public:
 	bool Reset();
 	bool CleanUp();
 	void AddObject(CBaseObject* a_obj);
+	CBaseObject* FindObjectWithName(std::string objectName);
+	CBaseObject* FindObjectWithTag(std::string objectTag);
+	CBaseObject* FindObjectWithGenericTag(std::string objectTag);
+	TObjectListVector FindObjectsWithName(std::string objectName);
+	TObjectListVector FindObjectsWithTag(std::string objectTag);
+	TObjectListVector FindObjectsWithGenericTag(std::string objectTag);
+
 	CBaseObject* FetchObject();
 	CBaseObject* FetchObjectWithName(std::string objectName);
 	CBaseObject* FetchObjectWithTag(std::string objectTag);

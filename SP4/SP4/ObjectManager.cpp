@@ -71,6 +71,93 @@ bool CObjectManager::CleanUp()
 	return true;
 }
 
+CBaseObject* CObjectManager::FindObjectWithName(std::string objectName)
+{
+	const char* compare = objectName.c_str();
+
+	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
+	{
+		if( (*it)->name == compare )
+		{
+			return (*it);
+		}
+	}
+	return 0;
+}
+
+CBaseObject* CObjectManager::FindObjectWithTag(std::string objectTag)
+{
+	const char* compare = objectTag.c_str();
+
+	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
+	{
+		if( (*it)->tag == compare )
+		{
+			return (*it);
+		}
+	}
+	return 0;
+}
+
+CBaseObject* CObjectManager::FindObjectWithGenericTag(std::string objectTag)
+{
+	const char* compare = objectTag.c_str();
+
+	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
+	{
+		if( (*it)->genericTag == compare )
+		{
+			return (*it);
+		}
+	}
+	return 0;
+}
+
+CObjectManager::TObjectListVector CObjectManager::FindObjectsWithName(std::string objectName)
+{
+	const char* compare = objectName.c_str();
+	TObjectListVector resultlist;
+
+	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
+	{
+		if( (*it)->genericTag == compare )
+		{
+			resultlist.push_back((*it));
+		}
+	}
+	return resultlist;
+}
+
+CObjectManager::TObjectListVector CObjectManager::FindObjectsWithTag(std::string objectTag)
+{
+	const char* compare = objectTag.c_str();
+	TObjectListVector resultlist;
+
+	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
+	{
+		if( (*it)->genericTag == compare )
+		{
+			resultlist.push_back((*it));
+		}
+	}
+	return resultlist;
+}
+
+CObjectManager::TObjectListVector CObjectManager::FindObjectsWithGenericTag(std::string objectTag)
+{
+	const char* compare = objectTag.c_str();
+	TObjectListVector resultlist;
+
+	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
+	{
+		if( (*it)->genericTag == compare )
+		{
+			resultlist.push_back((*it));
+		}
+	}
+	return resultlist;
+}
+
 CBaseObject* CObjectManager::FetchObject()
 {
 	CBaseObject* a_obj = NULL;
@@ -143,7 +230,7 @@ CBaseObject* CObjectManager::FetchObjectWithGenericTag(std::string objectTag)
 
 		for(TObjectListQueue::iterator it = inactiveObjectList.begin(); it!=inactiveObjectList.end(); ++it)
 		{
-			if( (*it)->tag == compare )//change to generic tag later
+			if( (*it)->genericTag == compare )//change to generic tag later
 			{
 				a_obj = (*it);
 				inactiveObjectList.pop_front();
