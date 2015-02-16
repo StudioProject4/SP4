@@ -4,7 +4,8 @@ class CEntity
 {
 public:
 	char* name;
-	char* tag;
+	char* genericTag;//for the parent type
+	char* tag;//for the child type
 	unsigned short id;
 public:
 
@@ -12,6 +13,7 @@ public:
 		: name(" ")
 		, tag(" ")
 		, id(0)
+		, genericTag(0)
 	{
 	}
 

@@ -7,6 +7,7 @@
 
 class CBaseObject:public CEntity
 {
+public:
 	CBaseObject();
 	~CBaseObject();
 	Vector3 pos;

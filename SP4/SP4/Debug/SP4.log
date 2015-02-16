@@ -1,17 +1,196 @@
-﻿Build started 2/16/2015 1:51:46 PM.
+﻿Build started 2/16/2015 2:24:09 PM.
      1>Project "C:\Users\m308\Documents\GitHub\SP4\SP4\SP4\SP4.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Debug\SP4.unsuccessfulbuild".
+         Creating "Debug\SP4.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\Users\m308\Documents\GitHub\SP4\SP4\includes /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt BaseObject.cpp
-         BaseObject.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\m308\Documents\GitHub\SP4\SP4\includes /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt AI.cpp Character.cpp FrameRateManager.cpp GameState.cpp GameStateManager.cpp Keyboard.cpp LuaManager.cpp main.cpp Map.cpp Matrix4x4.cpp MenuState.cpp Mouse.cpp MusicSystem\MusicSystem.cpp myApplication.cpp RandomGeneratorSystem\RandomGenerator.cpp Sprite.cpp Vector3.cpp
+         Vector3.cpp
      1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         All outputs are up-to-date.
+         Sprite.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\sprite.cpp(40): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+         RandomGenerator.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\mathplus.h(43): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\mathplus.h(48): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(36): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(36): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(42): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(42): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(54): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned long', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(55): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(55): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(62): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(62): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(74): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(74): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(75): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(84): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(84): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(89): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(101): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned long', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(104): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(104): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(108): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(115): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(115): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(119): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(131): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(131): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(132): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(141): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(141): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(146): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(158): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned long', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(161): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(161): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(165): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(172): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(172): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(176): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(183): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(187): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(216): warning C4482: nonstandard extension used: enum 'CRandomGenerator::RNG_MODE' used in qualified name
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(221): warning C4482: nonstandard extension used: enum 'CRandomGenerator::RNG_MODE' used in qualified name
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(226): warning C4482: nonstandard extension used: enum 'CRandomGenerator::RNG_MODE' used in qualified name
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(231): warning C4482: nonstandard extension used: enum 'CRandomGenerator::RNG_MODE' used in qualified name
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(245): warning C4482: nonstandard extension used: enum 'CRandomGenerator::RNG_TYPE' used in qualified name
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(250): warning C4482: nonstandard extension used: enum 'CRandomGenerator::RNG_TYPE' used in qualified name
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(255): warning C4482: nonstandard extension used: enum 'CRandomGenerator::RNG_TYPE' used in qualified name
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(260): warning C4482: nonstandard extension used: enum 'CRandomGenerator::RNG_TYPE' used in qualified name
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(265): warning C4482: nonstandard extension used: enum 'CRandomGenerator::RNG_TYPE' used in qualified name
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(269): warning C4482: nonstandard extension used: enum 'CRandomGenerator::RNG_TYPE' used in qualified name
+         myApplication.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\renderuntilty.h(17): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\renderuntilty.h(96): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(162): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(163): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(207): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(211): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(215): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+         MusicSystem.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Mouse.cpp
+         MenuState.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(162): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(163): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\renderuntilty.h(17): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\renderuntilty.h(96): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\menustate.cpp(141): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\menustate.cpp(145): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\menustate.cpp(149): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+         Matrix4x4.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Map.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(132): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(133): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(159): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(163): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(199): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(200): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(226): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(230): warning C4258: 'y' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(207) : definition of 'y' ignored
+                 c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(194) : definition of 'y' used
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(230): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(325): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(326): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(327): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(328): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(376): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(377): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(378): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(379): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+         main.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\renderuntilty.h(17): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\renderuntilty.h(96): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(162): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(163): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+         LuaManager.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(162): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(163): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.cpp(65): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.cpp(68): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.cpp(71): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.cpp(74): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.cpp(77): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.cpp(80): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.cpp(87): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
+         Keyboard.cpp
+         GameStateManager.cpp
+         GameState.cpp
+         FrameRateManager.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\renderuntilty.h(17): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\renderuntilty.h(96): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\frameratemanager.cpp(39): warning C4244: '=' : conversion from 'unsigned long' to 'float', possible loss of data
+         Character.cpp
+         AI.cpp
+         Generating Code...
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\m308\Documents\GitHub\SP4\SP4\includes /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ObjLoader.c tgaLoader.c
+         tgaLoader.c
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\tgaloader.c(223): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+         ObjLoader.c
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objloader.c(681): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : see declaration of 'sscanf'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objloader.c(693): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : see declaration of 'sscanf'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objloader.c(706): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : see declaration of 'sscanf'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objloader.c(720): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objloader.c(806): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objloader.c(821): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : see declaration of 'sscanf'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objloader.c(831): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : see declaration of 'sscanf'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objloader.c(842): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : see declaration of 'sscanf'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objloader.c(899): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(197) : see declaration of 'strtok'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objloader.c(940): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(197) : see declaration of 'strtok'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objloader.c(979): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(197) : see declaration of 'strtok'
+         Generating Code...
        ManifestResourceCompile:
-         All outputs are up-to-date.
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\SP4.exe.embed.manifest.res" Debug\SP4_manifest.rc 
        Link:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\m308\Documents\GitHub\SP4\SP4\lib freeglut.lib winmm.lib irrklang.lib lua5.1.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\SP4.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.lib" /MACHINE:X86 Debug\SP4.exe.embed.manifest.res
-         Debug\BaseObject.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\m308\Documents\GitHub\SP4\SP4\lib freeglut.lib winmm.lib irrklang.lib lua5.1.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\SP4.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.lib" /MACHINE:X86 Debug\SP4.exe.embed.manifest.res
+         Debug\AI.obj
+         Debug\Character.obj
          Debug\FrameRateManager.obj
          Debug\GameState.obj
          Debug\GameStateManager.obj
@@ -31,9 +210,28 @@
          Debug\Vector3.obj
        Manifest:
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\SP4.exe.embed.manifest" /manifest Debug\SP4.exe.intermediate.manifest
-         All outputs are up-to-date.
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\SP4.exe.embed.manifest.res" Debug\SP4_manifest.rc 
        LinkEmbedManifest:
-         All outputs are up-to-date.
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\m308\Documents\GitHub\SP4\SP4\lib freeglut.lib winmm.lib irrklang.lib lua5.1.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\SP4.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.lib" /MACHINE:X86 Debug\SP4.exe.embed.manifest.res
+         Debug\AI.obj
+         Debug\Character.obj
+         Debug\FrameRateManager.obj
+         Debug\GameState.obj
+         Debug\GameStateManager.obj
+         Debug\Keyboard.obj
+         Debug\LuaManager.obj
+         Debug\main.obj
+         Debug\Map.obj
+         Debug\Matrix4x4.obj
+         Debug\MenuState.obj
+         Debug\Mouse.obj
+         Debug\MusicSystem.obj
+         Debug\myApplication.obj
+         Debug\ObjLoader.obj
+         Debug\RandomGenerator.obj
+         Debug\Sprite.obj
+         Debug\tgaLoader.obj
+         Debug\Vector3.obj
          SP4.vcxproj -> C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.exe
        FinalizeBuildStatus:
          Deleting file "Debug\SP4.unsuccessfulbuild".
@@ -42,4 +240,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.09
+Time Elapsed 00:00:06.40
