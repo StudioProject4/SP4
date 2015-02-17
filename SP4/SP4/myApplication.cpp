@@ -27,6 +27,21 @@ bool myApplication::CleanUp()
 		instance = NULL;
 	}
 	return true;
+	if(playerOne != NULL)
+	{
+		delete playerOne;
+		playerOne = NULL;
+	}
+	if(playerTwo != NULL)
+	{
+		delete playerTwo;
+		playerTwo - NULL;
+	}
+	if(theAI != NULL)
+	{
+		delete theAI;
+		theAI = NULL;
+	}
 }
 bool myApplication::Reset()
 {
@@ -64,6 +79,10 @@ bool myApplication::Init()
 	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
 
+	playerOne = new CChineseMale();
+	playerTwo = new CMalayFemale();
+	theAI = new CAILogic();
+
 	return true;
 }
 
@@ -87,29 +106,13 @@ bool myApplication::Update()
 	{
 		CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
 	}
-	if(keyboard->myKeys[VK_LEFT])
-	{
-		
-	}
-	if(keyboard->myKeys[VK_RIGHT])
-	{
-		
-	}
-	if(keyboard->myKeys[VK_UP])
-	{
-		
-	}
-	if(keyboard->myKeys[VK_DOWN])
-	{
-		
-	}
 	if(keyboard->myKeys['a'])
 	{
-		
+		playerOne->MoveLeft();
 	}
 	if(keyboard->myKeys['d'])
 	{
-		
+		playerOne->MoveRight();
 	}
 	if(keyboard->myKeys['w'])
 	{
@@ -123,13 +126,40 @@ bool myApplication::Update()
 	{
 		exit(0);
 	}
+	if(keyboard->myKeys['j'] == true)
+	{
+		playerTwo->MoveLeft();
+	}
+	if(keyboard->myKeys['l'] == true)
+	{
+		playerTwo->MoveRight();
+	}
+	if(keyboard->myKeys['i'] == true)
+	{
+		
+	}
+	if(keyboard->myKeys['k'] == true)
+	{
+		
+	}
+
+	theAI->SetEnemyPos(playerOne->pos);
+	theAI->Update();
 
 	return true;
 }
 void myApplication::Render2D()
 {
+	glPushMatrix();
+	glBindTexture(GL_TEXTURE_2D,testimage.texID);
+	glBegin(GL_QUADS);
+	glEnd();
+	glPopMatrix();
 	//drawFPS();
 	FRM->drawFPS();
+	playerOne->Render();
+	playerTwo->Render();
+	theAI->Render();
 }
 void myApplication::Render3D()
 {

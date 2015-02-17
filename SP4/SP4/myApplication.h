@@ -17,6 +17,8 @@
 #include "GameStateManager.h"
 #include "MenuState.h"
 #include "MalayFemale.h"
+#include "ChineseMale.h"
+#include "AI.h"
 #include "WindowManager.h"
 
 class myApplication:public CGameState
@@ -65,6 +67,11 @@ private:
 	
 	bool Update();
 	void SetHUD(bool m_bHUDmode);
+
+	//temp instance until object manager is done
+	CChineseMale * playerOne; 
+	CMalayFemale * playerTwo;
+	CAILogic * theAI;
 
 	//void printw (float x, float y, float z, char* format, ...);
 	//void calculateFPS();

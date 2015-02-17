@@ -13,11 +13,12 @@ CPhysics::~CPhysics()
 bool CPhysics::Init()
 {
 	Gravity = 10;
+	return true;
 }
 
 bool TestCol(Vector3 pos,Vector3 size,Vector3 pos2,Vector3 size2)
 {
-
+	return true;
 }
 
 Vector3 ApplyGravity(Vector3 pos,Vector3 size)
@@ -31,4 +32,5 @@ Vector3 ApplyGravity(Vector3 pos,Vector3 size)
 	//vel.y=0
 	//
 	//pos+=vel*delta
+	return true;
 }

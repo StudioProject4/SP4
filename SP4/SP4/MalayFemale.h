@@ -1,6 +1,7 @@
 #pragma once
 #include "Character.h"
 #include "RenderUntilty.h"
+#include "Sprite.h"
 #include <stdio.h>
 #include <GL/glut.h>
 #include <GL/freeglut.h>
@@ -12,6 +13,11 @@ class CMalayFemale : public CCharacter
 		CMalayFemale();
 		~CMalayFemale();
 		bool Init(Vector3 newPos,Vector3 newDir,int entityID);
+
+		void Jump();
+		void MoveLeft();
+		void MoveRight();
+
 		bool Update();
 		bool Init();
 		bool Reset();
@@ -21,4 +27,5 @@ class CMalayFemale : public CCharacter
 		bool OnCollision(CBaseObject* a_obj);
 	private:
 		TextureImage Texture;
+		CSprite * theSprite;
 };

@@ -53,12 +53,12 @@ int main(int argc, char **argv )
 		CLuaManager* LM = CLuaManager::GetInstance();
 		LM->Init("mylua.lua");
 		
-		GSM->ChangeState(myApplication::GetInstance());
+		
 
 		glutInit(&argc, argv);
 		glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 		WM->Init(LM->GetWithCheckNumber<int>("WINDOW_WIDTH"),LM->GetWithCheckNumber<int>("WINDOW_HEIGHT"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"),LM->GetWithCheckBoolean("FULLSCREEN"),LM->GetWithCheckString("PROGRAM_NAME").c_str());
-		
+		GSM->ChangeState(myApplication::GetInstance());
 		//glutInitWindowPosition(LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"));
 		//glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 		//glutCreateWindow(LM->GetWithCheckString("PROGRAM_NAME").c_str());
@@ -71,7 +71,7 @@ int main(int argc, char **argv )
 		glutReshapeFunc(changeSize);
 		glutDisplayFunc(renderScene);
 		glutIdleFunc(renderScene);
-		//	glutSpecialFunc(inputKey);
+		glutSpecialFunc(inputKey);
 		glutKeyboardFunc(KeyboardDown);
 		glutKeyboardUpFunc(KeyboardUp);
 		glutPassiveMotionFunc(MouseMove);
