@@ -14,7 +14,7 @@ public:
 	CBaseObject()
 		:active(true)
 	{};
-	~CBaseObject(){};
+	virtual ~CBaseObject(){};
 	virtual bool OnCollision(CBaseObject* a_obj) = 0;
 	virtual bool Render() = 0;
 

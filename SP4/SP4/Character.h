@@ -9,7 +9,7 @@ class CCharacter : public CBaseObject
 			pos = (0,0,0);
 			dir = (0,0,0);
 		};
-		~CCharacter(){};
+		virtual ~CCharacter(){};
 		virtual void Jump() = 0 ;
 		virtual void MoveLeft() = 0 ;
 		virtual void MoveRight() = 0 ;
