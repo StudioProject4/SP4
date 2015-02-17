@@ -1,12 +1,7 @@
-#pragma once
-#include "TextureImage.h"
-#include <stdio.h>
+#include "RenderUntilty.h"
 
-static void *font_style = GLUT_BITMAP_TIMES_ROMAN_24;
-
-bool LoadTGA(TextureImage *texture, char *filename);
-/*static bool LoadTGA(TextureImage *texture,char *filename)
-{
+bool LoadTGA(TextureImage *texture, char *filename)		// Loads A TGA File Into Memory
+{    
 	GLubyte		TGAheader[12]={0,0,2,0,0,0,0,0,0,0,0,0};	// Uncompressed TGA Header
 	GLubyte		TGAcompare[12];								// Used To Compare TGA Header
 	GLubyte		header[6];									// First 6 Useful Bytes From The Header
@@ -15,20 +10,26 @@ bool LoadTGA(TextureImage *texture, char *filename);
 	GLuint		temp;										// Temporary Variable
 	GLuint		type=GL_RGBA;								// Set The Default GL Mode To RBGA (32 BPP)
 
-	FILE *file = fopen(filename, "rb");						// Open The TGA File
+	//FILE *file = fopen(filename, "rb");						// Open The TGA File
+	FILE** file=new FILE*;
+	fopen_s(file,filename,"rb");
 
 	if(	file==NULL ||										// Does File Even Exist?
-		fread(TGAcompare,1,sizeof(TGAcompare),file)!=sizeof(TGAcompare) ||	// Are There 12 Bytes To Read?
+		fread(TGAcompare,1,sizeof(TGAcompare),*file)!=sizeof(TGAcompare) ||	// Are There 12 Bytes To Read?
 		memcmp(TGAheader,TGAcompare,sizeof(TGAheader))!=0				||	// Does The Header Match What We Want?
-		fread(header,1,sizeof(header),file)!=sizeof(header))				// If So Read Next 6 Header Bytes
+		fread(header,1,sizeof(header),*file)!=sizeof(header))				// If So Read Next 6 Header Bytes
 	{
 		if (file == NULL)									// Did The File Even Exist? *Added Jim Strong*
 			return false;									// Return False
 		else
 		{
-			fclose(file);									// If Anything Failed, Close The File
+			fclose(*file);									// If Anything Failed, Close The File
 			return false;									// Return False
 		}
+	}
+	else if(*file==NULL)
+	{
+		return false;
 	}
 
 	texture->width  = header[1] * 256 + header[0];			// Determine The TGA Width	(highbyte*256+lowbyte)
@@ -38,7 +39,7 @@ bool LoadTGA(TextureImage *texture, char *filename);
 		texture->height	<=0	||								// Is The Height Less Than Or Equal To Zero
 		(header[4]!=24 && header[4]!=32))					// Is The TGA 24 or 32 Bit?
 	{
-		fclose(file);										// If Anything Failed, Close The File
+		fclose(*file);										// If Anything Failed, Close The File
 		return false;										// Return False
 	}
 
@@ -49,12 +50,12 @@ bool LoadTGA(TextureImage *texture, char *filename);
 	texture->imageData=(GLubyte *)malloc(imageSize);		// Reserve Memory To Hold The TGA Data
 
 	if(	texture->imageData==NULL ||							// Does The Storage Memory Exist?
-		fread(texture->imageData, 1, imageSize, file)!=imageSize)	// Does The Image Size Match The Memory Reserved?
+		fread(texture->imageData, 1, imageSize, *file)!=imageSize)	// Does The Image Size Match The Memory Reserved?
 	{
 		if(texture->imageData!=NULL)						// Was Image Data Loaded
 			free(texture->imageData);						// If So, Release The Image Data
 
-		fclose(file);										// Close The File
+		fclose(*file);										// Close The File
 		return false;										// Return False
 	}
 
@@ -65,7 +66,8 @@ bool LoadTGA(TextureImage *texture, char *filename);
 		texture->imageData[i + 2] = temp;					// Set The 3rd Byte To The Value In 'temp' (1st Byte Value)
 	}
 
-	fclose (file);											// Close The File
+	fclose (*file);											// Close The File
+	delete file;
 
 	// Build A Texture From The Data
 	glGenTextures(1, &texture[0].texID);					// Generate OpenGL texture IDs
@@ -82,39 +84,4 @@ bool LoadTGA(TextureImage *texture, char *filename);
 	glTexImage2D(GL_TEXTURE_2D, 0, type, texture[0].width, texture[0].height, 0, type, GL_UNSIGNED_BYTE, texture[0].imageData);
 
 	return true;											// Texture Building Went Ok, Return True
-
-};*/
-static void printw (float x, float y, float z, char* format, ...)
-{
-	va_list args;	//  Variable argument list
-	int len;		//	String length
-	int i;			//  Iterator
-	char * text;	//	Text
-
-	//  Initialize a variable argument list
-	va_start(args, format);
-
-	//  Return the number of characters in the string referenced the list of arguments.
-	//  _vscprintf doesn't count terminating '\0' (that's why +1)
-	len = _vscprintf(format, args) + 1; 
-
-	//  Allocate memory for a string of the specified size
-	text = (char *)malloc(len * sizeof(char));
-
-	//  Write formatted output using a pointer to the list of arguments
-	vsprintf_s(text, len, format, args);
-
-	//  End using variable argument list 
-	va_end(args);
-
-	//  Specify the raster position for pixel operations.
-	glRasterPos3f (x, y, z);
-
-
-	//  Draw the characters one by one
-    for (i = 0; text[i] != '\0'; i++)
-        glutBitmapCharacter(font_style, text[i]);
-
-	//  Free the allocated memory for the string
-	free(text);
 }

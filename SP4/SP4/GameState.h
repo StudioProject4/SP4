@@ -38,6 +38,12 @@ public:
 	virtual void Render2D() = 0;
 	virtual void Render3D() = 0;
 	virtual void RenderScene(void) = 0;
+	
+	//for sake of clarity
+	virtual bool Update() = 0;
+	virtual bool Init() = 0;
+	virtual bool Reset()= 0;
+	virtual bool CleanUp() = 0;
 
 	inline bool CheckInitedBefore()
 	{

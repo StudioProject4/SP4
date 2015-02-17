@@ -71,10 +71,6 @@ void CMenuState::RenderScene(void)
 
 	glEnable(GL_DEPTH_TEST);
 
-	if(FRM->UpdateAndCheckTimeThreehold())
-	{
-		Update();
-	}
 
 	Render3D();
 
@@ -186,22 +182,25 @@ void CMenuState::changeSize (int w, int h)
 bool CMenuState::Update()
 {
 	//printf("\nMenuState Update");
-
-	if(keyboard->myKeys['1'] == true)
+	
+	if(FRM->UpdateAndCheckTimeThreehold())
 	{
-		this->PrintDebugInformation();
-		//WM->PrintDebugInformation();
-		//this->PrintDebugInformation();
-		//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
-		//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
-	}
-	if(keyboard->myKeys['2'] == true)
-	{
-		CGameStateManager::GetInstance()->ChangeState(myApplication::GetInstance());
-	}
-	if(keyboard->myKeys[VK_ESCAPE] == true)
-	{
-		exit(0);
+		if(keyboard->myKeys['1'] == true)
+		{
+			this->PrintDebugInformation();
+			//WM->PrintDebugInformation();
+			//this->PrintDebugInformation();
+			//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
+			//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
+		}
+		if(keyboard->myKeys['2'] == true)
+		{
+			CGameStateManager::GetInstance()->ChangeState(myApplication::GetInstance());
+		}
+		if(keyboard->myKeys[VK_ESCAPE] == true)
+		{
+			exit(0);
+		}
 	}
 
 	return true;

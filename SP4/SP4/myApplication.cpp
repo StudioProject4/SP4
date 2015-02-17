@@ -4,7 +4,7 @@ myApplication* myApplication::instance = NULL;
 
 myApplication::myApplication(void)
 {
-	Init();
+	//Init();
 }
 myApplication* myApplication::GetInstance()
 {
@@ -56,6 +56,7 @@ bool myApplication::Init()
 	//loading texture
 	LoadTGA(&testimage,"sonia2.tga");
 
+	glDisable(GL_TEXTURE_2D);
 
 	//getting instance of managers
 	FRM = CFrameRateManager::GetInstance();
@@ -69,67 +70,91 @@ bool myApplication::Init()
 
 bool myApplication::Update()
 {
-
-	if(keyboard->myKeys['1'] == true)
+	
+	if(FRM->UpdateAndCheckTimeThreehold())
 	{
-		this->PrintDebugInformation();
-		mouse->PrintDebugInformation();
-		//WM->Init(WM->GetWindowWidth(),WM->GetWindowHeight(),WM->GetWindowPositionX(),WM->GetWindowPositionY(),true);
-		//WM->PrintDebugWindowInformation();
-		//glViewport(0,0,10,10);
-		//glutReshapeWindow(10, 10);
-		//glutFullScreen();
-		//this->PrintDebugInformation();
-		//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
-		//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
-	}
-	if(keyboard->myKeys['2'] == true)
-	{
-		CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
-	}
-	if(keyboard->myKeys[VK_LEFT])
-	{
+		if(keyboard->myKeys['1'] == true)
+		{
+			this->PrintDebugInformation();
+			mouse->PrintDebugInformation();
+			//WM->Init(WM->GetWindowWidth(),WM->GetWindowHeight(),WM->GetWindowPositionX(),WM->GetWindowPositionY(),true);
+			//WM->PrintDebugWindowInformation();
+			//glViewport(0,0,10,10);
+			//glutReshapeWindow(10, 10);
+			//glutFullScreen();
+			//this->PrintDebugInformation();
+			//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
+			//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
+		}
+		if(keyboard->myKeys['2'] == true)
+		{
+			CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
+		}
+		if(keyboard->myKeys[VK_LEFT])
+		{
 		
-	}
-	if(keyboard->myKeys[VK_RIGHT])
-	{
+		}
+		if(keyboard->myKeys[VK_RIGHT])
+		{
 		
-	}
-	if(keyboard->myKeys[VK_UP])
-	{
+		}
+		if(keyboard->myKeys[VK_UP])
+		{
 		
-	}
-	if(keyboard->myKeys[VK_DOWN])
-	{
+		}
+		if(keyboard->myKeys[VK_DOWN])
+		{
 		
-	}
-	if(keyboard->myKeys['a'])
-	{
+		}
+		if(keyboard->myKeys['a'])
+		{
 		
-	}
-	if(keyboard->myKeys['d'])
-	{
+		}
+		if(keyboard->myKeys['d'])
+		{
 		
-	}
-	if(keyboard->myKeys['w'])
-	{
+		}
+		if(keyboard->myKeys['w'])
+		{
 		
-	}
-	if(keyboard->myKeys['s'])
-	{
+		}
+		if(keyboard->myKeys['s'])
+		{
 		
+		}
+		if(keyboard->myKeys[VK_ESCAPE] == true)
+		{
+			exit(0);
+		}
 	}
-	if(keyboard->myKeys[VK_ESCAPE] == true)
-	{
-		exit(0);
-	}
-
 	return true;
 }
 void myApplication::Render2D()
 {
 	//drawFPS();
 	FRM->drawFPS();
+	glEnable(GL_TEXTURE_2D);
+	glPushMatrix();
+	glColor3f(1,1,1);
+		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+		glScalef(1000,1000,0);
+		glBindTexture(GL_TEXTURE_2D,this->testimage.texID);
+		glBegin (GL_TRIANGLE_STRIP);
+			glNormal3f(0,0,1);
+			glTexCoord2f(0,0);
+			glVertex3f(-0.5, 0.5, 0);
+		
+			glTexCoord2f(0,1.0);
+			glVertex3f(-0.5,-0.5,0);
+
+			glTexCoord2f(1.0,0.0);
+			glVertex3f(0.5,0.5,0);
+
+			glTexCoord2f(1.0,1.0);
+			glVertex3f(0.5,-0.5,0);
+		glEnd();
+	glDisable(GL_TEXTURE_2D);
+	glPopMatrix();
 }
 void myApplication::Render3D()
 {
@@ -153,17 +178,13 @@ void myApplication::RenderScene()
 
 	//	Update();
 	//}
-	if(FRM->UpdateAndCheckTimeThreehold())
-	{
-		Update();
-	}
 
 	Render3D();
 
 	SetHUD( true );
 		Render2D();
 	SetHUD( false );
-
+	glDisable(GL_DEPTH_TEST);
 	// Flush off any entity which is not drawn yet, so that we maintain the frame rate.
 	glFlush();
 

@@ -30,6 +30,7 @@ public:
 	 void MouseWheel(int button, int dir, int x, int y);
 	 void changeSize (int w, int h);
 	 void RenderScene(void);
+	 void Update(void);
 	 void CleanUpUponExit(void);
 };
 

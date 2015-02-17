@@ -114,6 +114,15 @@
     <ClCompile Include="WindowManager.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="KennardTestState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUntility.cpp">
+      <Filter>Helper\RenderHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="ObstacleBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myApplication.h">
@@ -231,6 +240,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WindowManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KennardTestState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstacleBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

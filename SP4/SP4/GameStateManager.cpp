@@ -81,6 +81,11 @@ void CGameStateManager::RenderScene(void)
 	gamestatestack.top()->RenderScene();
 }
 
+void CGameStateManager::Update(void)
+{
+	gamestatestack.top()->Update();
+}
+
 void CGameStateManager::InputKey(int key, int x, int y)
 {
 	gamestatestack.top()->InputKey(key,x,y);
