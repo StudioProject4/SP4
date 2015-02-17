@@ -4,11 +4,15 @@
 class CCharacter : public CBaseObject
 {
 	public:
-		CCharacter();
-		~CCharacter();
-		void Jump();
-		void Moveleft(float DeltaTime ,float speed);
-		void Moveright(float DeltaTime ,float speed);
+		CCharacter()	
+		{
+			pos = (0,0,0);
+			dir = (0,0,0);
+		};
+		~CCharacter(){};
+		virtual void Jump() = 0 ;
+		virtual void MoveLeft() = 0 ;
+		virtual void MoveRight() = 0 ;
 	private:
 		int PlayerID;
 };
