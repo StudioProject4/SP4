@@ -28,7 +28,10 @@ bool myApplication::CleanUp()
 	}
 	return true;
 }
-
+bool myApplication::Reset()
+{
+	return Init();
+}
 
 bool myApplication::Init()
 {

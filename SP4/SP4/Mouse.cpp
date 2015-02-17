@@ -10,7 +10,7 @@ CMouse::CMouse(void)
 	,lastY(0)
 	,sensitivity(0.5)
 {
-	tag = "mouse";
+	
 }
 CMouse* CMouse::GetInstance()
 {
@@ -24,11 +24,29 @@ CMouse* CMouse::GetInstance()
 
 CMouse::~CMouse(void)
 {
+
 }
-bool CMouse::Reset()
+
+bool CMouse::Update()
 {
+	return true;
+}
+
+bool CMouse::Init() 
+{
+	tag = "mouse";
 	middleButtonUp = mRButtonUp = mLButtonUp = false;
 	lastY = lastX = 0;
 	sensitivity = 0.5f;
 	return true;
+}
+
+bool CMouse::CleanUp()
+{
+	return true;
+}
+
+bool CMouse::Reset()
+{
+	return Init();
 }

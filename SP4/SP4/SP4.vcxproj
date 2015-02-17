@@ -79,18 +79,21 @@
   <ItemGroup>
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="ChineseMale.cpp" />
     <ClCompile Include="FrameRateManager.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="LuaManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MalayFemale.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MusicSystem\MusicSystem.cpp" />
     <ClCompile Include="myApplication.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="ObjLoader.c" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="RandomGeneratorSystem\RandomGenerator.cpp" />
@@ -102,6 +105,7 @@
     <ClInclude Include="AI.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="ChineseMale.h" />
     <ClInclude Include="DatabaseLibrary.h" />
     <ClInclude Include="DatatypeDefination.h" />
     <ClInclude Include="Entity.h" />
@@ -111,6 +115,7 @@
     <ClInclude Include="GlobalVariable.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="LuaManager.h" />
+    <ClInclude Include="MalayFemale.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="MenuState.h" />
@@ -121,6 +126,7 @@
     <ClInclude Include="myApplication.h" />
     <ClInclude Include="myLibrary.h" />
     <ClInclude Include="MyMath.h" />
+    <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="RandomGeneratorSystem\MathPlus.h" />

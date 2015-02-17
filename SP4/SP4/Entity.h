@@ -4,7 +4,8 @@ class CEntity
 {
 public:
 	char* name;
-	char* tag;
+	char* genericTag;//for the parent type
+	char* tag;//for the child type
 	unsigned short id;
 public:
 
@@ -12,28 +13,17 @@ public:
 		: name(" ")
 		, tag(" ")
 		, id(0)
+		, genericTag(0)
 	{
 	}
-
 	virtual ~CEntity(void)
 	{
 	}
-	virtual bool Update()
-	{
-		return true;
-	}
-	virtual bool Init()
-	{
-		return true;
-	}
-	virtual bool Reset()
-	{
-		return true;
-	}
-	virtual bool CleanUp()
-	{
-		return true;
-	}
+	virtual bool Update() = 0;
+	virtual bool Init() = 0;
+	virtual bool Reset()= 0;
+	virtual bool CleanUp() = 0;
+
 	virtual bool Release()
 	{
 		delete this;

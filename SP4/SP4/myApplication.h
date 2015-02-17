@@ -45,7 +45,7 @@ public:
 
 	bool Init();
 	bool CleanUp();
-	
+	bool Reset();
 
 	void Render2D();
 	void Render3D();
