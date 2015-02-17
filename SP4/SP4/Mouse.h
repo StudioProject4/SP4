@@ -19,5 +19,6 @@ public:
 	bool Update();
 	bool Init() ;
 	bool CleanUp();
+	void PrintDebugInformation();
 };
 

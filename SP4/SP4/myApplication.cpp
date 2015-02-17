@@ -62,7 +62,7 @@ bool myApplication::Init()
 	LM = CLuaManager::GetInstance();
 	mouse = CMouse::GetInstance();
 	keyboard = CKeyboard::GetInstance();
-	
+	WM = CWindowManager::GetInstance();
 
 	return true;
 }
@@ -73,6 +73,13 @@ bool myApplication::Update()
 	if(keyboard->myKeys['1'] == true)
 	{
 		this->PrintDebugInformation();
+		mouse->PrintDebugInformation();
+		//WM->Init(WM->GetWindowWidth(),WM->GetWindowHeight(),WM->GetWindowPositionX(),WM->GetWindowPositionY(),true);
+		//WM->PrintDebugWindowInformation();
+		//glViewport(0,0,10,10);
+		//glutReshapeWindow(10, 10);
+		//glutFullScreen();
+		//this->PrintDebugInformation();
 		//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
 		//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
 	}
@@ -234,9 +241,10 @@ void myApplication::changeSize (int w, int h)
 
 	// Set the viewport to be the entire window
 	glViewport(0, 0, w, h);
-
-	WINDOW_WIDTH = w;
-	WINDOW_HEIGHT = h;
+	//WM->SetAndUpdateWindowDimension(w,h);
+	//WINDOW_WIDTH = w;
+	//WINDOW_HEIGHT = h;
+	WM->SetWindowDimension(w,h);
 	//std::cout<<"myapp "<<WINDOW_WIDTH<<std::endl;
 	// Set the correct perspective.
 	gluPerspective(45,ratio,1,1000);
@@ -249,7 +257,7 @@ void myApplication::SetHUD(bool m_bHUDmode)
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
-		glOrtho( 0, WINDOW_WIDTH , WINDOW_HEIGHT, 0, -1, 1 );  
+		glOrtho( 0, WM->GetWindowWidth() , WM->GetWindowHeight(), 0, -1, 1 );  
 		//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
 		//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
 		glMatrixMode(GL_MODELVIEW);

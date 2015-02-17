@@ -1,12 +1,12 @@
 #pragma once
 #include "Entity.h"
-#include "GlobalVariable.h"
 
 class CGameStateManager;
 class CFrameRateManager;
 class CLuaManager;
 class CMouse;
 class CKeyboard;
+class CWindowManager;
 
 class CGameState:public CEntity
 {
@@ -19,6 +19,7 @@ protected:
 	CLuaManager* LM;
 	CMouse* mouse;
 	CKeyboard* keyboard;
+	CWindowManager* WM;
 
 	bool inited;
 public:

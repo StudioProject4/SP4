@@ -50,3 +50,12 @@ bool CMouse::Reset()
 {
 	return Init();
 }
+void CMouse::PrintDebugInformation()
+{
+	CEntity::PrintDebugInformation();
+	printf("\n middleButtonUp: %s",middleButtonUp?"true":"false");
+	printf("\n mLButtonUp: %s",mLButtonUp?"true":"false");
+	printf("\n mRButtonUp: %s",mRButtonUp?"true":"false");
+	printf("\n lastX,lastY %d,%d",lastX,lastY);
+	printf("\n Sensitivity %f",sensitivity); 
+}
