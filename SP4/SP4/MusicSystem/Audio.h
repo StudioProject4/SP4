@@ -27,11 +27,36 @@ public:
 		,audioname("nil")
 		,filename("nil")
 	{
-		
 	}
 	~CAudio()
 	{
 		//std::cout<<"Audio "<<filename<<" is deleted"<<std::endl;
+	}
+	inline bool ResetPlayPosition()
+	{
+		if(audio)
+		{
+			return audio->setPlayPosition(0);
+		}
+		return false;
+	}
+
+	inline int GetPlayPosition()
+	{
+		if(audio)
+		{
+			return audio->getPlayPosition();
+		}
+		return false;
+	}
+
+	inline bool SetPlayPosition(int millisecPosition)
+	{
+		if(audio)
+		{
+			return audio->setPlayPosition(millisecPosition);	
+		}
+		return false;
 	}
 	inline bool CheckValidAudioEffectControlPtr()
 	{

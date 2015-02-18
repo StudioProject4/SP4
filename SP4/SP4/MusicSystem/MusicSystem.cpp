@@ -159,7 +159,7 @@ bool CMusicSystem::RegisterSound3D(std::string filename, std::string nametobereg
 }
 
 
-bool CMusicSystem::PlayBgmTrack(std::string trackname)
+bool CMusicSystem::PlayBgmTrack(std::string trackname,bool setLoop)
 {
 	if(engine)
 	{
@@ -167,6 +167,7 @@ bool CMusicSystem::PlayBgmTrack(std::string trackname)
 		if(a_audio)
 		{
 			a_audio->active = true;
+			a_audio->SetIsLooped(setLoop);
 			return a_audio->SetIsPaused(false);
 		}
 		
@@ -186,13 +187,13 @@ bool CMusicSystem::PauseBgmTrack(std::string trackname,bool pause)
 	return false;
 }
 
-bool CMusicSystem::PlayBgmTrack(unsigned short trackindex)
+bool CMusicSystem::PlayBgmTrack(unsigned short trackindex,bool setLoop)
 {
 	if(trackindex <bgmTrackList.size())
 	{
 		if(engine)
 		{		
-			if(PlayBgmTrack(bgmTrackList[trackindex]))	
+			if(PlayBgmTrack(bgmTrackList[trackindex],setLoop))	
 			{
 				this->currentBgmTrack = trackindex;
 			}
@@ -212,15 +213,88 @@ bool CMusicSystem::PauseBgmTrack(unsigned short trackindex,bool pause)
 	return false;
 }
 
+bool CMusicSystem::EnableBgmTrackSoundEffect(std::string trackname)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindBgm(trackname);
+		if(a_audio)
+		{
+			return a_audio->EnableAudioEffectControl();
+		}
+	}
+	return false;
+}
 
+bool CMusicSystem::EnableBgmTrackSoundEffect(unsigned short trackindex)
+{
+	if(trackindex <bgmTrackList.size())
+	{
+		if(engine)
+		{
+			return EnableBgmTrackSoundEffect(bgmTrackList[trackindex]);		
+		}
+	}
+	return false;
+}
 
-bool CMusicSystem::PlaySoundTrack(unsigned short trackindex)
+bool CMusicSystem::SetBgmTrackPlayPosition(std::string trackname,int millSecPosition)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindBgm(trackname);
+		if(a_audio)
+		{
+			return a_audio->SetPlayPosition(millSecPosition);
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::SetBgmTrackPlayPosition(unsigned short trackindex,int millSecPosition)
+{
+	if(trackindex <bgmTrackList.size())
+	{
+		if(engine)
+		{
+			return SetBgmTrackPlayPosition(bgmTrackList[trackindex],millSecPosition);		
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::ResetBgmTrackPlayPosition(std::string trackname)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindBgm(trackname);
+		if(a_audio)
+		{
+			return a_audio->ResetPlayPosition();
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::ResetBgmTrackPlayPosition(unsigned short trackindex)
+{
+	if(trackindex <bgmTrackList.size())
+	{
+		if(engine)
+		{
+			return ResetBgmTrackPlayPosition(bgmTrackList[trackindex]);		
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::PlaySoundTrack(unsigned short trackindex,bool setLoop)
 {
 	if(trackindex <soundTrackList.size())
 	{
 		if(engine)
 		{
-			if(PlaySoundTrack(bgmTrackList[trackindex]))
+			if(PlaySoundTrack(bgmTrackList[trackindex],setLoop))
 			{
 				this->currentSoundTrack = trackindex;
 			}
@@ -229,7 +303,7 @@ bool CMusicSystem::PlaySoundTrack(unsigned short trackindex)
 	return false;
 }
 
-bool CMusicSystem::PlaySoundTrack(std::string trackname)
+bool CMusicSystem::PlaySoundTrack(std::string trackname,bool setLoop)
 {
 	if(engine)
 	{
@@ -237,6 +311,7 @@ bool CMusicSystem::PlaySoundTrack(std::string trackname)
 		if(a_audio)
 		{
 			a_audio->active = true;
+			a_audio->SetIsLooped(setLoop);
 			return a_audio->SetIsPaused(false);	
 		}
 		return true;
@@ -262,6 +337,80 @@ bool CMusicSystem::PauseSoundTrack(unsigned short trackindex,bool pause)
 		if(engine)
 		{
 			return PauseSoundTrack(soundTrackList[trackindex],pause);	
+		}
+	}
+	return false;
+}
+bool CMusicSystem::EnableSoundTrackSoundEffect(std::string trackname)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindSound(trackname);
+		if(a_audio)
+		{
+			return a_audio->EnableAudioEffectControl();
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::EnableSoundTrackSoundEffect(unsigned short trackindex)
+{
+	if(trackindex <soundTrackList.size())
+	{
+		if(engine)
+		{
+			return EnableSoundTrackSoundEffect(soundTrackList[trackindex]);	
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::SetSoundTrackPlayPosition(std::string trackname,int millSecPosition)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindSound(trackname);
+		if(a_audio)
+		{
+			return a_audio->SetPlayPosition(millSecPosition);
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::SetSoundTrackPlayPosition(unsigned short trackindex,int millSecPosition)
+{
+	if(trackindex <soundTrackList.size())
+	{
+		if(engine)
+		{
+			return SetSoundTrackPlayPosition(soundTrackList[trackindex],millSecPosition);	
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::ResetSoundTrackPlayPosition(std::string trackname)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindSound(trackname);
+		if(a_audio)
+		{
+			return a_audio->ResetPlayPosition();
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::ResetSoundTrackPlayPosition(unsigned short trackindex)
+{
+	if(trackindex <soundTrackList.size())
+	{
+		if(engine)
+		{
+			return ResetSoundTrackPlayPosition(soundTrackList[trackindex]);	
 		}
 	}
 	return false;
@@ -434,12 +583,13 @@ bool CMusicSystem::TranverseBGMTrack(bool forward,bool warp)
 
 			if(warp)
 			{
-				if(currentBgmTrack>bgmTrackList.size())
+				if(currentBgmTrack>=bgmTrackList.size())
 				{
 					currentBgmTrack = 0;
 				}
 			}
-			
+			//std::cout<<"bgm size"<<bgmTrackList.size()<<std::endl;
+			//std::cout<<"Current Bgm Track"<<currentBgmTrack<<std::endl;
 			PlayBgmTrack(currentBgmTrack);
 		}else
 		{
@@ -449,9 +599,11 @@ bool CMusicSystem::TranverseBGMTrack(bool forward,bool warp)
 			{
 				if(currentBgmTrack<0)
 				{
-					currentBgmTrack = bgmTrackList.size();
+					currentBgmTrack = bgmTrackList.size()-1;
 				}
 			}
+			//std::cout<<"bgm size"<<bgmTrackList.size()<<std::endl;
+			//std::cout<<"Current Bgm Track"<<currentBgmTrack<<std::endl;
 			PlayBgmTrack(currentBgmTrack);
 		}
 		return true;
@@ -633,8 +785,30 @@ irrklang::ISound* CMusicSystem::CreateIrrklangISound3D(const char* filename,irrk
 	}
 	return 0;
 }
+
+short CMusicSystem::GetCurrentBgmTrackIndex()
+{
+	return this->currentBgmTrack;
+}
+
+short CMusicSystem::GetCurrentSoundTrackIndex()
+{
+	return this->currentSoundTrack;
+}
+
 void CMusicSystem::PrintDebugInformation()
 {
+
+}
+
+void CMusicSystem::PrintSoundListSize()
+{
+	std::cout<<"Sound Track List Size: "<<soundList.size()<<std::endl;
+}
+
+void CMusicSystem::PrintBgmListSize()
+{
+	std::cout<<"Bgm Track List Size: "<<bgmList.size()<<std::endl;
 }
 
 void CMusicSystem::PrintBgmTrackList()

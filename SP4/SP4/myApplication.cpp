@@ -21,12 +21,6 @@ myApplication::~myApplication(void)
 
 bool myApplication::CleanUp()
 {
-	if(instance != NULL)
-	{
-		Release();
-		instance = NULL;
-	}
-	return true;
 	if(playerOne != NULL)
 	{
 		delete playerOne;
@@ -42,6 +36,14 @@ bool myApplication::CleanUp()
 		delete theAI;
 		theAI = NULL;
 	}
+
+	if(instance != NULL)
+	{
+		Release();
+		instance = NULL;
+	}
+	return true;
+
 }
 bool myApplication::Reset()
 {
@@ -79,6 +81,7 @@ bool myApplication::Init()
 	mouse = CMouse::GetInstance();
 	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
+	MS = CMusicSystem::GetInstance();
 
 	playerOne = new CChineseMale();
 	playerTwo = new CMalayFemale();
@@ -90,23 +93,6 @@ bool myApplication::Init()
 bool myApplication::Update()
 {
 	
-	if(keyboard->myKeys['1'] == true)
-		{
-			this->PrintDebugInformation();
-			mouse->PrintDebugInformation();
-			//WM->Init(WM->GetWindowWidth(),WM->GetWindowHeight(),WM->GetWindowPositionX(),WM->GetWindowPositionY(),true);
-			//WM->PrintDebugWindowInformation();
-			//glViewport(0,0,10,10);
-			//glutReshapeWindow(10, 10);
-			//glutFullScreen();
-			//this->PrintDebugInformation();
-			//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
-			//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
-		}
-		if(keyboard->myKeys['2'] == true)
-		{
-			CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
-		}
 		if(keyboard->myKeys['a'])
 		{
 			playerOne->MoveLeft();
@@ -220,6 +206,24 @@ void myApplication::InputKey(int key, int x, int y)
 void myApplication::KeyboardDown(unsigned char key, int x, int y)
 {
 	keyboard->myKeys[key] = true;
+
+	switch(key)
+	{
+		case '1':
+			this->PrintDebugInformation();
+			//mouse->PrintDebugInformation();
+		break;
+
+		case '2':
+			CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
+			this->PrintDebugInformation();
+		break;
+
+		case '3':
+			MS->PrintBgmTrackList();
+			MS->TranverseBGMTrack();
+			break;
+	}
 }
 
 void myApplication::KeyboardUp(unsigned char key, int x, int y)

@@ -9,6 +9,7 @@ class CLuaManager;
 class CMouse;
 class CKeyboard;
 class CWindowManager;
+class CMusicSystem;
 
 class CGameState:public CEntity
 {
@@ -23,6 +24,7 @@ protected:
 	CKeyboard* keyboard;
 	CWindowManager* WM;
 	CObjectManager OM;
+	CMusicSystem* MS;
 	bool inited;
 public:
 	CGameState(void);

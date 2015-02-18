@@ -42,6 +42,7 @@ bool CObjectManager::Reset()
 	{
 		return Init();
 	}	
+	return false;
 }
 
 bool CObjectManager::CleanUp()
