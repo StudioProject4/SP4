@@ -23,7 +23,6 @@ class CChineseMale : public CCharacter
 
 		bool OnCollision(CBaseObject* a_obj);
 
-		CPhysics thePhysics;
 	private:
 		TextureImage Texture;
 		CSprite * theSprite;

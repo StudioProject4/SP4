@@ -1,4 +1,5 @@
 #include "ChineseMale.h"
+#include "Physics.h"
 
 CChineseMale :: CChineseMale()
 {
@@ -37,6 +38,8 @@ bool CChineseMale :: Init()
 
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("sonia2.tga");
+
+	thePhysics.Init(pos,(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 
 	return true;
 }
