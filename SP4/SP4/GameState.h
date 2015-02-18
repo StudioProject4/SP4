@@ -1,6 +1,8 @@
 #pragma once
 #include "Entity.h"
 
+#include "ObjectManager.h"
+
 class CGameStateManager;
 class CFrameRateManager;
 class CLuaManager;
@@ -20,7 +22,7 @@ protected:
 	CMouse* mouse;
 	CKeyboard* keyboard;
 	CWindowManager* WM;
-
+	CObjectManager OM;
 	bool inited;
 public:
 	CGameState(void);

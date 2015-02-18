@@ -90,70 +90,68 @@ bool myApplication::Init()
 bool myApplication::Update()
 {
 	
+	if(keyboard->myKeys['1'] == true)
+		{
+			this->PrintDebugInformation();
+			mouse->PrintDebugInformation();
+			//WM->Init(WM->GetWindowWidth(),WM->GetWindowHeight(),WM->GetWindowPositionX(),WM->GetWindowPositionY(),true);
+			//WM->PrintDebugWindowInformation();
+			//glViewport(0,0,10,10);
+			//glutReshapeWindow(10, 10);
+			//glutFullScreen();
+			//this->PrintDebugInformation();
+			//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
+			//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
+		}
+		if(keyboard->myKeys['2'] == true)
+		{
+			CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
+		}
+		if(keyboard->myKeys['a'])
+		{
+			playerOne->MoveLeft();
+		}
+		if(keyboard->myKeys['d'])
+		{
+			playerOne->MoveRight();
+		}
+		if(keyboard->myKeys['w'])
+		{
+		
+		}
+		if(keyboard->myKeys['s'])
+		{
+		
+		}
+		if(keyboard->myKeys[VK_ESCAPE] == true)
+		{
+			exit(0);
+		}
+		if(keyboard->myKeys['j'] == true)
+		{
+			playerTwo->MoveLeft();
+		}
+		if(keyboard->myKeys['l'] == true)
+		{
+			playerTwo->MoveRight();
+		}
+		if(keyboard->myKeys['i'] == true)
+		{
+
+		}
+		if(keyboard->myKeys[VK_ESCAPE] == true)
+		{
+			exit(0);
+		}
+		if(keyboard->myKeys['k'] == true)
+		{
+		
+		}
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
-
-	if(keyboard->myKeys['1'] == true)
-	{
-		this->PrintDebugInformation();
-		mouse->PrintDebugInformation();
-		//WM->Init(WM->GetWindowWidth(),WM->GetWindowHeight(),WM->GetWindowPositionX(),WM->GetWindowPositionY(),true);
-		//WM->PrintDebugWindowInformation();
-		//glViewport(0,0,10,10);
-		//glutReshapeWindow(10, 10);
-		//glutFullScreen();
-		//this->PrintDebugInformation();
-		//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
-		//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
+		theAI->SetEnemyPos(playerOne->pos);
+		theAI->Update();
 	}
-	if(keyboard->myKeys['2'] == true)
-	{
-		CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
-	}
-	if(keyboard->myKeys['a'])
-	{
-		playerOne->MoveLeft();
-	}
-	if(keyboard->myKeys['d'])
-	{
-		playerOne->MoveRight();
-	}
-	if(keyboard->myKeys['w'])
-	{
-		
-	}
-	if(keyboard->myKeys['s'])
-	{
-		
-	}
-	if(keyboard->myKeys[VK_ESCAPE] == true)
-	{
-		exit(0);
-	}
-	if(keyboard->myKeys['j'] == true)
-	{
-		playerTwo->MoveLeft();
-	}
-	if(keyboard->myKeys['l'] == true)
-	{
-		playerTwo->MoveRight();
-	}
-	if(keyboard->myKeys['i'] == true)
-	{
-
-	}
-	if(keyboard->myKeys[VK_ESCAPE] == true)
-	{
-		exit(0);
-	}
-	}
-	if(keyboard->myKeys['k'] == true)
-	{
-		
-	}
-
-	theAI->SetEnemyPos(playerOne->pos);
-	theAI->Update();
 	return true;
 }
 void myApplication::Render2D()
@@ -203,6 +201,7 @@ void myApplication::RenderScene()
 
 	// swapping the buffers causes the rendering above to be shown
 	glutSwapBuffers();
+	glutPostRedisplay();
 }
 
 void myApplication::InputKey(int key, int x, int y)

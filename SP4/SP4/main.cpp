@@ -79,7 +79,7 @@ int main(int argc, char **argv )
 		glutDisplayFunc(renderScene);
 		glutIdleFunc(update);
 		//	glutSpecialFunc(inputKey);
-		glutIdleFunc(renderScene);
+		//glutIdleFunc(renderScene);
 		glutSpecialFunc(inputKey);
 		glutKeyboardFunc(KeyboardDown);
 		glutKeyboardUpFunc(KeyboardUp);
