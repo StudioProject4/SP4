@@ -14,10 +14,6 @@ class CMalayFemale : public CCharacter
 		~CMalayFemale();
 		bool Init(Vector3 newPos,Vector3 newDir,int entityID);
 
-		void Jump();
-		void MoveLeft();
-		void MoveRight();
-
 		bool Update();
 		bool Init();
 		bool Reset();

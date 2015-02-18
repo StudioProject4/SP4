@@ -120,6 +120,15 @@
     <ClCompile Include="MusicSystem\MusicSystem.cpp">
       <Filter>Helper\MusicSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Helper\RenderHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PointSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myApplication.h">
@@ -244,6 +253,12 @@
     </ClInclude>
     <ClInclude Include="MusicSystem\MusicSystem.h">
       <Filter>Helper\MusicSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PointSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -64,21 +64,3 @@ bool CMalayFemale :: Render()
 
 	return true;
 }
-
-void CMalayFemale :: Jump()
-{
-	Vector3 temppos = pos;
-	pos = (temppos.x, temppos.y + 5, temppos.z);
-}
-void CMalayFemale :: MoveLeft()
-{
-	Vector3 temppos = pos;
-	temppos.x = temppos.x - 100;
-	pos.x = temppos.x;
-}
-void CMalayFemale :: MoveRight()
-{
-	Vector3 temppos = pos;
-	temppos.x = temppos.x + 100;
-	pos.x = temppos.x;
-}
