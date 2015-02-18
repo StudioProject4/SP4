@@ -10,9 +10,9 @@ class CCharacter : public CBaseObject
 			dir = (0,0,0);
 		};
 		virtual ~CCharacter(){};
-		virtual void Jump() = 0 ;
-		virtual void MoveLeft() = 0 ;
-		virtual void MoveRight() = 0 ;
+		void Jump();
+		void MoveLeft();
+		void MoveRight();
 	private:
 		int PlayerID;
 };
