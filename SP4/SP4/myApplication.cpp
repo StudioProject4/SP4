@@ -3,6 +3,7 @@
 myApplication* myApplication::instance = NULL;
 
 myApplication::myApplication(void)
+	: Map(NULL)
 {
 	//Init();
 }
@@ -21,6 +22,18 @@ myApplication::~myApplication(void)
 
 bool myApplication::CleanUp()
 {
+	if(Map != NULL)
+	{
+		delete Map;
+		Map = NULL;
+	}
+
+	if(instance != NULL)
+	{
+		Release();
+		instance = NULL;
+	}
+	return true;
 	if(playerOne != NULL)
 	{
 		delete playerOne;
@@ -77,7 +90,24 @@ bool myApplication::Init()
 	//loading texture
 	LoadTGA(&testimage,"sonia2.tga");
 
+
+	//background
+	LoadTGA( &BackgroundTexture[0], "back.tga");
+
+	LoadTGA( &TileMapTexture[1], "tile0_blank.tga");
+	LoadTGA( &TileMapTexture[0], "BlackWalls.tga");
+	//LoadTGA( &TileMapTexture[1], "LavaGround.tga");
+	LoadTGA( &TileMapTexture[2], "BlackWallCut.tga");
+	LoadTGA( &TileMapTexture[3], "HealthCross.tga");
+	LoadTGA( &TileMapTexture[4], "SpeedUp.tga");
+	LoadTGA( &TileMapTexture[5], "Invincible.tga");
+	LoadTGA( &TileMapTexture[6], "PointsAdd.tga");
+	LoadTGA( &TileMapTexture[7], "Jump.tga");
+	//LoadTGA( &TileMapTexture[0], "tile0_blank");
+
+
 	glDisable(GL_TEXTURE_2D);
+
 
 	//getting instance of managers
 	FRM = CFrameRateManager::GetInstance();
@@ -91,6 +121,49 @@ bool myApplication::Init()
 	playerTwo = new CMalayFemale();
 	theAIOne = new CMalayMob();
 	theAITwo = new CChineseMob();
+
+	 mapOffset_x =  mapOffset_y=
+	 tileOffset_x =tileOffset_y=
+	 mapFineOffset_x= mapFineOffset_y=
+	 theNumOfTiles_Height
+	= theNumOfTiles_Width
+	= rearWallOffset_x=rearWallOffset_y
+	 =rearWalltileOffset_x= rearWalltileOffset_y
+	= rearWallFineOffset_x= rearWallFineOffset_y = 0;
+
+	//map
+	Map = new CMap();
+	//Map->Init( SCREEN_HEIGHT, SCREEN_WIDTH, 1632, 1344, TILE_SIZE );
+	Map->Init(SCREEN_HEIGHT,SCREEN_WIDTH*2,SCREEN_HEIGHT,SCREEN_WIDTH*2,TILE_SIZE);
+	
+	
+	//load map
+	if(Map->LevelCount == 1)
+	{
+		Map->LoadMap("Level1_1.csv");
+	}else
+	if(Map->LevelCount == 2)
+	{
+		Map->LoadMap("Level1_1.csv");
+	}else
+	if(Map->LevelCount == 3)
+	{
+		Map->LoadMap("Level1_1.csv");
+	}else
+	if(Map->LevelCount == 4)
+	{
+		Map->LoadMap("Level1_1.csv");
+	}else
+	if(Map->LevelCount == 5)
+	{
+		Map->LoadMap("Level1_1.csv");
+	}
+	
+	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
+	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
+
+	std::cout<< Map->getNumOfTiles_MapHeight()<<std::endl;
+	std::cout<< Map->getNumOfTiles_MapWidth()<<std::endl;
 
 	return true;
 }
@@ -151,6 +224,63 @@ bool myApplication::Update()
 
 	return true;
 }
+void myApplication::RenderTileMap()
+{
+	glEnable(GL_TEXTURE_2D);
+	mapFineOffset_x = mapOffset_x % TILE_SIZE;
+
+	glPushMatrix();
+	for (int i = 0; i < theNumOfTiles_Height; i++)
+	{
+		for (int k = 0; k < theNumOfTiles_Width + 1; k++)
+		{
+			// If we have reached the right side of the Map, then do not display the extra column of tiles.
+			if ((tileOffset_x + k) >= Map->getNumOfTiles_MapWidth())
+				break;
+			glPushMatrix();
+			glTranslatef((GLfloat)(k * TILE_SIZE - mapFineOffset_x), (GLfloat)(i * TILE_SIZE), 0.0f);
+			glEnable(GL_TEXTURE_2D);
+			glEnable(GL_BLEND);
+			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glBindTexture(GL_TEXTURE_2D, TileMapTexture[Map->theScreenMap[i][tileOffset_x + k]].texID);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0, 1); glVertex2f(0, 0);
+			glTexCoord2f(0, 0); glVertex2f(0, TILE_SIZE);
+			glTexCoord2f(1, 0); glVertex2f(TILE_SIZE, TILE_SIZE);
+			glTexCoord2f(1, 1); glVertex2f(TILE_SIZE, 0);
+			glEnd();
+			glDisable(GL_BLEND);
+			glDisable(GL_TEXTURE_2D);
+			glPopMatrix();
+		}
+	}
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+}
+void myApplication::RenderBackground()
+{
+	glEnable(GL_TEXTURE_2D);
+
+	// Draw Background image
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glBindTexture(GL_TEXTURE_2D, BackgroundTexture[0].texID );
+		glPushMatrix();
+			glBegin(GL_QUADS);
+				int height = 100 * 1.333/1.5;
+				glTexCoord2f(0,0); glVertex2f(0,800);
+				glTexCoord2f(1,0); glVertex2f(1024,800);
+				glTexCoord2f(1,1); glVertex2f(1024,0);
+				glTexCoord2f(0,1); glVertex2f(0,0);				
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_BLEND);
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+	
+}
 void myApplication::Render2D()
 {
 	glPushMatrix();
@@ -160,10 +290,47 @@ void myApplication::Render2D()
 	glPopMatrix();
 	//drawFPS();
 	FRM->drawFPS();
+
 	playerOne->Render();
 	playerTwo->Render();
 	theAIOne->Render();
 	theAITwo->Render();
+//	PowerUp->Update();
+
+
+	RenderBackground();
+	RenderTileMap();
+	glPushMatrix();
+	for(int i = 0; i < theNumOfTiles_Height; i ++)
+	{
+		//for(int k = 0; k < theNumOfTiles_Width+1; k ++)
+		for(int k = 0; k < theNumOfTiles_Width; k ++)
+		
+		{
+			// If we have reached the right side of the Map, then do not display the extra column of tiles.
+			/*if ( (tileOffset_x+k) >= theMap->getNumOfTiles_MapWidth() )
+				break;*/
+			glPushMatrix();
+		//	glTranslatef(k*TILE_SIZE-mapFineOffset_x, i*TILE_SIZE, 0);
+			glTranslatef(k*TILE_SIZE, i* TILE_SIZE, 0);
+			glEnable( GL_TEXTURE_2D );
+			glEnable( GL_BLEND );
+			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glBindTexture( GL_TEXTURE_2D, TileMapTexture[Map->theScreenMap[i][k]].texID); /*TileMapTexture[theMap->theScreenMap[i][tileOffset_x+k]].texID );*/
+			glBegin(GL_QUADS);
+				glTexCoord2f(0,1); glVertex2f(0,0);
+				glTexCoord2f(0,0); glVertex2f(0,TILE_SIZE);
+				glTexCoord2f(1,0); glVertex2f(TILE_SIZE,TILE_SIZE);
+				glTexCoord2f(1,1); glVertex2f(TILE_SIZE,0);
+			glEnd();
+			glDisable( GL_BLEND );
+			glDisable( GL_TEXTURE_2D );
+			glPopMatrix();
+		}
+	}
+	glPopMatrix();
+	
 }
 void myApplication::Render3D()
 {
@@ -222,18 +389,43 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 	switch(key)
 	{
 		case '1':
-			this->PrintDebugInformation();
+			//this->PrintDebugInformation();
 			//mouse->PrintDebugInformation();
+			//MS->PlayBgmTrack("bgm1.mp3");
+			//MS->PlaySoundTrack(0);
+			//std::cout<<MS->currentSoundTrack<<std::endl;
+			//MS->FetchSound()->PrintDebugInformation();
+			MS->PlaySoundPoolTrack2D("sound1.mp3");
+			
 		break;
 
 		case '2':
-			CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
-			this->PrintDebugInformation();
+			//CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
+			//this->PrintDebugInformation();
+			//MS->PlayBgmTrack("bgm2.mp3");
+			//MS->PlaySoundTrack(1);
+			//std::cout<<MS->currentSoundTrack<<std::endl;
+			MS->PlaySoundPoolTrack2D("sound2.mp3");
+			
 		break;
-
+		
 		case '3':
-			MS->PrintBgmTrackList();
-			MS->TranverseBGMTrack();
+			MS->PrintSoundPoolList();
+			//MS->TranverseSoundTrack();
+			
+			break;
+		case '4':
+			MS->PrintCurrentSoundTrack();
+			
+			break;
+		case '5':
+			MS->ResetSoundTrackPlayPosition(MS->currentSoundTrack);
+			break;
+		case '6':
+			MS->PrintSoundTrackList();
+			break;
+		case '7':
+			MS->Exit();
 			break;
 	}
 }

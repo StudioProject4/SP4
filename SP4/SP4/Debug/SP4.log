@@ -1,13 +1,101 @@
-﻿Build started 2/23/2015 10:19:52 AM.
+﻿Build started 2/23/2015 5:35:26 PM.
      1>Project "C:\Users\m308\Documents\GitHub\SP4\SP4\SP4\SP4.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SP4.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\m308\Documents\GitHub\SP4\SP4\includes /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ChineseMale.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\m308\Documents\GitHub\SP4\SP4\includes /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt AI.cpp Character.cpp ChineseMale.cpp main.cpp MalayFemale.cpp Map.cpp MenuState.cpp MusicSystem\MusicSystem.cpp myApplication.cpp ObjectManager.cpp PowerUp.cpp
+         PowerUp.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         ObjectManager.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         myApplication.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(162): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(163): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\audio.h(241): warning C4172: returning address of local variable or temporary
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(45): warning C4552: '-' : operator has no effect; expected operator with side-effect
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(272): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(315): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(315): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(458): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(462): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(466): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+         MusicSystem.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\audio.h(241): warning C4172: returning address of local variable or temporary
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\musicsystem.cpp(682): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\musicsystem.cpp(724): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\musicsystem.cpp(911): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\musicsystem.cpp(947): warning C4018: '<' : signed/unsigned mismatch
+         MenuState.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(162): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(163): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\audio.h(241): warning C4172: returning address of local variable or temporary
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\menustate.cpp(156): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\menustate.cpp(160): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\menustate.cpp(164): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+         Map.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(133): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(134): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(160): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(164): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(200): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(201): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(227): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(231): warning C4258: 'y' : definition from the for loop is ignored; the definition from the enclosing scope is used
+                 c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(208) : definition of 'y' ignored
+                 c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(195) : definition of 'y' used
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(231): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(326): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(327): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(328): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(329): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(377): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(378): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(379): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(380): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+         MalayFemale.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         main.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(162): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(163): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\audio.h(241): warning C4172: returning address of local variable or temporary
          ChineseMale.cpp
      1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(10): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(11): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         Character.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         AI.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\ai.cpp(117): warning C4305: 'argument' : truncation from 'double' to 'float'
+         Generating Code...
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\musicsystem.cpp(377): warning C4715: 'CMusicSystem::PlaySoundPoolTrack2D' : not all control paths return a value
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\musicsystem.cpp(397): warning C4715: 'CMusicSystem::PlaySoundPoolTrack3D' : not all control paths return a value
          All outputs are up-to-date.
        ManifestResourceCompile:
          All outputs are up-to-date.
@@ -35,6 +123,7 @@
          Debug\ObjLoader.obj
          Debug\ObstacleBase.obj
          Debug\Physics.obj
+         Debug\PowerUp.obj
          Debug\PointSystem.obj
          Debug\RandomGenerator.obj
          Debug\RenderUntility.obj
@@ -55,4 +144,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.03
+Time Elapsed 00:00:06.70

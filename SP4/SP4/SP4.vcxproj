@@ -99,6 +99,7 @@
     <ClCompile Include="ObjLoader.c" />
     <ClCompile Include="ObstacleBase.cpp" />
     <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="PointSystem.cpp" />
     <ClCompile Include="RandomGeneratorSystem\RandomGenerator.cpp" />
     <ClCompile Include="RenderUntility.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="ObstacleBase.h" />
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="PowerUp.h" />
     <ClInclude Include="PointSystem.h" />
     <ClInclude Include="RandomGeneratorSystem\MathPlus.h" />
     <ClInclude Include="RandomGeneratorSystem\RandomGenerator.h" />
