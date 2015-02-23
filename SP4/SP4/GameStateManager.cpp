@@ -79,6 +79,12 @@ void CGameStateManager::CleanUpUponExit(void)
 void CGameStateManager::RenderScene(void)
 {
 	gamestatestack.top()->RenderScene();
+	//glutPostRedisplay();
+}
+
+void CGameStateManager::Update(void)
+{
+	gamestatestack.top()->Update();
 }
 
 void CGameStateManager::InputKey(int key, int x, int y)

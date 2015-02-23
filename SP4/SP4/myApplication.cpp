@@ -5,7 +5,7 @@ myApplication* myApplication::instance = NULL;
 myApplication::myApplication(void)
 	: Map(NULL)
 {
-	Init();
+	//Init();
 }
 myApplication* myApplication::GetInstance()
 {
@@ -49,6 +49,14 @@ bool myApplication::CleanUp()
 		delete theAI;
 		theAI = NULL;
 	}
+
+	if(instance != NULL)
+	{
+		Release();
+		instance = NULL;
+	}
+	return true;
+
 }
 bool myApplication::Reset()
 {
@@ -78,6 +86,7 @@ bool myApplication::Init()
 	//loading texture
 	LoadTGA(&testimage,"sonia2.tga");
 
+
 	//background
 	LoadTGA( &BackgroundTexture[0], "back.tga");
 
@@ -93,12 +102,16 @@ bool myApplication::Init()
 	//LoadTGA( &TileMapTexture[0], "tile0_blank");
 
 
+	glDisable(GL_TEXTURE_2D);
+
+
 	//getting instance of managers
 	FRM = CFrameRateManager::GetInstance();
 	LM = CLuaManager::GetInstance();
 	mouse = CMouse::GetInstance();
 	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
+	MS = CMusicSystem::GetInstance();
 
 	playerOne = new CChineseMale();
 	playerTwo = new CMalayFemale();
@@ -152,63 +165,55 @@ bool myApplication::Init()
 
 bool myApplication::Update()
 {
-
-	if(keyboard->myKeys['1'] == true)
-	{
-		this->PrintDebugInformation();
-		mouse->PrintDebugInformation();
-		//WM->Init(WM->GetWindowWidth(),WM->GetWindowHeight(),WM->GetWindowPositionX(),WM->GetWindowPositionY(),true);
-		//WM->PrintDebugWindowInformation();
-		//glViewport(0,0,10,10);
-		//glutReshapeWindow(10, 10);
-		//glutFullScreen();
-		//this->PrintDebugInformation();
-		//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
-		//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
-	}
-	if(keyboard->myKeys['2'] == true)
-	{
-		CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
-	}
-	if(keyboard->myKeys['a'])
-	{
-		playerOne->MoveLeft();
-	}
-	if(keyboard->myKeys['d'])
-	{
-		playerOne->MoveRight();
-	}
-	if(keyboard->myKeys['w'])
-	{
+	
+		if(keyboard->myKeys['a'])
+		{
+			playerOne->MoveLeft();
+		}
+		if(keyboard->myKeys['d'])
+		{
+			playerOne->MoveRight();
+		}
+		if(keyboard->myKeys['w'])
+		{
+			playerOne->Jump();
+		}
+		if(keyboard->myKeys['s'])
+		{
 		
-	}
-	if(keyboard->myKeys['s'])
-	{
+		}
+		if(keyboard->myKeys[VK_ESCAPE] == true)
+		{
+			exit(0);
+		}
+		if(keyboard->myKeys['j'] == true)
+		{
+			playerTwo->MoveLeft();
+		}
+		if(keyboard->myKeys['l'] == true)
+		{
+			playerTwo->MoveRight();
+		}
+		if(keyboard->myKeys['i'] == true)
+		{
+			playerTwo->Jump();
+		}
+		if(keyboard->myKeys[VK_ESCAPE] == true)
+		{
+			exit(0);
+		}
+		if(keyboard->myKeys['k'] == true)
+		{
 		
-	}
-	if(keyboard->myKeys[VK_ESCAPE] == true)
+		}
+	if(FRM->UpdateAndCheckTimeThreehold())
 	{
-		exit(0);
-	}
-	if(keyboard->myKeys['j'] == true)
-	{
-		playerTwo->MoveLeft();
-	}
-	if(keyboard->myKeys['l'] == true)
-	{
-		playerTwo->MoveRight();
-	}
-	if(keyboard->myKeys['i'] == true)
-	{
-		
-	}
-	if(keyboard->myKeys['k'] == true)
-	{
-		
+		theAI->SetEnemyPos(playerOne->pos);
+		theAI->Update();
 	}
 
-	theAI->SetEnemyPos(playerOne->pos);
-	theAI->Update();
+	playerOne->Update();
+	playerTwo->Update();
 
 	return true;
 }
@@ -342,22 +347,19 @@ void myApplication::RenderScene()
 
 	//	Update();
 	//}
-	if(FRM->UpdateAndCheckTimeThreehold())
-	{
-		Update();
-	}
 
 	Render3D();
 
 	SetHUD( true );
 		Render2D();
 	SetHUD( false );
-
+	glDisable(GL_DEPTH_TEST);
 	// Flush off any entity which is not drawn yet, so that we maintain the frame rate.
 	glFlush();
 
 	// swapping the buffers causes the rendering above to be shown
 	glutSwapBuffers();
+	glutPostRedisplay();
 }
 
 void myApplication::InputKey(int key, int x, int y)
@@ -376,6 +378,24 @@ void myApplication::InputKey(int key, int x, int y)
 void myApplication::KeyboardDown(unsigned char key, int x, int y)
 {
 	keyboard->myKeys[key] = true;
+
+	switch(key)
+	{
+		case '1':
+			this->PrintDebugInformation();
+			//mouse->PrintDebugInformation();
+		break;
+
+		case '2':
+			CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
+			this->PrintDebugInformation();
+		break;
+
+		case '3':
+			MS->PrintBgmTrackList();
+			MS->TranverseBGMTrack();
+			break;
+	}
 }
 
 void myApplication::KeyboardUp(unsigned char key, int x, int y)

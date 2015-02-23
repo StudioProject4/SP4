@@ -20,8 +20,12 @@
 #include "ChineseMale.h"
 #include "AI.h"
 #include "WindowManager.h"
+
 #include "PowerUp.h"
 #include "Map.h"
+
+#include "MusicSystem\MusicSystem.h"
+
 
 class myApplication:public CGameState
 {

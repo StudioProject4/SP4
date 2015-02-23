@@ -4,7 +4,6 @@
 #include "Vector3.h"
 #include "Entity.h"
 
-
 class CBaseObject:public CEntity
 {
 public:
@@ -15,10 +14,14 @@ public:
 	CBaseObject()
 		:active(true)
 	{};
-
-	~CBaseObject(){};
+	virtual ~CBaseObject(){};
 	virtual bool OnCollision(CBaseObject* a_obj) = 0;
 	virtual bool Render() = 0;
+
+	virtual bool Update() = 0;
+	virtual bool Init() = 0;
+	virtual bool Reset()= 0;
+	virtual bool CleanUp() = 0;
 };
 
 

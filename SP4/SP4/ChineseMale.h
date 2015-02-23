@@ -2,6 +2,7 @@
 #include "Character.h"
 #include "RenderUntilty.h"
 #include "Sprite.h"
+#include "Physics.h"
 #include <stdio.h>
 #include <GL/glut.h>
 #include <GL/freeglut.h>
@@ -14,10 +15,6 @@ class CChineseMale : public CCharacter
 		~CChineseMale();
 		bool Init(Vector3 newPos,Vector3 newDir,int entityID);
 
-		void Jump();
-		void MoveLeft();
-		void MoveRight();
-
 		bool Update();
 		bool Init();
 		bool Reset();
@@ -25,6 +22,7 @@ class CChineseMale : public CCharacter
 		bool Render();
 
 		bool OnCollision(CBaseObject* a_obj);
+
 	private:
 		TextureImage Texture;
 		CSprite * theSprite;

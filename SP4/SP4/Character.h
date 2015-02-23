@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseObject.h"
+#include "Physics.h"
 
 class CCharacter : public CBaseObject
 {
@@ -9,10 +10,13 @@ class CCharacter : public CBaseObject
 			pos = (0,0,0);
 			dir = (0,0,0);
 		};
-		~CCharacter(){};
-		virtual void Jump() = 0 ;
-		virtual void MoveLeft() = 0 ;
-		virtual void MoveRight() = 0 ;
+		virtual ~CCharacter(){};
+		void Jump();
+		void MoveLeft();
+		void MoveRight();
+		void SetPlayerID(int theID);
+
+		CPhysics thePhysics;
 	private:
-		int PlayerID;
+		int playerID;
 };

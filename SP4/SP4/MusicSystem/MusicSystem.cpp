@@ -1,946 +1,840 @@
 #include "MusicSystem.h"
 
-CMusicSystem * CMusicSystem::Instance = NULL;
+#include <assert.h>
+//#define NDEBUG 
 
-CMusicSystem::CMusicSystem()
-:
-	MusicEngine(NULL)
-	,BGM(NULL)
-	,BGMfx(NULL)
-	,BGMName(" ")
-	,CurrentSoundTrack(0)
-	,CurrentBGMTrack(0)
+CMusicSystem* CMusicSystem::instance = 0;
+
+CMusicSystem::CMusicSystem(void)
+	:engine(0)
+	,allSoundPaused(false)
+	,allSoundMuted(false)
 {
-	std::cout << "Music system init" << std::endl;
-	for(unsigned short i = 0 ; i< MAXSOUND; ++i)
-	{
-		SoundList[i] = NULL;
-		SoundTracks[i] = " ";
-		SoundFx[i] = NULL;
-		SoundEffectList[i] = EFFECT_NONE; 
-		SoundNameList[i] = " ";
-	}
-	for(unsigned short i = 0 ; i< MAXBGM; ++i)
-	{
-		BGMTracks[i] = " ";
-		BGMSoundEffectMode = EFFECT_NONE; 
-	}
-	PlayerPosition.set(0,0,0);
-	PlayerDirection.set(0,0,1);
-
-	MusicEngine = createIrrKlangDevice();
-
-	if(!MusicEngine)
-	{
-		//printf("Could not startup engine\n");
-		inited = false;
-	}else
-	{
-		//cout << "inited"<<endl;
-		inited = true;
-
-	}
-}
-CMusicSystem::~CMusicSystem()
-{
-	inited = false;
-	//for(unsigned short i = 0 ; i< MAXSOUND; ++i)
-	//{
-	//	SoundList[i] = NULL;
-	//	SoundTracks[i] = " ";
-	//	SoundFx[i] = NULL;
-	//	SoundEffectList[i] = EFFECT_NONE; 
-	//}
-	//for(unsigned short i = 0 ; i< MAXBGM; ++i)
-	//{
-	//	BGMTracks[i] = " ";
-	//	BGMSoundEffectMode = EFFECT_NONE; 
-	//}
-	std::cout << "Music system destroyed" << std::endl;
-	MusicEngine->drop();
-}
-CMusicSystem * CMusicSystem::GetInstance()
-{
-	if(Instance == NULL)
-	{
-		Instance = new CMusicSystem();
-	}
-	return Instance;
+	Init();
 }
 
-void CMusicSystem::playBGM(string name,bool soundeffect,SoundEffectMode mode )
+CMusicSystem::~CMusicSystem(void)
 {
-	//cout << "Playing:"<< name <<endl;
-	BGMName = name;
-	if(soundeffect)
+}
+
+CMusicSystem* CMusicSystem::GetInstance()
+{
+	if(instance == 0)
 	{
-		BGM = MusicEngine->play2D(name.c_str(),true,false,true, ESM_AUTO_DETECT, true);
-		BGMfx = BGM->getSoundEffectControl();
-		BGMSoundEffectMode = mode;
-		
-	}else
-	{
-		BGM = MusicEngine->play2D(name.c_str(),true,false,true);
-		BGMSoundEffectMode = EFFECT_NONE;
+		instance = new CMusicSystem();
 	}
+
+	return instance;
 }
-void CMusicSystem::playSound(string name,bool soundeffect,SoundEffectMode mode )
+
+CAudio* CMusicSystem::FindSound(std::string name)
 {
-	ISound * dummy = NULL;
-	int emptyslot = DatabaseTool::FindEmptySlot(SoundList,MAXSOUND,dummy);
-	SoundEffectList[emptyslot] = mode;
-	SoundNameList[emptyslot] = name;
-	if(soundeffect)
+
+	CAudio* result = (*soundList.find(name)).second;
+
+	assert(result && "Sound Object not Found");
+
+	return result;
+}
+
+CAudio* CMusicSystem::FindBgm(std::string name)
+{
+	CAudio* result = (*bgmList.find(name)).second;
+	assert(result && "BGM Object not Found");
+	return result;
+}
+
+bool CMusicSystem::RegisterBgm(CAudio * a_audio, std::string nametoberegister)
+{
+	if(a_audio)
 	{
-	
-		SoundList[emptyslot] = MusicEngine->play2D(name.c_str(),false,false,true, ESM_AUTO_DETECT, true);
-		SoundFx[emptyslot] = SoundList[emptyslot]->getSoundEffectControl();
-	}else
-	{
-	
-		SoundList[emptyslot] = MusicEngine->play2D(name.c_str(),false,false,true);
-	}
-}
-void CMusicSystem::playBGMTrack(unsigned short position,bool soundeffect,SoundEffectMode mode )
-{
-	//if(position > MAXBGM)
-	//{
-	//	position = MAXBGM;
-	//}else
-	//	if(position < 0)
-	//	{
-	//		position = 0;
-	//	}
-	position = DatabaseTool::Clamp(position,0,MAXBGM);
-	playBGM(BGMTracks[position],soundeffect);
-	CurrentBGMTrack = position;
-	BGMSoundEffectMode = mode;
-}
-void CMusicSystem::playSoundTrack(unsigned short position,bool soundeffect,SoundEffectMode mode )
-{
-	//if(position > MAXSOUND)
-	//{
-	//	position = MAXSOUND;
-	//}else
-	//	if(position < 0)
-	//	{
-	//		position = 0;
-	//	}
-		position = DatabaseTool::Clamp(position,0,MAXSOUND);
-	playSound(SoundTracks[position],soundeffect);
-	CurrentSoundTrack = position;
-	SoundEffectList[position] = mode;
-}
-void CMusicSystem::TraveseTrack(bool NextBgm,bool NextSound,bool forward,bool warp,bool OnSoundEffect,SoundEffectMode mode)
-{
-	string stringdummy = " ";
-	cout << "tranvsering" << endl;
-	if(forward)
-	{
-		if(NextBgm)
+		if(engine)
 		{
-			StopAllMusic(false,true);
-			++CurrentBGMTrack;
-			if(warp)
-			{			
-				CurrentBGMTrack = DatabaseTool::Warp(CurrentBGMTrack,0,DatabaseTool::FindLastPositionOfList(BGMTracks,MAXBGM,stringdummy));
-			}else
+			
+			if(nametoberegister != "nil")
 			{
-				CurrentBGMTrack = DatabaseTool::Clamp(CurrentBGMTrack,0,MAXBGM);
-			}
 				
-			playBGMTrack(CurrentBGMTrack,OnSoundEffect,mode);
-		}
-		if(NextSound)
-		{
-			//sound effect usually does not stop,only stop when it expires,
-			++CurrentSoundTrack;
-			if(warp)
-			{
-				CurrentSoundTrack = DatabaseTool::Warp(CurrentSoundTrack,0,DatabaseTool::FindLastPositionOfList(SoundTracks,MAXSOUND,stringdummy));
+				bgmList.insert (std::make_pair(nametoberegister,a_audio));
 			}else
 			{
-				CurrentSoundTrack = DatabaseTool::Clamp(CurrentSoundTrack,0,MAXSOUND);
+				bgmList.insert (std::make_pair(a_audio->GetAudioName(),a_audio));
 			}
-			cout << "tring to play" << CurrentSoundTrack << endl;
-			playSoundTrack(CurrentSoundTrack,OnSoundEffect,mode);
-		}
-	}else
-	{
-		if(NextBgm)
-		{
-			StopAllMusic(false,true);
-			--CurrentBGMTrack;
-			if(warp)
-			{
-				CurrentBGMTrack = DatabaseTool::Warp(CurrentBGMTrack,0,DatabaseTool::FindLastPositionOfList(BGMTracks,MAXBGM,stringdummy));
-			}else
-			{
-				CurrentBGMTrack = DatabaseTool::Clamp(CurrentBGMTrack,0,MAXBGM);
-			}
-			playBGMTrack(CurrentBGMTrack,OnSoundEffect,mode);
-		}
-		if(NextSound)
-		{
-			//sound effect usually does not stop,only stop when it expires,
-			--CurrentSoundTrack;
-			if(warp)
-			{
-				CurrentSoundTrack = DatabaseTool::Warp(CurrentSoundTrack,0,DatabaseTool::FindLastPositionOfList(SoundTracks,MAXSOUND,stringdummy));
-			}else
-			{
-				CurrentSoundTrack = DatabaseTool::Clamp(CurrentSoundTrack,0,MAXSOUND);
-			}
-			playSoundTrack(CurrentSoundTrack,OnSoundEffect,mode);
-		}
-	}
-}
-void CMusicSystem::SwitchBGMSoundEffect(SoundEffectMode mode,bool on)
-{
-	//Do note that many of the effect here need more details to really see their purpose;
-	if(BGMfx != NULL)
-	{
-	BGMfx->disableAllEffects();
-	BGMSoundEffectMode = mode;
-	switch(mode)
-	{
-		case EFFECT_ECHO:
-				if(on)
-				{
-					BGMfx->enableEchoSoundEffect();
-				}else
-				{
-					BGMfx->disableEchoSoundEffect();
-				}
-			break;
-		case EFFECT_DISTORTION:
-				if(on)
-				{
-					BGMfx->enableDistortionSoundEffect();
-				}else
-				{
-					BGMfx->disableDistortionSoundEffect();
-				}
-			break;
-		case EFFECT_WAVE:
-				if(on)
-				{
-					BGMfx->enableWavesReverbSoundEffect();
-				}else
-				{
-					BGMfx->disableWavesReverbSoundEffect();
-				}
-			break;
-		case EFFECT_CHORUS:
-				if(on)
-				{
-					BGMfx->enableChorusSoundEffect();
-				}else
-				{
-					BGMfx->disableChorusSoundEffect();
-				}
-			break;
-		case EFFECT_COMPRESSOR://need more detalied info to use it true effect
-				if(on)
-				{
-					BGMfx->enableCompressorSoundEffect();
-				}else
-				{
-					BGMfx->disableCompressorSoundEffect();
-				}
-			break;
-		case EFFECT_FLANGER:
-				if(on)
-				{
-					BGMfx->enableFlangerSoundEffect();
-				}else
-				{
-					BGMfx->disableFlangerSoundEffect();
-				}
-			break;
-		case EFFECT_GARGLE:
-				if(on)
-				{
-					BGMfx->enableGargleSoundEffect();
-				}else
-				{
-					BGMfx->disableGargleSoundEffect();
-				}
-			break;
-		case EFFECT_I3DL2:
-				if(on)
-				{
-					BGMfx->enableI3DL2ReverbSoundEffect();
-				}else
-				{
-					BGMfx->disableI3DL2ReverbSoundEffect();
-				}
-			break;
-		case EFFECT_PARAM://need more detalied info to use it true effect
-				if(on)
-				{
-					BGMfx->enableParamEqSoundEffect();
-				}else
-				{
-					BGMfx->disableParamEqSoundEffect();
-				}
-			break;
-
-		case EFFECT_NONE:
-		case EFFECT_TOTAL:
-		default:
-			cout <<"ERROR: Unhandled SoundEffect Mode"<<endl;
-			break;
-	}
-	}else
-	{
-		cout << "ERROR: BGM sound effect Pointer is NULL"<<endl;
-	}
-}
-void CMusicSystem::SwitchSoundEffect(SoundEffectMode mode,unsigned short position,bool on)
-{
-		//Do note that many of the effect here need more details to really see their purpose;
-	if(SoundFx[position]!=NULL)
-	{
-	SoundFx[position]->disableAllEffects();
-	SoundEffectList[position] = mode;
-	switch(mode)
-	{
-		case EFFECT_ECHO:
-				if(on)
-				{
-					SoundFx[position]->enableEchoSoundEffect();
-				}else
-				{
-					SoundFx[position]->disableEchoSoundEffect();
-				}
-			break;
-		case EFFECT_DISTORTION:
-				if(on)
-				{
-					SoundFx[position]->enableDistortionSoundEffect();
-				}else
-				{
-					SoundFx[position]->disableDistortionSoundEffect();
-				}
-			break;
-		case EFFECT_WAVE:
-				if(on)
-				{
-					SoundFx[position]->enableWavesReverbSoundEffect();
-				}else
-				{
-					SoundFx[position]->disableWavesReverbSoundEffect();
-				}
-			break;
-		case EFFECT_CHORUS:
-				if(on)
-				{
-					SoundFx[position]->enableChorusSoundEffect();
-				}else
-				{
-					SoundFx[position]->disableChorusSoundEffect();
-				}
-			break;
-		case EFFECT_COMPRESSOR://need more detalied info to use it true effect
-				if(on)
-				{
-					SoundFx[position]->enableCompressorSoundEffect();
-				}else
-				{
-					SoundFx[position]->disableCompressorSoundEffect();
-				}
-			break;
-		case EFFECT_FLANGER:
-				if(on)
-				{
-					SoundFx[position]->enableFlangerSoundEffect();
-				}else
-				{
-					SoundFx[position]->disableFlangerSoundEffect();
-				}
-			break;
-		case EFFECT_GARGLE:
-				if(on)
-				{
-					SoundFx[position]->enableGargleSoundEffect();
-				}else
-				{
-					SoundFx[position]->disableGargleSoundEffect();
-				}
-			break;
-		case EFFECT_I3DL2:
-				if(on)
-				{
-					SoundFx[position]->enableI3DL2ReverbSoundEffect();
-				}else
-				{
-					SoundFx[position]->disableI3DL2ReverbSoundEffect();
-				}
-			break;
-		case EFFECT_PARAM://need more detalied info to use it true effect
-				if(on)
-				{
-					SoundFx[position]->enableParamEqSoundEffect();
-				}else
-				{
-					SoundFx[position]->disableParamEqSoundEffect();
-				}
-			break;
-
-		case EFFECT_NONE:
-		case EFFECT_TOTAL:
-		default:
-			cout <<"ERROR: Unhandled SoundEffect Mode"<<endl;
-			break;
-	}
-	}else
-	{
-		cout << "ERROR: "<<"Sound Effect Pointer Position: "<<position<<"  is NULL"<<endl;
-	}
-}
-void CMusicSystem::InsertBGMTrack(string name)
-{
-	string dummy = " ";
-	if(!DatabaseTool::CheckDuplicate(BGMTracks,MAXBGM,name))
-	{
-		BGMTracks[DatabaseTool::FindEmptySlot(BGMTracks,MAXBGM,dummy)] = name;
-	}else
-	{
-		cout << "Duplicate BGM track inseertion detected"<<endl;
-	}
-}
-void CMusicSystem::InsertSoundTrack(string name)
-{
-	string dummy = " ";
-	if(!DatabaseTool::CheckDuplicate(SoundTracks,MAXSOUND,name))
-	{
-		SoundTracks[DatabaseTool::FindEmptySlot(SoundTracks,MAXSOUND,dummy)] = name;
-	}
-	else
-	{
-		cout << "Duplicate Sound track inseertion detected"<<endl;
-	}
-}
-void CMusicSystem::InsertBGMTrack(string name, unsigned short position)
-{
-	//if(position > MAXBGM)
-	//{
-	//	position = MAXBGM;
-	//}else
-	//	if(position < 0)
-	//	{
-	//		position = 0;
-	//	}
-	position = DatabaseTool::Clamp(position,0,MAXBGM);
-	BGMTracks[position] = name;
-}
-void CMusicSystem::InsertSoundTrack(string name, unsigned short position)
-{
-	//if(position > MAXSOUND)
-	//{
-	//	position = MAXSOUND;
-	//}else
-	//	if(position < 0)
-	//	{
-	//		position = 0;
-	//	}
-	position = DatabaseTool::Clamp(position,0,MAXSOUND);
-	SoundTracks[position] = name;
-}
-void CMusicSystem::setBGMVolume(int v)
-{
-	//if(v >100)
-	//{
-	//	v = 100;
-	//}else
-	//	if(v< 0)
-	//	{
-	//		v = 0;
-	//	}
-	v = DatabaseTool::Clamp(v,0,100);
-	float newVolume = (float)v/100;
-
-	BGM->setVolume(newVolume);
-}
-void CMusicSystem::setAllSoundVolume(int v)
-{
-	//if(v >100)
-	//{
-	//	v = 100;
-	//}else
-	//	if(v< 0)
-	//	{
-	//		v = 0;
-	//	}
-	v = DatabaseTool::Clamp(v,0,100);
-	float newVolume = (float)v/100;
-	//cout << newVolume;
-	for(unsigned short i = 0 ; i < MAXSOUND; ++i)
-	{
-		if(SoundList[i] != NULL)
-		{
-			SoundList[i]->setVolume(newVolume);
-			
-		}else
-		{
-			break;
-		}
-	}
-}
-void CMusicSystem::setBGMVolume(float v)
-{
-	if(BGM )
-	{
-		BGM->setVolume(v);
-	}else
-	{
-		cout << "BGM NULL pointer error"<<endl;
-	}
-}
-void CMusicSystem::setAllSoundVolume(float v)
-{
-	for(unsigned short i = 0 ; i < MAXSOUND; ++i)
-	{
-		if(SoundList[i] != NULL)
-		{
-			SoundList[i]->setVolume(v);
-		}else
-		{
-			break;
-		}
-	}
-}
-
-void CMusicSystem::pauseAll(bool mode)
-{
-	if(mode)
-	{
-		MusicEngine->setAllSoundsPaused();
-	}else
-	{
-		MusicEngine->setAllSoundsPaused(false);
-	}
-}
-void CMusicSystem::ResetBGMVarible(bool removetrack)
-{
-	if(BGM != NULL)
-	{
-		BGM->stop();
-	}
-	BGM = NULL;
-	if(BGMfx != NULL)
-	{	
-		BGMfx->disableAllEffects();
-	}
-	BGMfx = NULL;
-	BGMSoundEffectMode = EFFECT_NONE;
-	BGMName = " ";
-	if(removetrack)
-	{
-		for(unsigned short i = 0 ; i <MAXBGM; ++i)
-		{
-			BGMTracks[i] = " ";
-		}
-	}
-}
-void CMusicSystem::ResetBGMVarible(unsigned short position,bool removetrack)
-{
-	if(BGM != NULL)
-	{
-		BGM->stop();
-	}
-	BGM = NULL;
-	if(BGMfx != NULL)
-	{
-		BGMfx->disableAllEffects();
-	}
-	BGMfx = NULL;
-	BGMName = " ";
-	BGMSoundEffectMode = EFFECT_NONE;
-	if(removetrack)
-	{
+			bgmTrackList.push_back(a_audio->GetAudioName());
 		
-		BGMTracks[position] = " ";
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::RegisterSound(CAudio * a_audio, std::string nametoberegister)
+{
+	if(a_audio)
+	{
+		if(engine)
+		{
+			if(nametoberegister != "nil")
+			{
+				soundList.insert (std::make_pair(nametoberegister,a_audio));
+			}else
+			{
+				soundList.insert (std::make_pair(a_audio->GetAudioName(),a_audio));
+			}
+
+			soundTrackList.push_back(a_audio->GetAudioName());
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::RegisterBgm2D(std::string filename,std::string nametoberegister , bool withLoop,bool withSoundEffectControl )
+{
+	if(engine)
+	{
+		CAudio* newAudio = new CAudio();
+		newAudio->Init(this->CreateSampleAudio2D(filename.c_str(),withLoop,withSoundEffectControl),filename.c_str(),nametoberegister);	
+		newAudio->SetIsPaused();
+		if(newAudio->CheckValidAudioPtr())
+		{
+			RegisterBgm(newAudio,newAudio->GetAudioName());
+			return true;
+		}
 		
 	}
-	string dummy = " ";
-	DatabaseTool::BubblesortRestack(BGMTracks,MAXSOUND,dummy);
+	return false;
 }
-void CMusicSystem::ResetSoundVarible(bool removetrack)
+
+bool CMusicSystem::RegisterSound2D(std::string filename, std::string nametoberegister, bool withLoop,bool withSoundEffectControl)
 {
-	if(removetrack)
+	if(engine)
 	{
-		for(unsigned short i = 0; i<MAXSOUND ; ++i)
+		CAudio* newAudio = new CAudio();
+
+		newAudio->Init(this->CreateSampleAudio2D(filename.c_str(),withLoop,withSoundEffectControl),filename.c_str(),nametoberegister);	
+		newAudio->SetIsPaused();
+		if(newAudio->CheckValidAudioPtr())
 		{
-			if(SoundList[i]!= NULL)
+			RegisterSound(newAudio,newAudio->GetAudioName());
+			return true;
+		}
+		
+	}
+	return false;
+}
+
+bool CMusicSystem::RegisterBgm3D(std::string filename,std::string nametoberegister,irrklang::vec3df pos, bool withLoop,bool withSoundEffectControl )
+{
+	if(engine)
+	{
+		CAudio* newAudio = new CAudio();
+		newAudio->Init(this->CreateSampleAudio3D(filename.c_str(),pos,withLoop,withSoundEffectControl),filename.c_str(),nametoberegister);	
+
+		newAudio->SetIsPaused();
+		if(newAudio->CheckValidAudioPtr())
+		{
+			RegisterBgm(newAudio,newAudio->GetAudioName());
+			return true;
+		}
+		
+	}
+	return false;
+}
+
+bool CMusicSystem::RegisterSound3D(std::string filename, std::string nametoberegister,irrklang::vec3df pos, bool withLoop,bool withSoundEffectControl )
+{
+	if(engine)
+	{
+		CAudio* newAudio = new CAudio();
+		newAudio->Init(this->CreateSampleAudio3D(filename.c_str(),pos,withLoop,withSoundEffectControl),filename.c_str(),nametoberegister);	
+		newAudio->SetIsPaused();
+		if(newAudio->CheckValidAudioPtr())
+		{
+			RegisterSound(newAudio,newAudio->GetAudioName());
+			return true;
+		}
+		
+	}
+	return false;
+}
+
+
+bool CMusicSystem::PlayBgmTrack(std::string trackname,bool setLoop)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindBgm(trackname);
+		if(a_audio)
+		{
+			a_audio->active = true;
+			a_audio->SetIsLooped(setLoop);
+			return a_audio->SetIsPaused(false);
+		}
+		
+	}
+	return false;
+}
+bool CMusicSystem::PauseBgmTrack(std::string trackname,bool pause)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindBgm(trackname);
+		if(a_audio)
+		{
+			return a_audio->SetIsPaused(pause);	
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::PlayBgmTrack(unsigned short trackindex,bool setLoop)
+{
+	if(trackindex <bgmTrackList.size())
+	{
+		if(engine)
+		{		
+			if(PlayBgmTrack(bgmTrackList[trackindex],setLoop))	
 			{
-				SoundList[i]->stop();
+				this->currentBgmTrack = trackindex;
 			}
-			SoundList[i] = NULL;
-			if(SoundFx[i] != NULL)
+		}
+	}
+	return false;
+}
+bool CMusicSystem::PauseBgmTrack(unsigned short trackindex,bool pause)
+{
+	if(trackindex <bgmTrackList.size())
+	{
+		if(engine)
+		{
+			return PauseBgmTrack(bgmTrackList[trackindex],pause);		
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::EnableBgmTrackSoundEffect(std::string trackname)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindBgm(trackname);
+		if(a_audio)
+		{
+			return a_audio->EnableAudioEffectControl();
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::EnableBgmTrackSoundEffect(unsigned short trackindex)
+{
+	if(trackindex <bgmTrackList.size())
+	{
+		if(engine)
+		{
+			return EnableBgmTrackSoundEffect(bgmTrackList[trackindex]);		
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::SetBgmTrackPlayPosition(std::string trackname,int millSecPosition)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindBgm(trackname);
+		if(a_audio)
+		{
+			return a_audio->SetPlayPosition(millSecPosition);
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::SetBgmTrackPlayPosition(unsigned short trackindex,int millSecPosition)
+{
+	if(trackindex <bgmTrackList.size())
+	{
+		if(engine)
+		{
+			return SetBgmTrackPlayPosition(bgmTrackList[trackindex],millSecPosition);		
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::ResetBgmTrackPlayPosition(std::string trackname)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindBgm(trackname);
+		if(a_audio)
+		{
+			return a_audio->ResetPlayPosition();
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::ResetBgmTrackPlayPosition(unsigned short trackindex)
+{
+	if(trackindex <bgmTrackList.size())
+	{
+		if(engine)
+		{
+			return ResetBgmTrackPlayPosition(bgmTrackList[trackindex]);		
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::PlaySoundTrack(unsigned short trackindex,bool setLoop)
+{
+	if(trackindex <soundTrackList.size())
+	{
+		if(engine)
+		{
+			if(PlaySoundTrack(bgmTrackList[trackindex],setLoop))
 			{
-				SoundFx[i]->disableAllEffects();
+				this->currentSoundTrack = trackindex;
 			}
-			SoundFx[i] = NULL;
-			SoundEffectList[i] = EFFECT_NONE;
-			SoundTracks[i] = " ";
-			SoundNameList[i] = " ";
-			SoundPosition[i].SetZero();
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::PlaySoundTrack(std::string trackname,bool setLoop)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindSound(trackname);
+		if(a_audio)
+		{
+			a_audio->active = true;
+			a_audio->SetIsLooped(setLoop);
+			return a_audio->SetIsPaused(false);	
+		}
+		return true;
+	}
+	return false;
+}
+bool CMusicSystem::PauseSoundTrack(std::string trackname,bool pause)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindSound(trackname);
+		if(a_audio)
+		{
+			return a_audio->SetIsPaused(pause);
+		}
+	}
+	return false;
+}
+bool CMusicSystem::PauseSoundTrack(unsigned short trackindex,bool pause)
+{
+	if(trackindex <soundTrackList.size())
+	{
+		if(engine)
+		{
+			return PauseSoundTrack(soundTrackList[trackindex],pause);	
+		}
+	}
+	return false;
+}
+bool CMusicSystem::EnableSoundTrackSoundEffect(std::string trackname)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindSound(trackname);
+		if(a_audio)
+		{
+			return a_audio->EnableAudioEffectControl();
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::EnableSoundTrackSoundEffect(unsigned short trackindex)
+{
+	if(trackindex <soundTrackList.size())
+	{
+		if(engine)
+		{
+			return EnableSoundTrackSoundEffect(soundTrackList[trackindex]);	
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::SetSoundTrackPlayPosition(std::string trackname,int millSecPosition)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindSound(trackname);
+		if(a_audio)
+		{
+			return a_audio->SetPlayPosition(millSecPosition);
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::SetSoundTrackPlayPosition(unsigned short trackindex,int millSecPosition)
+{
+	if(trackindex <soundTrackList.size())
+	{
+		if(engine)
+		{
+			return SetSoundTrackPlayPosition(soundTrackList[trackindex],millSecPosition);	
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::ResetSoundTrackPlayPosition(std::string trackname)
+{
+	if(engine)
+	{
+		CAudio* a_audio = FindSound(trackname);
+		if(a_audio)
+		{
+			return a_audio->ResetPlayPosition();
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::ResetSoundTrackPlayPosition(unsigned short trackindex)
+{
+	if(trackindex <soundTrackList.size())
+	{
+		if(engine)
+		{
+			return ResetSoundTrackPlayPosition(soundTrackList[trackindex]);	
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::SetAllAudioVolume(float volume)
+{
+	if(engine)
+	{
+		if(volume <0)
+		{
+			volume = 0.f;
+		}else
+		{
+			while(volume >1)
+			{
+				volume *= 0.1f;
+			}
+		}
+		engine->setSoundVolume(volume);
+		return true;
+	}
+	return false;
+}
+bool CMusicSystem::UnMute()
+{
+	if(allSoundMuted)//if there are sound to unmute then bother to go in.
+	{
+		if(engine)
+		{
+			engine->setSoundVolume(1.f);
+			allSoundMuted = false;
+			return true;
+		}
+	}
+	return false;
+}
+bool CMusicSystem::Mute()
+{
+	if(!allSoundMuted)//if there are sound to mute then bother to go in.
+	{
+		if(engine)
+		{
+			engine->setSoundVolume(0.f);
+			allSoundMuted = true;
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CMusicSystem::ToggleMute()
+{
+	if(engine)
+	{
+		allSoundMuted = !allSoundMuted;
+		if(allSoundMuted)
+		{
+			engine->setSoundVolume(0.f);
+		}else
+		{
+			engine->setSoundVolume(1.f);
+		}
+		return true;
+	}
+	return false;
+}
+
+bool CMusicSystem::TogglePause()
+{
+	if(engine)
+	{
+		//allSoundPaused = !allSoundPaused;
+		TAudioList::iterator it;
+
+		for(it = bgmList.begin();it!= bgmList.end();++it)
+		{
+			if((*it).second->active)
+			{
+				PauseBgmTrack((*it).second->GetAudioName(),!(*it).second->CheckIsPaused());
+			}
+		}
+		for(it = soundList.begin();it!= soundList.end();++it)
+		{
+			if((*it).second->active)
+			{
+				PauseSoundTrack((*it).second->GetAudioName(),!(*it).second->CheckIsPaused());
+			}
+		}
+		//engine->setAllSoundsPaused(allSoundPaused);
+		return true;
+	}
+	return false;
+}
+
+bool CMusicSystem::Resume()
+{
+	if(engine)
+	{
+		//allSoundPaused = false;
+		//engine->setAllSoundsPaused(false);
+		TAudioList::iterator it;
+
+		for(it = bgmList.begin();it!= bgmList.end();++it)
+		{
+			if((*it).second->active &&(*it).second->CheckIsPaused())
+			{
+				PauseBgmTrack((*it).second->GetAudioName(),false);
+			}
+		}
+		for(it = soundList.begin();it!= soundList.end();++it)
+		{
+			if((*it).second->active &&(*it).second->CheckIsPaused())
+			{
+				PauseSoundTrack((*it).second->GetAudioName(),false);
+			}
+		}
+		return true;
+	}
+	return false;
+}
+
+bool CMusicSystem::Pause()
+{
+	if(engine)
+	{
+		//allSoundPaused = true;
+
+		TAudioList::iterator it;
+
+		for(it = bgmList.begin();it!= bgmList.end();++it)
+		{
+			if((*it).second->active && !(*it).second->CheckIsPaused())
+			{
+				PauseBgmTrack((*it).second->GetAudioName(),true);
+			}
+		}
+		for(it = soundList.begin();it!= soundList.end();++it)
+		{
+			if((*it).second->active && !(*it).second->CheckIsPaused())
+			{
+				PauseSoundTrack((*it).second->GetAudioName(),true);
+			}
+		}
+		//engine->setAllSoundsPaused(true);
+
+		return true;
+	}
+	return false;
+}
+
+bool CMusicSystem::StopAllSounds()
+{
+	if(engine)
+	{
+		engine->stopAllSounds();
+		return true;
+	}
+	return false;
+}
+
+bool CMusicSystem::TranverseBGMTrack(bool forward,bool warp)
+{
+	if(engine)
+	{
+		if(forward)
+		{
+			PauseBgmTrack(currentBgmTrack);
+			++currentBgmTrack;
+
+			if(warp)
+			{
+				if(currentBgmTrack>=bgmTrackList.size())
+				{
+					currentBgmTrack = 0;
+				}
+			}
+			//std::cout<<"bgm size"<<bgmTrackList.size()<<std::endl;
+			//std::cout<<"Current Bgm Track"<<currentBgmTrack<<std::endl;
+			PlayBgmTrack(currentBgmTrack);
+		}else
+		{
+			PauseBgmTrack(currentBgmTrack);
+			--currentBgmTrack;
+			if(warp)
+			{
+				if(currentBgmTrack<0)
+				{
+					currentBgmTrack = bgmTrackList.size()-1;
+				}
+			}
+			//std::cout<<"bgm size"<<bgmTrackList.size()<<std::endl;
+			//std::cout<<"Current Bgm Track"<<currentBgmTrack<<std::endl;
+			PlayBgmTrack(currentBgmTrack);
+		}
+		return true;
+	}
+	return false;
+}
+
+bool CMusicSystem::TranverseSoundTrack(bool forward,bool warp)
+{
+	if(engine)
+	{
+		if(forward)
+		{
+			PauseSoundTrack(currentSoundTrack);
+			++currentSoundTrack;
+
+			if(warp)
+			{
+				if(currentSoundTrack>soundTrackList.size())
+				{
+					currentSoundTrack = 0;
+				}
+			}
+			
+			PlaySoundTrack(currentSoundTrack);
+		}else
+		{
+			PauseSoundTrack(currentSoundTrack);
+			--currentSoundTrack;
+			if(warp)
+			{
+				if(currentSoundTrack<0)
+				{
+					currentSoundTrack = soundTrackList.size();
+				}
+			}
+			PlaySoundTrack(currentSoundTrack);
+		}
+		return true;
+	}
+	return false;
+}
+
+bool CMusicSystem::CheckAudioIsPlaying(std::string audioname)
+{
+	if(engine)
+	{
+		return engine->isCurrentlyPlaying(audioname.c_str());
+	}
+	return false;
+}
+
+bool CMusicSystem::CheckAudioIsPlaying(const char* audioname)
+{
+	if(engine)
+	{
+		return engine->isCurrentlyPlaying(audioname);
+	}
+	return false;
+}
+
+bool CMusicSystem::Init()
+{
+	engine = createIrrKlangDevice();
+
+	if(engine)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool CMusicSystem::CleanUp()
+{
+	if(engine)
+	{
+		engine->stopAllSounds();
+
+		TAudioList::iterator it;
+
+		for(it = bgmList.begin(); it!= bgmList.end();++it)
+		{
+			(*it).second->CleanUp();
+			(*it).second = 0;
+		
+			//bgmList.erase(it);
+		}
+
+		for(it = soundList.begin(); it!= soundList.end();++it)
+		{
+			(*it).second->CleanUp();
+			(*it).second = 0;
+		
+			//soundList.erase(it);
+		}
+
+		bgmList.clear();
+		soundList.clear();
+
+		//engine->drop();
+		//engine = 0;
+		return true;
+	}
+	return false;
+}
+
+bool CMusicSystem::Reset()
+{
+	if(engine)
+	{
+		if(CleanUp() && Init())
+		{
+			return true;
 		}
 	}else
 	{
-		for(unsigned short i = 0; i<MAXSOUND ; ++i)
+		return Init();
+	}
+	return false;
+}
+
+bool CMusicSystem::Release()
+{
+	if(engine)
+	{
+		engine->drop();
+		engine = 0;
+		delete this;
+
+		return true;
+	}
+	return false;
+}
+
+bool CMusicSystem::Exit()
+{
+	if(engine)
+	{
+		if(CleanUp() && Release())
 		{
-			if(SoundList[i]!= NULL)
-			{
-				SoundList[i]->stop();
-			}
-			SoundList[i] = NULL;
-			if(SoundFx[i] != NULL)
-			{
-				SoundFx[i]->disableAllEffects();
-			}
-			SoundFx[i] = NULL;
-			SoundEffectList[i] = EFFECT_NONE;
-			SoundNameList[i] = " ";
-			SoundPosition[i].SetZero();
-			
+			return true;
 		}
 	}
+	return false;
 }
-void CMusicSystem::ResetSoundVarible(unsigned short position, bool removetrack)
+
+irrklang::ISound* CMusicSystem::CreateSampleAudio2D(const char* filename,bool withLoop,bool withAudioEffect)
 {
-	if(SoundList[position]!= NULL)
+	if(engine)
 	{
-		SoundList[position]->stop();
+		return engine->play2D(filename,withLoop,true,true,ESM_AUTO_DETECT,withAudioEffect);
 	}
-	SoundList[position] = NULL;
-	if(SoundFx[position] != NULL)
-	{
-		SoundFx[position]->disableAllEffects();
-	}
-	SoundFx[position] = NULL;
-	SoundEffectList[position] = EFFECT_NONE;
-	SoundNameList[position] = " ";
-	SoundPosition[position].SetZero();
-	if(removetrack)
-	{
-		SoundTracks[position] = " ";
-	}
-
-
-
-	string dummy = " ";
-	ISound *dummy2 = NULL;
-	ISoundEffectControl* dummy3 = NULL;
-	Vector3 dummy4;
-	DatabaseTool::BubblesortRestack(SoundTracks,MAXSOUND,dummy);
-	DatabaseTool::BubblesortRestack(SoundList,MAXSOUND,dummy2);
-	DatabaseTool::BubblesortRestack(SoundEffectList,MAXSOUND,NULL);
-	DatabaseTool::BubblesortRestack(SoundNameList,MAXSOUND,dummy);
-	DatabaseTool::BubblesortRestack(SoundPosition,MAXSOUND,dummy4);
+	return 0;
 }
-void CMusicSystem::RemoveAllMusic(bool removeTrack)
+
+irrklang::ISound* CMusicSystem::CreateSampleAudio3D(const char* filename,irrklang::vec3df pos,bool withLoop,bool withAudioEffect)
 {
-	//BGM = NULL;
-	//if(BGMfx != NULL)
+	if(engine)
+	{
+		return engine->play3D(filename,pos,withLoop,true,true,ESM_AUTO_DETECT,withAudioEffect);
+	}
+	return 0;
+}
+
+irrklang::ISound* CMusicSystem::CreateIrrklangISound2D(const char* filename,bool playLooped,bool startPauseed,bool track,irrklang::E_STREAM_MODE mode,bool enableSoundEffect)
+{
+	if(engine)
+	{
+		return engine->play2D(filename,playLooped,startPauseed,track,mode,enableSoundEffect);	
+	}
+	return 0;
+}
+irrklang::ISound* CMusicSystem::CreateIrrklangISound3D(const char* filename,irrklang::vec3df pos,bool playLooped,bool startPauseed ,bool track,irrklang::E_STREAM_MODE mode,bool enableSoundEffect)
+{
+	if(engine)
+	{
+		return engine->play3D(filename,pos,playLooped,startPauseed,track,mode,enableSoundEffect);
+	}
+	return 0;
+}
+
+short CMusicSystem::GetCurrentBgmTrackIndex()
+{
+	return this->currentBgmTrack;
+}
+
+short CMusicSystem::GetCurrentSoundTrackIndex()
+{
+	return this->currentSoundTrack;
+}
+
+void CMusicSystem::PrintDebugInformation()
+{
+
+}
+
+void CMusicSystem::PrintSoundListSize()
+{
+	std::cout<<"Sound Track List Size: "<<soundList.size()<<std::endl;
+}
+
+void CMusicSystem::PrintBgmListSize()
+{
+	std::cout<<"Bgm Track List Size: "<<bgmList.size()<<std::endl;
+}
+
+void CMusicSystem::PrintBgmTrackList()
+{
+	//TAudioTrackList::iterator it;
+
+	//for(it = bgmTrackList.begin();it!=bgmTrackList.end();++it)
 	//{
-	//	BGMfx->disableAllEffects();
+	//	std::cout<<it - bgmTrackList.begin()<<(*it)<<std::endl;
 	//}
-	//BGMfx = NULL;
-	//BGMSoundEffectMode = EFFECT_NONE;
-	ResetBGMVarible(removeTrack);
-	ResetSoundVarible(removeTrack);
-	//if(removeTrack)
-	//{
-		//for(unsigned short i = 0 ; i < MAXBGM; ++i)
-		//{
-		//	BGMTracks[i] = " ";
+	for(unsigned short i = 0 ; i<bgmTrackList.size();++i)
+	{
+		std::cout<<"< "<<i<<" > "<<bgmTrackList[i]<<std::endl;
+	}
+}
 
-		//}
-		//for(unsigned short i = 0 ; i < MAXSOUND; ++i)
-		//{
-		//	SoundList[i] = NULL;
-		//	SoundTracks[i] = " ";
-		//	SoundFx[i]->disableAllEffects();
-		//	SoundFx[i] = NULL;
-		//	SoundEffectList[i] = EFFECT_NONE;
-		//}
-	//}else
+void CMusicSystem::PrintSoundTrackList()
+{
+	//TAudioTrackList::iterator it;
+	//for(it = soundTrackList.begin();it!=soundTrackList.end();++it)
 	//{
-		
-	//	for(unsigned short i = 0 ; i < MAXSOUND; ++i)
-	//	{
-	//		SoundList[i] = NULL;
-	//		SoundFx[i]->disableAllEffects();
-	//		SoundFx[i] = NULL;
-	//		SoundEffectList[i] = EFFECT_NONE;
-	//	}
+	//	std::cout<<(*it)<<std::endl;
 	//}
 
-}
-void CMusicSystem::StopSoundTrack(unsigned short position,bool RemoveSoundTrack)
-{
-	position = DatabaseTool::Clamp(position,0,MAXSOUND);
-	//cout <<"stoping:: "<<  position<<endl;
-	if(SoundList[position] != NULL)
+	for(unsigned short i = 0 ; i<soundTrackList.size();++i)
 	{
-		/*SoundList[position]->stop();
-		SoundList[position]= NULL;
-		SoundFx[position]->disableAllEffects();
-		SoundFx[position] = NULL;
-		SoundEffectList[position] = EFFECT_NONE;
-		if(RemoveSoundTrack)
-		{
-			SoundTracks[position] = " ";
-		}*/
-		ResetSoundVarible(position,RemoveSoundTrack);
-
-
-
-	}else
-	{
-		cout <<"ERROR: trying to stop an NUll Sound Pointer"<<endl;
-	}
-
-}
-
-
-void CMusicSystem::StopAllMusic(bool SoundOnly,bool bgmOnly)
-{
-	if(bgmOnly)
-	{
-		//cout << " BGM stop"<<endl;
-		if(BGM!= NULL)
-		{
-			//BGM->stop();
-			//BGM = NULL;
-			//BGMfx = NULL;
-			//BGMSoundEffectMode = EFFECT_NONE;
-			ResetBGMVarible();
-		}else
-		{
-			cout << "ERROR:: Attempting to stop NULL bgm Pointer"<<endl;
-		}
-	}else
-	{
-		if(SoundOnly)
-		{
-			cout << " All sound stop"<<endl;
-			//for(unsigned short i = 0 ; i < MAXSOUND; ++i)
-			//{
-			//	if(SoundList[i] != NULL)
-			//	{
-			//		SoundList[i]->stop();
-			//		SoundList[i]= NULL;
-			//		SoundFx[i] = NULL;
-			//		SoundEffectList[i] = EFFECT_NONE;
-			//	}else
-			//	{
-			//		break;
-			//	}
-			//}
-			ResetSoundVarible();
-		}else
-		{
-			cout << "All Music Stopped"<<endl;
-			MusicEngine->stopAllSounds();
-			RemoveAllMusic();
-		}
+		std::cout<<"< "<<i<<" > "<<soundTrackList[i]<<std::endl;
 	}
 }
-
-void CMusicSystem::MuteAll(bool mode)
-{
-	if(mode)
-	{
-		if(BGM!= NULL)
-		{
-			BGM->setVolume(0.0f);
-		}
-		for(unsigned short i = 0 ; i < MAXSOUND; ++i)
-		{
-			if(SoundList[i] != NULL)
-			{
-				SoundList[i]->setVolume(0.0f);
-			}else
-			{
-				break;
-			}
-		}
-	}else
-	{
-		if(BGM!= NULL)
-		{
-			BGM->setVolume(1.0f);
-		}
-		for(unsigned short i = 0 ; i < MAXSOUND; ++i)
-		{
-			if(SoundList[i] != NULL)
-			{
-				SoundList[i]->setVolume(1.0f);
-			}else
-			{
-				break;
-			}
-		}
-	}
-}	
-unsigned short CMusicSystem::getCurrentSoundTrackPosition()
-{
-	return CurrentSoundTrack;
-}
-unsigned short CMusicSystem::getCurrentBGMTrackPosition()
-{
-	return CurrentBGMTrack;
-}
-string CMusicSystem::CheckCurrentBGM()
-{
-	return BGMTracks[CurrentBGMTrack];
-}
-string CMusicSystem::CheckCurrentSound()
-{
-	return SoundTracks[CurrentSoundTrack];
-}
-string CMusicSystem::printSoundEffectModeText(SoundEffectMode mode)
-{
-	switch(mode)
-	{
-		case EFFECT_DISTORTION:
-			return "EFFECT_DISTORTION";
-			break;
-		case EFFECT_ECHO:
-			return "EFFECT_ECHO";
-			break;
-		case EFFECT_WAVE:
-			return "EFFECT_WAVE";
-			break;
-		case EFFECT_CHORUS:
-			return "EFFECT_CHORUS";
-			break;
-		case EFFECT_COMPRESSOR:
-			return "EFFECT_COMPRESSOR";
-			break;
-		case EFFECT_FLANGER:
-			return "EFFECT_FLANGER";
-			break;
-		case EFFECT_GARGLE:
-			return "EFFECT_GARGLE";
-			break;
-		case EFFECT_I3DL2:
-			return "EFFECT_I3DL2";
-			break;
-		case EFFECT_PARAM:
-			return "EFFECT_PARAM";
-			break;
-		case EFFECT_NONE:
-			return "EFFECT_NONE";
-			break;
-		case EFFECT_TOTAL:
-			return "EFFECT_TOTAL";
-			break;
-		default:
-			return "Unhandle Effect mode Printng";
-			break;
-	}
-}
-void CMusicSystem::printBGMTracks()
-{
-	cout <<endl;
-	cout << "Registered BGM Tracks list"<<endl;
-	for(unsigned short i = 0 ; i<MAXBGM; ++i)
-	{
-		if(CurrentBGMTrack == i)
-		{
-			cout << ">>";
-		}
-		cout << " < "<< i << " > "<< BGMTracks[i]<<endl;
-	}
-}
-void CMusicSystem::printSoundTracks()
-{
-	cout <<endl;
-	cout << "Registered Sound Tracks list"<<endl;
-	for(unsigned short i = 0 ; i<MAXSOUND; ++i)
-	{
-		if(CurrentSoundTrack == i)
-		{
-			cout << ">>";
-		}
-		cout << " < "<< i << " > "<< SoundTracks[i]<<endl;
-	}
-}
-unsigned short CMusicSystem::getLastBGMTrackCount()
-{
-	return DatabaseTool::FindLastPositionOfList(BGMTracks, MAXBGM, " ");
-	
-}
-unsigned short CMusicSystem::getLastSoundTrackCount()
-{
-	return DatabaseTool::FindLastPositionOfList(SoundTracks, MAXBGM, " ");
-}
-void CMusicSystem::CheckUp()
-{
-	printBGMTracks();
-	printSoundTracks();
-	cout << "\nBGM POINTER List: ";
-	cout << " < "<< 0 << " > "<< BGM<<" Sound Effect: "<<printSoundEffectModeText(BGMSoundEffectMode)<<" FileName: "<< BGMName<<endl;
-	cout << "\nSound POINTER List: "<<endl;
-	for(unsigned short i = 0 ; i<MAXSOUND; ++i)
-	{
-		//full cout
-		cout << " < "<< i << " > "<< SoundList[i]<<" Sound Effect: "<<printSoundEffectModeText(SoundEffectList[i])<<" FileName: "<< SoundNameList[i]<<" Pos: "<<SoundPosition[i]<<endl;
-	
-		//if(SoundList[i] != NULL)
-		//{
-		//	cout << "< "<< i << " > "<<"NOT NULL "<<"Sound Effect:"<<printSoundEffectModeText(SoundEffectList[i])<<" FileName:"<< SoundNameList[i]<<" Pos: "<<SoundPosition[i]<<endl;
-		//}
-		//else
-		//{
-		//	cout << "< "<< i << " > "<<"NULL POINTER "<<"Sound Effect:"<<printSoundEffectModeText(SoundEffectList[i])<<" FileName:"<< SoundNameList[i]<<" Pos: "<<SoundPosition[i]<<endl;
-		//}
-	}
-}
-void CMusicSystem::AutoPlayNextTrack()//not working
-{
-	//static bool tranverseNow = false;
-	
-	if (SoundList[CurrentSoundTrack] != NULL)
-	{
-		if (SoundList[CurrentSoundTrack]->isFinished())
-		{
-			
-			cout << "Next tracking" << endl;
-
-			TraveseTrack(false, true, true, true);
-			//CheckUp();
-			//system("pause");//somehow it need to system pause to work fine ?????? Wth....
-		}
-	}
-	
-}
-void CMusicSystem::Test()
-{
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///////////////////////////////
-////Author:: Kee Yang
-//////////////////////////////

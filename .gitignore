@@ -37,3 +37,5 @@
 *.idb
 *.opensdf
 *.sdf
+SP4/SP4/Debug/SP4.log
+*.log

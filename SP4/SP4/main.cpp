@@ -1,5 +1,6 @@
 #include "SystemDefination.h"
 #include "myApplication.h"
+#include "KennardTestState.h"
 
 void changeSize(int w, int h) {
 	//myApplication::GetInstance()->changeSize(w,h);
@@ -9,6 +10,11 @@ void changeSize(int w, int h) {
 void renderScene(void) {
 	//myApplication::GetInstance()->RenderScene();
 	CGameStateManager::GetInstance()->RenderScene();
+}
+
+void update(void) {
+	//myApplication::GetInstance()->RenderScene();
+	CGameStateManager::GetInstance()->Update();
 }
 
 void inputKey(int key, int x, int y) {
@@ -51,14 +57,25 @@ int main(int argc, char **argv )
 		CWindowManager* WM = CWindowManager::GetInstance();
 		CGameStateManager* GSM = CGameStateManager::GetInstance();
 		CLuaManager* LM = CLuaManager::GetInstance();
+		CMusicSystem* MS = CMusicSystem::GetInstance();
+		MS->RegisterBgm2D("bgm1.mp3");
+		MS->RegisterBgm2D("bgm2.mp3");
+		MS->RegisterBgm2D("bgm3.mp3");
+		MS->RegisterBgm2D("bgm4.mp3");
+		MS->RegisterBgm2D("bgm5.mp3");
+		MS->RegisterBgm2D("bgm6.mp3");
+		MS->RegisterBgm2D("bgm7.mp3");
+		MS->RegisterBgm2D("bgm8.mp3");
+		MS->RegisterBgm2D("bgm9.mp3");
 		LM->Init("mylua.lua");
-		
 		
 
 		glutInit(&argc, argv);
 		glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 		WM->Init(LM->GetWithCheckNumber<int>("WINDOW_WIDTH"),LM->GetWithCheckNumber<int>("WINDOW_HEIGHT"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"),LM->GetWithCheckBoolean("FULLSCREEN"),LM->GetWithCheckString("PROGRAM_NAME").c_str());
 		GSM->ChangeState(myApplication::GetInstance());
+		//GSM->ChangeState(KennardTestState::GetInstance());
+
 		//glutInitWindowPosition(LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"));
 		//glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 		//glutCreateWindow(LM->GetWithCheckString("PROGRAM_NAME").c_str());
@@ -70,7 +87,9 @@ int main(int argc, char **argv )
 
 		glutReshapeFunc(changeSize);
 		glutDisplayFunc(renderScene);
-		glutIdleFunc(renderScene);
+		glutIdleFunc(update);
+		//	glutSpecialFunc(inputKey);
+		//glutIdleFunc(renderScene);
 		glutSpecialFunc(inputKey);
 		glutKeyboardFunc(KeyboardDown);
 		glutKeyboardUpFunc(KeyboardUp);

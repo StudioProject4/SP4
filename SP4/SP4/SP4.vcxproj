@@ -78,10 +78,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AI.cpp" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="ChineseMale.cpp" />
     <ClCompile Include="FrameRateManager.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="HealthSystem.cpp" />
+    <ClCompile Include="KennardTestState.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="LuaManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -94,9 +97,12 @@
     <ClCompile Include="myApplication.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="ObjLoader.c" />
+    <ClCompile Include="ObstacleBase.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PowerUp.cpp" />
+    <ClCompile Include="PointSystem.cpp" />
     <ClCompile Include="RandomGeneratorSystem\RandomGenerator.cpp" />
+    <ClCompile Include="RenderUntility.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="tgaLoader.c" />
     <ClCompile Include="Vector3.cpp" />
@@ -113,6 +119,8 @@
     <ClInclude Include="FrameRateManager.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
+    <ClInclude Include="HealthSystem.h" />
+    <ClInclude Include="KennardTestState.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="MalayFemale.h" />
@@ -121,15 +129,17 @@
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Mind.h" />
     <ClInclude Include="Mouse.h" />
-    <ClInclude Include="MusicSystem\DatabaseTool.h" />
+    <ClInclude Include="MusicSystem\Audio.h" />
     <ClInclude Include="MusicSystem\MusicSystem.h" />
     <ClInclude Include="myApplication.h" />
     <ClInclude Include="myLibrary.h" />
     <ClInclude Include="MyMath.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="ObjLoader.h" />
+    <ClInclude Include="ObstacleBase.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PowerUp.h" />
+    <ClInclude Include="PointSystem.h" />
     <ClInclude Include="RandomGeneratorSystem\MathPlus.h" />
     <ClInclude Include="RandomGeneratorSystem\RandomGenerator.h" />
     <ClInclude Include="RenderUntilty.h" />
@@ -143,7 +153,6 @@
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MusicSystem\Note.txt" />
     <None Include="RandomGeneratorSystem\Note.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

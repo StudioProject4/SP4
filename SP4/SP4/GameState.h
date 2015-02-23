@@ -1,12 +1,15 @@
 #pragma once
 #include "Entity.h"
 
+#include "ObjectManager.h"
+
 class CGameStateManager;
 class CFrameRateManager;
 class CLuaManager;
 class CMouse;
 class CKeyboard;
 class CWindowManager;
+class CMusicSystem;
 
 class CGameState:public CEntity
 {
@@ -20,7 +23,8 @@ protected:
 	CMouse* mouse;
 	CKeyboard* keyboard;
 	CWindowManager* WM;
-
+	CObjectManager OM;
+	CMusicSystem* MS;
 	bool inited;
 public:
 	CGameState(void);
@@ -38,6 +42,12 @@ public:
 	virtual void Render2D() = 0;
 	virtual void Render3D() = 0;
 	virtual void RenderScene(void) = 0;
+	
+	//for sake of clarity
+	virtual bool Update() = 0;
+	virtual bool Init() = 0;
+	virtual bool Reset()= 0;
+	virtual bool CleanUp() = 0;
 
 	inline bool CheckInitedBefore()
 	{

@@ -1,6 +1,6 @@
 #ifndef TEXTUREIMAGE_H
 #define TEXTUREIMAGE_H
-#include <GL/glut.h>
+#include "GL\glut.h"
 typedef struct												// Create A Structure
 {
 	GLubyte	*imageData;										// Image Data (Up To 32 Bits)

@@ -1,165 +1,146 @@
-#include <iostream>
-#include <conio.h>
-//#include <IRRKLANG/irrKlang.h>
-//#include "include/irrKlang.h"
-#include <IRRKLANG\irrKlang.h>
-#include <string>
-#include "DatabaseTool.h"
-#include "../Vector3.h"
-using namespace std;
-using namespace irrklang;
-//#pragma comment(lib, "irrKlang.lib") // link with irrKlang.dll
-#define MAXSOUND 10
-#define MAXBGM 10
-//class CSoundBase
-//{
-//public:
-//	enum SoundEffectMode
-//	{
-//		EFFECT_NONE = 0,
-//		EFFECT_DISTORTION,
-//		EFFECT_ECHO,
-//		EFFECT_WAVE,
-//		EFFECT_CHORUS,
-//		EFFECT_COMPRESSOR,
-//		EFFECT_FLANGER,
-//		EFFECT_GARGLE,
-//		EFFECT_I3DL2,
-//		EFFECT_PARAM,
-//		EFFECT_TOTAL
-//	};
-//
-//	CSoundBase():
-//		SoundMode(EFFECT_NONE)
-//		,SoundPointer(NULL)
-//		,SoundEffectPointer(NULL)
-//		,name(" ")
-//	{
-//
-//	}
-//	~CSoundBase()
-//	{
-//
-//	}
-//	ISound * SoundPointer;
-//	ISoundEffectControl* SoundEffectPointer;
-//	SoundEffectMode SoundMode;
-//	string name;
-//	Vector3 Pos;
-//};//only until i finish everything then i realize that i could have put them into class for better management =P
-class CMusicSystem
+#pragma once
+
+#include "Audio.h"
+
+#include <map>
+//#include <list>
+#include <vector>
+
+class CMusicSystem//the main music engine
 {
 public:
-	enum SoundEffectMode
-	{
-		EFFECT_NONE = 0,
-		EFFECT_DISTORTION,
-		EFFECT_ECHO,
-		EFFECT_WAVE,
-		EFFECT_CHORUS,
-		EFFECT_COMPRESSOR,
-		EFFECT_FLANGER,
-		EFFECT_GARGLE,
-		EFFECT_I3DL2,
-		EFFECT_PARAM,
-		EFFECT_TOTAL
-	};
+	ISoundEngine* engine;
 
+	typedef std::map<std::string,CAudio*> TAudioList;
+	typedef std::vector<std::string> TAudioTrackList;
+	TAudioList bgmList; // list of the real bgm audio;
+	TAudioList soundList;// list of the real sound audio;
+	TAudioTrackList bgmTrackList;//tracking of which current bgm track it is at.
+	TAudioTrackList soundTrackList;//tracking of which current bgm track it is at.
+	short currentBgmTrack;
+	short currentSoundTrack;
+	static CMusicSystem* instance;
 private:
-	//static const unsigned short MAXSOUND = 10;//whether #define or do static both can work.The difference is just that if don use define, outside cannot see
-	//static const unsigned short MAXBGM = 10;
-
-	static CMusicSystem * Instance;
-	ISoundEngine* MusicEngine;
-
-	ISound * BGM;
-	ISoundEffectControl* BGMfx;
-	SoundEffectMode BGMSoundEffectMode;
-	string BGMName;
-
-	ISound * SoundList[MAXSOUND];
-	ISoundEffectControl* SoundFx[MAXSOUND];
-	SoundEffectMode SoundEffectList[MAXSOUND];
-	string SoundNameList[MAXSOUND];
-	Vector3 SoundPosition[MAXSOUND];
-	//the fact that i am bubblesorting these parallel array.they are prone to mismatch,especially the Namelist.However,the program should still run fine.
-	//moving them to their own class will help to solve this management problem,but i am lazy to move them all now.
-
-	string BGMTracks[MAXBGM];
-	string SoundTracks[MAXSOUND];
-	unsigned short CurrentSoundTrack;
-	unsigned short CurrentBGMTrack;
-	
-protected:
-
-	bool inited;
-
-	CMusicSystem();
-	void RemoveAllMusic(bool removeTrack = false);
-	void ResetBGMVarible(bool removetrack = false);
-	void ResetBGMVarible(unsigned short position, bool removetrack = false);
-	void ResetSoundVarible(bool removetrack = false);
-	void ResetSoundVarible(unsigned short position, bool removetrack = false);
-
-
-
+	bool allSoundPaused;
+	bool allSoundMuted;
+	//unsigned short unregisteredAudioCount;
+private:
+	CMusicSystem(void);
+	bool Init();
+	bool CleanUp();
+	bool Release();
+	irrklang::ISound* CreateSampleAudio2D(const char* filename,bool withLoop = false ,bool withAudioEffect = true);
+	irrklang::ISound* CreateSampleAudio3D(const char* filename,irrklang::vec3df pos = irrklang::vec3df(0.f,0.f,0.f),bool withLoop = false ,bool withAudioEffect = true);
 public:
+	static CMusicSystem* GetInstance();
+	~CMusicSystem(void);
 
-	vec3df PlayerPosition;//i don care whether who can access =P
-	vec3df PlayerDirection;
-	~CMusicSystem();
-	static CMusicSystem * GetInstance();
+	//Search And Get CAudio obj from soundlist
+	CAudio* FindSound(std::string name);
+
+	//Search And Get CAudio obj from Bgm
+	CAudio* FindBgm(std::string name);
+
+	//add CAudio class to be managed under bgmlist,if nametoberegister is untouched, passed in audio name will be use to be registerd.
+	bool RegisterBgm(CAudio * a_audio, std::string nametoberegister = "nil" );
+
+	//add CAudio class to be managed under soundlist,if nametoberegister is untouched, passed in audio name will be use to be registerd.
+	bool RegisterSound(CAudio * a_audio, std::string nametoberegister = "nil");
 	
-	void playBGM(string name,bool soundeffect = false,SoundEffectMode mode =EFFECT_NONE );
-	void playSound(string name,bool soundeffect = false,SoundEffectMode mode =EFFECT_NONE);
-	void playBGMTrack(unsigned short position,bool soundeffect = false,SoundEffectMode mode =EFFECT_NONE);
-	void playSoundTrack(unsigned short position,bool soundeffect = false,SoundEffectMode mode =EFFECT_NONE);
-	void TraveseTrack(bool NextBgm,bool NextSound,bool forward = true,bool warp = false,bool OnSoundEffect = false,SoundEffectMode mode =EFFECT_NONE);
+	//Automatically create and add a CAudio class using the music filename inside bgmlist,if nametoberegister is untouched, passed in audio filename will be use to be registerd.
+	bool RegisterBgm2D(std::string filename,std::string nametoberegister = "nil" , bool withLoop = true ,bool withSoundEffectControl = true );
 
-	void InsertBGMTrack(string name);
-	void InsertSoundTrack(string name);
-	void InsertBGMTrack(string name,unsigned short position);
-	void InsertSoundTrack(string name,unsigned short position);
-
-	void setBGMVolume(int v);
-	void setBGMVolume(float v);
-	void setAllSoundVolume(int v);
-	void setAllSoundVolume(float v);
+	////Automatically create and add a CAudio class using the music filename inside soundlist,if nametoberegister is untouched, passed in audio filename will be use to be registerd.
+	bool RegisterSound2D(std::string filename, std::string nametoberegister = "nil", bool withLoop = false ,bool withSoundEffectControl = true);
 	
-	void MuteAll(bool mode = true);
-	void pauseAll(bool mode = true);
-	void StopAllMusic(bool soundOnly = false,bool bgmOnly = false);
-	void StopSoundTrack(unsigned short position,bool RemoveSoundTrack = false ); 
-
-	void SwitchBGMSoundEffect(SoundEffectMode mode,bool on = true);
-	void SwitchSoundEffect(SoundEffectMode mode,unsigned short position,bool on = true);
-
-	void AutoPlayNextTrack();
-
-	void printBGMTracks();
-	void printSoundTracks();
-	string printSoundEffectModeText(SoundEffectMode mode);
-	string CheckCurrentBGM();
-	string CheckCurrentSound();
-
-
-	unsigned short getCurrentSoundTrackPosition();
-	unsigned short getCurrentBGMTrackPosition();
-	unsigned short getLastBGMTrackCount();
-	unsigned short getLastSoundTrackCount();
-	void CheckUp();
-	void Test();
+	////Automatically create and add a CAudio class using the music filename inside bgmlist,if nametoberegister is untouched, passed in audio filename will be use to be registerd.
+	bool RegisterBgm3D(std::string filename,std::string nametoberegister = "nil",irrklang::vec3df pos = irrklang::vec3df(0.f,0.f,0.f), bool withLoop = true ,bool withSoundEffectControl = true );
 	
+	////Automatically create and add a CAudio class using the music filename inside soundlist,if nametoberegister is untouched, passed in audio filename will be use to be registerd.
+	bool RegisterSound3D(std::string filename, std::string nametoberegister = "nil",irrklang::vec3df pos = irrklang::vec3df(0.f,0.f,0.f), bool withLoop = false ,bool withSoundEffectControl = true);
+
+	//Manupilate a valid bgm track
+	bool PlayBgmTrack(unsigned short trackindex,bool setLoop = true);
+	bool PauseBgmTrack(unsigned short trackindex,bool pause = true);
+	bool PlayBgmTrack(std::string trackname,bool setLoop = true);
+	bool PauseBgmTrack(std::string trackname,bool pause = true);
+	bool EnableBgmTrackSoundEffect(std::string trackname);
+	bool EnableBgmTrackSoundEffect(unsigned short trackindex);
+	bool SetBgmTrackPlayPosition(std::string trackname,int millSecPosition);
+	bool SetBgmTrackPlayPosition(unsigned short trackindex,int millSecPosition);
+	bool ResetBgmTrackPlayPosition(std::string trackname);
+	bool ResetBgmTrackPlayPosition(unsigned short trackindex);
+
+	//Manupilate a valid sound track
+	bool PlaySoundTrack(unsigned short trackindex,bool setLoop = false);
+	bool PauseSoundTrack(unsigned short trackindex,bool pause = true);
+	bool PlaySoundTrack(std::string trackname,bool setLoop = false);
+	bool PauseSoundTrack(std::string trackname,bool pause = true);
+	bool EnableSoundTrackSoundEffect(std::string trackname);
+	bool EnableSoundTrackSoundEffect(unsigned short trackindex);
+	bool SetSoundTrackPlayPosition(std::string trackname,int millSecPosition);
+	bool SetSoundTrackPlayPosition(unsigned short trackindex,int millSecPosition);
+	bool ResetSoundTrackPlayPosition(std::string trackname);
+	bool ResetSoundTrackPlayPosition(unsigned short trackindex);
+
+	//mute all audio
+	bool Mute();
+
+	//unmute all audio
+	bool UnMute();
+
+	//resume all audio
+	bool Resume();
+
+	//pause all audio
+	bool Pause();
+
+	//stop all audio
+	bool StopAllSounds();
+
+	//traverse to next or previous officially registered bgm track
+	bool TranverseBGMTrack(bool forward = true, bool warp = true);
+
+	//traverse to next or previous officially registered sound track
+	bool TranverseSoundTrack(bool forward = true, bool warp = true);
+
+	//switch between pause or unpause all audio
+	bool TogglePause();
+
+	//switch between mute or unmute all audio
+	bool ToggleMute();
+
+	//check if the audio with the passed in name is still playing
+	bool CheckAudioIsPlaying(std::string audioname);
+
+	//check if the audio with the passed in name is still playing
+	bool CheckAudioIsPlaying(const char* audioname);
+
+	// Check Current Bgm track index
+	short GetCurrentBgmTrackIndex();
+
+	// Check Current sound track index
+	short GetCurrentSoundTrackIndex();
+
+	//set all audio to the volume.
+	bool SetAllAudioVolume(float volume);
+
+	//reset the whole music system
+	bool Reset();
+
+	//exit the music system
+	bool Exit();
+
+	//Creating irrklang sound pointer with protection,2D
+	irrklang::ISound* CreateIrrklangISound2D(const char* filename,bool playLooped = false,bool startPauseed  = false,bool track  = false ,irrklang::E_STREAM_MODE mode = irrklang::ESM_AUTO_DETECT,bool enableSoundEffect = false);
+	//Creating irrklang sound pointer with protection,3D
+	irrklang::ISound* CreateIrrklangISound3D(const char* filename,irrklang::vec3df pos,bool playLooped = false,bool startPauseed  = false,bool track  = false ,irrklang::E_STREAM_MODE mode = irrklang::ESM_AUTO_DETECT,bool enableSoundEffect = false);
+
+	//print out some debug information
+	void PrintSoundListSize();
+	void PrintBgmListSize();
+	void PrintDebugInformation();
+	void PrintBgmTrackList();
+	void PrintSoundTrackList();
 };
 
-
-
-
-
-
-
-
-
-///////////////////////////////
-////Author:: Kee Yang
-//////////////////////////////
