@@ -95,6 +95,7 @@
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="ObjLoader.c" />
     <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="RandomGeneratorSystem\RandomGenerator.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="tgaLoader.c" />
@@ -128,6 +129,7 @@
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="PowerUp.h" />
     <ClInclude Include="RandomGeneratorSystem\MathPlus.h" />
     <ClInclude Include="RandomGeneratorSystem\RandomGenerator.h" />
     <ClInclude Include="RenderUntilty.h" />

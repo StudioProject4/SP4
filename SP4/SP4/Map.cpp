@@ -10,6 +10,7 @@ CMap::CMap(void)
 , theNumOfTiles_MapHeight(0)
 , theNumOfTiles_MapWidth(0)
 , theTileSize(0)
+, LevelCount(1)
 {
 	theScreenMap.clear();
 }
