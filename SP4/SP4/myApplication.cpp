@@ -103,7 +103,7 @@ bool myApplication::Update()
 		}
 		if(keyboard->myKeys['w'])
 		{
-		
+			playerOne->Jump();
 		}
 		if(keyboard->myKeys['s'])
 		{
@@ -123,7 +123,7 @@ bool myApplication::Update()
 		}
 		if(keyboard->myKeys['i'] == true)
 		{
-
+			playerTwo->Jump();
 		}
 		if(keyboard->myKeys[VK_ESCAPE] == true)
 		{
@@ -138,6 +138,10 @@ bool myApplication::Update()
 		theAI->SetEnemyPos(playerOne->pos);
 		theAI->Update();
 	}
+
+	playerOne->Update();
+	playerTwo->Update();
+
 	return true;
 }
 void myApplication::Render2D()

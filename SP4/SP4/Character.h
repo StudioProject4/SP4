@@ -14,8 +14,9 @@ class CCharacter : public CBaseObject
 		void Jump();
 		void MoveLeft();
 		void MoveRight();
+		void SetPlayerID(int theID);
 
 		CPhysics thePhysics;
 	private:
-		int PlayerID;
+		int playerID;
 };
