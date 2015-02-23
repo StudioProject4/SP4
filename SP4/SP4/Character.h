@@ -1,6 +1,9 @@
 #pragma once
 #include "BaseObject.h"
 #include "Physics.h"
+#include "HealthSystem.h"
+#include "PointSystem.h"
+#include <time.h>
 
 class CCharacter : public CBaseObject
 {
@@ -9,6 +12,7 @@ class CCharacter : public CBaseObject
 		{
 			pos = (0,0,0);
 			dir = (0,0,0);
+			invultimer = clock();
 		};
 		virtual ~CCharacter(){};
 		void Jump();
@@ -17,6 +21,9 @@ class CCharacter : public CBaseObject
 		void SetPlayerID(int theID);
 
 		CPhysics thePhysics;
+		CHealthSystem hp;
+		CPointSystem points;
+		clock_t invultimer;
 	private:
-		int playerID;
+		int playerID;	
 };

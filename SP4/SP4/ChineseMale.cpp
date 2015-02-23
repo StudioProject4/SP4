@@ -57,6 +57,28 @@ bool CChineseMale :: CleanUp()
 }
 bool CChineseMale :: OnCollision(CBaseObject* a_obj)
 {
+	if(a_obj->genericTag = "Character")
+	{
+		//nothing
+	}
+	if(a_obj->genericTag = "Enemy")
+	{
+		if(a_obj->genericTag = "MalayMob")
+		{
+			if(clock() - invultimer > 5000)
+			{
+				hp.TakeDMG();
+			}
+		}
+	}
+	if(a_obj->genericTag = "Powerup")
+	{
+		//to be continued when powerups are done
+	}
+	if(a_obj->genericTag = "Obstacle")
+	{
+		//to be continued when powerups are done
+	}
 	return true;
 }
 bool CChineseMale :: Render()

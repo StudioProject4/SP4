@@ -18,7 +18,8 @@
 #include "MenuState.h"
 #include "MalayFemale.h"
 #include "ChineseMale.h"
-#include "AI.h"
+#include "ChineseMob.h"
+#include "MalayMob.h"
 #include "WindowManager.h"
 #include "MusicSystem\MusicSystem.h"
 
@@ -72,7 +73,8 @@ private:
 	//temp instance until object manager is done
 	CChineseMale * playerOne; 
 	CMalayFemale * playerTwo;
-	CAILogic * theAI;
+	CMalayMob * theAIOne;
+	CChineseMob * theAITwo;
 
 	//void printw (float x, float y, float z, char* format, ...);
 	//void calculateFPS();

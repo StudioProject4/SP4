@@ -28,7 +28,7 @@ void CAILogic :: DetectionCheck ()
 	//check for walls
 	if((enemyPos.x <= (pos.x + detectionRange)) && (enemyPos.x >= (pos.x - detectionRange)))
 	{
-		if(enemyPos.y == pos.y)
+		//if(enemyPos.y == pos.y)
 		{
 			targetPosition = enemyPos;
 			ChangeState(AI_PURSUE);
@@ -64,7 +64,7 @@ void CAILogic :: IdleWanderRandomizer ()
 	}
 }
 
-bool CAILogic :: Update()
+Vector3 CAILogic :: Update()
 {
 	StateCheck();
 
@@ -72,11 +72,17 @@ bool CAILogic :: Update()
 	{
 		if(targetPosition.x > pos.x)
 		{
+			dir.x = 1;
 			pos.x += 2;
 		}
-		if(targetPosition.x < pos.x)
+		else if(targetPosition.x < pos.x)
 		{
+			dir.x = -1;
 			pos.x -= 2;	
+		}
+		else
+		{
+			dir.x = 0;
 		}
 	}
 	if(state == AI_WANDER)
@@ -90,59 +96,41 @@ bool CAILogic :: Update()
 
 		if(tempint == 1)
 		{
+			dir.x = 1;
 			pos.x = pos.x + 2;
 		}
 		else if (tempint == 2)
 		{
+			dir.x = -1;
 			pos.x = pos.x - 2;
 		}
+		else
+		{
+			dir.x = 0;
+		}
 	}
-	return true;
+	return pos;
 }
 
 bool CAILogic :: Init()
 {
+	pos = Vector3(0,-28.008003,0);
+	dir = Vector3(0,0,0);
+
 	wanderTimer = clock();
 	idleWanderTimer = clock();
 	state = AI_IDLE;
 	detectionRange = 100;
 	
-	name = "GenericMalayKid";
-	tag = "MalayFemale";
-	genericTag = "Character";
-	
-	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("sonia2.tga");
-	
-	return true;
-}
-
-bool CAILogic :: Reset()
-{
-	return Init();
-}
-
-bool CAILogic :: CleanUp()
-{
-	return true;
-}
-
-bool CAILogic :: OnCollision(CBaseObject* a_obj)
-{
-	return true;
-}
-
-bool CAILogic :: Render()
-{
-	glPushMatrix();
-	glTranslatef(pos.x,pos.y,pos.z);
-	theSprite->Render();
-	glPopMatrix();
-
 	return true;
 }
 
 void CAILogic :: SetEnemyPos(Vector3 & enemyPos)
 {
 	this->enemyPos = enemyPos;
+}
+
+Vector3 CAILogic :: GetDir()
+{
+	return dir;
 }

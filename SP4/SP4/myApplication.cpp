@@ -31,12 +31,16 @@ bool myApplication::CleanUp()
 		delete playerTwo;
 		playerTwo - NULL;
 	}
-	if(theAI != NULL)
+	if(theAIOne != NULL)
 	{
-		delete theAI;
-		theAI = NULL;
+		delete theAIOne;
+		theAIOne = NULL;
 	}
-
+	if(theAITwo != NULL)
+	{
+		delete theAITwo;
+		theAITwo = NULL;
+	}
 	if(instance != NULL)
 	{
 		Release();
@@ -85,7 +89,8 @@ bool myApplication::Init()
 
 	playerOne = new CChineseMale();
 	playerTwo = new CMalayFemale();
-	theAI = new CAILogic();
+	theAIOne = new CMalayMob();
+	theAITwo = new CChineseMob();
 
 	return true;
 }
@@ -135,8 +140,10 @@ bool myApplication::Update()
 		}
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
-		theAI->SetEnemyPos(playerOne->pos);
-		theAI->Update();
+		theAIOne->AI.SetEnemyPos(playerOne->pos);
+		theAIOne->Update();
+		theAITwo->AI.SetEnemyPos(playerTwo->pos);
+		theAITwo->Update();
 	}
 
 	playerOne->Update();
@@ -155,7 +162,8 @@ void myApplication::Render2D()
 	FRM->drawFPS();
 	playerOne->Render();
 	playerTwo->Render();
-	theAI->Render();
+	theAIOne->Render();
+	theAITwo->Render();
 }
 void myApplication::Render3D()
 {

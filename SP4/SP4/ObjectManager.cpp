@@ -20,6 +20,7 @@ bool CObjectManager::Update()
 		if( (*it)->active == true)
 		{
 			(*it)->Update();
+		
 			(*it)->Render();
 		}else
 		{
