@@ -72,9 +72,6 @@
     <ClCompile Include="RandomGeneratorSystem\RandomGenerator.cpp">
       <Filter>Helper\RandomGenerator</Filter>
     </ClCompile>
-    <ClCompile Include="MusicSystem\MusicSystem.cpp">
-      <Filter>Helper\MusicSystem</Filter>
-    </ClCompile>
     <ClCompile Include="GameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -118,6 +115,18 @@
       <Filter>Helper\RenderHelper</Filter>
     </ClCompile>
     <ClCompile Include="ObstacleBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicSystem\MusicSystem.cpp">
+      <Filter>Helper\MusicSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Helper\RenderHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PointSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -191,12 +200,6 @@
     <ClInclude Include="RandomGeneratorSystem\RandomGenerator.h">
       <Filter>Helper\RandomGenerator</Filter>
     </ClInclude>
-    <ClInclude Include="MusicSystem\DatabaseTool.h">
-      <Filter>Helper\MusicSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="MusicSystem\MusicSystem.h">
-      <Filter>Helper\MusicSystem</Filter>
-    </ClInclude>
     <ClInclude Include="Mind.h">
       <Filter>Helper\CustomDataType</Filter>
     </ClInclude>
@@ -245,13 +248,22 @@
     <ClInclude Include="ObstacleBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MusicSystem\Audio.h">
+      <Filter>Helper\MusicSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicSystem\MusicSystem.h">
+      <Filter>Helper\MusicSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PointSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="RandomGeneratorSystem\Note.txt">
       <Filter>Helper\RandomGenerator</Filter>
-    </None>
-    <None Include="MusicSystem\Note.txt">
-      <Filter>Helper\MusicSystem</Filter>
     </None>
   </ItemGroup>
 </Project>

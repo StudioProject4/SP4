@@ -4,8 +4,9 @@
 #include "LuaManager.h"
 #include "FrameRateManager.h"
 #include "GameStateManager.h"
+#include "MusicSystem\MusicSystem.h"
 #include "myApplication.h"
-#include <iostream>
+
 
 CMenuState* CMenuState::instance;
 
@@ -105,6 +106,24 @@ void CMenuState::KeyboardDown(unsigned char key, int x, int y)
 {
 	//printf("\nMenuState KeyboardDown");
 	keyboard->myKeys[key] = true;
+
+	switch(key)
+	{
+		case '1':
+			this->PrintDebugInformation();
+			//mouse->PrintDebugInformation();
+		break;
+
+		case '2':
+			CGameStateManager::GetInstance()->ChangeState(myApplication::GetInstance());
+			this->PrintDebugInformation();
+		break;
+
+		case '3':
+			MS->PrintBgmTrackList();
+			MS->TranverseBGMTrack(false);
+			break;
+	}
 }
 
 void CMenuState::KeyboardUp(unsigned char key, int x, int y)
@@ -182,25 +201,26 @@ void CMenuState::changeSize (int w, int h)
 bool CMenuState::Update()
 {
 	//printf("\nMenuState Update");
-	
+		//	if(keyboard->myKeys['1'] == true)
+		//{
+		//	this->PrintDebugInformation();
+		//	//WM->PrintDebugInformation();
+		//	//this->PrintDebugInformation();
+		//	//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
+		//	//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
+		//}
+		//if(keyboard->myKeys['2'] == true)
+		//{
+		//	CGameStateManager::GetInstance()->ChangeState(myApplication::GetInstance());
+		//}
+
+	if(keyboard->myKeys[VK_ESCAPE] == true)
+	{
+		exit(0);
+	}
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
-		if(keyboard->myKeys['1'] == true)
-		{
-			this->PrintDebugInformation();
-			//WM->PrintDebugInformation();
-			//this->PrintDebugInformation();
-			//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
-			//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
-		}
-		if(keyboard->myKeys['2'] == true)
-		{
-			CGameStateManager::GetInstance()->ChangeState(myApplication::GetInstance());
-		}
-		if(keyboard->myKeys[VK_ESCAPE] == true)
-		{
-			exit(0);
-		}
+
 	}
 
 	return true;
@@ -218,6 +238,7 @@ bool CMenuState::Init()
 	FRM = CFrameRateManager::GetInstance();
 	LM = CLuaManager::GetInstance();
 	WM = CWindowManager::GetInstance();
+	MS = CMusicSystem::GetInstance();
 
 	glEnable(GL_TEXTURE_2D);
 

@@ -57,6 +57,16 @@ int main(int argc, char **argv )
 		CWindowManager* WM = CWindowManager::GetInstance();
 		CGameStateManager* GSM = CGameStateManager::GetInstance();
 		CLuaManager* LM = CLuaManager::GetInstance();
+		CMusicSystem* MS = CMusicSystem::GetInstance();
+		MS->RegisterBgm2D("bgm1.mp3");
+		MS->RegisterBgm2D("bgm2.mp3");
+		MS->RegisterBgm2D("bgm3.mp3");
+		MS->RegisterBgm2D("bgm4.mp3");
+		MS->RegisterBgm2D("bgm5.mp3");
+		MS->RegisterBgm2D("bgm6.mp3");
+		MS->RegisterBgm2D("bgm7.mp3");
+		MS->RegisterBgm2D("bgm8.mp3");
+		MS->RegisterBgm2D("bgm9.mp3");
 		LM->Init("mylua.lua");
 		
 
@@ -79,7 +89,7 @@ int main(int argc, char **argv )
 		glutDisplayFunc(renderScene);
 		glutIdleFunc(update);
 		//	glutSpecialFunc(inputKey);
-		glutIdleFunc(renderScene);
+		//glutIdleFunc(renderScene);
 		glutSpecialFunc(inputKey);
 		glutKeyboardFunc(KeyboardDown);
 		glutKeyboardUpFunc(KeyboardUp);
