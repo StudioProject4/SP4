@@ -121,7 +121,7 @@ void CMenuState::KeyboardDown(unsigned char key, int x, int y)
 
 		case '3':
 			MS->PrintBgmTrackList();
-			MS->TranverseBGMTrack(false);
+			MS->TranverseBgmTrack(false);
 			break;
 	}
 }

@@ -58,6 +58,8 @@ int main(int argc, char **argv )
 		CGameStateManager* GSM = CGameStateManager::GetInstance();
 		CLuaManager* LM = CLuaManager::GetInstance();
 		CMusicSystem* MS = CMusicSystem::GetInstance();
+		MS->RegisterSound2D("sound1.mp3");
+		MS->RegisterSound2D("sound2.mp3");
 		MS->RegisterBgm2D("bgm1.mp3");
 		MS->RegisterBgm2D("bgm2.mp3");
 		MS->RegisterBgm2D("bgm3.mp3");

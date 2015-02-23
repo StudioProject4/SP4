@@ -11,10 +11,12 @@ class CMusicSystem//the main music engine
 public:
 	ISoundEngine* engine;
 
-	typedef std::map<std::string,CAudio*> TAudioList;
+	typedef std::map<std::string,CAudio*> TAudioMap;
 	typedef std::vector<std::string> TAudioTrackList;
-	TAudioList bgmList; // list of the real bgm audio;
-	TAudioList soundList;// list of the real sound audio;
+	typedef std::vector<CAudio*> TAudioList;
+	TAudioMap bgmList; // list of the real  bgm audio;
+	TAudioMap soundList;// list of the sample sound audio;
+	TAudioList soundPool;//the pool of the real sound
 	TAudioTrackList bgmTrackList;//tracking of which current bgm track it is at.
 	TAudioTrackList soundTrackList;//tracking of which current bgm track it is at.
 	short currentBgmTrack;
@@ -31,9 +33,13 @@ private:
 	bool Release();
 	irrklang::ISound* CreateSampleAudio2D(const char* filename,bool withLoop = false ,bool withAudioEffect = true);
 	irrklang::ISound* CreateSampleAudio3D(const char* filename,irrklang::vec3df pos = irrklang::vec3df(0.f,0.f,0.f),bool withLoop = false ,bool withAudioEffect = true);
+
 public:
 	static CMusicSystem* GetInstance();
 	~CMusicSystem(void);
+
+
+	CAudio* FetchSound();
 
 	//Search And Get CAudio obj from soundlist
 	CAudio* FindSound(std::string name);
@@ -99,10 +105,17 @@ public:
 	bool StopAllSounds();
 
 	//traverse to next or previous officially registered bgm track
-	bool TranverseBGMTrack(bool forward = true, bool warp = true);
+	bool TranverseBgmTrack(bool forward = true, bool warp = true);
+	//reset previous bgm play position and play the requested bgm name;
+	//bool SwitchBgmTrack(std::string audioname);
+	////reset previous bgm play position and play the requested bgm track;
+	//bool SwitchBgmTrack(unsigned short trackindex);
 
 	//traverse to next or previous officially registered sound track
 	bool TranverseSoundTrack(bool forward = true, bool warp = true);
+	////reset previous sound play position and play the requested sound name;
+	//bool SwitchSoundTrack(std::string audioname);
+	//bool SwitchSoundTrack(unsigned short trackindex);
 
 	//switch between pause or unpause all audio
 	bool TogglePause();
@@ -116,8 +129,14 @@ public:
 	//check if the audio with the passed in name is still playing
 	bool CheckAudioIsPlaying(const char* audioname);
 
+	//Get Current Bgm Object
+	inline CAudio* GetCurrentBgm();
+
+	//Get Current Sound Object
+	inline CAudio* GetCurrentSound();
+
 	// Check Current Bgm track index
-	short GetCurrentBgmTrackIndex();
+	inline short GetCurrentBgmTrackIndex();
 
 	// Check Current sound track index
 	short GetCurrentSoundTrackIndex();
@@ -137,10 +156,18 @@ public:
 	irrklang::ISound* CreateIrrklangISound3D(const char* filename,irrklang::vec3df pos,bool playLooped = false,bool startPauseed  = false,bool track  = false ,irrklang::E_STREAM_MODE mode = irrklang::ESM_AUTO_DETECT,bool enableSoundEffect = false);
 
 	//print out some debug information
+	void PrintCurrentBgmTrack();
+	void PrintCurrentSoundTrack();
 	void PrintSoundListSize();
 	void PrintBgmListSize();
 	void PrintDebugInformation();
 	void PrintBgmTrackList();
 	void PrintSoundTrackList();
+	void PrintSoundPoolList();
+	void PrintSoundPoolListSize();
+
+	//under testing
+	bool PlaySoundPoolTrack2D(std::string trackname,bool setLoop = false,bool audioEffect = true);
+	bool PlaySoundPoolTrack3D(std::string trackname,irrklang::vec3df pos = irrklang::vec3df(0.f,0.f,0.f),bool setLoop = false,bool audioEffect = true);
 };
 

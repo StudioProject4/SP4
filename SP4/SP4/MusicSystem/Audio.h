@@ -13,15 +13,19 @@ class CAudio//provding a ease of level of control and bad pointer protection
 public:
 	bool active;//to mark whether this isound is using,not to be confused with check with isPlaying.because of the way some sound is organized for play and some are not,addition marking is needed
 	ISound* audio;
+	unsigned short dimension;
 	ISoundEffectControl* audioEffectControl;
 	std::string audioname;
 	std::string filename;
+	unsigned short id;
 private:
 	//irrklang::vec3df* position;
 public:
 	CAudio()
 		:
 		active(false)
+		,id(0)
+		,dimension(2)
 		,audio(0)
 		,audioEffectControl(0)
 		,audioname("nil")
@@ -49,7 +53,14 @@ public:
 		}
 		return false;
 	}
-
+	inline void SetDimension(unsigned short numOfD)
+	{
+		this->dimension = numOfD;
+	}
+	inline unsigned short GetDimension()
+	{
+		return this->dimension;
+	}
 	inline bool SetPlayPosition(int millisecPosition)
 	{
 		if(audio)
@@ -330,7 +341,7 @@ public:
 		}
 		return false;
 	}
-	inline bool CheckIsFinised()
+	inline bool CheckIsFinished()
 	{
 		if(audio)
 		{
@@ -431,7 +442,14 @@ public:
 		}
 		return false;
 	}
-
+	inline unsigned short GetId()
+	{
+		return this->id;
+	}
+	inline void SetId(unsigned short id)
+	{
+		this->id = id;
+	}
 	inline void SetFileName(std::string filename)
 	{
 		this->filename = filename;
@@ -457,9 +475,29 @@ public:
 	{
 		return audioname;
 	}
+	inline void PrintDebugId()
+	{
+		std::cout<<"Audio ID: "<< id<<std::endl;
+	}
+	inline void PrintDebugIsPaused()
+	{
+		printf("Paused: %s", this->CheckIsPaused()?"true":"false\n");
+	}
+	inline void PrintDebugIsFinished()
+	{
+		printf("Finished: %s", this->CheckIsFinished()?"true":"false\n");
+	}
+	inline void PrintDebugIsLooped()
+	{
+		printf("Looped: %s", this->CheckIsLooped()?"true":"false\n");
+	}
+	inline void PrintDebugPlayPosition()
+	{
+		std::cout<<"Play Position: "<< GetPlayPosition()<<std::endl;
+	}
 	inline void PrintDebugPosition()
 	{
-		std::cout<<"Position: X:"<<GetPositionX()<<" , "<<GetPositionY()<<" , "<<GetPositionZ()<<std::endl;
+		std::cout<<"Position: X: "<<GetPositionX()<<" , "<<GetPositionY()<<" , "<<GetPositionZ()<<std::endl;
 	}
 	inline void PrintDebugFileName()
 	{
@@ -474,10 +512,22 @@ public:
 		std::cout<<"Audio Pointer: "<<audio<<std::endl;
 		std::cout<<"Audio SFX Pointer: "<<audioEffectControl<<std::endl;
 	}
+	inline void PrintDebugNumberOfDimension()
+	{
+		std::cout<<"Dimension: "<<dimension<<std::endl;
+	}
 	inline void PrintDebugInformation()
 	{	
-		PrintDebugPosition();
+		std::cout<<std::endl;
+		PrintDebugPointer();
+		PrintDebugId();
+		PrintDebugNumberOfDimension();
 		PrintDebugFileName();
 		PrintDebugAudioName();
+		PrintDebugIsPaused();
+		PrintDebugIsLooped();
+		PrintDebugIsFinished();
+		PrintDebugPlayPosition();
+		PrintDebugPosition();
 	};
 };

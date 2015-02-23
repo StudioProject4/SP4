@@ -210,18 +210,43 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 	switch(key)
 	{
 		case '1':
-			this->PrintDebugInformation();
+			//this->PrintDebugInformation();
 			//mouse->PrintDebugInformation();
+			//MS->PlayBgmTrack("bgm1.mp3");
+			//MS->PlaySoundTrack(0);
+			//std::cout<<MS->currentSoundTrack<<std::endl;
+			//MS->FetchSound()->PrintDebugInformation();
+			MS->PlaySoundPoolTrack2D("sound1.mp3");
+			
 		break;
 
 		case '2':
-			CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
-			this->PrintDebugInformation();
+			//CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
+			//this->PrintDebugInformation();
+			//MS->PlayBgmTrack("bgm2.mp3");
+			//MS->PlaySoundTrack(1);
+			//std::cout<<MS->currentSoundTrack<<std::endl;
+			MS->PlaySoundPoolTrack2D("sound2.mp3");
+			
 		break;
-
+		
 		case '3':
-			MS->PrintBgmTrackList();
-			MS->TranverseBGMTrack();
+			MS->PrintSoundPoolList();
+			//MS->TranverseSoundTrack();
+			
+			break;
+		case '4':
+			MS->PrintCurrentSoundTrack();
+			
+			break;
+		case '5':
+			MS->ResetSoundTrackPlayPosition(MS->currentSoundTrack);
+			break;
+		case '6':
+			MS->PrintSoundTrackList();
+			break;
+		case '7':
+			MS->Exit();
 			break;
 	}
 }
