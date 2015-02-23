@@ -44,12 +44,16 @@ bool myApplication::CleanUp()
 		delete playerTwo;
 		playerTwo - NULL;
 	}
-	if(theAI != NULL)
+	if(theAIOne != NULL)
 	{
-		delete theAI;
-		theAI = NULL;
+		delete theAIOne;
+		theAIOne = NULL;
 	}
-
+	if(theAITwo != NULL)
+	{
+		delete theAITwo;
+		theAITwo = NULL;
+	}
 	if(instance != NULL)
 	{
 		Release();
@@ -115,7 +119,8 @@ bool myApplication::Init()
 
 	playerOne = new CChineseMale();
 	playerTwo = new CMalayFemale();
-	theAI = new CAILogic();
+	theAIOne = new CMalayMob();
+	theAITwo = new CChineseMob();
 
 	 mapOffset_x =  mapOffset_y=
 	 tileOffset_x =tileOffset_y=
@@ -211,8 +216,10 @@ bool myApplication::Update()
 		}
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
-		theAI->SetEnemyPos(playerOne->pos);
-		theAI->Update();
+		theAIOne->AI.SetEnemyPos(playerOne->pos);
+		theAIOne->Update();
+		theAITwo->AI.SetEnemyPos(playerTwo->pos);
+		theAITwo->Update();
 	}
 
 	playerOne->Update();
@@ -292,7 +299,21 @@ void myApplication::Render2D()
 	//drawFPS();
 	FRM->drawFPS();
 
+
 	if(Map->Level == 1)
+
+	playerOne->Render();
+	playerTwo->Render();
+	theAIOne->Render();
+	theAITwo->Render();
+//	PowerUp->Update();
+
+
+	RenderBackground();
+	RenderTileMap();
+	glPushMatrix();
+	for(int i = 0; i < theNumOfTiles_Height; i ++)
+
 	{
 		RenderBackground();
 		RenderTileMap();
@@ -369,7 +390,6 @@ void myApplication::Render2D()
 //	PowerUp->Update();
 
 	
-
 }
 void myApplication::Render3D()
 {
@@ -428,18 +448,43 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 	switch(key)
 	{
 		case '1':
-			this->PrintDebugInformation();
+			//this->PrintDebugInformation();
 			//mouse->PrintDebugInformation();
+			//MS->PlayBgmTrack("bgm1.mp3");
+			//MS->PlaySoundTrack(0);
+			//std::cout<<MS->currentSoundTrack<<std::endl;
+			//MS->FetchSound()->PrintDebugInformation();
+			MS->PlaySoundPoolTrack2D("sound1.mp3");
+			
 		break;
 
 		case '2':
-			CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
-			this->PrintDebugInformation();
+			//CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
+			//this->PrintDebugInformation();
+			//MS->PlayBgmTrack("bgm2.mp3");
+			//MS->PlaySoundTrack(1);
+			//std::cout<<MS->currentSoundTrack<<std::endl;
+			MS->PlaySoundPoolTrack2D("sound2.mp3");
+			
 		break;
-
+		
 		case '3':
-			MS->PrintBgmTrackList();
-			MS->TranverseBGMTrack();
+			MS->PrintSoundPoolList();
+			//MS->TranverseSoundTrack();
+			
+			break;
+		case '4':
+			MS->PrintCurrentSoundTrack();
+			
+			break;
+		case '5':
+			MS->ResetSoundTrackPlayPosition(MS->currentSoundTrack);
+			break;
+		case '6':
+			MS->PrintSoundTrackList();
+			break;
+		case '7':
+			MS->Exit();
 			break;
 	}
 }

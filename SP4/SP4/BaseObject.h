@@ -3,10 +3,12 @@
 
 #include "Vector3.h"
 #include "Entity.h"
+#include "Physics.h"
 
 class CBaseObject:public CEntity
 {
 public:
+	CPhysics phys;
 	bool active;
 	Vector3 pos;
 	Vector3 dir;

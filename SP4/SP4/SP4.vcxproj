@@ -86,6 +86,7 @@
     <ClCompile Include="HealthSystem.cpp" />
     <ClCompile Include="KennardTestState.cpp" />
     <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="LeverDoor.cpp" />
     <ClCompile Include="LuaManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MalayFemale.cpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="HealthSystem.h" />
     <ClInclude Include="KennardTestState.h" />
     <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="LeverDoor.h" />
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="MalayFemale.h" />
     <ClInclude Include="Map.h" />

@@ -18,7 +18,8 @@
 #include "MenuState.h"
 #include "MalayFemale.h"
 #include "ChineseMale.h"
-#include "AI.h"
+#include "ChineseMob.h"
+#include "MalayMob.h"
 #include "WindowManager.h"
 
 #include "PowerUp.h"
@@ -79,7 +80,8 @@ private:
 	//temp instance until object manager is done
 	CChineseMale * playerOne; 
 	CMalayFemale * playerTwo;
-	CAILogic * theAI;
+	CMalayMob * theAIOne;
+	CChineseMob * theAITwo;
 	CMap* Map;
 	CPowerUp* PowerUp;
 	CPhysics* Physics;

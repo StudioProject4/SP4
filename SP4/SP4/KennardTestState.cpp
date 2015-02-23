@@ -102,7 +102,7 @@ void KennardTestState::SetHUD(bool m_bHUDmode)
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
-		glOrtho( 0, WM->GetWindowWidth() , WM->GetWindowHeight(), 0, -1, 1 );  
+		glOrtho( 0, WM->GetWindowWidth() ,0 ,WM->GetWindowHeight() , -1, 1 );  
 		//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
 		//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
 		glMatrixMode(GL_MODELVIEW);
@@ -125,13 +125,16 @@ KennardTestState* KennardTestState::s_instance=0;
 
 void KennardTestState::Render2D()
 {
+	test.Render();
+	theLever.Render();
+	/*
 	glEnable(GL_TEXTURE_2D);
 	glPushMatrix();
 	glColor3f(1,1,1);
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 		glTranslatef(pos.x,pos.y,0);
 		cout<<pos<<"\n";
-		glScalef(100,100,0);
+		glScalef(50,50,0);
 		glBindTexture(GL_TEXTURE_2D,this->testimage.texID);
 		glBegin (GL_TRIANGLE_STRIP);
 			glNormal3f(0,0,1);
@@ -149,6 +152,7 @@ void KennardTestState::Render2D()
 		glEnd();
 	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
+	*/
 }
 
 void KennardTestState::Render3D()
@@ -183,19 +187,42 @@ bool KennardTestState::Update()
 	if(keyboard->myKeys[' '])
 	{
 		keyboard->myKeys[' ']=false;
-		testphys.Jump();
+		test.phys.Jump();
 	}
 	if(keyboard->myKeys['d'])
 	{
-		pos.x+=0.1;
-		cout<<pos.x<<"\n";
+		test.phys.vel.x=30;
+		cout<<test.pos.x<<"\n";
 	}
-	if(keyboard->myKeys['a'])
+	else if(keyboard->myKeys['a'])
 	{
-		pos.x-=0.1;
-		cout<<pos.x<<"\n";
+		test.phys.vel.x=-30;
+		cout<<test.pos.x<<"\n";
 	}
-	pos=testphys.Update(pos);
+	else 
+	{
+		test.phys.vel.x=0;
+	}
+	if(keyboard->myKeys['-'])
+	{
+		theLever.curAngle--;
+		cout<<theLever.curAngle<<"\n";
+	}
+	if(keyboard->myKeys['='])
+	{
+		theLever.curAngle++;
+		cout<<theLever.curAngle<<"\n";
+	}
+	
+	test.Update();
+	
+	theLever.Update();
+	
+	if(test.phys.TestCol(theLever.pos,theLever.phys.size))
+	{
+		theLever.OnCollision(&test);
+	}
+
 	return true;
 }
 
@@ -208,8 +235,8 @@ bool KennardTestState::Init()
 	mouse = CMouse::GetInstance();
 	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
-	pos.Set(100,100,0);
-	testphys.Init(pos,Vector3(100,100,1));
+	test.Init(Vector3(100,100,0),Vector3(),0);
+	theLever.Init(Vector3(400,80,0),Vector3(5,50));
 	return true;
 }
 

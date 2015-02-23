@@ -1,11 +1,9 @@
 #pragma once
 #include "Vector3.h"
-#include "BaseObject.h"
-#include "Sprite.h"
 #include <stdlib.h>
 #include <time.h>
 
-class CAILogic : public CBaseObject
+class CAILogic
 {
 
 	enum AIState
@@ -24,22 +22,19 @@ class CAILogic : public CBaseObject
 		void FindPath();
 		void IdleWanderRandomizer();
 		void SetEnemyPos(Vector3 & enemyPos);
+		Vector3 GetDir();
 
-		bool Update();
+		Vector3 Update();
 		bool Init();
-		bool Reset();
-		bool CleanUp();
-		bool Render();
-
-		bool OnCollision(CBaseObject* a_obj);
 
 	private:
+		Vector3 pos;
+		Vector3 dir;
 		AIState state;
 		Vector3 targetPosition;
 		Vector3 enemyPos;
 		float detectionRange;
 		float movementSpeed;
-		CSprite * theSprite;
 		clock_t idleWanderTimer;
 		clock_t wanderTimer;
 };

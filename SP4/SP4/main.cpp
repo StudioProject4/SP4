@@ -58,6 +58,8 @@ int main(int argc, char **argv )
 		CGameStateManager* GSM = CGameStateManager::GetInstance();
 		CLuaManager* LM = CLuaManager::GetInstance();
 		CMusicSystem* MS = CMusicSystem::GetInstance();
+		MS->RegisterSound2D("sound1.mp3");
+		MS->RegisterSound2D("sound2.mp3");
 		MS->RegisterBgm2D("bgm1.mp3");
 		MS->RegisterBgm2D("bgm2.mp3");
 		MS->RegisterBgm2D("bgm3.mp3");
@@ -73,8 +75,8 @@ int main(int argc, char **argv )
 		glutInit(&argc, argv);
 		glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 		WM->Init(LM->GetWithCheckNumber<int>("WINDOW_WIDTH"),LM->GetWithCheckNumber<int>("WINDOW_HEIGHT"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"),LM->GetWithCheckBoolean("FULLSCREEN"),LM->GetWithCheckString("PROGRAM_NAME").c_str());
-		GSM->ChangeState(myApplication::GetInstance());
-		//GSM->ChangeState(KennardTestState::GetInstance());
+		//GSM->ChangeState(myApplication::GetInstance());
+		GSM->ChangeState(KennardTestState::GetInstance());
 
 		//glutInitWindowPosition(LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"));
 		//glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
