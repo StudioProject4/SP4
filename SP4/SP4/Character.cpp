@@ -18,3 +18,8 @@ void CCharacter :: MoveRight()
 	temppos.x = temppos.x + 100;
 	pos.x = temppos.x;
 }
+
+void CCharacter :: SetPlayerID(int theID)
+{
+	playerID = theID;
+}

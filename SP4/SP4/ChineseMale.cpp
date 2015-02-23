@@ -26,7 +26,7 @@ bool CChineseMale :: Init(Vector3 newPos,Vector3 newDir,int entityID)
 
 bool CChineseMale :: Update()
 {
-	thePhysics.Update(pos);
+	pos = thePhysics.Update(pos);
 	return true;
 }
 
@@ -39,7 +39,9 @@ bool CChineseMale :: Init()
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("sonia2.tga");
 
-	thePhysics.Init(pos,(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
+	thePhysics.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
+
+	SetPlayerID(1);
 
 	return true;
 }

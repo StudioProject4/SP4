@@ -10,8 +10,8 @@ using namespace std;
 
 //this old method needs to be upgraded with lua import variable method.
 #define SCREEN_WIDTH 960
-#define SCREEN_HEIGHT 672
-#define TILE_SIZE 96		
+#define SCREEN_HEIGHT 1280
+#define TILE_SIZE 32		
 #define MAX_TILE 17
 #define MAP_WIDTH SCREEN_WIDTH/TILE_SIZE
 #define MAP_HEIGHT SCREEN_HEIGHT/TILE_SIZE
@@ -76,6 +76,10 @@ public:
 	Vector3 lookupIndex(short x, short y);
 	std::vector<SContainer2D> FindValidNearbyGrid(SContainer2D centre);
 	std::vector<SContainer2D> FindValidNearbyGrid(Vector3 centreposition);
+		
+	int LevelCount;
+	
+
 private:
 	int theScreen_Height;
 	int theScreen_Width;
@@ -89,5 +93,5 @@ private:
 
 	bool LoadFile(const string mapName);
 
-	
+
 };
