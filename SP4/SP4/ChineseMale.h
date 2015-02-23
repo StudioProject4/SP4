@@ -7,6 +7,7 @@
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #include <GL/glext.h>
+#include <time.h>
 
 class CChineseMale : public CCharacter
 {
@@ -22,8 +23,6 @@ class CChineseMale : public CCharacter
 		bool Render();
 
 		bool OnCollision(CBaseObject* a_obj);
-
 	private:
-		TextureImage Texture;
 		CSprite * theSprite;
 };

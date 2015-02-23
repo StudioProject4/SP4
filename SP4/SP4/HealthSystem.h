@@ -8,6 +8,7 @@ class CHealthSystem
 		
 		void TakeDMG();
 		void RecoverHealth();
+		int GetHealth();
 	private:
 		int health;
 };

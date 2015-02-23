@@ -12,10 +12,20 @@ CHealthSystem :: ~CHealthSystem()
 
 void CHealthSystem :: TakeDMG()
 {
-	health -= 1;
+	if(health != 0)
+	{
+		health -= 1;
+	}
 }
 
 void CHealthSystem :: RecoverHealth()
 {
-	health += 1;
+	if(health < 4)
+	{
+		health += 1;
+	}
+}
+int CHealthSystem :: GetHealth()
+{
+	return health;
 }

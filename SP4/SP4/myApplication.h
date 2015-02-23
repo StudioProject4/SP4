@@ -18,9 +18,15 @@
 #include "MenuState.h"
 #include "MalayFemale.h"
 #include "ChineseMale.h"
-#include "AI.h"
+#include "ChineseMob.h"
+#include "MalayMob.h"
 #include "WindowManager.h"
+
+#include "PowerUp.h"
+#include "Map.h"
+
 #include "MusicSystem\MusicSystem.h"
+
 
 class myApplication:public CGameState
 {
@@ -72,7 +78,26 @@ private:
 	//temp instance until object manager is done
 	CChineseMale * playerOne; 
 	CMalayFemale * playerTwo;
-	CAILogic * theAI;
+	CMalayMob * theAIOne;
+	CChineseMob * theAITwo;
+	CMap* Map;
+	CPowerUp* PowerUp;
+
+
+	//Imagee
+	TextureImage BackgroundTexture[2];
+	TextureImage TileMapTexture[50];
+	int mapOffset_x, mapOffset_y;
+	int tileOffset_x, tileOffset_y;
+	int mapFineOffset_x, mapFineOffset_y;
+	int theNumOfTiles_Height;
+	int theNumOfTiles_Width;
+	int rearWallOffset_x, rearWallOffset_y;
+	int rearWalltileOffset_x, rearWalltileOffset_y;
+	int rearWallFineOffset_x, rearWallFineOffset_y;
+	
+	void RenderTileMap();
+	void RenderBackground();
 
 	//void printw (float x, float y, float z, char* format, ...);
 	//void calculateFPS();
