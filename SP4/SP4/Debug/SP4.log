@@ -1,55 +1,30 @@
-﻿Build started 23/2/2015 2:12:25 PM.
+﻿Build started 23/2/2015 5:56:36 PM.
      1>Project "C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\SP4\SP4.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SP4.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\includes /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Map.cpp MenuState.cpp PowerUp.cpp main.cpp myApplication.cpp
-         myApplication.cpp
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\renderuntilty.h(17): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\renderuntilty.h(96): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(162): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(163): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(9): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(10): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(45): warning C4552: '-' : operator has no effect; expected operator with side-effect
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(256): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(298): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(298): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(402): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(406): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(410): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\includes /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Character.cpp ChineseMale.cpp MalayFemale.cpp MenuState.cpp PowerUp.cpp main.cpp myApplication.cpp
          PowerUp.cpp
      1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         Map.cpp
+         Generating Code...
+         Compiling...
+         Character.cpp
      1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(133): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(134): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(160): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(164): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(200): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(201): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(227): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(231): warning C4258: 'y' : definition from the for loop is ignored; the definition from the enclosing scope is used
-                 c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(208) : definition of 'y' ignored
-                 c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(195) : definition of 'y' used
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(231): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(326): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(327): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(328): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(329): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(377): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(378): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(379): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\map.cpp(380): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(10): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(11): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         Generating Code...
+         Compiling...
+         MalayFemale.cpp
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(10): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(11): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         ChineseMale.cpp
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(10): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(11): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
          Generating Code...
          Skipping... (no relevant changes detected)
+         myApplication.cpp
          main.cpp
          MenuState.cpp
          All outputs are up-to-date.
@@ -58,10 +33,13 @@
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\Debug\SP4.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\lib freeglut.lib winmm.lib irrklang.lib lua5.1.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\SP4.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\Debug\SP4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\Debug\SP4.lib" /MACHINE:X86 Debug\SP4.exe.embed.manifest.res
          Debug\AI.obj
+         Debug\Character.obj
          Debug\ChineseMale.obj
          Debug\FrameRateManager.obj
          Debug\GameState.obj
          Debug\GameStateManager.obj
+         Debug\HealthSystem.obj
+         Debug\KennardTestState.obj
          Debug\Keyboard.obj
          Debug\LuaManager.obj
          Debug\main.obj
@@ -74,9 +52,12 @@
          Debug\myApplication.obj
          Debug\ObjectManager.obj
          Debug\ObjLoader.obj
+         Debug\ObstacleBase.obj
          Debug\Physics.obj
          Debug\PowerUp.obj
+         Debug\PointSystem.obj
          Debug\RandomGenerator.obj
+         Debug\RenderUntility.obj
          Debug\Sprite.obj
          Debug\tgaLoader.obj
          Debug\Vector3.obj
@@ -94,4 +75,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:07.07
+Time Elapsed 00:00:08.95

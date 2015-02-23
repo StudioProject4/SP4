@@ -10,6 +10,7 @@ CMap::CMap(void)
 , theNumOfTiles_MapHeight(0)
 , theNumOfTiles_MapWidth(0)
 , theTileSize(0)
+, Level(2)
 , LevelCount(1)
 {
 	theScreenMap.clear();
@@ -417,4 +418,34 @@ std::vector<SContainer2D> CMap::FindValidNearbyGrid(Vector3 centreposition)
 	//	std::cout<<neighbour[i]<<std::endl;
 	//}
 	return neighbour;
+}
+
+void CMap::RunMap()
+{
+	//load map
+	if(Level == 1 && LevelCount != 1)
+	{
+		LoadMap("Level1_1.csv");
+		LevelCount = 1;
+	}else
+	if(Level == 2 && LevelCount != 2)
+	{
+		LoadMap("Level1_1.csv");
+		LevelCount = 2;
+	}else
+	if(Level == 3 && LevelCount != 3)
+	{
+		LoadMap("Level1_1.csv");
+		LevelCount = 3;
+	}else
+	if(Level == 4 && LevelCount != 4)
+	{
+		LoadMap("Level1_1.csv");
+		LevelCount = 4;
+	}else
+	if(Level == 5 && LevelCount != 5)
+	{
+		LoadMap("Level1_1.csv");
+		LevelCount = 5;
+	}
 }

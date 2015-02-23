@@ -24,6 +24,8 @@
 #include "PowerUp.h"
 #include "Map.h"
 
+#include "Physics.h"
+
 #include "MusicSystem\MusicSystem.h"
 
 
@@ -80,6 +82,7 @@ private:
 	CAILogic * theAI;
 	CMap* Map;
 	CPowerUp* PowerUp;
+	CPhysics* Physics;
 
 
 	//Imagee

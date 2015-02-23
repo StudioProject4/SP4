@@ -76,7 +76,9 @@ public:
 	Vector3 lookupIndex(short x, short y);
 	std::vector<SContainer2D> FindValidNearbyGrid(SContainer2D centre);
 	std::vector<SContainer2D> FindValidNearbyGrid(Vector3 centreposition);
-		
+	void RunMap();
+	
+	float Level;
 	int LevelCount;
 	
 

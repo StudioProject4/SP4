@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Map.h"
+#include "BaseObject.h"
 
-class CPowerUp
+class CPowerUp : public CBaseObject
 {
 
 private:
@@ -10,7 +11,10 @@ private:
 	//hp count, points count, speed, incvincible, jumpheight
 	//check how many items are taken
 	int HpItemCount, PtsItemCount, 
-		SpeedItemCount, InvinItemCount, JumpHeiCount;		
+		SpeedItemCount, InvinItemCount, JumpHeiCount;	
+	
+	//check if item is there
+	bool HpAvail, InvinAvail;
 
 	bool InvincibleOn;		//check if invincible is on
 

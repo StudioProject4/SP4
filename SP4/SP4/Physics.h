@@ -2,6 +2,7 @@
 #define __PHYSICS_H__
 
 #include "Vector3.h"
+#include "Map.h"
 
 class CPhysics
 {
@@ -17,6 +18,9 @@ private:
 	Vector3 pos;
 	Vector3 size;
 	Vector3 SlopePhysics(Vector3 Dir);//direction of the slope
+
+	CMap* Map;
+
 public:
 	CPhysics();
 	~CPhysics();
