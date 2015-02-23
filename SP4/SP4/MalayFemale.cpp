@@ -19,13 +19,13 @@ bool CMalayFemale :: Init(Vector3 newPos,Vector3 newDir,int entityID)
 	pos = newPos;
 	dir = newDir;
 	id = entityID;
-	
+	Init();
 	return true;
 }
 
 bool CMalayFemale :: Update()
 {
-	thePhysics.Update(pos);
+	phys.Update(pos);
 	return true;
 }
 
@@ -38,7 +38,7 @@ bool CMalayFemale :: Init()
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("sonia2.tga");
 
-	thePhysics.Init(pos,(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
+	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	
 	return true;
 }

@@ -2,7 +2,7 @@
 
 void CCharacter :: Jump()
 {
-	thePhysics.Jump();
+	phys.Jump();
 	//Vector3 temppos = pos;
 	//pos = (temppos.x, temppos.y + 5, temppos.z);
 }

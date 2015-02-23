@@ -1,8 +1,10 @@
 #pragma once
 #include "gamestate.h"
-#include "Physics.h"
+#include "ChineseMale.h"
 #include "Vector3.h"
 #include "RenderUntilty.h"
+#include "LeverDoor.h"
+
 
 class KennardTestState :
 	public CGameState
@@ -15,9 +17,13 @@ public:
 			s_instance=new KennardTestState;
 		return s_instance;
 	}
-	Vector3 pos;
-	TextureImage testimage;
-	CPhysics testphys;
+
+	//test object
+	CChineseMale test;
+	//end of test object
+	
+	CLeverDoor theLever;
+
 	void InputKey(int key,int x,int y);
 	void KeyboardDown(unsigned char key,int x,int y);
 	void KeyboardUp(unsigned char key,int x,int y);

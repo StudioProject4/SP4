@@ -20,13 +20,13 @@ bool CChineseMale :: Init(Vector3 newPos,Vector3 newDir,int entityID)
 	pos = newPos;
 	dir = newDir;
 	id = entityID;
-	
+	Init();
 	return true;
 }
 
 bool CChineseMale :: Update()
 {
-	thePhysics.Update(pos);
+	pos=phys.Update(pos);
 	return true;
 }
 
@@ -39,7 +39,7 @@ bool CChineseMale :: Init()
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("sonia2.tga");
 
-	thePhysics.Init(pos,(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
+	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 
 	return true;
 }
@@ -63,6 +63,29 @@ bool CChineseMale :: Render()
 	glTranslatef(pos.x,pos.y,pos.z);
 	theSprite->Render();
 	glPopMatrix();
+	
+	glPushMatrix();
+	glColor3f(0,1,0);
+		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+		glTranslatef(pos.x,pos.y,0);
+		//glRotatef(curAngle,0,0,1);
+		glScalef(this->phys.size.x,this->phys.size.y,0);
+		//glBindTexture(GL_TEXTURE_2D,this->testimage.texID);
+		glBegin (GL_TRIANGLE_STRIP);
+			glNormal3f(0,0,1);
+			glTexCoord2f(0,0);
+			glVertex3f(-0.5, 0.5, 0);
+		
+			glTexCoord2f(0,1.0);
+			glVertex3f(-0.5,-0.5,0);
 
+			glTexCoord2f(1.0,0.0);
+			glVertex3f(0.5,0.5,0);
+
+			glTexCoord2f(1.0,1.0);
+			glVertex3f(0.5,-0.5,0);
+		glEnd();
+		glPopMatrix();
+	glPushMatrix();
 	return true;
 }

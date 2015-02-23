@@ -43,10 +43,10 @@ bool CPhysics::Init(Vector3 pos,Vector3 size)
 
 bool CPhysics::TestCol(Vector3 pos2,Vector3 size2)
 {
-	if(abs(pos.x-pos2.x) > (size.x+size2.x))
+	if(abs(pos.x-pos2.x) > (size.x+size2.x)*0.5f)
 		return false;
 
-	if(abs(pos.y-pos2.y) > (size.y+size2.y))
+	if(abs(pos.y-pos2.y) > (size.y+size2.y)*0.5f)
 		return false;
 	return true;
 }
@@ -82,7 +82,8 @@ Vector3 CPhysics::Update(Vector3 pos)
 	}
 	//else if maptile == slope
 	//slopePhysics(dir)
-	//
+	//else if(special tile)//such as levers etc
+	// dont do anything;
 	if(size.y<0)
 		size.y=-size.y;//set it back to positive
 	pos+=vel*delta;

@@ -15,7 +15,6 @@ class CCharacter : public CBaseObject
 		void MoveLeft();
 		void MoveRight();
 
-		CPhysics thePhysics;
 	private:
 		int PlayerID;
 };
