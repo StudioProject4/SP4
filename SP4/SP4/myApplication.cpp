@@ -22,6 +22,8 @@ myApplication::~myApplication(void)
 
 bool myApplication::CleanUp()
 {
+	MS->Exit();
+
 	if(Map != NULL)
 	{
 		delete Map;
@@ -54,6 +56,7 @@ bool myApplication::CleanUp()
 		delete theAITwo;
 		theAITwo = NULL;
 	}
+	CMusicSystem::GetInstance()->Exit();
 	if(instance != NULL)
 	{
 		Release();
@@ -116,11 +119,19 @@ bool myApplication::Init()
 	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
 	MS = CMusicSystem::GetInstance();
+	OM = new CObjectManager();
 
-	playerOne = new CChineseMale();
-	playerTwo = new CMalayFemale();
-	theAIOne = new CMalayMob();
-	theAITwo = new CChineseMob();
+	//playerOne = OM->manufacturer->CreateChineseMale();
+	//playerTwo = new CMalayFemale();
+	//theAIOne = new CMalayMob();
+	//theAITwo = new CChineseMob();
+
+	playerOne = OM->manufacturer->CreateChineseMale();
+	playerTwo = OM->manufacturer->CreateMalayFemale();
+	theAIOne = OM->manufacturer->CreateMalayMob();
+	theAITwo = OM->manufacturer->CreateChineseMob();
+
+	testmale = OM->manufacturer->CreateChineseMale();
 
 	 mapOffset_x =  mapOffset_y=
 	 tileOffset_x =tileOffset_y=
@@ -164,9 +175,9 @@ bool myApplication::Init()
 	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
 	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
 
-	std::cout<< Map->getNumOfTiles_MapHeight()<<std::endl;
-	std::cout<< Map->getNumOfTiles_MapWidth()<<std::endl;
-
+	//std::cout<< Map->getNumOfTiles_MapHeight()<<std::endl;
+	//std::cout<< Map->getNumOfTiles_MapWidth()<<std::endl;
+	
 	return true;
 }
 
@@ -209,6 +220,7 @@ bool myApplication::Update()
 		if(keyboard->myKeys[VK_ESCAPE] == true)
 		{
 			exit(0);
+			//GSM->PopAndCleanLastState();
 		}
 		if(keyboard->myKeys['k'] == true)
 		{
@@ -237,9 +249,9 @@ bool myApplication::Update()
 	playerOne->Update();
 	playerTwo->Update();
 		Map->RunMap();
-		std::cout << playerOne->pos.x << std::endl;
-		std::cout << playerOne->pos.y << std::endl;
-		std::cout << Map->lookupPosition(playerOne->pos,false) << std::endl;
+		//std::cout << playerOne->pos.x << std::endl;
+		//std::cout << playerOne->pos.y << std::endl;
+		//std::cout << Map->lookupPosition(playerOne->pos,false) << std::endl;
 
 
 	return true;
@@ -310,7 +322,8 @@ void myApplication::Render2D()
 	glPopMatrix();
 	//drawFPS();
 	FRM->drawFPS();
-
+	RenderBackground();
+	RenderTileMap();
 
 	//if(Map->Level == 1)
 
@@ -318,7 +331,7 @@ void myApplication::Render2D()
 //	PowerUp->Update();
 
 
-	//RenderBackground();
+	
 	//RenderTileMap();
 	//glPushMatrix();
 	//for(int i = 0; i < theNumOfTiles_Height; i ++)
@@ -392,8 +405,7 @@ void myApplication::Render2D()
 	//	}
 	//	glPopMatrix();
 	//}
-
-
+	//testmale->Render();
 	playerOne->Render();
 	playerTwo->Render();
 	theAIOne->Render();
@@ -513,6 +525,14 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			MS->PrintSoundTrackList();
 			break;
 		case '7':
+			std::cout<< testmale<<std::endl;
+			testmale->PrintDebugInformation();
+			
+			break;
+		case '8':
+			
+			break;
+		case '9':
 			MS->Exit();
 			break;
 	}

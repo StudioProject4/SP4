@@ -27,6 +27,7 @@ bool CChineseMale :: Init(Vector3 newPos,Vector3 newDir,int entityID)
 bool CChineseMale :: Update()
 {
 	pos=phys.Update(pos);
+	//std::cout<<phys.Update(pos)<<std::endl;
 	return true;
 }
 

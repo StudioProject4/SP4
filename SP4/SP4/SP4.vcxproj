@@ -78,8 +78,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AI.cpp" />
+    <ClCompile Include="AIMobBuilder.cpp" />
+    <ClCompile Include="AIMobFactory.cpp" />
     <ClCompile Include="AStarPathfinding.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="CharacterBuilder.cpp" />
+    <ClCompile Include="CharacterFactory.cpp" />
     <ClCompile Include="ChineseMale.cpp" />
     <ClCompile Include="ChineseMob.cpp" />
     <ClCompile Include="FrameRateManager.cpp" />
@@ -93,6 +97,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MalayFemale.cpp" />
     <ClCompile Include="MalayMob.cpp" />
+    <ClCompile Include="ManufactureManager.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="MenuState.cpp" />
@@ -105,6 +110,8 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="PointSystem.cpp" />
+    <ClCompile Include="PowerUpBuilder.cpp" />
+    <ClCompile Include="PowerUpFactory.cpp" />
     <ClCompile Include="RandomGeneratorSystem\RandomGenerator.cpp" />
     <ClCompile Include="RenderUntility.cpp" />
     <ClCompile Include="Slope.cpp" />
@@ -116,13 +123,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.h" />
+    <ClInclude Include="AIMobBuilder.h" />
+    <ClInclude Include="AIMobFactory.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="CharacterBuilder.h" />
+    <ClInclude Include="CharacterFactory.h" />
     <ClInclude Include="ChineseMale.h" />
     <ClInclude Include="ChineseMob.h" />
     <ClInclude Include="DatabaseLibrary.h" />
     <ClInclude Include="DatatypeDefination.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Factory.h" />
     <ClInclude Include="FrameRateManager.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
@@ -133,15 +145,14 @@
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="MalayFemale.h" />
     <ClInclude Include="MalayMob.h" />
+    <ClInclude Include="ManufactureManager.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="MenuState.h" />
-    <ClInclude Include="Mind.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MusicSystem\Audio.h" />
     <ClInclude Include="MusicSystem\MusicSystem.h" />
     <ClInclude Include="myApplication.h" />
-    <ClInclude Include="myLibrary.h" />
     <ClInclude Include="MyMath.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="ObjLoader.h" />
@@ -149,6 +160,8 @@
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PowerUp.h" />
     <ClInclude Include="PointSystem.h" />
+    <ClInclude Include="PowerUpBuilder.h" />
+    <ClInclude Include="PowerUpFactory.h" />
     <ClInclude Include="RandomGeneratorSystem\MathPlus.h" />
     <ClInclude Include="RandomGeneratorSystem\RandomGenerator.h" />
     <ClInclude Include="RenderUntilty.h" />

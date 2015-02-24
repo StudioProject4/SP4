@@ -18,6 +18,7 @@ public:
 	bool ChangeState(CGameState* newstate);
 	bool PushAndInitNewState(CGameState* newstate);
 	bool PopAndCleanLastState();
+	//bool BackPreviousState();
 	//void PushState(CGameState* newstate);
 	//void PopState();
 

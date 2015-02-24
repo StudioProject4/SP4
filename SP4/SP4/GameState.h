@@ -23,7 +23,7 @@ protected:
 	CMouse* mouse;
 	CKeyboard* keyboard;
 	CWindowManager* WM;
-	CObjectManager OM;
+	CObjectManager* OM;
 	CMusicSystem* MS;
 	bool inited;
 public:

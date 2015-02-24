@@ -10,6 +10,8 @@ private:
 	//remove when map is done
 	int tempMap[10][10];
 	int getTile(Vector3 thePos);
+	Vector3 getTileV(Vector3 thePos);
+	Vector3 getTileV(float posX,float posY);
 	//end of removal
 	//have a map reference here when map is done
 	Vector3 pos;

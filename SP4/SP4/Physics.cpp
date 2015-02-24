@@ -25,11 +25,26 @@ CPhysics::~CPhysics()
 
 int CPhysics::getTile(Vector3 thePos)					//check for the position to each tile index, input the position, have to show the index of the tile
 {
-	Map->lookupPosition(thePos.x, thePos.y, 0, true); 
+	//Map->lookupPosition(thePos.x, thePos.y, 0); //RunTime error here,most probably 
 
 	return tempMap[(int)(thePos.x/20)][(int)(thePos.y/20)];
 }
 
+Vector3 CPhysics::getTileV(float posX,float posY)
+{
+	searchResult * result = &Map->lookupPosition(posX,posY); 
+	Vector3 temp(result->xIndex,result->yIndex);
+	delete result;
+	return temp;
+}
+
+Vector3 CPhysics::getTileV(Vector3 thePos)					
+{
+	searchResult * result = &Map->lookupPosition(thePos); 
+	Vector3 temp(result->xIndex,result->yIndex);
+	delete result;
+	return temp;
+}
 bool CPhysics::Init(Vector3 pos,Vector3 size)
 {
 	gravity = 20;
