@@ -12,7 +12,6 @@ private:
 	//end of removal
 	//have a map reference here when map is done
 	Vector3 pos;
-	Vector3 SlopePhysics(Vector3 Dir);//direction of the slope
 public:
 	float gravity;
 	bool inAir;

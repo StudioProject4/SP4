@@ -135,6 +135,18 @@
     <ClCompile Include="LeverDoor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ChineseMob.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MalayMob.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Slope.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myApplication.h">
@@ -270,6 +282,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LeverDoor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ChineseMob.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MalayMob.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Slope.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

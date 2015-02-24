@@ -4,6 +4,7 @@
 #include "Vector3.h"
 #include "RenderUntilty.h"
 #include "LeverDoor.h"
+#include "TestObject.h"
 
 
 class KennardTestState :
@@ -19,7 +20,7 @@ public:
 	}
 
 	//test object
-	CChineseMale test;
+	CTestObject test;
 	//end of test object
 	
 	CLeverDoor theLever;

@@ -1,4 +1,4 @@
-﻿Build started 2/23/2015 5:59:39 PM.
+﻿Build started 2/24/2015 5:33:19 PM.
      1>Project "C:\Users\m308\Documents\GitHub\SP4\SP4\SP4\SP4.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SP4.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -8,10 +8,15 @@
      1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(20): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(21): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(31): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(96): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(111): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(112): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(29): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(33): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(48): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(84): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(92): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(138): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(150): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(151): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(275): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
          All outputs are up-to-date.
        ManifestResourceCompile:
          All outputs are up-to-date.
@@ -20,6 +25,7 @@
          Debug\AI.obj
          Debug\Character.obj
          Debug\ChineseMale.obj
+         Debug\ChineseMob.obj
          Debug\FrameRateManager.obj
          Debug\GameState.obj
          Debug\GameStateManager.obj
@@ -30,6 +36,7 @@
          Debug\LuaManager.obj
          Debug\main.obj
          Debug\MalayFemale.obj
+         Debug\MalayMob.obj
          Debug\Map.obj
          Debug\Matrix4x4.obj
          Debug\MenuState.obj
@@ -40,10 +47,13 @@
          Debug\ObjLoader.obj
          Debug\ObstacleBase.obj
          Debug\Physics.obj
+         Debug\PowerUp.obj
          Debug\PointSystem.obj
          Debug\RandomGenerator.obj
          Debug\RenderUntility.obj
+         Debug\Slope.obj
          Debug\Sprite.obj
+         Debug\TestObject.obj
          Debug\tgaLoader.obj
          Debug\Vector3.obj
          Debug\WindowManager.obj
@@ -60,4 +70,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.03
+Time Elapsed 00:00:01.10

@@ -26,12 +26,17 @@ void KennardTestState::InputKey(int key,int x,int y)
 
 void KennardTestState::KeyboardDown(unsigned char key,int x,int y)
 {
-	keyboard->myKeys[key] = true;
+	if(keyboard->myKeysUp[key]=true)
+	{
+		keyboard->myKeys[key] = true;
+		keyboard->myKeysUp[key]=false;
+	}
 }
 
 void KennardTestState::KeyboardUp(unsigned char key,int x,int y)
 {
 	keyboard->myKeys[key] = false;
+	keyboard->myKeysUp[key]=true;
 }
 
 void KennardTestState::MouseMove(int x,int y)
@@ -192,16 +197,30 @@ bool KennardTestState::Update()
 	if(keyboard->myKeys['d'])
 	{
 		test.phys.vel.x=30;
+		keyboard->myKeys['d']=false;
 		cout<<test.pos.x<<"\n";
 	}
 	else if(keyboard->myKeys['a'])
 	{
 		test.phys.vel.x=-30;
+		keyboard->myKeys['a']=false;
 		cout<<test.pos.x<<"\n";
 	}
-	else 
+	else if(keyboard->myKeysUp['a']&&keyboard->myKeysUp['d'])
 	{
 		test.phys.vel.x=0;
+	}
+	else
+	{
+		if(test.phys.vel.x>0)
+		{
+			if(test.phys.vel.x<30)
+				test.phys.vel.x=30;
+		}
+		else if(test.phys.vel.x>-30)
+		{
+			test.phys.vel.x=-30;
+		}
 	}
 	if(keyboard->myKeys['-'])
 	{
@@ -235,8 +254,10 @@ bool KennardTestState::Init()
 	mouse = CMouse::GetInstance();
 	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
-	test.Init(Vector3(100,100,0),Vector3(),0);
-	theLever.Init(Vector3(400,80,0),Vector3(5,50));
+	test.Init();
+	test.pos=Vector3(100,100,0);
+	test.phys.Init(test.pos,Vector3(50,50,0));
+	theLever.Init(Vector3(400,150,0),Vector3(5,50));
 	return true;
 }
 
