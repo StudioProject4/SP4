@@ -4,6 +4,8 @@ using namespace std;
 
 CPowerUp::CPowerUp()
 	: InvincibleOn(false)
+	, HpAvail(true)
+	, InvinAvail(true)
 {
 }
 
@@ -21,6 +23,20 @@ bool CPowerUp::Init()
 	jump height
 	*/
 
+	if(HpAvail == true)
+	{
+		name = "HpAdd";
+		tag = "HP";
+		genericTag = "PowerUp";
+	}	
+	if(InvinAvail == true)
+	{
+		name = "Invincible";
+		tag = "Invin";
+		genericTag = "PowerUp";
+	}
+
+
 	return true;
 }
 
@@ -30,6 +46,15 @@ bool CPowerUp::Update()
 	//speed up
 	
 
+	//point modifier
+
+
+	//recovery
+
+
+	//jumpheight
+
+	
 	//Invincible On
 	InvinItem();
 	

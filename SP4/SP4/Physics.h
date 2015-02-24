@@ -2,6 +2,7 @@
 #define __PHYSICS_H__
 
 #include "Vector3.h"
+#include "Map.h"
 
 class CPhysics
 {
@@ -12,6 +13,8 @@ private:
 	//end of removal
 	//have a map reference here when map is done
 	Vector3 pos;
+	CMap* Map;
+
 public:
 	float gravity;
 	bool inAir;

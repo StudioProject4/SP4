@@ -25,6 +25,8 @@
 #include "PowerUp.h"
 #include "Map.h"
 
+#include "Physics.h"
+
 #include "MusicSystem\MusicSystem.h"
 
 
@@ -48,6 +50,7 @@ public:
 	~myApplication(void);
 
 	void InputKey(int key, int x, int y);
+	void InputUpKey(int key, int x, int y);
 	void KeyboardDown(unsigned char key, int x, int y);
 	void KeyboardUp(unsigned char key, int x, int y);
 	void MouseMove (int x, int y);
@@ -82,6 +85,7 @@ private:
 	CChineseMob * theAITwo;
 	CMap* Map;
 	CPowerUp* PowerUp;
+	CPhysics* Physics;
 
 
 	//Imagee

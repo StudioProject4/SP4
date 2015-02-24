@@ -1,6 +1,7 @@
 #include "Physics.h"
 
 CPhysics::CPhysics()
+	: Map(NULL)
 {
 	for(int i=0;i<10;++i)//map[x][y]
 	{
@@ -22,18 +23,11 @@ CPhysics::~CPhysics()
 
 }
 
-int CPhysics::getTile(Vector3 thePos)
+int CPhysics::getTile(Vector3 thePos)					//check for the position to each tile index, input the position, have to show the index of the tile
 {
-	if(thePos.x/100>=10)
-		thePos.x=9;
-	else if(thePos.x/100<0)
-		thePos.x=0;
-	if(thePos.y/100>=10)
-		thePos.y=9;
-	else if(thePos.y/100<0)
-		thePos.y=0;
-	
-	return tempMap[(int)(thePos.x/100)][(int)(thePos.y/100)];
+	Map->lookupPosition(thePos.x, thePos.y, 0, true); 
+
+	return tempMap[(int)(thePos.x/20)][(int)(thePos.y/20)];
 }
 
 bool CPhysics::Init(Vector3 pos,Vector3 size)
