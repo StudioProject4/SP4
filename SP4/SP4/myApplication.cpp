@@ -214,6 +214,18 @@ bool myApplication::Update()
 		{
 		
 		}
+		if(keyboard->leftArrow == true)
+		{
+			playerTwo->MoveLeft();
+		}
+		if(keyboard->rightArrow == true)
+		{
+			playerTwo->MoveRight();
+		}
+		if(keyboard->upArrow == true)
+		{
+			playerTwo->Jump();
+		}
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
 		theAIOne->AI.SetEnemyPos(playerOne->pos);
@@ -223,7 +235,7 @@ bool myApplication::Update()
 	}
 
 	playerOne->Update();
-	//playerTwo->Update();
+	playerTwo->Update();
 		Map->RunMap();
 		std::cout << playerOne->pos.x << std::endl;
 		std::cout << playerOne->pos.y << std::endl;
@@ -300,93 +312,92 @@ void myApplication::Render2D()
 	FRM->drawFPS();
 
 
-	if(Map->Level == 1)
+	//if(Map->Level == 1)
+
+
+//	PowerUp->Update();
+
+
+	//RenderBackground();
+	//RenderTileMap();
+	//glPushMatrix();
+	//for(int i = 0; i < theNumOfTiles_Height; i ++)
+
+	//{
+	//	RenderBackground();
+	//	RenderTileMap();
+	//	glPushMatrix();
+	//	for(int i = 0; i < theNumOfTiles_Height; i ++)
+	//	{
+	//		//for(int k = 0; k < theNumOfTiles_Width+1; k ++)
+	//		for(int k = 0; k < theNumOfTiles_Width; k ++)
+	//	
+	//		{
+	//					// If we have reached the right side of the Map, then do not display the extra column of tiles.
+	//		/*if ( (tileOffset_x+k) >= theMap->getNumOfTiles_MapWidth() )
+	//			break;*/
+	//			glPushMatrix();
+	//		//	glTranslatef(k*TILE_SIZE-mapFineOffset_x, i*TILE_SIZE, 0);
+	//			glTranslatef(k*TILE_SIZE, i* TILE_SIZE, 0);
+	//			glEnable( GL_TEXTURE_2D );
+	//			glEnable( GL_BLEND );
+	//			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	//			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//			glBindTexture( GL_TEXTURE_2D, TileMapTexture[Map->theScreenMap[i][k]].texID); /*TileMapTexture[theMap->theScreenMap[i][tileOffset_x+k]].texID );*/
+	//			glBegin(GL_QUADS);
+	//				glTexCoord2f(0,1); glVertex2f(0,0);
+	//				glTexCoord2f(0,0); glVertex2f(0,TILE_SIZE);
+	//				glTexCoord2f(1,0); glVertex2f(TILE_SIZE,TILE_SIZE);
+	//				glTexCoord2f(1,1); glVertex2f(TILE_SIZE,0);
+	//			glEnd();
+	//			glDisable( GL_BLEND );
+	//			glDisable( GL_TEXTURE_2D );
+	//			glPopMatrix();
+	//		}
+	//	}
+	//	glPopMatrix();
+	//}
+	//if(Map->Level == 2)
+	//{
+	//		RenderBackground();
+	//	RenderTileMap();
+	//	glPushMatrix();
+	//	for(int i = 0; i < theNumOfTiles_Height; i ++)
+	//	{
+	//		//for(int k = 0; k < theNumOfTiles_Width+1; k ++)
+	//		for(int k = 0; k < theNumOfTiles_Width; k ++)
+	//	
+	//		{
+	//					// If we have reached the right side of the Map, then do not display the extra column of tiles.
+	//		/*if ( (tileOffset_x+k) >= theMap->getNumOfTiles_MapWidth() )
+	//			break;*/
+	//			glPushMatrix();
+	//		//	glTranslatef(k*TILE_SIZE-mapFineOffset_x, i*TILE_SIZE, 0);
+	//			glTranslatef(k*TILE_SIZE, i* TILE_SIZE, 0);
+	//			glEnable( GL_TEXTURE_2D );
+	//			glEnable( GL_BLEND );
+	//			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	//			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//			glBindTexture( GL_TEXTURE_2D, TileMapTexture[Map->theScreenMap[i][k]].texID); /*TileMapTexture[theMap->theScreenMap[i][tileOffset_x+k]].texID );*/
+	//			glBegin(GL_QUADS);
+	//				glTexCoord2f(0,1); glVertex2f(0,0);
+	//				glTexCoord2f(0,0); glVertex2f(0,TILE_SIZE);
+	//				glTexCoord2f(1,0); glVertex2f(TILE_SIZE,TILE_SIZE);
+	//				glTexCoord2f(1,1); glVertex2f(TILE_SIZE,0);
+	//			glEnd();
+	//			glDisable( GL_BLEND );
+	//			glDisable( GL_TEXTURE_2D );
+	//			glPopMatrix();
+	//		}
+	//	}
+	//	glPopMatrix();
+	//}
+
 
 	playerOne->Render();
 	playerTwo->Render();
 	theAIOne->Render();
 	theAITwo->Render();
-//	PowerUp->Update();
-
-
-	RenderBackground();
-	RenderTileMap();
-	glPushMatrix();
-	for(int i = 0; i < theNumOfTiles_Height; i ++)
-
-	{
-		RenderBackground();
-		RenderTileMap();
-		glPushMatrix();
-		for(int i = 0; i < theNumOfTiles_Height; i ++)
-		{
-			//for(int k = 0; k < theNumOfTiles_Width+1; k ++)
-			for(int k = 0; k < theNumOfTiles_Width; k ++)
-		
-			{
-						// If we have reached the right side of the Map, then do not display the extra column of tiles.
-			/*if ( (tileOffset_x+k) >= theMap->getNumOfTiles_MapWidth() )
-				break;*/
-				glPushMatrix();
-			//	glTranslatef(k*TILE_SIZE-mapFineOffset_x, i*TILE_SIZE, 0);
-				glTranslatef(k*TILE_SIZE, i* TILE_SIZE, 0);
-				glEnable( GL_TEXTURE_2D );
-				glEnable( GL_BLEND );
-				glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-				glBindTexture( GL_TEXTURE_2D, TileMapTexture[Map->theScreenMap[i][k]].texID); /*TileMapTexture[theMap->theScreenMap[i][tileOffset_x+k]].texID );*/
-				glBegin(GL_QUADS);
-					glTexCoord2f(0,1); glVertex2f(0,0);
-					glTexCoord2f(0,0); glVertex2f(0,TILE_SIZE);
-					glTexCoord2f(1,0); glVertex2f(TILE_SIZE,TILE_SIZE);
-					glTexCoord2f(1,1); glVertex2f(TILE_SIZE,0);
-				glEnd();
-				glDisable( GL_BLEND );
-				glDisable( GL_TEXTURE_2D );
-				glPopMatrix();
-			}
-		}
-		glPopMatrix();
-	}else if(Map->Level == 2)
-	{
-			RenderBackground();
-		RenderTileMap();
-		glPushMatrix();
-		for(int i = 0; i < theNumOfTiles_Height; i ++)
-		{
-			//for(int k = 0; k < theNumOfTiles_Width+1; k ++)
-			for(int k = 0; k < theNumOfTiles_Width; k ++)
-		
-			{
-						// If we have reached the right side of the Map, then do not display the extra column of tiles.
-			/*if ( (tileOffset_x+k) >= theMap->getNumOfTiles_MapWidth() )
-				break;*/
-				glPushMatrix();
-			//	glTranslatef(k*TILE_SIZE-mapFineOffset_x, i*TILE_SIZE, 0);
-				glTranslatef(k*TILE_SIZE, i* TILE_SIZE, 0);
-				glEnable( GL_TEXTURE_2D );
-				glEnable( GL_BLEND );
-				glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-				glBindTexture( GL_TEXTURE_2D, TileMapTexture[Map->theScreenMap[i][k]].texID); /*TileMapTexture[theMap->theScreenMap[i][tileOffset_x+k]].texID );*/
-				glBegin(GL_QUADS);
-					glTexCoord2f(0,1); glVertex2f(0,0);
-					glTexCoord2f(0,0); glVertex2f(0,TILE_SIZE);
-					glTexCoord2f(1,0); glVertex2f(TILE_SIZE,TILE_SIZE);
-					glTexCoord2f(1,1); glVertex2f(TILE_SIZE,0);
-				glEnd();
-				glDisable( GL_BLEND );
-				glDisable( GL_TEXTURE_2D );
-				glPopMatrix();
-			}
-		}
-		glPopMatrix();
-	}
-
-
-	playerOne->Render();
-	playerTwo->Render();
-	theAI->Render();
 //	PowerUp->Update();
 
 	
@@ -427,15 +438,33 @@ void myApplication::RenderScene()
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
-
+void myApplication::InputUpKey(int key, int x, int y)
+{
+	switch (key) {
+		case GLUT_KEY_LEFT : 
+			keyboard->leftArrow = false;
+			break;
+		case GLUT_KEY_RIGHT : 
+			keyboard->rightArrow = false;
+			break;
+		case GLUT_KEY_UP : 
+			keyboard->upArrow = false;
+			break;;
+		case GLUT_KEY_DOWN : 
+			break;
+	}
+}
 void myApplication::InputKey(int key, int x, int y)
 {
 	switch (key) {
 		case GLUT_KEY_LEFT : 
+			keyboard->leftArrow = true;
 			break;
 		case GLUT_KEY_RIGHT : 
+			keyboard->rightArrow = true;
 			break;
 		case GLUT_KEY_UP : 
+			keyboard->upArrow = true;
 			break;
 		case GLUT_KEY_DOWN : 
 			break;

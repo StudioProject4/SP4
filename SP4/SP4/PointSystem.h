@@ -7,7 +7,7 @@ class CPointSystem
 		~CPointSystem();
 
 		void PointsReceive(int points);
-		void SetPowerUpActive(bool set);
+		//void SetPowerUpActive(bool set);
 		int GetPoints();
 	private:
 		int points;

@@ -13,6 +13,7 @@ public:
 	~CMenuState(void);
 
 	void InputKey(int key, int x, int y);
+	void InputUpKey(int key, int x, int y){};
 	void KeyboardDown(unsigned char key, int x, int y);
 	void KeyboardUp(unsigned char key, int x, int y);
 	void MouseMove (int x, int y);

@@ -21,7 +21,10 @@ void inputKey(int key, int x, int y) {
 	//myApplication::GetInstance()->InputKey(key,x,y);
 	CGameStateManager::GetInstance()->InputKey(key,x,y);
 }
-
+void inputUpKey(int key, int x, int y) {
+	//myApplication::GetInstance()->InputKey(key,x,y);
+	CGameStateManager::GetInstance()->InputUpKey(key,x,y);
+}
 void KeyboardDown(unsigned char key, int x, int y){
 	//myApplication::GetInstance()->KeyboardDown(key,x,y);
 	CGameStateManager::GetInstance()->KeyboardDown(key,x,y);
@@ -75,8 +78,8 @@ int main(int argc, char **argv )
 		glutInit(&argc, argv);
 		glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 		WM->Init(LM->GetWithCheckNumber<int>("WINDOW_WIDTH"),LM->GetWithCheckNumber<int>("WINDOW_HEIGHT"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"),LM->GetWithCheckBoolean("FULLSCREEN"),LM->GetWithCheckString("PROGRAM_NAME").c_str());
-		//GSM->ChangeState(myApplication::GetInstance());
-		GSM->ChangeState(KennardTestState::GetInstance());
+		GSM->ChangeState(myApplication::GetInstance());
+		//GSM->ChangeState(KennardTestState::GetInstance());
 
 		//glutInitWindowPosition(LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"));
 		//glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
@@ -93,6 +96,7 @@ int main(int argc, char **argv )
 		//	glutSpecialFunc(inputKey);
 		//glutIdleFunc(renderScene);
 		glutSpecialFunc(inputKey);
+		glutSpecialUpFunc(inputUpKey);
 		glutKeyboardFunc(KeyboardDown);
 		glutKeyboardUpFunc(KeyboardUp);
 		glutPassiveMotionFunc(MouseMove);
