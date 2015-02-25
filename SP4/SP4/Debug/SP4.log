@@ -1,32 +1,13 @@
-﻿Build started 23/2/2015 5:56:36 PM.
+﻿Build started 24/2/2015 5:31:10 PM.
      1>Project "C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\SP4\SP4.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Creating "Debug\SP4.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Touching "Debug\SP4.unsuccessfulbuild".
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\includes /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Character.cpp ChineseMale.cpp MalayFemale.cpp MenuState.cpp PowerUp.cpp main.cpp myApplication.cpp
-         PowerUp.cpp
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         Generating Code...
-         Compiling...
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\includes /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Character.cpp
          Character.cpp
      1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(10): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(11): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         Generating Code...
-         Compiling...
-         MalayFemale.cpp
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(10): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(11): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         ChineseMale.cpp
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(10): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(11): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         myApplication.cpp
-         main.cpp
-         MenuState.cpp
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
          All outputs are up-to-date.
        ManifestResourceCompile:
          All outputs are up-to-date.
@@ -35,15 +16,18 @@
          Debug\AI.obj
          Debug\Character.obj
          Debug\ChineseMale.obj
+         Debug\ChineseMob.obj
          Debug\FrameRateManager.obj
          Debug\GameState.obj
          Debug\GameStateManager.obj
          Debug\HealthSystem.obj
          Debug\KennardTestState.obj
          Debug\Keyboard.obj
+         Debug\LeverDoor.obj
          Debug\LuaManager.obj
          Debug\main.obj
          Debug\MalayFemale.obj
+         Debug\MalayMob.obj
          Debug\Map.obj
          Debug\Matrix4x4.obj
          Debug\MenuState.obj
@@ -75,4 +59,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:08.95
+Time Elapsed 00:00:03.04

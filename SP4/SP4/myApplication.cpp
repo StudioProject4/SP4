@@ -94,8 +94,8 @@ bool myApplication::Init()
 	//background
 	LoadTGA( &BackgroundTexture[0], "back.tga");
 
-	LoadTGA( &TileMapTexture[1], "tile0_blank.tga");
 	LoadTGA( &TileMapTexture[0], "BlackWalls.tga");
+	LoadTGA( &TileMapTexture[1], "tile0_blank.tga");
 	//LoadTGA( &TileMapTexture[1], "LavaGround.tga");
 	LoadTGA( &TileMapTexture[2], "BlackWallCut.tga");
 	LoadTGA( &TileMapTexture[3], "HealthCross.tga");
@@ -160,7 +160,7 @@ bool myApplication::Init()
 	//}
 	
 	
-
+	Map->RunMap();
 	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
 	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
 
@@ -224,12 +224,16 @@ bool myApplication::Update()
 
 	playerOne->Update();
 	//playerTwo->Update();
-		Map->RunMap();
+		/*Map->RunMap();*/
 		std::cout << playerOne->pos.x << std::endl;
 		std::cout << playerOne->pos.y << std::endl;
-		std::cout << Map->lookupPosition(playerOne->pos,false) << std::endl;
+	//	std::cout << Map->lookupPosition(playerOne->pos,false) << std::endl;
+		std::cout << Map->lookPositionText(playerOne->pos, false) << std::endl;
+		std::cout << Map->ScreenNum << " @@ " << std::endl;
 
-
+		std::cout << "HP: " << playerOne->hp.GetHealth() << std::endl;
+		std::cout << "PTS: " << playerOne->points.GetPoints() << std::endl;
+		
 	return true;
 }
 void myApplication::RenderTileMap()
@@ -289,6 +293,7 @@ void myApplication::RenderBackground()
 	glDisable(GL_TEXTURE_2D);
 	
 }
+
 void myApplication::Render2D()
 {
 	glPushMatrix();
@@ -297,98 +302,23 @@ void myApplication::Render2D()
 	glEnd();
 	glPopMatrix();
 	//drawFPS();
-	FRM->drawFPS();
+	
 
+	RenderBackground();
+	RenderTileMap();
 
 	if(Map->Level == 1)
-
 	playerOne->Render();
 	playerTwo->Render();
 	theAIOne->Render();
 	theAITwo->Render();
+
+	//playerOne->Render();
+	//playerTwo->Render();
+//	theAI->Render();
 //	PowerUp->Update();
 
-
-	RenderBackground();
-	RenderTileMap();
-	glPushMatrix();
-	for(int i = 0; i < theNumOfTiles_Height; i ++)
-
-	{
-		RenderBackground();
-		RenderTileMap();
-		glPushMatrix();
-		for(int i = 0; i < theNumOfTiles_Height; i ++)
-		{
-			//for(int k = 0; k < theNumOfTiles_Width+1; k ++)
-			for(int k = 0; k < theNumOfTiles_Width; k ++)
-		
-			{
-						// If we have reached the right side of the Map, then do not display the extra column of tiles.
-			/*if ( (tileOffset_x+k) >= theMap->getNumOfTiles_MapWidth() )
-				break;*/
-				glPushMatrix();
-			//	glTranslatef(k*TILE_SIZE-mapFineOffset_x, i*TILE_SIZE, 0);
-				glTranslatef(k*TILE_SIZE, i* TILE_SIZE, 0);
-				glEnable( GL_TEXTURE_2D );
-				glEnable( GL_BLEND );
-				glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-				glBindTexture( GL_TEXTURE_2D, TileMapTexture[Map->theScreenMap[i][k]].texID); /*TileMapTexture[theMap->theScreenMap[i][tileOffset_x+k]].texID );*/
-				glBegin(GL_QUADS);
-					glTexCoord2f(0,1); glVertex2f(0,0);
-					glTexCoord2f(0,0); glVertex2f(0,TILE_SIZE);
-					glTexCoord2f(1,0); glVertex2f(TILE_SIZE,TILE_SIZE);
-					glTexCoord2f(1,1); glVertex2f(TILE_SIZE,0);
-				glEnd();
-				glDisable( GL_BLEND );
-				glDisable( GL_TEXTURE_2D );
-				glPopMatrix();
-			}
-		}
-		glPopMatrix();
-	}else if(Map->Level == 2)
-	{
-			RenderBackground();
-		RenderTileMap();
-		glPushMatrix();
-		for(int i = 0; i < theNumOfTiles_Height; i ++)
-		{
-			//for(int k = 0; k < theNumOfTiles_Width+1; k ++)
-			for(int k = 0; k < theNumOfTiles_Width; k ++)
-		
-			{
-						// If we have reached the right side of the Map, then do not display the extra column of tiles.
-			/*if ( (tileOffset_x+k) >= theMap->getNumOfTiles_MapWidth() )
-				break;*/
-				glPushMatrix();
-			//	glTranslatef(k*TILE_SIZE-mapFineOffset_x, i*TILE_SIZE, 0);
-				glTranslatef(k*TILE_SIZE, i* TILE_SIZE, 0);
-				glEnable( GL_TEXTURE_2D );
-				glEnable( GL_BLEND );
-				glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-				glBindTexture( GL_TEXTURE_2D, TileMapTexture[Map->theScreenMap[i][k]].texID); /*TileMapTexture[theMap->theScreenMap[i][tileOffset_x+k]].texID );*/
-				glBegin(GL_QUADS);
-					glTexCoord2f(0,1); glVertex2f(0,0);
-					glTexCoord2f(0,0); glVertex2f(0,TILE_SIZE);
-					glTexCoord2f(1,0); glVertex2f(TILE_SIZE,TILE_SIZE);
-					glTexCoord2f(1,1); glVertex2f(TILE_SIZE,0);
-				glEnd();
-				glDisable( GL_BLEND );
-				glDisable( GL_TEXTURE_2D );
-				glPopMatrix();
-			}
-		}
-		glPopMatrix();
-	}
-
-
-	playerOne->Render();
-	playerTwo->Render();
-	theAI->Render();
-//	PowerUp->Update();
-
+	FRM->drawFPS();
 	
 }
 void myApplication::Render3D()
@@ -558,6 +488,7 @@ void myApplication::SetHUD(bool m_bHUDmode)
 		glPushMatrix();
 		glLoadIdentity();
 		glOrtho( 0, WM->GetWindowWidth() , WM->GetWindowHeight(), 0, -1, 1 );  
+		//glOrtho( 0, 800 , 600, 0, -1, 1 ); 
 		//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
 		//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
 		glMatrixMode(GL_MODELVIEW);
