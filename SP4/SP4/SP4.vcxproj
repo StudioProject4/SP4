@@ -80,6 +80,7 @@
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="AIMobBuilder.cpp" />
     <ClCompile Include="AIMobFactory.cpp" />
+    <ClCompile Include="AStarPathfinding.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CharacterBuilder.cpp" />
     <ClCompile Include="CharacterFactory.cpp" />
@@ -126,9 +127,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.h" />
+    <ClInclude Include="AIMobBuilder.h" />
     <ClInclude Include="AIMobFactory.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="CharacterBuilder.h" />
+    <ClInclude Include="CharacterFactory.h" />
     <ClInclude Include="ChineseMale.h" />
     <ClInclude Include="ChineseMob.h" />
     <ClInclude Include="DatabaseLibrary.h" />
@@ -147,6 +151,7 @@
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="MalayFemale.h" />
     <ClInclude Include="MalayMob.h" />
+    <ClInclude Include="ManufactureManager.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="MenuState.h" />
@@ -164,6 +169,8 @@
     <ClInclude Include="PointsAddPU.h" />
     <ClInclude Include="PowerUp.h" />
     <ClInclude Include="PointSystem.h" />
+    <ClInclude Include="PowerUpBuilder.h" />
+    <ClInclude Include="PowerUpFactory.h" />
     <ClInclude Include="RandomGeneratorSystem\MathPlus.h" />
     <ClInclude Include="RandomGeneratorSystem\RandomGenerator.h" />
     <ClInclude Include="RenderUntilty.h" />

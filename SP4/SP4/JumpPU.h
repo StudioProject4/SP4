@@ -1,5 +1,6 @@
 #pragma once
 #include "powerup.h"
+
 class CJumpPU :
 	public CPowerUp
 {
@@ -10,8 +11,9 @@ public:
 	bool Update();
 	
 	bool Render();
-	bool OnActivate();
 
 	bool Init();
+	
+	bool OnCollision(CBaseObject* a_obj);
 };
 

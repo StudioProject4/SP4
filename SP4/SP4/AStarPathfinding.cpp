@@ -62,3 +62,91 @@ void CA_Star :: SearchBestPath(node start,node end,vector<node>locationList)
 	}
 
 }
+
+CAStarPathFinding :: CAStarPathFinding()
+{
+	
+}
+
+CAStarPathFinding :: ~CAStarPathFinding()
+{
+	
+}
+
+void CAStarPathFinding ::SetUpGraph(int maxHorizontalTile, int maxVerticalTile,node start,node end)
+{
+	this->start = start;
+	this->end = end;
+	this->tempParentNode = start;
+	this->maxHorizontalTile = maxHorizontalTile;
+	this->maxVerticalTile = maxVerticalTile;
+
+	for(int i = 0 ; i < this->maxVerticalTile ; i++)
+	{
+		for(int j = 0 ; j < this->maxHorizontalTile ; j++)
+		{
+			//setup graph
+
+			//temp setup till i get the map
+			tempMap[i][j].x = j;
+			tempMap[i][j].y = i;
+			tempMap[i][j].tileCost = 1;
+			tempMap[i][j].isWall = false;
+		}
+	}
+}
+
+void CAStarPathFinding :: SearchForPath(node currentNode)
+{
+	for(int i = 0 ; i < this->maxVerticalTile ; i++)
+	{
+		for(int j = 0 ; j < this->maxHorizontalTile ; j++)
+		{
+			if(tempMap[i][j].x == currentNode.x && tempMap[i][j].y == currentNode.y)
+			{
+				node tempNode;
+				if(tempMap[i][j-1].isWall == false)
+				{
+					tempNode = tempMap[i][j-1];
+					openList.push_back(tempNode);
+				}
+				else if(tempMap[i][j+1].isWall == false)
+				{
+					tempNode = tempMap[i][j+1];
+					openList.push_back(tempNode);
+				}
+				start = currentNode;
+				closeList.push_back(start);
+				ChooseAPath();
+				if(start.x != end.x && start.y != end.y)
+				{
+					//add in when completed to prevent infinite loop
+					//SearchForPath(start);
+				}
+			}
+		}
+	}
+}
+
+float CAStarPathFinding :: DistanceToEnd()
+{
+	return ( abs(end.x - start.x) + abs(end.y - start.y) );
+}
+
+void CAStarPathFinding :: FindPath()
+{
+	//SetUpGraph();
+	//SearchForPath();
+	
+}
+
+void CAStarPathFinding :: ChooseAPath()
+{
+	std :: vector<node> ::iterator it;
+
+	for(it = closeList.begin(); it!= closeList.end();++it)
+	{
+		
+	}
+	
+}

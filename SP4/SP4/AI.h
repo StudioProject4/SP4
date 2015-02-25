@@ -51,14 +51,22 @@ class CAStarPathFinding
 	node tempMap[10][10]; // a temp map
 
 	node tempParentNode;// use to keep track of previous node
+	node start;
+	node end;
 
-	void SetUpGraph(); // instantiate the map for pathfinding
-	void SearchPath(); // BFS
+	int maxHorizontalTile;
+	int maxVerticalTile;
+
+	void SetUpGraph(int maxHorizontalTile, int maxVerticalTile,node start,node end); // instantiate the map for pathfinding
+	void SearchForPath(node currentNode); // Find neighbouring nodes
+	void ChooseAPath();
 	float DistanceToEnd(); //heuristic
 	void FindPath(); // find the best path, the "main"
 
-	std :: vector<node> badPath; // close list
-	std :: vector<node> path; // open list
+	typedef std :: vector<node> TNodeVector;
+	std :: vector<node> closeList; // tile to not consider
+	std :: vector<node> openList; // tile to consider
+	std :: vector<node> correctPath; // comfirmed path
 };
 
 class CAILogic
@@ -81,7 +89,7 @@ class CAILogic
 		void SetEnemyPos(Vector3 & enemyPos);
 		Vector3 GetDir();
 
-		Vector3 Update();
+		Vector3 Update(Vector3 pos);
 		bool Init();
 
 		//CA_Star pathfinding;

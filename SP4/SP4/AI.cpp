@@ -64,7 +64,7 @@ void CAILogic :: IdleWanderRandomizer ()
 	}
 }
 
-Vector3 CAILogic :: Update()
+Vector3 CAILogic :: Update(Vector3 pos)
 {
 	StateCheck();
 

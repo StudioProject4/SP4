@@ -22,6 +22,8 @@
 #include "WindowManager.h"
 
 #include "PowerUp.h"
+#include "PointsAddPU.h"
+#include "HealthPU.h"
 #include "Map.h"
 
 #include "Physics.h"
@@ -57,6 +59,7 @@ public:
 	void MouseWheel(int button, int dir, int x, int y);
 	void changeSize (int w, int h);
 
+	//bool Init(bool setMultiplayer);
 	bool Init();
 	bool CleanUp();
 	bool Reset();
@@ -85,9 +88,14 @@ private:
 	CMap* Map;
 	CPowerUp* PowerUp;
 	CPhysics* Physics;
+	CHealthPU Hpadd;
+	CPointsAddPU ptsAdd;
 
+	
 	int Scr;
 
+	bool isMultiplayer;
+	
 	//Imagee
 	TextureImage BackgroundTexture[2];
 	TextureImage TileMapTexture[50];
