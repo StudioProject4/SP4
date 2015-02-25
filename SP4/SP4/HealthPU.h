@@ -1,5 +1,6 @@
 #pragma once
 #include "powerup.h"
+#include "Character.h"
 class CHealthPU :
 	public CPowerUp
 {
@@ -10,8 +11,11 @@ public:
 	bool Update();
 	
 	bool Render();
-	bool OnActivate();
 
 	bool Init();
+	
+	bool OnCollision(CBaseObject* a_obj);
+
 };
+
 
