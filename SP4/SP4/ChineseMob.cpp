@@ -1,4 +1,5 @@
 #include "ChineseMob.h"
+#include "Character.h"
 
 CChineseMob::CChineseMob()
 {
@@ -14,6 +15,7 @@ CChineseMob::~CChineseMob()
 }
 bool CChineseMob :: Update()
 {
+	phys.Jump();
 	dir = AI.GetDir();
 	pos = AI.Update();
 	return true;
@@ -52,5 +54,13 @@ bool CChineseMob :: Render()
 
 bool CChineseMob :: OnCollision(CBaseObject* a_obj)
 {
+	if(a_obj->genericTag = "Character")
+	{
+		if(a_obj->tag = "MalayFemale")
+		{
+			CCharacter* temp=(CCharacter*)a_obj;
+			temp->hp.TakeDMG();
+		}
+	}
 	return true;
 }

@@ -52,5 +52,12 @@ bool CMalayMob :: Render()
 
 bool CMalayMob :: OnCollision(CBaseObject* a_obj)
 {
+	if(a_obj->genericTag = "Character")
+	{
+		if(a_obj->tag = "ChineseMale")
+		{
+			a_obj->OnCollision(this);
+		}
+	}
 	return true;
 }
