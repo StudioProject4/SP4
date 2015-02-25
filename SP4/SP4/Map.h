@@ -11,7 +11,9 @@ using namespace std;
 //this old method needs to be upgraded with lua import variable method.
 #define SCREEN_WIDTH 960
 #define SCREEN_HEIGHT 1280
-#define TILE_SIZE 32		
+#define TILE_SIZE 32
+#define LEFT_BORDER 0
+#define BOTTOM_BORDER 0
 #define MAX_TILE 17
 #define MAP_WIDTH SCREEN_WIDTH/TILE_SIZE
 #define MAP_HEIGHT SCREEN_HEIGHT/TILE_SIZE

@@ -1,7 +1,7 @@
 #include "Physics.h"
 
 CPhysics::CPhysics()
-	: Map(NULL)
+	: map(NULL)
 {
 	for(int i=0;i<10;++i)//map[x][y]
 	{
@@ -32,7 +32,7 @@ int CPhysics::getTile(Vector3 thePos)					//check for the position to each tile 
 
 Vector3 CPhysics::getTileV(float posX,float posY)
 {
-	searchResult * result = &Map->lookupPosition(posX,posY); 
+	searchResult * result = &map->lookupPosition(posX,posY); 
 	Vector3 temp(result->xIndex,result->yIndex);
 	delete result;
 	return temp;
@@ -40,7 +40,7 @@ Vector3 CPhysics::getTileV(float posX,float posY)
 
 Vector3 CPhysics::getTileV(Vector3 thePos)					
 {
-	searchResult * result = &Map->lookupPosition(thePos); 
+	searchResult * result = &map->lookupPosition(thePos); 
 	Vector3 temp(result->xIndex,result->yIndex);
 	delete result;
 	return temp;
@@ -68,7 +68,7 @@ void CPhysics::Jump()
 {
 	if(!inAir)
 	{
-		vel.y=80;
+		vel.y=-80;
 	}
 }
 
@@ -82,43 +82,50 @@ Vector3 CPhysics::Update(Vector3 pos)
 	//	size.y=-size.y;
 	//}
 	//get the pos of where it will get to
-	vel.y-=gravity*delta;
+	vel.y+=gravity*delta;
 	maptilex=maptiley = getTile(pos+size*0.5+vel*delta);//middle
 	if(vel.x>0)
 	{
-		int temp=getTile(pos+Vector3(size.x*0.5,0,0)+vel*delta);
-		maptilex=temp;
+		if(TestColMap(pos,false,false,false,true,map))
+		{
+			int temp=getTile(pos+Vector3(size.x*0.5,0,0)+vel*delta);
+			vel.x=0;
+		}
+		//maptilex=temp;
 	}
 	else if(vel.x<0)
 	{
-		int temp=getTile(pos+Vector3(-size.x*0.5,0,0)+vel*delta);
-		maptilex=temp;
+		if(TestColMap(pos,false,false,true,false,map))
+		{
+			int temp=getTile(pos+Vector3(-size.x*0.5,0,0)+vel*delta);
+			vel.x=0;
+		}
 	}
 	if(vel.y>0)
 	{
-		int temp=getTile(pos+Vector3(0,size.y*0.5,0)+vel*delta);
-		maptiley=temp;
+		if(TestColMap(pos,false,true,false,false,map))
+		{
+			int temp=getTile(pos+Vector3(0,size.y*0.5,0)+vel*delta);
+			vel.y=0;
+			inAir=false;
+		}
+		//maptiley=temp;
 	}
 	else if(vel.y<0)
 	{
-		int temp=getTile(pos+Vector3(0,-size.y*0.5,0)+vel*delta);
-		maptiley=temp;
+		if(TestColMap(pos,true,false,false,false,map))
+		{
+			int temp=getTile(pos+Vector3(0,-size.y*0.5,0)+vel*delta);
+			vel.y=0;
+		}
+		//maptiley=temp;
 	}
 
-	if (maptiley == 0)//==air
-	{
-		inAir=true;
-	}
-	else if (maptiley == 1)//something solid
-	{
-		vel.y=0;
-		inAir=false;
-	}
 
-	if(maptilex==1)
-	{
-		vel.x=0;
-	}
+	//if(maptilex==1)
+	//{
+	//	vel.x=0;
+	//}
 	//else if maptile == slope
 	//slopePhysics(dir)
 	//else if(special tile)//such as levers etc
@@ -130,4 +137,113 @@ Vector3 CPhysics::Update(Vector3 pos)
 	this->pos.Set(pos.x,pos.y,pos.z);
 	//The pos.x and pos.y are the top left corner of the hero, so we find the tile which this position occupies.
 	return this->pos;
+}
+
+//Check for collision of hero with obstacles in a certain position
+bool CPhysics::TestColMap(Vector3 pos, 
+								   bool m_bCheckUpwards, bool m_bCheckDownwards, 
+								   bool m_bCheckLeft, bool m_bCheckRight, CMap* map,int x_offset,int y_offset)
+{
+	//The pos.x and pos.y are the top left corner of the hero, so we find the tile which this position occupies.
+	int tile_topleft_x = (int)floor((float)(x_offset+pos.x-LEFT_BORDER) / TILE_SIZE);
+	int tile_topleft_y = (int)floor((float)(y_offset+pos.y-BOTTOM_BORDER)/ TILE_SIZE);
+	int proceed=false;
+	Vector3 reference[9];
+	int j=0;
+	if(tile_topleft_x<0||tile_topleft_x>map->getNumOfTiles_MapWidth()-2)
+	{
+		return true;
+	}
+	if(tile_topleft_y<0||tile_topleft_y>map->getNumOfTiles_MapHeight()-2)
+	{
+		return true;
+	}
+	if (m_bCheckLeft)
+	{
+		if (map->theScreenMap[tile_topleft_y][tile_topleft_x] == 0)
+		{
+			proceed=true;
+			reference[j].Set((tile_topleft_x)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y)*TILE_SIZE+BOTTOM_BORDER);
+			j++;
+		}
+		if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x] == 0)
+		{
+			proceed=true;
+			reference[j].Set((tile_topleft_x)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y+1)*TILE_SIZE+BOTTOM_BORDER);
+			j++;
+		}
+	}
+
+	if (m_bCheckRight)
+	{
+		if (map->theScreenMap[tile_topleft_y][tile_topleft_x+1] == 0)
+		{
+			proceed=true;
+			reference[j].Set((tile_topleft_x+1)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y)*TILE_SIZE+BOTTOM_BORDER);
+			j++;
+		}
+		if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x+1] == 0)
+		{
+			reference[j].Set((tile_topleft_x+1)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y+1)*TILE_SIZE+BOTTOM_BORDER);
+			proceed=true;
+			j++;
+		}
+	}
+
+	if (m_bCheckUpwards)
+	{
+		if (map->theScreenMap[tile_topleft_y][tile_topleft_x] == 0)
+		{
+			proceed=true;
+			reference[j].Set((tile_topleft_x)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y)*TILE_SIZE+BOTTOM_BORDER);
+			j++;
+		}
+		if (map->theScreenMap[tile_topleft_y][tile_topleft_x+1] == 0)
+		{
+			proceed=true;
+			reference[j].Set((tile_topleft_x+1)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y)*TILE_SIZE+BOTTOM_BORDER);
+			j++;
+		}
+	}
+
+	if (m_bCheckDownwards)
+	{
+		if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x] == 0)
+		{
+			proceed=true;
+			reference[j].Set((tile_topleft_x)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y+1)*TILE_SIZE+BOTTOM_BORDER);
+			j++;
+		}
+		if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x+1] == 0)
+		{
+			proceed=true;
+			reference[j].Set((tile_topleft_x+1)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y+1)*TILE_SIZE+BOTTOM_BORDER);
+			j++;
+		}
+	}
+
+	if(proceed)
+	{
+		for(int i=0;i<j;++i)
+		{
+			if(abs(reference[i].x-x_offset-pos.x)<TILE_SIZE-2 && abs(reference[i].y-y_offset-pos.y)<TILE_SIZE-2)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+void CPhysics::MoveSide(bool mode)
+{
+	
+	if(mode)
+	{
+		vel.x=30;
+	}
+	else
+	{
+		vel.x=-30;
+	}
 }
