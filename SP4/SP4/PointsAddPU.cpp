@@ -22,11 +22,6 @@ bool CPointsAddPU::Render()
 	return true;
 }
 
-bool CPointsAddPU::OnActivate()
-{
-
-	return true;
-}
 
 bool CPointsAddPU::Init()
 {

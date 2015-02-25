@@ -27,3 +27,8 @@ bool CHealthPU::Init()
 
 	return true;
 }
+
+bool CHealthPU::Update()
+{
+	return true;
+}

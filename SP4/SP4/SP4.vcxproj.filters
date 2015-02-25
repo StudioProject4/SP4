@@ -156,6 +156,30 @@
     <ClCompile Include="PointsAddPU.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AIMobBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AIMobFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterBuilder.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterFactory.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ManufactureManager.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpBuilder.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpFactory.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myApplication.h">
@@ -312,6 +336,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PointsAddPU.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMobBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMobFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ManufactureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUpBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUpFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

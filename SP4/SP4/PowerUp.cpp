@@ -67,26 +67,7 @@ bool CPowerUp::Init()
 	return true;
 }
 
-bool CPowerUp::Update()
-{
 
-	//speed up
-	
-
-	//point modifier
-
-
-	//recovery
-
-
-	//jumpheight
-
-	
-	//Invincible On
-	InvinItem();
-	
-	return true;
-}
 
 void CPowerUp::HpItem()
 {

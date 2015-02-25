@@ -10,7 +10,6 @@ public:
 	bool Update();
 	
 	bool Render();
-	bool OnActivate();
 
 	bool Init();
 };
