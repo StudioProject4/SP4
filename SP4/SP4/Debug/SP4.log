@@ -1,167 +1,22 @@
-﻿Build started 2/25/2015 2:04:20 PM.
+﻿Build started 2/25/2015 5:59:54 PM.
      1>Project "C:\Users\m308\Documents\GitHub\SP4\SP4\SP4\SP4.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SP4.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\m308\Documents\GitHub\SP4\SP4\includes /IC:\Users\m308\Documents\GitHub\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt AIMobFactory.cpp Character.cpp CharacterFactory.cpp ChineseMale.cpp ChineseMob.cpp GameState.cpp GameStateManager.cpp KennardTestState.cpp LeverDoor.cpp MalayFemale.cpp MalayMob.cpp ManufactureManager.cpp Map.cpp MenuState.cpp ObjectManager.cpp ObstacleBase.cpp Physics.cpp PowerUp.cpp PowerUpFactory.cpp Slope.cpp TestObject.cpp main.cpp myApplication.cpp
-         AIMobFactory.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         Generating Code...
-         Compiling...
-         myApplication.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(162): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(163): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\audio.h(241): warning C4172: returning address of local variable or temporary
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(47): warning C4552: '-' : operator has no effect; expected operator with side-effect
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(307): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(569): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(573): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(577): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-         main.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(162): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(163): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\audio.h(241): warning C4172: returning address of local variable or temporary
-         TestObject.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         Slope.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         PowerUpFactory.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         PowerUp.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         Physics.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(77): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(91): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(100): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(108): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(118): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(166): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(166): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(172): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(172): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(182): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(182): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(187): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(187): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(198): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(198): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(204): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(204): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(214): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(214): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(220): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\physics.cpp(220): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         ObstacleBase.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         ObjectManager.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         MenuState.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(162): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(163): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\audio.h(241): warning C4172: returning address of local variable or temporary
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\menustate.cpp(156): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\menustate.cpp(160): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\menustate.cpp(164): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-         Map.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(134): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(135): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(161): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(165): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(201): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(202): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(228): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(232): warning C4258: 'y' : definition from the for loop is ignored; the definition from the enclosing scope is used
-                 c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(209) : definition of 'y' ignored
-                 c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(196) : definition of 'y' used
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(232): warning C4244: '=' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(327): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(328): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(329): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(330): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(378): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(379): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(380): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\map.cpp(381): warning C4244: 'initializing' : conversion from 'float' to 'short', possible loss of data
-         ManufactureManager.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         MalayMob.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         MalayFemale.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\m308\Documents\GitHub\SP4\SP4\includes /IC:\Users\m308\Documents\GitHub\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt LeverDoor.cpp
          LeverDoor.cpp
      1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(20): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(21): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(29): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(33): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(48): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(84): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(92): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(138): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(150): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(151): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(275): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-         KennardTestState.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(162): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(163): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\kennardteststate.cpp(59): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\kennardteststate.cpp(63): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\kennardteststate.cpp(67): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-         GameStateManager.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         GameState.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         ChineseMob.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         ChineseMale.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         Generating Code...
-         Compiling...
-         CharacterFactory.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         Character.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         Generating Code...
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(28): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(32): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(47): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(83): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(91): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(173): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(185): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(186): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\leverdoor.cpp(310): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
          All outputs are up-to-date.
        ManifestResourceCompile:
          All outputs are up-to-date.
@@ -170,7 +25,6 @@
          Debug\AI.obj
          Debug\AIMobBuilder.obj
          Debug\AIMobFactory.obj
-         Debug\AStarPathfinding.obj
          Debug\Character.obj
          Debug\CharacterBuilder.obj
          Debug\CharacterFactory.obj
@@ -179,7 +33,10 @@
          Debug\FrameRateManager.obj
          Debug\GameState.obj
          Debug\GameStateManager.obj
+         Debug\HealthPU.obj
          Debug\HealthSystem.obj
+         Debug\InvinciblePU.obj
+         Debug\JumpPU.obj
          Debug\KennardTestState.obj
          Debug\Keyboard.obj
          Debug\LeverDoor.obj
@@ -198,13 +55,14 @@
          Debug\ObjLoader.obj
          Debug\ObstacleBase.obj
          Debug\Physics.obj
+         Debug\PointsAddPU.obj
          Debug\PowerUp.obj
          Debug\PointSystem.obj
          Debug\PowerUpBuilder.obj
          Debug\PowerUpFactory.obj
          Debug\RandomGenerator.obj
          Debug\RenderUntility.obj
-         Debug\Slope.obj
+         Debug\SpeedPU.obj
          Debug\Sprite.obj
          Debug\TestObject.obj
          Debug\tgaLoader.obj
@@ -223,4 +81,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:17.57
+Time Elapsed 00:00:01.21

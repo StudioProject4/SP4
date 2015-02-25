@@ -197,22 +197,24 @@ bool KennardTestState::Update()
 	if(keyboard->myKeys['d'])
 	{
 		test.phys.vel.x=30;
-		keyboard->myKeys['d']=false;
+		//keyboard->myKeys['d']=false;
 		cout<<test.pos.x<<"\n";
 	}
 	else if(keyboard->myKeys['a'])
 	{
 		test.phys.vel.x=-30;
-		keyboard->myKeys['a']=false;
+		//keyboard->myKeys['a']=false;
 		cout<<test.pos.x<<"\n";
 	}
 	else if(keyboard->myKeysUp['a']&&keyboard->myKeysUp['d'])
 	{
 		test.phys.vel.x=0;
+		keyboard->myKeysUp['a']=false;
+		keyboard->myKeysUp['d']=false;
 	}
 	else
 	{
-		if(test.phys.vel.x>0)
+		/*if(test.phys.vel.x>0)
 		{
 			if(test.phys.vel.x<30)
 				test.phys.vel.x=30;
@@ -220,7 +222,7 @@ bool KennardTestState::Update()
 		else if(test.phys.vel.x>-30)
 		{
 			test.phys.vel.x=-30;
-		}
+		}*/
 	}
 	if(keyboard->myKeys['-'])
 	{
@@ -255,9 +257,12 @@ bool KennardTestState::Init()
 	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
 	test.Init();
-	test.pos=Vector3(100,100,0);
+	test.pos=Vector3(300,300,0);
 	test.phys.Init(test.pos,Vector3(50,50,0));
-	theLever.Init(Vector3(400,150,0),Vector3(5,50));
+	theLever.Init(Vector3(400,57,0),Vector3(5,50));
+	map.Init(SCREEN_HEIGHT,SCREEN_WIDTH*2,SCREEN_HEIGHT,SCREEN_WIDTH*2,TILE_SIZE);
+	map.LoadMap("test.csv");
+	test.phys.map=&map;
 	return true;
 }
 

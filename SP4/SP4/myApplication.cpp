@@ -259,7 +259,7 @@ bool myApplication::Update()
 		std::cout << Map->lookPositionText(playerOne->pos, false) << std::endl;
 		std::cout << Map->ScreenNum << " @@ " << std::endl;
 
-	playerTwo->Update();
+//	playerTwo->Update();
 		Map->RunMap();
 		//std::cout << playerOne->pos.x << std::endl;
 		//std::cout << playerOne->pos.y << std::endl;
