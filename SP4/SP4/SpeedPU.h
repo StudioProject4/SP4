@@ -6,13 +6,13 @@ class CSpeedPU :
 public:
 	CSpeedPU(void);
 	~CSpeedPU(void);
-
 			
 	bool Update();
 	
 	bool Render();
-	bool OnActivate();
 
 	bool Init();
+	
+	bool OnCollision(CBaseObject* a_obj);
 };
 

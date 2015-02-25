@@ -2,6 +2,8 @@
 
 
 CInvinciblePU::CInvinciblePU(void)
+	: InvinOnP1(false)
+	, InvinOnP2(false)
 {
 }
 
@@ -18,18 +20,38 @@ bool CInvinciblePU::Update()
 	
 bool CInvinciblePU::Render()
 {
-
-	return true;
-}
-
-bool CInvinciblePU::OnActivate()
-{
-
+	theSprite->Render();
 	return true;
 }
 
 bool CInvinciblePU::Init()
 {
+	name = "Invincible";
+	tag = "Invin";
+	genericTag = "PowerUp"; 
+
+	theSprite = new CSprite(1,1,0);
+	theSprite->LoadTGA("Invincible.tga");
+	
+	return true;
+}
+
+bool CInvinciblePU::OnCollision(CBaseObject* a_obj)
+{
+
+	if(a_obj->genericTag = "Character")
+	{
+		if(a_obj->name = "GenericChineseKid")
+		{
+
+		}
+		else
+		if(a_obj->name = "GenericMalayKid")
+		{
+		
+			
+		}
+	}
 
 	return true;
 }

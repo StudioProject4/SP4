@@ -3,12 +3,14 @@
 #include "Map.h"
 #include "BaseObject.h"
 #include "Character.h"
+#include "Sprite.h"
 
 class CPowerUp : public CBaseObject
 {
 
 private:
 
+/*
 	//hp count, points count, speed, incvincible, jumpheight
 	//check how many items are taken
 	int HpItemCount, PtsItemCount, 
@@ -18,6 +20,7 @@ private:
 	bool HpAvail, InvinAvail, PtAvail, JumpAvail, SpdAvail;
 
 	bool InvincibleOn;		//check if invincible is on
+	*/
 
 public:
 
@@ -29,13 +32,9 @@ public:
 
 	bool Init();
 
-	void InvinItem();			//take in invincible
+	//void InvinItem();			//take in invincible
 
-	void HpItem();
-	void SpdItem();
-	void JpItem();
-	void PtsItem();
-
+	CSprite * theSprite;
 	
 
 	// Are you going to have derived power up class from this class ,or are you going to use this class for all type of power up ?

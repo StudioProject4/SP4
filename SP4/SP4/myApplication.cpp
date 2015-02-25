@@ -213,7 +213,11 @@ bool myApplication::Update()
 		}
 		if(keyboard->myKeys['s'])
 		{
-		
+			//playerOne->OnCollision(&Hpadd);
+			//playerOne->OnCollision(&ptsAdd);
+			ptsAdd.OnCollision(playerOne);
+			//Hpadd.OnCollision(playerOne);
+			//ptsAdd.OnCollision(&Hpadd);
 		}
 		if(keyboard->leftArrow == true)
 		{

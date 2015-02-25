@@ -22,14 +22,33 @@ bool CSpeedPU::Render()
 	return true;
 }
 
-bool CSpeedPU::OnActivate()
+bool CSpeedPU::Init()
 {
+	name = "SpeedUp";
+	tag = "SpdUp";
+	genericTag = "PowerUp"; 
+	
+	theSprite = new CSprite(1,1,0);
+	theSprite->LoadTGA("SpeedUp.tga");
 
 	return true;
 }
 
-bool CSpeedPU::Init()
+bool CSpeedPU::OnCollision(CBaseObject* a_obj)
 {
+
+	if(a_obj->genericTag = "Character")
+	{
+		if(a_obj->name = "GenericChineseKid")
+		{
+			//speed up
+		}
+		else
+		if(a_obj->name = "GenericMalayKid")
+		{
+
+		}
+	}
 
 	return true;
 }

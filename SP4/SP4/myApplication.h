@@ -22,6 +22,8 @@
 #include "WindowManager.h"
 
 #include "PowerUp.h"
+#include "PointsAddPU.h"
+#include "HealthPU.h"
 #include "Map.h"
 
 #include "Physics.h"
@@ -86,11 +88,14 @@ private:
 	CMap* Map;
 	CPowerUp* PowerUp;
 	CPhysics* Physics;
+	CHealthPU Hpadd;
+	CPointsAddPU ptsAdd;
 
+	
 	int Scr;
 
 	bool isMultiplayer;
-
+	
 	//Imagee
 	TextureImage BackgroundTexture[2];
 	TextureImage TileMapTexture[50];
