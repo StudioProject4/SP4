@@ -56,47 +56,29 @@ bool CMalayFemale :: CleanUp()
 
 bool CMalayFemale :: OnCollision(CBaseObject* a_obj)
 {
-	if(a_obj->genericTag = "Character")
-	{
-		//nothing
-	}
-	if(a_obj->genericTag = "Enemy")
-	{
-		if(a_obj->tag = "ChineseMob")
-		{
-			if(clock() - invultimer > 5000)
-			{
-				hp.TakeDMG();
-				std :: cout << "MalayFemale's HP : " << hp.GetHealth() << std :: endl;
-			}
-		}
-	}
-	if(a_obj->genericTag = "Powerup")
-	{
-		//to be continued when powerups are done
-		if(a_obj->name = "HpAdd")
-		{
-			hp.RecoverHealth();
-		}
-
-		if(a_obj->name = "Invincible")
-		{
-		}
-		if(a_obj->name = "PtAdd")
-		{
-			points.PointsReceive(10);
-		}
-		if(a_obj->name = "JumpHt")
-		{
-		}
-		if(a_obj->name = "SpdAdd")
-		{
-		}
-	}
-	if(a_obj->genericTag = "Obstacle")
-	{
-		//to be continued when powerups are done
-	}
+	//if(a_obj->genericTag = "Character")
+	//{
+	//	//nothing
+	//}
+	//if(a_obj->genericTag = "Enemy")
+	//{
+	//	if(a_obj->tag = "ChineseMob")
+	//	{
+	//		if(clock() - invultimer > 5000)
+	//		{
+	//			hp.TakeDMG();
+	//			std :: cout << "MalayFemale's HP : " << hp.GetHealth() << std :: endl;
+	//		}
+	//	}
+	//}
+	//if(a_obj->genericTag = "Powerup")
+	//{
+	//	//to be continued when powerups are done
+	//}
+	//if(a_obj->genericTag = "Obstacle")
+	//{
+	//	//to be continued when powerups are done
+	//}
 	return true;
 }
 

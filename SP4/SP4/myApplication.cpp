@@ -173,8 +173,11 @@ bool myApplication::Init()
 	//	Map->LoadMap("Level1_1.csv");
 	//}
 	
+	playerOne->Init(Vector3(0,20,0),Vector3(0,0,0),0);
+	playerTwo->Init(Vector3(0,20,0),Vector3(0,0,0),0);
 	
 	Map->RunMap();
+
 	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
 	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
 
