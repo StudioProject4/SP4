@@ -2,6 +2,7 @@
 
 #include "Map.h"
 #include "BaseObject.h"
+#include "Character.h"
 
 class CPowerUp : public CBaseObject
 {
@@ -14,7 +15,7 @@ private:
 		SpeedItemCount, InvinItemCount, JumpHeiCount;	
 	
 	//check if item is there
-	bool HpAvail, InvinAvail;
+	bool HpAvail, InvinAvail, PtAvail, JumpAvail, SpdAvail;
 
 	bool InvincibleOn;		//check if invincible is on
 
@@ -23,10 +24,19 @@ public:
 	CPowerUp();
 	~CPowerUp();
 
-	bool Update();
+	virtual bool Update();
+	virtual bool Render();
+	virtual bool OnActivate();
+
 	bool Init();
 
 	void InvinItem();			//take in invincible
+
+	void HpItem();
+	void SpdItem();
+	void JpItem();
+	void PtsItem();
+
 	
 
 	// Are you going to have derived power up class from this class ,or are you going to use this class for all type of power up ?

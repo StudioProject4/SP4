@@ -10,10 +10,13 @@ CMap::CMap(void)
 , theNumOfTiles_MapHeight(0)
 , theNumOfTiles_MapWidth(0)
 , theTileSize(0)
-, Level(2)
-, LevelCount(1)
+, Level(1)
+, LevelCount(0)
+, mapOffset_x(0)
+, mapOffset_y(0)
 {
 	theScreenMap.clear();
+
 }
 
 CMap::~CMap(void)
@@ -137,6 +140,8 @@ searchResult CMap::lookupPosition(Vector3 currentPosition,bool strict)
 	short maxY = minY + 2;
 	//cout <<"minX: "<< minX << endl;
 	//cout <<"minY: " << minY << endl;
+
+	//if not found
 	if (!strict)
 	{
 		for (short y = minY; y < maxY; ++y)
@@ -183,6 +188,73 @@ searchResult CMap::lookupPosition(Vector3 currentPosition,bool strict)
 	}
 	return result;
 }
+
+searchResult CMap::lookPositionText(Vector3 currentPosition, bool strict)
+{
+	bool xfound = false;
+	bool yfound = false;
+	searchResult result;
+	short minX = (currentPosition.x / TILE_SIZE) -1;
+	short minY = (currentPosition.y / TILE_SIZE) -1;
+	short maxX = minX + 2;
+	short maxY = minY + 2;
+	//cout <<"minX: "<< minX << endl;
+	//cout <<"minY: " << minY << endl;
+
+	//if not found
+	if (!strict)
+	{
+		for (short y = minY; y < maxY; ++y)
+		{
+			for (short x = minX; x < maxX; ++x)
+			{
+				if (mapMatrix[x][y].x == currentPosition.x && xfound == false)
+				{
+					result.xIndex = x;
+					xfound = true;
+				}
+				if (mapMatrix[x][y].y == currentPosition.y && yfound == false)
+				{
+					result.yIndex = y;
+					yfound = true;
+				}
+			}
+
+		}
+		if (xfound == false)//safety net,in case the object is not centered in the cell
+		{
+			result.xIndex = result.xFloat = currentPosition.x / TILE_SIZE;
+		}
+		if (yfound == false)
+		{
+			result.yIndex = result.yFloat = currentPosition.y / TILE_SIZE;
+		}
+	}
+	else
+	{
+		for (short y = minY; y < maxY; ++y)
+		{
+			for (short x = minX; x < maxX; ++x)
+			{
+				if (mapMatrix[x][y].IsEqual(currentPosition.x,currentPosition.y))
+				{
+					result.xIndex = x;
+					result.yIndex = y;
+					xfound = yfound = true;				
+				}
+			}
+
+		}
+	}
+	
+	
+		ScreenNum = theScreenMap[result.yIndex][result.xIndex];
+	//	std::cout << ScreenNum << std::endl;
+
+		return result;
+	
+}
+
 Vector3 CMap::lookupIndex(short x, short y)
 {
 	Vector3 result;
@@ -204,6 +276,8 @@ searchResult CMap::lookupPosition(float x, float y, float z,bool strict)
 	short maxY = minY + 2;
 	//cout <<"minX: "<< minX << endl;
 	//cout <<"minY: " << minY << endl;
+
+	//if not found
 	if (!strict)
 	{
 		for (short y = minY; y < maxY; ++y)
@@ -248,8 +322,11 @@ searchResult CMap::lookupPosition(float x, float y, float z,bool strict)
 
 		}
 	}
+
+
 	return result;
 }
+
 bool CMap::LoadFile(const string mapName)
 {
 	int theLineCounter = 0;
@@ -430,22 +507,22 @@ void CMap::RunMap()
 	}else
 	if(Level == 2 && LevelCount != 2)
 	{
-		LoadMap("Level1_1.csv");
+		LoadMap("Level1_2.csv");
 		LevelCount = 2;
 	}else
 	if(Level == 3 && LevelCount != 3)
 	{
-		LoadMap("Level1_1.csv");
+		LoadMap("Level1_3.csv");
 		LevelCount = 3;
 	}else
 	if(Level == 4 && LevelCount != 4)
 	{
-		LoadMap("Level1_1.csv");
+		LoadMap("Level1_4.csv");
 		LevelCount = 4;
 	}else
 	if(Level == 5 && LevelCount != 5)
 	{
-		LoadMap("Level1_1.csv");
+		LoadMap("Level1_5.csv");
 		LevelCount = 5;
 	}
 }

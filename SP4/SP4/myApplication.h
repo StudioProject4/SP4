@@ -86,6 +86,7 @@ private:
 	CPowerUp* PowerUp;
 	CPhysics* Physics;
 
+	int Scr;
 
 	//Imagee
 	TextureImage BackgroundTexture[2];
@@ -101,6 +102,7 @@ private:
 	
 	void RenderTileMap();
 	void RenderBackground();
+
 
 	//void printw (float x, float y, float z, char* format, ...);
 	//void calculateFPS();

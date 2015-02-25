@@ -2,7 +2,7 @@
 
 CPointSystem :: CPointSystem()
 {
-	
+	points = 0;	
 }
 
 CPointSystem :: ~CPointSystem()

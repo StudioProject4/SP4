@@ -75,6 +75,28 @@ bool CChineseMale :: OnCollision(CBaseObject* a_obj)
 	if(a_obj->genericTag = "Powerup")
 	{
 		//to be continued when powerups are done
+		if(a_obj->name = "HpAdd")
+		{
+			if(clock() - invultimer > 5000)
+			{
+				hp.RecoverHealth();
+			}
+		}
+
+		if(a_obj->name = "Invincible")
+		{
+		}
+		if(a_obj->name = "PtAdd")
+		{
+			points.PointsReceive(10);
+		}
+		if(a_obj->name = "JumpHt")
+		{
+		}
+		if(a_obj->name = "SpdAdd")
+		{
+		}
+
 	}
 	if(a_obj->genericTag = "Obstacle")
 	{
