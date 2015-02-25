@@ -13,7 +13,6 @@
 #include "LuaManager.h"
 
 #include "DatatypeDefination.h"
-#include "myLibrary.h"
 #include "GameStateManager.h"
 #include "MenuState.h"
 #include "MalayFemale.h"
@@ -43,13 +42,14 @@ private:
 	//int previousTime;
 	//long timelastcall;
 	//float frequency;
-
+	CChineseMale* testmale;
 	TextureImage testimage;
 public:
 	static myApplication* GetInstance();
 	~myApplication(void);
 
 	void InputKey(int key, int x, int y);
+	void InputUpKey(int key, int x, int y);
 	void KeyboardDown(unsigned char key, int x, int y);
 	void KeyboardUp(unsigned char key, int x, int y);
 	void MouseMove (int x, int y);

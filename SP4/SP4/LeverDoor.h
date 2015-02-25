@@ -9,6 +9,8 @@ class CLeverDoor:public CObstacleBase
 private:
 	float offTrigger,onTrigger,maxAngle,minAngle;
 	Vector3 normal;
+	Vector3 width1,width2;
+	Vector3 colPoint;
 	float length;
 	float width;
 	float angleVel;

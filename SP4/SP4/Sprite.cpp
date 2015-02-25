@@ -10,7 +10,7 @@ CSprite::CSprite(ushort maxframe,ushort numberoflayer,ushort currentlayer)
 	,pause(false)
 	,frameinterval(20)
 	,framespeed(1)
-	,size(96.f,96.f)//the size need to be inline with tilesize
+	,size(32.f,32.f)//the size need to be inline with tilesize
 	,currentlayer(currentlayer)
 	,currenttimecounter(0)
 	,lateralinvert(false)

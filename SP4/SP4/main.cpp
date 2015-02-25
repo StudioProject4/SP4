@@ -21,7 +21,10 @@ void inputKey(int key, int x, int y) {
 	//myApplication::GetInstance()->InputKey(key,x,y);
 	CGameStateManager::GetInstance()->InputKey(key,x,y);
 }
-
+void inputUpKey(int key, int x, int y) {
+	//myApplication::GetInstance()->InputKey(key,x,y);
+	CGameStateManager::GetInstance()->InputUpKey(key,x,y);
+}
 void KeyboardDown(unsigned char key, int x, int y){
 	//myApplication::GetInstance()->KeyboardDown(key,x,y);
 	CGameStateManager::GetInstance()->KeyboardDown(key,x,y);
@@ -93,6 +96,7 @@ int main(int argc, char **argv )
 		//	glutSpecialFunc(inputKey);
 		//glutIdleFunc(renderScene);
 		glutSpecialFunc(inputKey);
+		glutSpecialUpFunc(inputUpKey);
 		glutKeyboardFunc(KeyboardDown);
 		glutKeyboardUpFunc(KeyboardUp);
 		glutPassiveMotionFunc(MouseMove);
@@ -107,5 +111,9 @@ int main(int argc, char **argv )
 		//	printf("Error Initialising Program\n");
 		////	return 1;
 		//}
+		
+		
+
+
 		return 0;
 };

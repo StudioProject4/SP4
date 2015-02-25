@@ -1,10 +1,19 @@
 #include "ObjectManager.h"
 
+//CObjectManager* CObjectManager::instance = 0;
 
 CObjectManager::CObjectManager(void)
 {
 	Init();
 }
+//CObjectManager* CObjectManager::GetInstance()
+//{
+//	if(instance == 0)
+//	{
+//		instance = new CObjectManager();
+//	}
+//	return instance;
+//}
 
 CObjectManager::~CObjectManager(void)
 {
@@ -34,6 +43,7 @@ bool CObjectManager::Update()
 bool CObjectManager::Init()
 {
 	name = "objectmanager";
+	manufacturer = CManufactureManager::GetInstance();
 	return true;
 }
 
@@ -48,6 +58,12 @@ bool CObjectManager::Reset()
 
 bool CObjectManager::CleanUp()
 {
+	if(manufacturer != 0)
+	{
+		delete manufacturer;
+		manufacturer = 0;
+	}
+
 	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
 	{
 		if( (*it) != NULL )

@@ -62,11 +62,12 @@ bool CMalayFemale :: OnCollision(CBaseObject* a_obj)
 	}
 	if(a_obj->genericTag = "Enemy")
 	{
-		if(a_obj->genericTag = "ChineseMob")
+		if(a_obj->tag = "ChineseMob")
 		{
 			if(clock() - invultimer > 5000)
 			{
 				hp.TakeDMG();
+				std :: cout << "MalayFemale's HP : " << hp.GetHealth() << std :: endl;
 			}
 		}
 	}

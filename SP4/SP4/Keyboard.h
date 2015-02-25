@@ -4,6 +4,10 @@ class CKeyboard:public CEntity
 {
 public:
 	bool myKeys[255];
+	bool myKeysUp[255];
+	bool leftArrow;
+	bool rightArrow;
+	bool upArrow;
 	static CKeyboard* instance;
 private:
 	CKeyboard(void);

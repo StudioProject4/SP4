@@ -4,15 +4,22 @@
 #include <queue>
 #include <vector>
 
+#include "ManufactureManager.h"
+
 class CObjectManager :
 	public CEntity
 {
-private:
+public:
 	typedef std::vector<CBaseObject*> TObjectListVector;
 	typedef std::deque<CBaseObject*> TObjectListQueue;
 	TObjectListVector objectList;
 	TObjectListQueue inactiveObjectList;
+	CManufactureManager* manufacturer;
+	//CObjectManager(void);
+
 public:
+	//static CObjectManager* instance;
+	//static CObjectManager* GetInstance();
 	CObjectManager(void);
 	~CObjectManager(void);
 

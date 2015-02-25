@@ -86,7 +86,10 @@ void CGameStateManager::Update(void)
 {
 	gamestatestack.top()->Update();
 }
-
+void CGameStateManager::InputUpKey(int key, int x, int y)
+{
+	gamestatestack.top()->InputUpKey(key,x,y);
+}
 void CGameStateManager::InputKey(int key, int x, int y)
 {
 	gamestatestack.top()->InputKey(key,x,y);

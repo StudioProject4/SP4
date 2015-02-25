@@ -23,7 +23,7 @@ protected:
 	CMouse* mouse;
 	CKeyboard* keyboard;
 	CWindowManager* WM;
-	CObjectManager OM;
+	CObjectManager* OM;
 	CMusicSystem* MS;
 	bool inited;
 public:
@@ -31,6 +31,7 @@ public:
 	virtual ~CGameState(void);
 
 	virtual void InputKey(int key, int x, int y) = 0 ;
+	virtual void InputUpKey(int key, int x, int y) = 0 ;
 	virtual void KeyboardDown(unsigned char key, int x, int y) = 0;
 	virtual void KeyboardUp(unsigned char key, int x, int y) = 0;
 	virtual void MouseMove (int x, int y) = 0;

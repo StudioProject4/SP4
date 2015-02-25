@@ -4,6 +4,7 @@
 #include "Vector3.h"
 #include "RenderUntilty.h"
 #include "LeverDoor.h"
+#include "TestObject.h"
 
 
 class KennardTestState :
@@ -19,12 +20,13 @@ public:
 	}
 
 	//test object
-	CChineseMale test;
+	CTestObject test;
 	//end of test object
 	
 	CLeverDoor theLever;
 
 	void InputKey(int key,int x,int y);
+	void InputUpKey(int key, int x, int y){};
 	void KeyboardDown(unsigned char key,int x,int y);
 	void KeyboardUp(unsigned char key,int x,int y);
 	void MouseMove(int x,int y);
