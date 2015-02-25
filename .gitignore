@@ -39,3 +39,5 @@
 *.sdf
 SP4/SP4/Debug/SP4.log
 *.log
+*.unsuccessfulbuild
+SP4/SP4/Debug/SP4.log
