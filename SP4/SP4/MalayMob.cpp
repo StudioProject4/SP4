@@ -14,8 +14,9 @@ CMalayMob :: ~CMalayMob()
 }
 bool CMalayMob :: Update()
 {
+	pos.y = phys.Update(pos).y;
 	dir = AI.GetDir();
-	pos = AI.Update();
+	pos.x = AI.Update(pos).x;
 	return true;
 }
 bool CMalayMob :: Init()
@@ -28,6 +29,8 @@ bool CMalayMob :: Init()
 
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("sonia2.tga");
+	
+	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 
 	return true;
 }	
@@ -44,6 +47,7 @@ bool CMalayMob :: Render()
 {
 	glPushMatrix();
 	glTranslatef(pos.x,pos.y,pos.z);
+	//glScalef(10,10,1);
 	theSprite->Render();
 	glPopMatrix();
 
@@ -60,4 +64,9 @@ bool CMalayMob :: OnCollision(CBaseObject* a_obj)
 		}
 	}
 	return true;
+}
+
+void CMalayMob :: SetPos(Vector3 newPos)
+{
+	this->pos = newPos;
 }

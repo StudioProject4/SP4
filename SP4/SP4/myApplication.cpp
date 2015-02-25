@@ -70,6 +70,7 @@ bool myApplication::Reset()
 	return Init();
 }
 
+//bool myApplication::Init(bool setMultiplayer)
 bool myApplication::Init()
 {
 	inited = true;
@@ -150,6 +151,10 @@ bool myApplication::Init()
 	
 	playerTwo->phys.map=Map;
 	playerOne->phys.map=Map;
+	theAIOne->phys.map=Map;
+	theAITwo->phys.map=Map;
+
+	isMultiplayer = false;
 	
 	////load map
 	//if(Map->LevelCount == 1)
@@ -173,9 +178,11 @@ bool myApplication::Init()
 	//	Map->LoadMap("Level1_1.csv");
 	//}
 	
-	playerOne->Init(Vector3(0,20,0),Vector3(0,0,0),0);
-	playerTwo->Init(Vector3(0,20,0),Vector3(0,0,0),0);
+	playerOne->Init(Vector3(60,20,0),Vector3(0,0,0),0);
+	playerTwo->Init(Vector3(60,20,0),Vector3(0,0,0),0);
+	theAIOne->SetPos(Vector3(600,200,0));
 	
+
 	Map->RunMap();
 
 	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
@@ -190,7 +197,8 @@ bool myApplication::Init()
 bool myApplication::Update()
 {
 
-
+	if(!isMultiplayer)
+	{
 		if(keyboard->myKeys['a'])
 		{
 			playerOne->MoveLeft();
@@ -207,6 +215,47 @@ bool myApplication::Update()
 		{
 		
 		}
+		if(keyboard->leftArrow == true)
+		{
+			playerTwo->MoveLeft();
+		}
+		if(keyboard->rightArrow == true)
+		{
+			playerTwo->MoveRight();
+		}
+		if(keyboard->upArrow == true)
+		{
+			playerTwo->Jump();
+		}
+	}
+	else if(isMultiplayer)
+	{
+		if(keyboard->myKeys['a'])
+		{
+			//ifplayeroOne
+			playerOne->MoveLeft();
+			//ifplayerTwo
+			playerTwo->MoveLeft();
+		}
+		if(keyboard->myKeys['d'])
+		{
+			//ifplayeroOne
+			playerOne->MoveRight();
+			//ifplayerTwo
+			playerTwo->MoveRight();
+		}
+		if(keyboard->myKeys['w'])
+		{
+			//ifplayeroOne
+			playerOne->Jump();
+			//ifplayerTwo
+			playerTwo->Jump();
+		}
+		if(keyboard->myKeys['s'])
+		{
+		
+		}
+	}
 		if(keyboard->myKeys[VK_ESCAPE] == true)
 		{
 			exit(0);
@@ -232,18 +281,7 @@ bool myApplication::Update()
 		{
 		
 		}
-		if(keyboard->leftArrow == true)
-		{
-			playerTwo->MoveLeft();
-		}
-		if(keyboard->rightArrow == true)
-		{
-			playerTwo->MoveRight();
-		}
-		if(keyboard->upArrow == true)
-		{
-			playerTwo->Jump();
-		}
+		
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
 		theAIOne->AI.SetEnemyPos(playerOne->pos);
@@ -270,7 +308,7 @@ bool myApplication::Update()
 
 
 		std::cout << "HP: " << playerOne->hp.GetHealth() << std::endl;
-		std::cout << "PTS: " << playerOne->points.GetPoints() << std::endl;
+		//std::cout << "PTS: " << playerOne->points.GetPoints() << std::endl;
 		
 	return true;
 }

@@ -8,16 +8,18 @@ void CCharacter :: Jump()
 }
 void CCharacter :: MoveLeft()
 {
-	Vector3 temppos = pos;
-	temppos.x = temppos.x - 10;
-	pos.x = temppos.x;
+	//Vector3 temppos = pos;
+	//temppos.x = temppos.x - 10;
+	//pos.x = temppos.x;
+	phys.MoveSide(false);
 	dir.x = -1;
 }
 void CCharacter :: MoveRight()
 {
-	Vector3 temppos = pos;
-	temppos.x = temppos.x + 10;
-	pos.x = temppos.x;
+	//Vector3 temppos = pos;
+	//temppos.x = temppos.x + 10;
+	//pos.x = temppos.x;
+	phys.MoveSide(true);
 	dir.x = 1;
 }
 
