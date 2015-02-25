@@ -127,6 +127,7 @@ bool myApplication::Init()
 	//theAITwo = new CChineseMob();
 
 	playerOne = OM->manufacturer->CreateChineseMale();
+	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
 	playerTwo = OM->manufacturer->CreateMalayFemale();
 	theAIOne = OM->manufacturer->CreateMalayMob();
 	theAITwo = OM->manufacturer->CreateChineseMob();
@@ -147,6 +148,8 @@ bool myApplication::Init()
 	//Map->Init( SCREEN_HEIGHT, SCREEN_WIDTH, 1632, 1344, TILE_SIZE );
 	Map->Init(SCREEN_HEIGHT,SCREEN_WIDTH*2,SCREEN_HEIGHT,SCREEN_WIDTH*2,TILE_SIZE);
 	
+	playerTwo->phys.map=Map;
+	playerOne->phys.map=Map;
 	
 	////load map
 	//if(Map->LevelCount == 1)

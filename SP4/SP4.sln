@@ -1,7 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C++ Express 2010
+# Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SP4", "SP4\SP4.vcxproj", "{224AA9D5-042D-4240-BD61-8DEAFB694F8A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0112FBC8-4371-4B68-BE4C-6F3C0BC1A481} = {0112FBC8-4371-4B68-BE4C-6F3C0BC1A481}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Timer", "Timer\Timer.vcxproj", "{0112FBC8-4371-4B68-BE4C-6F3C0BC1A481}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +18,10 @@ Global
 		{224AA9D5-042D-4240-BD61-8DEAFB694F8A}.Debug|Win32.Build.0 = Debug|Win32
 		{224AA9D5-042D-4240-BD61-8DEAFB694F8A}.Release|Win32.ActiveCfg = Release|Win32
 		{224AA9D5-042D-4240-BD61-8DEAFB694F8A}.Release|Win32.Build.0 = Release|Win32
+		{0112FBC8-4371-4B68-BE4C-6F3C0BC1A481}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0112FBC8-4371-4B68-BE4C-6F3C0BC1A481}.Debug|Win32.Build.0 = Debug|Win32
+		{0112FBC8-4371-4B68-BE4C-6F3C0BC1A481}.Release|Win32.ActiveCfg = Release|Win32
+		{0112FBC8-4371-4B68-BE4C-6F3C0BC1A481}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
