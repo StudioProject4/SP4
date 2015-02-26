@@ -1,5 +1,5 @@
 #include "ObjectManager.h"
-
+#include "Map.h"
 #include "SpatialPartion.h"
 #include "WindowManager.h"
 //CObjectManager* CObjectManager::instance = 0;
