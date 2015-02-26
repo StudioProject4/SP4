@@ -1,6 +1,7 @@
 #pragma once
 #include "powerup.h"
 #include "Character.h"
+
 class CHealthPU :
 	public CPowerUp
 {

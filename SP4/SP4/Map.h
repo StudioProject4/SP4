@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <stdlib.h>
 using namespace std;
 #include "Vector3.h"
 #include "SContainer2D.h"
@@ -18,6 +19,7 @@ using namespace std;
 #define MAP_WIDTH SCREEN_WIDTH/TILE_SIZE
 #define MAP_HEIGHT SCREEN_HEIGHT/TILE_SIZE
 
+class CWindowManager;
 
 struct searchResult
 {
@@ -52,10 +54,15 @@ public:
 	}
 };
 
+class CObjectManager;
+
 class CMap
 {
+
 public:
-	CMap(void);
+	CObjectManager* OM;
+public:
+	CMap(CObjectManager* theObjectManager);
 	~CMap(void);
 
 	void Init( int theScreen_Height, int theScreen_Width, 
@@ -84,7 +91,7 @@ public:
 	//csv number
 	int ScreenNum;
 
-	float Level;
+	int Level;
 	int LevelCount;
 	
 	int checkPosition_X;// = (int) ceil((float)(mapOffset_x+theHero->GetPos_x()) / TILE_SIZE);

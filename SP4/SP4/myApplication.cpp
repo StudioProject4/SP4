@@ -1,5 +1,6 @@
 #include "myApplication.h"
 #include <mmsystem.h>
+#include "PowerUpFactory.h"
 myApplication* myApplication::instance = NULL;
 
 myApplication::myApplication(void)
@@ -121,7 +122,7 @@ bool myApplication::Init()
 	WM = CWindowManager::GetInstance();
 	MS = CMusicSystem::GetInstance();
 	OM = new CObjectManager();
-
+	
 	//playerOne = OM->manufacturer->CreateChineseMale();
 	//playerTwo = new CMalayFemale();
 	//theAIOne = new CMalayMob();
@@ -132,7 +133,9 @@ bool myApplication::Init()
 	playerTwo = OM->manufacturer->CreateMalayFemale();
 	theAIOne = OM->manufacturer->CreateMalayMob();
 	theAITwo = OM->manufacturer->CreateChineseMob();
-
+	//CPowerUp *pc = OM->manufacturer->CreatePowerUpPoints();
+	//CHealthPU* pc = OM->manufacturer->CreatePowerUpRecovery();
+	
 	testmale = OM->manufacturer->CreateChineseMale();
 
 	 mapOffset_x =  mapOffset_y=
@@ -145,17 +148,22 @@ bool myApplication::Init()
 	= rearWallFineOffset_x= rearWallFineOffset_y = 0;
 
 	//map
-	Map = new CMap();
+	Map = new CMap(this->OM);
 	//Map->Init( SCREEN_HEIGHT, SCREEN_WIDTH, 1632, 1344, TILE_SIZE );
 	Map->Init(SCREEN_HEIGHT,SCREEN_WIDTH*2,SCREEN_HEIGHT,SCREEN_WIDTH*2,TILE_SIZE);
-	
+	Map->RunMap();
+
 	playerTwo->phys.map=Map;
 	playerOne->phys.map=Map;
 	theAIOne->phys.map=Map;
 	theAITwo->phys.map=Map;
 
 	isMultiplayer = false;
+
+	playerOne->Init(Vector3(0,20,0),Vector3(0,0,0),0);
+	playerTwo->Init(Vector3(0,20,0),Vector3(0,0,0),0);
 	
+
 	////load map
 	//if(Map->LevelCount == 1)
 	//{
@@ -183,19 +191,27 @@ bool myApplication::Init()
 	theAIOne->SetPos(Vector3(600,200,0));
 	
 
-	Map->RunMap();
+	//Map->RunMap();
 
 	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
 	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
 
 	//std::cout<< Map->getNumOfTiles_MapHeight()<<std::endl;
 	//std::cout<< Map->getNumOfTiles_MapWidth()<<std::endl;
-	
+
+	// add all the Game Object into the object manager
+	OM->AddObject(playerOne);
+	OM->AddObject(playerTwo);
+	OM->AddObject(theAIOne);
+	OM->AddObject(theAITwo);
+
+
 	return true;
 }
 
 bool myApplication::Update()
 {
+
 
 	if(!isMultiplayer)
 	{
@@ -297,30 +313,13 @@ bool myApplication::Update()
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
 		theAIOne->AI.SetEnemyPos(playerOne->pos);
-		theAIOne->Update();
+		//theAIOne->Update();
 		theAITwo->AI.SetEnemyPos(playerTwo->pos);
-		theAITwo->Update();
+		//theAITwo->Update();
+		OM->Update();
 	}
 
-	playerOne->Update();
-
-	//playerTwo->Update();
-		/*Map->RunMap();*/
-		std::cout << playerOne->pos.x << std::endl;
-		std::cout << playerOne->pos.y << std::endl;
-	//	std::cout << Map->lookupPosition(playerOne->pos,false) << std::endl;
-		std::cout << Map->lookPositionText(playerOne->pos, false) << std::endl;
-		std::cout << Map->ScreenNum << " @@ " << std::endl;
-
-//	playerTwo->Update();
 		Map->RunMap();
-		//std::cout << playerOne->pos.x << std::endl;
-		//std::cout << playerOne->pos.y << std::endl;
-		//std::cout << Map->lookupPosition(playerOne->pos,false) << std::endl;
-
-
-		std::cout << "HP: " << playerOne->hp.GetHealth() << std::endl;
-		//std::cout << "PTS: " << playerOne->points.GetPoints() << std::endl;
 		
 	return true;
 }
@@ -328,8 +327,10 @@ void myApplication::RenderTileMap()
 {
 	glEnable(GL_TEXTURE_2D);
 	mapFineOffset_x = mapOffset_x % TILE_SIZE;
-
+	
 	glPushMatrix();
+	//glScalef(WM->GetWindowWidth()/800,WM->GetWindowHeight()/600,1);
+
 	for (int i = 0; i < theNumOfTiles_Height; i++)
 	{
 		for (int k = 0; k < theNumOfTiles_Width + 1; k++)
@@ -383,10 +384,24 @@ void myApplication::RenderBackground()
 }
 
 void myApplication::Render2D()
-{
-
+{	
 	RenderBackground();
 	RenderTileMap();
+
+	glPushMatrix();
+	glBindTexture(GL_TEXTURE_2D,testimage.texID);
+	glBegin(GL_QUADS);
+	glEnd();
+	glPopMatrix();
+	//drawFPS();
+
+	//RenderBackground();
+	//RenderTileMap();
+
+
+	//RenderBackground();
+	//RenderTileMap();
+
 
 	if(Map->Level == 1)
 	playerOne->Render();
@@ -394,101 +409,15 @@ void myApplication::Render2D()
 	theAIOne->Render();
 	theAITwo->Render();
 
+
 	//playerOne->Render();
 	//playerTwo->Render();
 //	theAI->Render();
-
+	OM->Update();//will seperate into render and update later;
 	FRM->drawFPS();
-	RenderBackground();
-	RenderTileMap();
-
-	//if(Map->Level == 1)
 
 
-//	PowerUp->Update();
-
-
-	
-	//RenderTileMap();
-	//glPushMatrix();
-	//for(int i = 0; i < theNumOfTiles_Height; i ++)
-
-	//{
-	//	RenderBackground();
-	//	RenderTileMap();
-	//	glPushMatrix();
-	//	for(int i = 0; i < theNumOfTiles_Height; i ++)
-	//	{
-	//		//for(int k = 0; k < theNumOfTiles_Width+1; k ++)
-	//		for(int k = 0; k < theNumOfTiles_Width; k ++)
-	//	
-	//		{
-	//					// If we have reached the right side of the Map, then do not display the extra column of tiles.
-	//		/*if ( (tileOffset_x+k) >= theMap->getNumOfTiles_MapWidth() )
-	//			break;*/
-	//			glPushMatrix();
-	//		//	glTranslatef(k*TILE_SIZE-mapFineOffset_x, i*TILE_SIZE, 0);
-	//			glTranslatef(k*TILE_SIZE, i* TILE_SIZE, 0);
-	//			glEnable( GL_TEXTURE_2D );
-	//			glEnable( GL_BLEND );
-	//			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	//			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//			glBindTexture( GL_TEXTURE_2D, TileMapTexture[Map->theScreenMap[i][k]].texID); /*TileMapTexture[theMap->theScreenMap[i][tileOffset_x+k]].texID );*/
-	//			glBegin(GL_QUADS);
-	//				glTexCoord2f(0,1); glVertex2f(0,0);
-	//				glTexCoord2f(0,0); glVertex2f(0,TILE_SIZE);
-	//				glTexCoord2f(1,0); glVertex2f(TILE_SIZE,TILE_SIZE);
-	//				glTexCoord2f(1,1); glVertex2f(TILE_SIZE,0);
-	//			glEnd();
-	//			glDisable( GL_BLEND );
-	//			glDisable( GL_TEXTURE_2D );
-	//			glPopMatrix();
-	//		}
-	//	}
-	//	glPopMatrix();
-	//}
-	//if(Map->Level == 2)
-	//{
-	//		RenderBackground();
-	//	RenderTileMap();
-	//	glPushMatrix();
-	//	for(int i = 0; i < theNumOfTiles_Height; i ++)
-	//	{
-	//		//for(int k = 0; k < theNumOfTiles_Width+1; k ++)
-	//		for(int k = 0; k < theNumOfTiles_Width; k ++)
-	//	
-	//		{
-	//					// If we have reached the right side of the Map, then do not display the extra column of tiles.
-	//		/*if ( (tileOffset_x+k) >= theMap->getNumOfTiles_MapWidth() )
-	//			break;*/
-	//			glPushMatrix();
-	//		//	glTranslatef(k*TILE_SIZE-mapFineOffset_x, i*TILE_SIZE, 0);
-	//			glTranslatef(k*TILE_SIZE, i* TILE_SIZE, 0);
-	//			glEnable( GL_TEXTURE_2D );
-	//			glEnable( GL_BLEND );
-	//			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	//			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//			glBindTexture( GL_TEXTURE_2D, TileMapTexture[Map->theScreenMap[i][k]].texID); /*TileMapTexture[theMap->theScreenMap[i][tileOffset_x+k]].texID );*/
-	//			glBegin(GL_QUADS);
-	//				glTexCoord2f(0,1); glVertex2f(0,0);
-	//				glTexCoord2f(0,0); glVertex2f(0,TILE_SIZE);
-	//				glTexCoord2f(1,0); glVertex2f(TILE_SIZE,TILE_SIZE);
-	//				glTexCoord2f(1,1); glVertex2f(TILE_SIZE,0);
-	//			glEnd();
-	//			glDisable( GL_BLEND );
-	//			glDisable( GL_TEXTURE_2D );
-	//			glPopMatrix();
-	//		}
-	//	}
-	//	glPopMatrix();
-	//}
-	//testmale->Render();
-	playerOne->Render();
-	playerTwo->Render();
-	theAIOne->Render();
-	theAITwo->Render();
-
-//	PowerUp->Update();
+	OM->Render();
 
 	FRM->drawFPS();
 	
@@ -574,8 +503,9 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//MS->PlaySoundTrack(0);
 			//std::cout<<MS->currentSoundTrack<<std::endl;
 			//MS->FetchSound()->PrintDebugInformation();
-			MS->PlaySoundPoolTrack2D("sound1.mp3");
-			
+			//MS->PlaySoundPoolTrack2D("sound1.mp3");
+			std::cout<<WM->GetWindowRatioDifferenceX()<<std::endl;
+			std::cout<<WM->GetWindowRatioDifferenceY()<<std::endl;
 		break;
 
 		case '2':
@@ -685,8 +615,12 @@ void myApplication::SetHUD(bool m_bHUDmode)
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
+
+		//std::cout<<WM->GetWindowWidth()<<std::endl;
 		//glOrtho( 0, WM->GetWindowWidth() , WM->GetWindowHeight(), 0, -1, 1 );  
-		glOrtho( 0, 800 , 600, 0, -1, 1 ); 
+		//glOrtho( 0, 800 , 600, 0, -1, 1 ); 
+		glOrtho( 0, WM->GetOriginalWindowWidth() , WM->GetOriginalWindowHeight(), 0, -1, 1 );  
+
 		//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
 		//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
 		glMatrixMode(GL_MODELVIEW);

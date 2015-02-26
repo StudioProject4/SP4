@@ -1,8 +1,12 @@
 #include "ObjectManager.h"
 
+#include "SpatialPartion.h"
+#include "WindowManager.h"
 //CObjectManager* CObjectManager::instance = 0;
 
 CObjectManager::CObjectManager(void)
+	:SP(0)
+	,numOfUniqueId(-1)
 {
 	Init();
 }
@@ -21,7 +25,22 @@ CObjectManager::~CObjectManager(void)
 void CObjectManager::AddObject(CBaseObject* a_obj)
 {
 	objectList.push_back(a_obj);
+	SP->AddObject(a_obj);
+	++numOfUniqueId;
+	a_obj->id = numOfUniqueId;
 }
+bool CObjectManager::Render()
+{
+	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
+	{
+		if( (*it)->active == true)
+		{
+			(*it)->Render();	
+		}
+	}
+	return true;
+}
+
 bool CObjectManager::Update()
 {
 	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
@@ -30,7 +49,7 @@ bool CObjectManager::Update()
 		{
 			(*it)->Update();
 		
-			(*it)->Render();
+			//(*it)->Render();
 		}else
 		{
 			inactiveObjectList.push_back((*it));
@@ -44,6 +63,7 @@ bool CObjectManager::Init()
 {
 	name = "objectmanager";
 	manufacturer = CManufactureManager::GetInstance();
+	SP = new CSpatialPartion(CWindowManager::GetInstance()->GetOriginalWindowWidth(),CWindowManager::GetInstance()->GetOriginalWindowHeight(),TILE_SIZE*2,TILE_SIZE*2);
 	return true;
 }
 
@@ -131,20 +151,6 @@ CBaseObject* CObjectManager::FindObjectWithGenericTag(std::string objectTag)
 	return 0;
 }
 
-CObjectManager::TObjectListVector CObjectManager::FindObjectsWithName(std::string objectName)
-{
-	const char* compare = objectName.c_str();
-	TObjectListVector resultlist;
-
-	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
-	{
-		if( (*it)->genericTag == compare )
-		{
-			resultlist.push_back((*it));
-		}
-	}
-	return resultlist;
-}
 
 CObjectManager::TObjectListVector CObjectManager::FindObjectsWithTag(std::string objectTag)
 {

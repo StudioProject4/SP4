@@ -1,6 +1,17 @@
 #include "Map.h"
+#include "ObjectManager.h"
+#include "ManufactureManager.h"
+#include <stdlib.h>
+
+#include "HealthPU.h"
+#include "PointsAddPU.h"
+#include "SpeedPU.h"
+#include "JumpPU.h"
+#include "InvinciblePU.h"
+
 #include <iostream>
-CMap::CMap(void)
+CMap::CMap(CObjectManager* theObjectManager)
+
 : theScreen_Height(0)
 , theScreen_Width(0)
 , theMap_Height(0)
@@ -14,6 +25,7 @@ CMap::CMap(void)
 , LevelCount(0)
 , mapOffset_x(0)
 , mapOffset_y(0)
+, OM(theObjectManager)
 {
 	theScreenMap.clear();
 
@@ -45,7 +57,7 @@ void CMap::Init(const int theScreen_Height, const int theScreen_Width,
 
 	//resetMapMatrix();
 	initMapMatrix();
-
+	
 	
 }
 void CMap::initMapMatrix()
@@ -258,7 +270,7 @@ searchResult CMap::lookPositionText(Vector3 currentPosition, bool strict)
 Vector3 CMap::lookupIndex(short x, short y)
 {
 	Vector3 result;
-	if ((x >= 0 && x < MAP_WIDTH) && (y >= 0 && y < MAP_HEIGHT))
+	if ((x > 0 && x < MAP_WIDTH) && (y > 0 && y < MAP_HEIGHT))
 	{
 		result = Vector3(mapMatrix[x][y].x, mapMatrix[x][y].y);
 	}
@@ -361,9 +373,62 @@ bool CMap::LoadFile(const string mapName)
 
 					string token;
 					istringstream iss(aLineOfText);
+					CHealthPU* temph = nullptr;
+					CPointsAddPU* tempPT = nullptr;
+					CSpeedPU* tempSpd = nullptr;
+					CInvinciblePU* tempIn = nullptr;
+					CJumpPU* tempJp = nullptr;
+
 					while(getline(iss, token, ','))
 					{
-						theScreenMap[theLineCounter][theColumnCounter++] = atoi(token.c_str());
+						int temp = atoi(token.c_str());
+						switch(temp)
+						{
+
+						case 3:			//health
+							theScreenMap[theLineCounter][theColumnCounter++] = 1;
+							//call factory to create a power up at this pos
+							temph = CManufactureManager::GetInstance()->CreatePowerUpRecovery();
+							temph->pos = this->lookupIndex(theColumnCounter-1,theLineCounter);
+							OM->AddObject(temph);					
+
+							break;
+						case 4:			//speed
+							theScreenMap[theLineCounter][theColumnCounter++] = 1;
+							//call factory to create a power up at this pos
+							tempSpd = CManufactureManager::GetInstance()->CreatePowerUpSpeedUp();
+							tempSpd->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
+							OM->AddObject(tempSpd);
+							
+							break;
+						case 5:			//invincible
+							theScreenMap[theLineCounter][theColumnCounter++] = 1;
+							//call factory to create a power up at this pos
+							tempIn = CManufactureManager::GetInstance()->CreatePowerUpInvincible();
+							tempIn->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
+							OM->AddObject(tempIn);
+
+							break;
+						case 6:			//points add
+							theScreenMap[theLineCounter][theColumnCounter++] = 1;
+							//call factory to create a power up at this pos
+							tempPT = CManufactureManager::GetInstance()->CreatePowerUpPoints();
+							tempPT->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
+							OM->AddObject(tempPT);
+
+							break;
+						case 7:			//jump
+							theScreenMap[theLineCounter][theColumnCounter++] = 1;
+							//call factory to create a power up at this pos
+							tempJp = CManufactureManager::GetInstance()->CreatePowerUpJumpHigh();
+							tempJp->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
+							OM->AddObject(tempJp);	
+
+							break;
+						default:
+							theScreenMap[theLineCounter][theColumnCounter++] = atoi(token.c_str());
+							break;
+						}
 					}
 				}
 			}
@@ -500,29 +565,11 @@ std::vector<SContainer2D> CMap::FindValidNearbyGrid(Vector3 centreposition)
 void CMap::RunMap()
 {
 	//load map
-	if(Level == 1 && LevelCount != 1)
+	if(Level != LevelCount)
 	{
-		LoadMap("Level1_1.csv");
-		LevelCount = 1;
-	}else
-	if(Level == 2 && LevelCount != 2)
-	{
-		LoadMap("Level1_2.csv");
-		LevelCount = 2;
-	}else
-	if(Level == 3 && LevelCount != 3)
-	{
-		LoadMap("Level1_3.csv");
-		LevelCount = 3;
-	}else
-	if(Level == 4 && LevelCount != 4)
-	{
-		LoadMap("Level1_4.csv");
-		LevelCount = 4;
-	}else
-	if(Level == 5 && LevelCount != 5)
-	{
-		LoadMap("Level1_5.csv");
-		LevelCount = 5;
+		char* templv=new char[16];
+		sprintf(templv,"Level1_%d.csv",Level);
+		LevelCount=Level;
+		LoadMap(templv);
 	}
 }

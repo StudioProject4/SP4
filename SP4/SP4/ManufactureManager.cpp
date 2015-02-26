@@ -3,11 +3,18 @@
 #include "AIMobBuilder.h"
 #include "PowerUpBuilder.h"
 #include "CharacterBuilder.h"
+#include "ObstacleBuilder.h"
 #include "ChineseMale.h"
 #include "ChineseMob.h"
 #include "MalayFemale.h"
 #include "MalayMob.h"
 #include "PowerUp.h"
+#include "HealthPU.h"
+#include "PointsAddPU.h"
+#include "JumpPU.h"
+#include "InvinciblePU.h"
+#include "SpeedPU.h"
+#include "LeverDoor.h"
 
 CManufactureManager* CManufactureManager::instance = 0;
 
@@ -16,6 +23,7 @@ CManufactureManager::CManufactureManager(void)
 	aiMobBuilder = new CAIMobBuilder;
 	powerUpBuilder = new CPowerUpBuilder ;
 	characterBuilder = new CCharacterBuilder;
+	obstacleBuilder = new CObstacleBuilder;
 }
 
 CManufactureManager* CManufactureManager::GetInstance()
@@ -32,6 +40,7 @@ CManufactureManager::~CManufactureManager(void)
 	delete aiMobBuilder;
 	delete powerUpBuilder;
 	delete characterBuilder;
+	delete obstacleBuilder;
 }
 
 CChineseMale* CManufactureManager::CreateChineseMale()
@@ -58,32 +67,40 @@ CMalayMob* CManufactureManager::CreateMalayMob()
 	return dynamic_cast<CMalayMob*>(aiMobBuilder->GetProduct());
 }
 
-CPowerUp* CManufactureManager::CreatePowerUpRecovery()
+CHealthPU* CManufactureManager::CreatePowerUpRecovery()
 {
 	powerUpBuilder->SetManufactureRECOVERY();
-	return dynamic_cast<CPowerUp*>(powerUpBuilder->GetProduct());
+	return dynamic_cast<CHealthPU*>(powerUpBuilder->GetProduct());
 }
 
-CPowerUp* CManufactureManager::CreatePowerUpPoints()
+CPointsAddPU* CManufactureManager::CreatePowerUpPoints()
 {
 	powerUpBuilder->SetManufacturePOINTS();
-	return dynamic_cast<CPowerUp*>(powerUpBuilder->GetProduct());
+	return dynamic_cast<CPointsAddPU*>(powerUpBuilder->GetProduct());
 }
 
-CPowerUp* CManufactureManager::CreatePowerUpInvincible()
+CInvinciblePU* CManufactureManager::CreatePowerUpInvincible()
 {
 	powerUpBuilder->SetManufactureINVINCIBLE();
-	return dynamic_cast<CPowerUp*>(powerUpBuilder->GetProduct());
+	return dynamic_cast<CInvinciblePU*>(powerUpBuilder->GetProduct());
 }
 
-CPowerUp* CManufactureManager::CreatePowerUpJumpHigh()
+CJumpPU* CManufactureManager::CreatePowerUpJumpHigh()
 {
 	powerUpBuilder->SetManufactureHIGHJUMP();
-	return dynamic_cast<CPowerUp*>(powerUpBuilder->GetProduct());
+	return dynamic_cast<CJumpPU*>(powerUpBuilder->GetProduct());
+
 }
 
-CPowerUp* CManufactureManager::CreatePowerUpSpeedUp()
+CSpeedPU* CManufactureManager::CreatePowerUpSpeedUp()
 {
 	powerUpBuilder->SetManufactureSPEEDUP();
-	return dynamic_cast<CPowerUp*>(powerUpBuilder->GetProduct());
+	return dynamic_cast<CSpeedPU*>(powerUpBuilder->GetProduct());
+}
+
+CLeverDoor* CManufactureManager::CreateObstacleLeverDoor()
+{
+	obstacleBuilder->SetManufactureLeverDoor();
+	return dynamic_cast<CLeverDoor*>(obstacleBuilder->GetProduct());
+
 }

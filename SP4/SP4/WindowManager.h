@@ -8,17 +8,27 @@ class CWindowStatus
 public:
 	int windowHeight;
 	int windowWidth;
+	int OldwindowHeight;
+	int OldwindowWidth;
 	int windowPositionX;
 	int windowPositionY;
+	
+	float ratioDiffX;
+	float ratioDiffY;
+
 	bool fullScreen;
 	std::string programName;
 	CWindowStatus()
 		:
 		 windowHeight(600)
+		,OldwindowHeight(windowHeight)
 		,windowWidth(800)
+		,OldwindowWidth(windowWidth)
 		,windowPositionX(50)
 		,windowPositionY(50)
 		,fullScreen(false)
+		,ratioDiffX(1)
+		,ratioDiffY(1)
 		,programName("sp4")
 	{};
 	void Set(int windowWidth,int windowHeight ,int windowPositionX,int windowPositionY ,bool fullScreen )
@@ -28,6 +38,12 @@ public:
 		this->windowPositionX = windowPositionX;
 		this->windowPositionY = windowPositionY;
 		this->fullScreen = fullScreen;
+		CalculateWindowDifferRatio();
+	};
+	void CalculateWindowDifferRatio()
+	{
+		ratioDiffX = ((float)windowWidth/OldwindowWidth);
+		ratioDiffY = ((float)windowHeight/OldwindowHeight);
 	};
 };
 
@@ -38,11 +54,22 @@ private:
 	CWindowStatus windowStatus;
 	CWindowStatus defaultWindowStatus;
 	bool inited;
+
 public:
 	static CWindowManager* instance;
 private:
 	bool Init();
 	CWindowManager(void);
+
+	inline void SetWindowWidth(int newWindowWidth)
+	{
+		windowStatus.windowWidth = newWindowWidth;
+	};
+
+	inline void SetWindowHeight(int newWindowHeight)
+	{
+		windowStatus.windowHeight = newWindowHeight;
+	};
 public:
 	static CWindowManager* GetInstance();
 	~CWindowManager(void);
@@ -117,19 +144,19 @@ public:
 
 public:
 	//setter//without updates to the glutscreen
-	inline void SetWindowWidth(int newWindowWidth)
+	inline int GetOriginalWindowHeight()
 	{
-		windowStatus.windowWidth = newWindowWidth;
+		return windowStatus.OldwindowHeight;
 	};
-
-	inline void SetWindowHeight(int newWindowHeight)
+	inline int GetOriginalWindowWidth()
 	{
-		windowStatus.windowHeight = newWindowHeight;
+		return windowStatus.OldwindowWidth;
 	};
 	inline void SetWindowDimension(int newWindowWidth,int newWindowHeight)
 	{
 		SetWindowWidth(newWindowWidth);
 		SetWindowHeight(newWindowHeight);
+		windowStatus.CalculateWindowDifferRatio();
 	};
 	inline void SetWindowPositionX(int newWindowPositionX)
 	{
@@ -149,6 +176,13 @@ public:
 	{
 		windowStatus.fullScreen = fullscreen;
 	};
-
+	inline float GetWindowRatioDifferenceX()
+	{
+		return windowStatus.ratioDiffX;
+	};
+	inline float GetWindowRatioDifferenceY()
+	{
+		return windowStatus.ratioDiffY;
+	};
 };
 

@@ -3,11 +3,19 @@
 class CAIMobBuilder;
 class CPowerUpBuilder;
 class CCharacterBuilder;
+class CObstacleBuilder;
 class CChineseMale;
 class CChineseMob;
 class CMalayFemale;
 class CMalayMob;
 class CPowerUp;
+class CHealthPU;
+class CPointsAddPU;
+class CSpeedPU;
+class CJumpPU;
+class CInvinciblePU;
+class CObstacleBase;
+class CLeverDoor;
 
 class CManufactureManager
 {
@@ -17,6 +25,8 @@ public:
 	CAIMobBuilder* aiMobBuilder;
 	CPowerUpBuilder* powerUpBuilder;
 	CCharacterBuilder* characterBuilder;
+	CObstacleBuilder* obstacleBuilder;
+
 public:
 	
 	static CManufactureManager* instance;
@@ -27,10 +37,12 @@ public:
 	CChineseMob* CreateChineseMob();
 	CMalayFemale* CreateMalayFemale();
 	CMalayMob* CreateMalayMob();
-	CPowerUp* CreatePowerUpRecovery();
-	CPowerUp* CreatePowerUpPoints();
-	CPowerUp* CreatePowerUpInvincible();
-	CPowerUp* CreatePowerUpJumpHigh();
-	CPowerUp* CreatePowerUpSpeedUp();
+	CHealthPU* CreatePowerUpRecovery();
+	CPointsAddPU* CreatePowerUpPoints();
+	CInvinciblePU* CreatePowerUpInvincible();
+	CJumpPU* CreatePowerUpJumpHigh();
+	CSpeedPU* CreatePowerUpSpeedUp();
+	CLeverDoor* CreateObstacleLeverDoor();
+
 };
 

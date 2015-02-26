@@ -4,7 +4,7 @@
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #include <GL/glext.h>
-
+#include <stdlib.h>
 #include <iostream>
 #include "FrameRateManager.h"
 #include "RenderUntilty.h"
@@ -30,6 +30,7 @@
 
 #include "MusicSystem\MusicSystem.h"
 
+#include "SpatialPartion.h"
 
 class myApplication:public CGameState
 {
@@ -68,6 +69,7 @@ public:
 	void Render3D();
 	void RenderScene();
 
+
 	//CFrameRateManager* FRM;
 	//CLuaManager* LM;
 	//CMouse* mouse;
@@ -90,7 +92,9 @@ private:
 	CPhysics* Physics;
 	CHealthPU Hpadd;
 	CPointsAddPU ptsAdd;
+	CPointsAddPU* pts;
 
+	int x, y;
 	
 	int Scr;
 

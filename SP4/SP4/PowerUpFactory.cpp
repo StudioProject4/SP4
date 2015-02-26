@@ -1,7 +1,8 @@
 #include "PowerUpFactory.h"
 
 #include "PowerUp.h"//remove if not needed
-
+#include "HealthPU.h"
+#include "PointsAddPU.h"
 CPowerUpFactory::CPowerUpFactory(void)
 	:currentManufactureType(POWERUP_NONE)
 {
@@ -79,8 +80,11 @@ void CPowerUpFactory::CreateProduct()
 		case POWERUP_RECOVERY:
 			//Demo
 			//product = new CRecoveryPowerUp();
+			product = new CHealthPU();
 			break;
-
+		case POWERUP_POINTS:
+			product = new CPointsAddPU();
+			break;
 		case POWERUP_SPEEDUP:
 			//Demo
 			//product = new CSpeedUpPowerUp();

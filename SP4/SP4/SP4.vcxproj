@@ -110,6 +110,8 @@
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="ObjLoader.c" />
     <ClCompile Include="ObstacleBase.cpp" />
+    <ClCompile Include="ObstacleBuilder.cpp" />
+    <ClCompile Include="ObstacleFactory.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PointsAddPU.cpp" />
     <ClCompile Include="PowerUp.cpp" />
@@ -167,6 +169,8 @@
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="ObstacleBase.h" />
+    <ClInclude Include="ObstacleBuilder.h" />
+    <ClInclude Include="ObstacleFactory.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PointsAddPU.h" />
     <ClInclude Include="PowerUp.h" />

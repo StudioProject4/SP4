@@ -4,6 +4,7 @@ CWindowManager* CWindowManager::instance = 0;
 CWindowManager::CWindowManager(void)
 	:inited(false)
 {
+
 }
 
 
