@@ -107,7 +107,8 @@ void KennardTestState::SetHUD(bool m_bHUDmode)
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
-		glOrtho( 0, WM->GetWindowWidth() ,0 ,WM->GetWindowHeight() , -1, 1 );  
+		glOrtho( 0, WM->GetOriginalWindowWidth() , WM->GetOriginalWindowHeight(), 0, -1, 1 );  
+		//glOrtho( 0, WM->GetWindowWidth() ,0 ,WM->GetWindowHeight() , -1, 1 );  
 		//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
 		//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
 		glMatrixMode(GL_MODELVIEW);

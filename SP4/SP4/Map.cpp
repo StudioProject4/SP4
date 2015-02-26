@@ -1,5 +1,6 @@
 #include "Map.h"
 #include <iostream>
+
 CMap::CMap(void)
 : theScreen_Height(0)
 , theScreen_Width(0)
@@ -45,7 +46,7 @@ void CMap::Init(const int theScreen_Height, const int theScreen_Width,
 
 	//resetMapMatrix();
 	initMapMatrix();
-
+	
 	
 }
 void CMap::initMapMatrix()

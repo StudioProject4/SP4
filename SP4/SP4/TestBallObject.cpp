@@ -19,6 +19,8 @@ CTestBallObject::CTestBallObject(void)
 	,colour_green(0.5f)
 	,velocityX(0.f)
 	,velocityY(0.f)
+	,ownerCell(nullptr)
+	,cellvectorindex(-1)
 {
 }
 
@@ -27,16 +29,17 @@ CTestBallObject::~CTestBallObject(void)
 {
 }
 
-void CTestBallObject::Render()
+bool CTestBallObject::Render()
 {
 	glPushMatrix();
-	glTranslatef(posX,posY,0);
+	glTranslatef(pos.x,pos.y,0);
 	glColor3f(colour_red,colour_green,colour_blue);
 	glBegin( GL_POLYGON ); // OR GL_LINE_LOOP
 		for( float angle = 0; angle < 2*Math::PI; angle += delta_theta )
 		glVertex3f( radius*cos(angle), radius*sin(angle), 0 );
 	glEnd();
 	glPopMatrix();
+	return true;
 }
 void CTestBallObject::SetVelocity(float x,float y)
 {
@@ -46,21 +49,22 @@ void CTestBallObject::SetVelocity(float x,float y)
 
 void CTestBallObject::Move(float posx,float posy)
 {
-	this->posX += posx;
+	this->pos.x += posx;
 
-	if(posy != -1)this->posY += posy;
+	if(posy != -1)this->pos.y += posy;
 }
 
-void CTestBallObject::Update()
+bool CTestBallObject::Update()
 {
-	this->posX += this->velocityX;
-	this->posY += this->velocityY;
+	this->pos.x += this->velocityX;
+	this->pos.y += this->velocityY;
+	return true;
 };
 
 void CTestBallObject::SetPosition(float x,float y)
 {
-	this->posX = x;
-	this->posY = y;
+	this->pos.x = x;
+	this->pos.y = y;
 }
 
 void CTestBallObject::SetColour(float red,float green,float blue)
