@@ -5,6 +5,7 @@
 #include "RenderUntilty.h"
 #include "LeverDoor.h"
 #include "TestObject.h"
+#include "Map.h"
 
 
 class KennardTestState :
@@ -23,6 +24,8 @@ public:
 	CTestObject test;
 	//end of test object
 	
+	CMap map;
+
 	CLeverDoor theLever;
 
 	void InputKey(int key,int x,int y);

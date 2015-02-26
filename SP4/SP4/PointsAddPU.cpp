@@ -54,7 +54,8 @@ bool CPointsAddPU::OnCollision(CBaseObject* a_obj)
 		if(this->active == true)
 		{
 			CCharacter* temp=(CCharacter*)a_obj;
-			temp->points.PointsReceive(50);
+			//temp->points.PointsReceive(50);
+			
 			this->active = false;
 			std::cout << "POINTS ADDEDD" << std::endl;
 		}else

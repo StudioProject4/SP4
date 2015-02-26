@@ -16,6 +16,8 @@ class CChineseMob : public CBaseObject
 		bool Render();
 
 		bool OnCollision(CBaseObject* a_obj);
+
+		void SetPos(Vector3 newPos);
 		
 		CAILogic AI;
 		CSprite * theSprite;

@@ -20,7 +20,6 @@ bool CLeverDoor::OnCollision(CBaseObject* obj)
 	normal.x=cos(curAngle/360*2*3.142);
 	normal.y=sin(curAngle/360*2*3.142);	
 
-
 	//do more precise collision checkingVector3 w0=go2->pos;
 
 	Vector3 w0=this->pos;
@@ -70,7 +69,7 @@ bool CLeverDoor::OnCollision(CBaseObject* obj)
 
 	if((w1-bh).Dot(NP)<0||(bh-w2).Dot(NP)<0)//check if its between the 2 edges
 	{
-		return false;
+		//return false;
 	}
 
 	//check pos against this object
@@ -91,39 +90,75 @@ bool CLeverDoor::OnCollision(CBaseObject* obj)
 	//change angle based on direction the object is in
 	float delta=0.0166;
 	float leverGrav=200;
+	
+		
+
 	if(obj->phys.vel.LengthSquared()==0)
 	{
 		//angleVel-=normal.y*leverGrav*delta;
 		//obj->pos.y=nYpos;
 		applyGrav=false;
 	}
-	else if((w0-b1).Dot(normal)>0)//go1 pos to go2 pos
-	{
-		float nAVel=obj->phys.vel.Dot(normal);
-		angleVel-=nAVel;
-		Vector3 vel=obj->phys.vel;
-		float ratio=(nAVel*nAVel)/vel.LengthSquared();
-		obj->phys.vel=obj->phys.vel*ratio;
-		cout<<"++:"<<nAVel<<"\n";
-		if(curAngle>=0)
-		{
-			obj->pos.y=nYpos;
-		}
-	}
 	else
 	{
-		float nAVel=obj->phys.vel.Dot(normal);
-		angleVel-=nAVel;
-		Vector3 vel=obj->phys.vel;
-		float ratio=(nAVel*nAVel)/vel.LengthSquared();
-		obj->phys.vel=obj->phys.vel*ratio;
-		cout<<"--:"<<nAVel<<"\n";
-		if(curAngle<=0)
+		if(obj->phys.vel.Dot(N)>0)
 		{
-			obj->pos.y=nYpos;
+			if((w0-b1).Dot(normal)>0)//go1 pos to go2 pos
+			{
+				float nAVel=obj->phys.vel.Dot(normal);//finds the mag of vel in dir of the normal
+				angleVel-=nAVel;//mod the angle vel based on that
+				Vector3 vel=obj->phys.vel;
+				float ratio=(nAVel*nAVel)/vel.LengthSquared();
+				obj->phys.vel=obj->phys.vel*ratio;//reduce the vel by a percentage based on how 
+				
+				/*
+				if(curAngle>=40)
+				{
+					obj->pos.y=nYpos;
+				}
+				*/
+			}
+			else
+			{
+				float nAVel=obj->phys.vel.Dot(normal);
+				angleVel-=nAVel;
+				Vector3 vel=obj->phys.vel;
+				float ratio=(nAVel*nAVel)/vel.LengthSquared();
+				obj->phys.vel=obj->phys.vel*ratio;
+				/*
+				if(curAngle<=-40)
+				{
+					obj->pos.y=nYpos;
+				}
+				*/
+			}
+		}
+		{
+			if((w0-b1).Dot(normal)>0)//go1 pos to go2 pos
+			{
+				if(curAngle>=40)
+				{
+					obj->pos.y=nYpos;
+				}
+			}
+			else
+			{
+			
+				if(curAngle<=-40)
+				{
+					obj->pos.y=nYpos;
+				}
+			}
 		}
 	}
-	
+	if(curAngle>=40)
+	{
+		obj->phys.vel.x+=3;
+	}
+	else if(curAngle<=-40)
+	{
+		obj->phys.vel.x-=3;
+	}
 	//move the object back so that its not colliding anymore
 
 	//after changing the angle

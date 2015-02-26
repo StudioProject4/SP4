@@ -8,11 +8,10 @@
 #include "myApplication.h"
 
 
-CMenuState* CMenuState::instance;
+CMenuState* CMenuState::instance = 0;
 
 CMenuState::CMenuState(void)
 {
-	Init();
 }
 CMenuState* CMenuState::GetInstance()
 {
@@ -57,6 +56,11 @@ void CMenuState::SetHUD(bool m_bHUDmode)
 void CMenuState::Render2D()
 {
 	FRM->drawFPS();
+	for(TBallVector::iterator it = ballList.begin(); it!= ballList.end(); ++it)
+	{
+		(*it)->Render();
+	}
+
 }
 
 void CMenuState::Render3D()
@@ -84,6 +88,7 @@ void CMenuState::RenderScene(void)
 
 	// swapping the buffers causes the rendering above to be shown
 	glutSwapBuffers();
+	glutPostRedisplay();
 }
 
 void CMenuState::InputKey(int key, int x, int y)
@@ -218,9 +223,13 @@ bool CMenuState::Update()
 	{
 		exit(0);
 	}
+
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
-
+		for(TBallVector::iterator it = ballList.begin(); it!= ballList.end(); ++it)
+		{
+			(*it)->Update();
+		}
 	}
 
 	return true;
@@ -233,14 +242,37 @@ bool CMenuState::Init()
 	name = "menu";
 	tag = "application";
 
-	mouse = CMouse::GetInstance();
-	keyboard = CKeyboard::GetInstance();
 	FRM = CFrameRateManager::GetInstance();
 	LM = CLuaManager::GetInstance();
+	mouse = CMouse::GetInstance();
+	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
 	MS = CMusicSystem::GetInstance();
+	OM = new CObjectManager();
 
 	glEnable(GL_TEXTURE_2D);
+
+	ball * newball = nullptr;
+
+	newball = new ball;
+	newball->SetPosition( 100,60);
+	ballList.push_back(newball);
+
+	newball = new ball;
+	newball->SetPosition( 200,60);
+	newball->SetColour(1,1,1);
+	ballList.push_back(newball);
+
+	newball = new ball;
+	newball->SetPosition(300,60);
+	newball->SetColour(1,0,0);
+	ballList.push_back(newball);
+
+	//for(short i = 0 ; i<2000;++i)
+	//{
+	//	newball = new ball;
+	//	ballList.push_back(newball);
+	//}
 
 	return true;
 }
@@ -252,5 +284,15 @@ bool CMenuState::Reset()
 
 bool CMenuState::CleanUp()
 {
+	MS->Exit();
+	if(OM != 0)
+	{
+		delete OM;
+		OM = 0;
+	}
+	for(TBallVector::iterator it = ballList.begin(); it!= ballList.end(); ++it)
+	{
+		delete (*it);
+	}
 	return true;
 }

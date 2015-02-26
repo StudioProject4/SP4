@@ -21,7 +21,6 @@ class CCharacter : public CBaseObject
 		void SetPlayerID(int theID);
 
 		CHealthSystem hp;
-		CPointSystem points;
 		clock_t invultimer;
 	private:
 		int playerID;	

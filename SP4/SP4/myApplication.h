@@ -59,6 +59,7 @@ public:
 	void MouseWheel(int button, int dir, int x, int y);
 	void changeSize (int w, int h);
 
+	//bool Init(bool setMultiplayer);
 	bool Init();
 	bool CleanUp();
 	bool Reset();
@@ -95,6 +96,8 @@ private:
 	int x, y;
 	
 	int Scr;
+
+	bool isMultiplayer;
 	
 	//Imagee
 	TextureImage BackgroundTexture[2];
