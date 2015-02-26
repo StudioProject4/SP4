@@ -2,7 +2,9 @@
 #define __PHYSICS_H__
 
 #include "Vector3.h"
-#include "Map.h"
+
+
+class CMap;
 
 class CPhysics
 {

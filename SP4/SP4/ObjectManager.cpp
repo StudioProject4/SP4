@@ -151,20 +151,6 @@ CBaseObject* CObjectManager::FindObjectWithGenericTag(std::string objectTag)
 	return 0;
 }
 
-CObjectManager::TObjectListVector CObjectManager::FindObjectsWithName(std::string objectName)
-{
-	const char* compare = objectName.c_str();
-	TObjectListVector resultlist;
-
-	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
-	{
-		if( (*it)->genericTag == compare )
-		{
-			resultlist.push_back((*it));
-		}
-	}
-	return resultlist;
-}
 
 CObjectManager::TObjectListVector CObjectManager::FindObjectsWithTag(std::string objectTag)
 {

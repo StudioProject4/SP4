@@ -8,6 +8,11 @@ class CChineseMob;
 class CMalayFemale;
 class CMalayMob;
 class CPowerUp;
+class CHealthPU;
+class CPointsAddPU;
+class CSpeedPU;
+class CJumpPU;
+class CInvinciblePU;
 
 class CManufactureManager
 {
@@ -27,10 +32,10 @@ public:
 	CChineseMob* CreateChineseMob();
 	CMalayFemale* CreateMalayFemale();
 	CMalayMob* CreateMalayMob();
-	CPowerUp* CreatePowerUpRecovery();
-	CPowerUp* CreatePowerUpPoints();
-	CPowerUp* CreatePowerUpInvincible();
-	CPowerUp* CreatePowerUpJumpHigh();
-	CPowerUp* CreatePowerUpSpeedUp();
+	CHealthPU* CreatePowerUpRecovery();
+	CPointsAddPU* CreatePowerUpPoints();
+	CInvinciblePU* CreatePowerUpInvincible();
+	CJumpPU* CreatePowerUpJumpHigh();
+	CSpeedPU* CreatePowerUpSpeedUp();
 };
 

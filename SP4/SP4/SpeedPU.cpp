@@ -18,7 +18,12 @@ bool CSpeedPU::Update()
 	
 bool CSpeedPU::Render()
 {
+	glPushMatrix();
 
+		glTranslatef(pos.x,pos.y,0);
+		theSprite->Render();
+
+	glPopMatrix();
 	return true;
 }
 

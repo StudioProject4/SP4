@@ -8,7 +8,11 @@
 #include "MalayFemale.h"
 #include "MalayMob.h"
 #include "PowerUp.h"
-
+#include "HealthPU.h"
+#include "PointsAddPU.h"
+#include "JumpPU.h"
+#include "InvinciblePU.h"
+#include "SpeedPU.h"
 CManufactureManager* CManufactureManager::instance = 0;
 
 CManufactureManager::CManufactureManager(void)
@@ -58,32 +62,33 @@ CMalayMob* CManufactureManager::CreateMalayMob()
 	return dynamic_cast<CMalayMob*>(aiMobBuilder->GetProduct());
 }
 
-CPowerUp* CManufactureManager::CreatePowerUpRecovery()
+CHealthPU* CManufactureManager::CreatePowerUpRecovery()
 {
 	powerUpBuilder->SetManufactureRECOVERY();
-	return dynamic_cast<CPowerUp*>(powerUpBuilder->GetProduct());
+	return dynamic_cast<CHealthPU*>(powerUpBuilder->GetProduct());
 }
 
-CPowerUp* CManufactureManager::CreatePowerUpPoints()
+CPointsAddPU* CManufactureManager::CreatePowerUpPoints()
 {
 	powerUpBuilder->SetManufacturePOINTS();
-	return dynamic_cast<CPowerUp*>(powerUpBuilder->GetProduct());
+	return dynamic_cast<CPointsAddPU*>(powerUpBuilder->GetProduct());
 }
 
-CPowerUp* CManufactureManager::CreatePowerUpInvincible()
+CInvinciblePU* CManufactureManager::CreatePowerUpInvincible()
 {
 	powerUpBuilder->SetManufactureINVINCIBLE();
-	return dynamic_cast<CPowerUp*>(powerUpBuilder->GetProduct());
+	return dynamic_cast<CInvinciblePU*>(powerUpBuilder->GetProduct());
 }
 
-CPowerUp* CManufactureManager::CreatePowerUpJumpHigh()
+CJumpPU* CManufactureManager::CreatePowerUpJumpHigh()
 {
 	powerUpBuilder->SetManufactureHIGHJUMP();
-	return dynamic_cast<CPowerUp*>(powerUpBuilder->GetProduct());
+	return dynamic_cast<CJumpPU*>(powerUpBuilder->GetProduct());
+
 }
 
-CPowerUp* CManufactureManager::CreatePowerUpSpeedUp()
+CSpeedPU* CManufactureManager::CreatePowerUpSpeedUp()
 {
 	powerUpBuilder->SetManufactureSPEEDUP();
-	return dynamic_cast<CPowerUp*>(powerUpBuilder->GetProduct());
+	return dynamic_cast<CSpeedPU*>(powerUpBuilder->GetProduct());
 }

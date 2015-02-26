@@ -1,5 +1,6 @@
 #include "myApplication.h"
 #include <mmsystem.h>
+#include "PowerUpFactory.h"
 myApplication* myApplication::instance = NULL;
 
 myApplication::myApplication(void)
@@ -121,7 +122,7 @@ bool myApplication::Init()
 	WM = CWindowManager::GetInstance();
 	MS = CMusicSystem::GetInstance();
 	OM = new CObjectManager();
-
+	
 	//playerOne = OM->manufacturer->CreateChineseMale();
 	//playerTwo = new CMalayFemale();
 	//theAIOne = new CMalayMob();
@@ -132,7 +133,9 @@ bool myApplication::Init()
 	playerTwo = OM->manufacturer->CreateMalayFemale();
 	theAIOne = OM->manufacturer->CreateMalayMob();
 	theAITwo = OM->manufacturer->CreateChineseMob();
-
+	//CPowerUp *pc = OM->manufacturer->CreatePowerUpPoints();
+	//CHealthPU* pc = OM->manufacturer->CreatePowerUpRecovery();
+	
 	testmale = OM->manufacturer->CreateChineseMale();
 
 	 mapOffset_x =  mapOffset_y=
@@ -145,17 +148,22 @@ bool myApplication::Init()
 	= rearWallFineOffset_x= rearWallFineOffset_y = 0;
 
 	//map
-	Map = new CMap();
+	Map = new CMap(this->OM);
 	//Map->Init( SCREEN_HEIGHT, SCREEN_WIDTH, 1632, 1344, TILE_SIZE );
 	Map->Init(SCREEN_HEIGHT,SCREEN_WIDTH*2,SCREEN_HEIGHT,SCREEN_WIDTH*2,TILE_SIZE);
-	
+	Map->RunMap();
+
 	playerTwo->phys.map=Map;
 	playerOne->phys.map=Map;
 	theAIOne->phys.map=Map;
 	theAITwo->phys.map=Map;
 
 	isMultiplayer = false;
+
+	playerOne->Init(Vector3(0,20,0),Vector3(0,0,0),0);
+	playerTwo->Init(Vector3(0,20,0),Vector3(0,0,0),0);
 	
+
 	////load map
 	//if(Map->LevelCount == 1)
 	//{
@@ -203,6 +211,7 @@ bool myApplication::Init()
 
 bool myApplication::Update()
 {
+
 
 	if(!isMultiplayer)
 	{
@@ -302,25 +311,7 @@ bool myApplication::Update()
 		OM->Update();
 	}
 
-	//playerOne->Update();
-
-	//playerTwo->Update();
-		/*Map->RunMap();*/
-		//std::cout << playerOne->pos.x << std::endl;
-		//std::cout << playerOne->pos.y << std::endl;
-	//	std::cout << Map->lookupPosition(playerOne->pos,false) << std::endl;
-		//std::cout << Map->lookPositionText(playerOne->pos, false) << std::endl;
-		//std::cout << Map->ScreenNum << " @@ " << std::endl;
-
-//	playerTwo->Update();
 		Map->RunMap();
-		//std::cout << playerOne->pos.x << std::endl;
-		//std::cout << playerOne->pos.y << std::endl;
-		//std::cout << Map->lookupPosition(playerOne->pos,false) << std::endl;
-
-
-		//std::cout << "HP: " << playerOne->hp.GetHealth() << std::endl;
-		//std::cout << "PTS: " << playerOne->points.GetPoints() << std::endl;
 		
 	return true;
 }
@@ -387,11 +378,39 @@ void myApplication::RenderBackground()
 void myApplication::Render2D()
 {
 
+	
 	RenderBackground();
 	RenderTileMap();
 
-	RenderBackground();
-	RenderTileMap();
+	glPushMatrix();
+	glBindTexture(GL_TEXTURE_2D,testimage.texID);
+	glBegin(GL_QUADS);
+	glEnd();
+	glPopMatrix();
+	//drawFPS();
+
+	//RenderBackground();
+	//RenderTileMap();
+
+
+	//RenderBackground();
+	//RenderTileMap();
+
+
+	if(Map->Level == 1)
+	playerOne->Render();
+	playerTwo->Render();
+	theAIOne->Render();
+	theAITwo->Render();
+	Hpadd.Render();
+	ptsAdd.Render();
+
+	//playerOne->Render();
+	//playerTwo->Render();
+//	theAI->Render();
+	OM->Update();//will seperate into render and update later;
+	FRM->drawFPS();
+>>>>>>> origin/master
 
 	OM->Render();
 
