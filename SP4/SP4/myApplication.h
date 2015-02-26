@@ -30,6 +30,7 @@
 
 #include "MusicSystem\MusicSystem.h"
 
+#include "SpatialPartion.h"
 
 class myApplication:public CGameState
 {

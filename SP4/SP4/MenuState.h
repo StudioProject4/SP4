@@ -3,6 +3,10 @@
 
 #include "TestBallObject.h"
 #include <vector>
+//#include <iostream>
+//#include <memory>
+
+class CSpatialPartion;
 
 class CMenuState :
 	public CGameState
@@ -14,6 +18,7 @@ private:
 
 	typedef std::vector<ball*> TBallVector;
 	TBallVector ballList;
+	CSpatialPartion * SP;
 public:
 	static CMenuState* GetInstance();
 	~CMenuState(void);

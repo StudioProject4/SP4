@@ -19,6 +19,7 @@ using namespace std;
 #define MAP_WIDTH SCREEN_WIDTH/TILE_SIZE
 #define MAP_HEIGHT SCREEN_HEIGHT/TILE_SIZE
 
+class CWindowManager;
 
 struct searchResult
 {
@@ -57,6 +58,7 @@ class CObjectManager;
 
 class CMap
 {
+
 public:
 	CObjectManager* OM;
 public:

@@ -4,12 +4,34 @@
 
 #include <vector>
 
-typedef std::vector<ball*> TBallVector;
+class CBaseObject;
 
-struct SCell
+typedef std::vector<CBaseObject*> TObjectVector;
+
+//class CCell
+//{
+//public:
+//	TBallVector objectList;
+//public:
+//	CCell(){};
+//	~CCell(){};
+//};
+//struct container2D
+//{
+//	short x;
+//	short y;
+//};
+
+
+class Cell
 {
-	TBallVector objectList;
+public:
+	TObjectVector objectList;
+public:
+	Cell(){};
+	~Cell(){};
 };
+
 
 class CSpatialPartion
 {
@@ -20,7 +42,7 @@ public:
 	short gridHeight;
 	short numCellX;
 	short numCellY;
-	typedef std::vector<SCell> TCellVector;
+	typedef std::vector<Cell> TCellVector;
 	TCellVector cellList;
 
 public:
@@ -29,18 +51,31 @@ public:
 	~CSpatialPartion(void);
 
 	//Get cell based on the position input
-	SCell* GetCell(float posX,float posY);
+	Cell* GetCell(float posX,float posY);
 
 	//Get cell based on grid index
-	SCell* GetCell(short indexX,short indexY);
+	Cell* GetCell(short indexX,short indexY);
+
+	////Calculate cell index
+	//container2D& GetCellIndex(Cell* a_cell);
 
 	//Remove object from a cell;
-	void RemoveObject(ball* a_objToRemove);
+	void RemoveObject(CBaseObject* a_obj);
 
-	//add object into a known cell;
-	void AddObject(ball* a_obj,SCell* knownCell);
+	//add object from a known cell;
+	void AddObject(CBaseObject* a_obj,Cell* knownCell);
 
 	//add object into a calculated cell;
-	void AddObject(ball* a_obj);
+	void AddObject(CBaseObject* a_obj);
+
+	void Update();
+	//void UpdateCell();
+	void UpdateObjectOwnerCell(CBaseObject* a_obj);
+
+	void UpdateObjects();
+	void RenderObjects();
+
+	//print information
+	void PrintDebugInformation();
 };
 
