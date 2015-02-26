@@ -1,3 +1,4 @@
+#include "myApplication.h"
 #include "MenuState.h"
 #include "Mouse.h"
 #include "Keyboard.h"
@@ -5,7 +6,7 @@
 #include "FrameRateManager.h"
 #include "GameStateManager.h"
 #include "MusicSystem\MusicSystem.h"
-#include "myApplication.h"
+
 
 
 CMenuState* CMenuState::instance = 0;

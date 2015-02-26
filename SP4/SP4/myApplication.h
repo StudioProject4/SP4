@@ -1,4 +1,7 @@
+
+#include "RakNet\RakPeerInterface.h"
 #pragma once
+
 
 #include <stdio.h>
 #include <GL/glut.h>
@@ -14,6 +17,7 @@
 
 #include "DatatypeDefination.h"
 #include "GameStateManager.h"
+
 #include "MenuState.h"
 #include "MalayFemale.h"
 #include "ChineseMale.h"
@@ -47,6 +51,7 @@ private:
 	CChineseMale* testmale;
 	TextureImage testimage;
 public:
+	static char** argv;
 	static myApplication* GetInstance();
 	~myApplication(void);
 
@@ -67,6 +72,9 @@ public:
 	void Render2D();
 	void Render3D();
 	void RenderScene();
+
+	void startupServer(LPCTSTR lpApplicationName);
+	void closeServer(void);
 
 	//CFrameRateManager* FRM;
 	//CLuaManager* LM;
@@ -110,7 +118,10 @@ private:
 	
 	void RenderTileMap();
 	void RenderBackground();
-
+	
+	STARTUPINFO si;     
+	PROCESS_INFORMATION pi;
+	RakNet::RakPeerInterface* rakpeer_;
 
 	//void printw (float x, float y, float z, char* format, ...);
 	//void calculateFPS();

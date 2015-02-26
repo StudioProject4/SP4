@@ -1,4 +1,5 @@
 #include "LeverDoor.h"
+#include "Door.h"
 
 
 CLeverDoor::CLeverDoor(void)
@@ -38,12 +39,12 @@ bool CLeverDoor::OnCollision(CBaseObject* obj)
 	{
 		N=-N;
 	}
-	/*
-	if(go1->vel.Dot(N)<0)
+	//*
+	if(obj->phys.vel.Dot(N)<0)
 	{
 		return false;
 	}
-	*/
+	//*/
 	w0=w0-N*(r+h*0.5);//offset the wall to a point by radius and width of wall
 	float dist=(obj->pos-w0).Dot(N);
 	float spd=obj->phys.vel.Dot(N);
@@ -53,8 +54,8 @@ bool CLeverDoor::OnCollision(CBaseObject* obj)
 	}
 	
 	float th=dist/spd;
-	//if(th>1||th<0)
-		//return false;
+	if(th>500||th<0)
+		return false;
 	
 
 	Vector3 bh=obj->pos+obj->phys.vel*th;//point of collision
@@ -62,16 +63,16 @@ bool CLeverDoor::OnCollision(CBaseObject* obj)
 	colPoint=bh;
 
 	Vector3 w1=w0+NP*(l+r);
-	Vector3 w2=w0;
+	Vector3 w2=w0-NP*(r);
 	width1=w1;
 	width2=w2;
 	
-
+	//*
 	if((w1-bh).Dot(NP)<0||(bh-w2).Dot(NP)<0)//check if its between the 2 edges
 	{
-		//return false;
+		return false;
 	}
-
+	//*/
 	//check pos against this object
 	Vector3 startPos=w0;
 	float offset=(obj->pos.x-startPos.x);
@@ -103,61 +104,45 @@ bool CLeverDoor::OnCollision(CBaseObject* obj)
 	{
 		if(obj->phys.vel.Dot(N)>0)
 		{
-			if((w0-b1).Dot(normal)>0)//go1 pos to go2 pos
-			{
-				float nAVel=obj->phys.vel.Dot(normal);//finds the mag of vel in dir of the normal
-				angleVel-=nAVel;//mod the angle vel based on that
-				Vector3 vel=obj->phys.vel;
-				float ratio=(nAVel*nAVel)/vel.LengthSquared();
-				obj->phys.vel=obj->phys.vel*ratio;//reduce the vel by a percentage based on how 
+			float nAVel=obj->phys.vel.Dot(normal);//finds the mag of vel in dir of the normal
+			angleVel-=nAVel;//mod the angle vel based on that
+			Vector3 vel=obj->phys.vel;
+			float ratio=(nAVel*nAVel)/vel.LengthSquared();
+			obj->phys.vel=obj->phys.vel*ratio;//reduce the vel by a percentage based on how 
 				
-				/*
-				if(curAngle>=40)
-				{
-					obj->pos.y=nYpos;
-				}
-				*/
-			}
-			else
-			{
-				float nAVel=obj->phys.vel.Dot(normal);
-				angleVel-=nAVel;
-				Vector3 vel=obj->phys.vel;
-				float ratio=(nAVel*nAVel)/vel.LengthSquared();
-				obj->phys.vel=obj->phys.vel*ratio;
-				/*
-				if(curAngle<=-40)
-				{
-					obj->pos.y=nYpos;
-				}
-				*/
-			}
 		}
+		if((w0-b1).Dot(normal)>0)//go1 pos to go2 pos
 		{
-			if((w0-b1).Dot(normal)>0)//go1 pos to go2 pos
+			if(curAngle>=40)
 			{
-				if(curAngle>=40)
-				{
-					obj->pos.y=nYpos;
-				}
+				obj->pos.y=nYpos;
+				obj->phys.inAir=false;
+				if(obj->phys.vel.x>-0.001&&obj->phys.vel.x<0.001)
+					obj->pos.x+=5*delta;;
 			}
-			else
-			{
+		}
+		else
+		{
 			
-				if(curAngle<=-40)
-				{
-					obj->pos.y=nYpos;
-				}
+			if(curAngle<=-40)
+			{
+				obj->pos.y=nYpos;
+				obj->phys.inAir=false;
+				if(obj->phys.vel.x>-0.001&&obj->phys.vel.x<0.001)
+					obj->pos.x-=5*delta;
+				
 			}
 		}
 	}
-	if(curAngle>=40)
+	if(curAngle<offTrigger)
 	{
-		obj->phys.vel.x+=3;
+		triggered=false;
+		doorLink->Trigger();
 	}
-	else if(curAngle<=-40)
+	else if(curAngle>onTrigger)
 	{
-		obj->phys.vel.x-=3;
+		triggered=true;
+		doorLink->Trigger();
 	}
 	//move the object back so that its not colliding anymore
 
@@ -185,15 +170,6 @@ bool CLeverDoor::Update()
 	normal.x=cos(curAngle/360*2*3.142);
 	normal.y=sin(curAngle/360*2*3.142);	
 	
-	//test limits
-	if(curAngle>onTrigger)
-	{
-		//set on
-	}
-	else if(curAngle<offTrigger)
-	{
-		//set off
-	}
 	if(curAngle>maxAngle)
 	{
 		curAngle=maxAngle;
@@ -336,6 +312,8 @@ bool CLeverDoor::Init(Vector3 pos,Vector3 size)
 	this->width=size.x;
 	maxAngle=70;
 	minAngle=-70;
+	onTrigger=40;
+	offTrigger=-40;
 	phys.Init(pos,size);
 	curAngle=-20;
 	angleVel=0;
