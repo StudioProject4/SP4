@@ -38,12 +38,17 @@ void CAILogic :: DetectionCheck ()
 	{
 		ChangeState(AI_IDLE);
 	}
+	else
+	{
+		ChangeState(AI_IDLE);
+	}
 	
 }
 
 void CAILogic :: FindPath ()
 {
-	
+	pathFinding.SetUpPath(pos,targetPosition);
+	pathFinding.FindPath();
 }
 
 void CAILogic :: IdleWanderRandomizer ()
@@ -66,24 +71,34 @@ void CAILogic :: IdleWanderRandomizer ()
 
 Vector3 CAILogic :: Update(Vector3 pos)
 {
+	this->pos = pos;
+
 	StateCheck();
+
+	std :: vector<node> ::iterator it;
+
+	for(it = pathFinding.closeList.begin(); it < pathFinding.closeList.end(); ++it)
+	{
+		cout << it->index << endl;
+	}
 
 	if(state == AI_PURSUE)
 	{
-		if(targetPosition.x > pos.x)
+		/*if(targetPosition.x > pos.x)
 		{
-			dir.x = 1;
-			pos.x += 2;
+			this->dir.x = 1;
+			this->pos.x += 2;
 		}
 		else if(targetPosition.x < pos.x)
 		{
-			dir.x = -1;
-			pos.x -= 2;	
+			this->dir.x = -1;
+			this->pos.x -= 2;	
 		}
 		else
 		{
-			dir.x = 0;
-		}
+			this->dir.x = 0;
+		}*/
+		//FindPath();
 	}
 	if(state == AI_WANDER)
 	{
@@ -96,24 +111,27 @@ Vector3 CAILogic :: Update(Vector3 pos)
 
 		if(tempint == 1)
 		{
-			dir.x = 1;
-			pos.x = pos.x + 2;
+			this->dir.x = 1;
+			this->pos.x = pos.x + 2;
 		}
 		else if (tempint == 2)
 		{
-			dir.x = -1;
-			pos.x = pos.x - 2;
+			this->dir.x = -1;
+			this->pos.x = pos.x - 2;
 		}
 		else
 		{
-			dir.x = 0;
+			this->dir.x = 0;
 		}
 	}
-	return pos;
+	return this->pos;
 }
 
 bool CAILogic :: Init()
 {
+	//FindPath();
+	//pathFinding.SetUpGraph(theMap);
+
 	pos = Vector3(0,-28.008003,0);
 	dir = Vector3(0,0,0);
 

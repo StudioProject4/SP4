@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <vector>
+#include "Map.h"
 
 struct node
 {
@@ -10,6 +11,7 @@ struct node
 	float y;
 	int tileCost;
 	bool isWall;
+	int index;
 };
 
 class CBFS
@@ -48,19 +50,21 @@ class CAStarPathFinding
 	CAStarPathFinding();
 	~CAStarPathFinding();
 
-	node tempMap[10][10]; // a temp map
+	//node tempMap[10][10]; // a temp map
+	node ** tempMap;
 
-	node tempParentNode;// use to keep track of previous node
+	node currentNode;// use to keep track of current node
 	node start;
 	node end;
 
 	int maxHorizontalTile;
 	int maxVerticalTile;
 
-	void SetUpGraph(int maxHorizontalTile, int maxVerticalTile,node start,node end); // instantiate the map for pathfinding
-	void SearchForPath(node currentNode); // Find neighbouring nodes
+	void SetUpGraph(CMap themap); // instantiate the map for pathfinding
+	void SetUpPath(Vector3 startPosition,Vector3 endPosition);
+	void SearchForPath(); // Find neighbouring nodes
 	void ChooseAPath();
-	float DistanceToEnd(); //heuristic
+	float DistanceToEnd(node checkingNode); //heuristic
 	void FindPath(); // find the best path, the "main"
 
 	typedef std :: vector<node> TNodeVector;
@@ -92,7 +96,7 @@ class CAILogic
 		Vector3 Update(Vector3 pos);
 		bool Init();
 
-		//CA_Star pathfinding;
+		CAStarPathFinding pathFinding;
 	private:
 		Vector3 pos;
 		Vector3 dir;

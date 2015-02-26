@@ -22,7 +22,7 @@ bool CChineseMob :: Update()
 }
 bool CChineseMob :: Init()
 {
-	AI.Init();
+	//AI.Init();
 
 	name = "ChineseMob";
 	tag = "ChineseMob";

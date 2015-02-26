@@ -203,15 +203,21 @@ bool myApplication::Update()
 		{
 			playerOne->MoveLeft();
 		}
-		if(keyboard->myKeys['d'])
+		else if(keyboard->myKeys['d'])
 		{
 			playerOne->MoveRight();
 		}
-		if(keyboard->myKeys['w'])
+		else if(keyboard->myKeys['w'])
 		{
 			playerOne->Jump();
 		}
-		if(keyboard->myKeys['s'])
+		else if(!keyboard->myKeys['a']&&!keyboard->myKeys['d'])
+		{
+			playerOne->phys.vel.x=0;
+			keyboard->myKeysUp['a']=false;
+			keyboard->myKeysUp['d']=false;
+		}
+		else if(keyboard->myKeys['s'])
 		{
 			//playerOne->OnCollision(&Hpadd);
 			//playerOne->OnCollision(&ptsAdd);
@@ -219,6 +225,7 @@ bool myApplication::Update()
 			//Hpadd.OnCollision(playerOne);
 			//ptsAdd.OnCollision(&Hpadd);
 		}
+		
 		if(keyboard->leftArrow == true)
 		{
 			playerTwo->MoveLeft();
@@ -231,6 +238,7 @@ bool myApplication::Update()
 		{
 			playerTwo->Jump();
 		}
+		
 	}
 	else if(isMultiplayer)
 	{
@@ -677,8 +685,8 @@ void myApplication::SetHUD(bool m_bHUDmode)
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
-		glOrtho( 0, WM->GetWindowWidth() , WM->GetWindowHeight(), 0, -1, 1 );  
-		//glOrtho( 0, 800 , 600, 0, -1, 1 ); 
+		//glOrtho( 0, WM->GetWindowWidth() , WM->GetWindowHeight(), 0, -1, 1 );  
+		glOrtho( 0, 800 , 600, 0, -1, 1 ); 
 		//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
 		//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
 		glMatrixMode(GL_MODELVIEW);
