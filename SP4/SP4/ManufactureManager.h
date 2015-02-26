@@ -3,6 +3,7 @@
 class CAIMobBuilder;
 class CPowerUpBuilder;
 class CCharacterBuilder;
+class CObstacleBuilder;
 class CChineseMale;
 class CChineseMob;
 class CMalayFemale;
@@ -13,6 +14,8 @@ class CPointsAddPU;
 class CSpeedPU;
 class CJumpPU;
 class CInvinciblePU;
+class CObstacleBase;
+class CLeverDoor;
 
 class CManufactureManager
 {
@@ -22,6 +25,8 @@ public:
 	CAIMobBuilder* aiMobBuilder;
 	CPowerUpBuilder* powerUpBuilder;
 	CCharacterBuilder* characterBuilder;
+	CObstacleBuilder* obstacleBuilder;
+
 public:
 	
 	static CManufactureManager* instance;
@@ -37,5 +42,7 @@ public:
 	CInvinciblePU* CreatePowerUpInvincible();
 	CJumpPU* CreatePowerUpJumpHigh();
 	CSpeedPU* CreatePowerUpSpeedUp();
+	CLeverDoor* CreateObstacleLeverDoor();
+
 };
 

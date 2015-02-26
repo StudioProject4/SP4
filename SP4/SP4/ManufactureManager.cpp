@@ -3,6 +3,7 @@
 #include "AIMobBuilder.h"
 #include "PowerUpBuilder.h"
 #include "CharacterBuilder.h"
+#include "ObstacleBuilder.h"
 #include "ChineseMale.h"
 #include "ChineseMob.h"
 #include "MalayFemale.h"
@@ -13,6 +14,8 @@
 #include "JumpPU.h"
 #include "InvinciblePU.h"
 #include "SpeedPU.h"
+#include "LeverDoor.h"
+
 CManufactureManager* CManufactureManager::instance = 0;
 
 CManufactureManager::CManufactureManager(void)
@@ -20,6 +23,7 @@ CManufactureManager::CManufactureManager(void)
 	aiMobBuilder = new CAIMobBuilder;
 	powerUpBuilder = new CPowerUpBuilder ;
 	characterBuilder = new CCharacterBuilder;
+	obstacleBuilder = new CObstacleBuilder;
 }
 
 CManufactureManager* CManufactureManager::GetInstance()
@@ -36,6 +40,7 @@ CManufactureManager::~CManufactureManager(void)
 	delete aiMobBuilder;
 	delete powerUpBuilder;
 	delete characterBuilder;
+	delete obstacleBuilder;
 }
 
 CChineseMale* CManufactureManager::CreateChineseMale()
@@ -91,4 +96,11 @@ CSpeedPU* CManufactureManager::CreatePowerUpSpeedUp()
 {
 	powerUpBuilder->SetManufactureSPEEDUP();
 	return dynamic_cast<CSpeedPU*>(powerUpBuilder->GetProduct());
+}
+
+CLeverDoor* CManufactureManager::CreateObstacleLeverDoor()
+{
+	obstacleBuilder->SetManufactureLeverDoor();
+	return dynamic_cast<CLeverDoor*>(obstacleBuilder->GetProduct());
+
 }

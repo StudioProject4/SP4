@@ -191,7 +191,7 @@ bool myApplication::Init()
 	theAIOne->SetPos(Vector3(600,200,0));
 	
 
-	Map->RunMap();
+	//Map->RunMap();
 
 	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
 	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
@@ -392,9 +392,7 @@ void myApplication::RenderBackground()
 }
 
 void myApplication::Render2D()
-{
-
-	
+{	
 	RenderBackground();
 	RenderTileMap();
 
@@ -418,8 +416,7 @@ void myApplication::Render2D()
 	playerTwo->Render();
 	theAIOne->Render();
 	theAITwo->Render();
-	Hpadd.Render();
-	ptsAdd.Render();
+
 
 	//playerOne->Render();
 	//playerTwo->Render();
@@ -710,8 +707,8 @@ void myApplication::SetHUD(bool m_bHUDmode)
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
-		glOrtho( 0, WM->GetWindowWidth() , WM->GetWindowHeight(), 0, -1, 1 );  
-		//glOrtho( 0, 800 , 600, 0, -1, 1 ); 
+		//glOrtho( 0, WM->GetWindowWidth() , WM->GetWindowHeight(), 0, -1, 1 );  
+		glOrtho( 0, 800 , 600, 0, -1, 1 ); 
 		//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
 		//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
 		glMatrixMode(GL_MODELVIEW);

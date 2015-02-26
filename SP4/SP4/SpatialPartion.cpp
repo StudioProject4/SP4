@@ -23,12 +23,12 @@ CSpatialPartion::~CSpatialPartion(void)
 //Get cell based on the position input
 SCell* CSpatialPartion::GetCell(float posX,float posY)
 {
-
+	return 0;
 }
 //Get cell based on grid index
 SCell* CSpatialPartion::GetCell(short indexX,short indexY)
 {
-
+	return 0;
 }
 //Remove object from a cell;
 void CSpatialPartion::RemoveObject(ball* a_objToRemove)

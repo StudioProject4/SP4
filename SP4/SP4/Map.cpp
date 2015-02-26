@@ -564,29 +564,11 @@ std::vector<SContainer2D> CMap::FindValidNearbyGrid(Vector3 centreposition)
 void CMap::RunMap()
 {
 	//load map
-	if(Level == 1 && LevelCount != 1)
+	if(Level != LevelCount)
 	{
-		LoadMap("Level1_1.csv");
-		LevelCount = 1;
-	}else
-	if(Level == 2 && LevelCount != 2)
-	{
-		LoadMap("Level1_2.csv");
-		LevelCount = 2;
-	}else
-	if(Level == 3 && LevelCount != 3)
-	{
-		LoadMap("Level1_3.csv");
-		LevelCount = 3;
-	}else
-	if(Level == 4 && LevelCount != 4)
-	{
-		LoadMap("Level1_4.csv");
-		LevelCount = 4;
-	}else
-	if(Level == 5 && LevelCount != 5)
-	{
-		LoadMap("Level1_5.csv");
-		LevelCount = 5;
+		char* templv=new char[16];
+		sprintf(templv,"Level1_%d.csv",Level);
+		LevelCount=Level;
+		LoadMap(templv);
 	}
 }

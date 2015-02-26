@@ -89,7 +89,7 @@ public:
 	//csv number
 	int ScreenNum;
 
-	float Level;
+	int Level;
 	int LevelCount;
 	
 	int checkPosition_X;// = (int) ceil((float)(mapOffset_x+theHero->GetPos_x()) / TILE_SIZE);

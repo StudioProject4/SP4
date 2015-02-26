@@ -10,7 +10,8 @@
 #include "Mouse.h"
 #include "FrameRateManager.h"
 
-KennardTestState::KennardTestState(void)
+KennardTestState::KennardTestState(void):
+map(new CObjectManager())
 {
 }
 
