@@ -17,6 +17,7 @@ bool CJumpPU::Update()
 	
 bool CJumpPU::Render()
 {
+	theSprite->Render();
 
 	return true;
 }

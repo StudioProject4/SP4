@@ -51,7 +51,7 @@ public:
 	bool Reset();
 	bool CleanUp();
 
-	KennardTestState(void);
-	~KennardTestState(void);
+	KennardTestState();
+	~KennardTestState();
 };
 

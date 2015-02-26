@@ -198,6 +198,12 @@
     <ClCompile Include="TriggerBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ObstacleFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObstacleBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myApplication.h">
@@ -387,6 +393,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TriggerBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstacleFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstacleBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

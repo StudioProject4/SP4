@@ -5,6 +5,8 @@
 #include "Entity.h"
 #include "Physics.h"
 
+class Cell;
+
 class CBaseObject:public CEntity
 {
 public:
@@ -12,9 +14,12 @@ public:
 	bool active;
 	Vector3 pos;
 	Vector3 dir;
+	short cellvectorindex;
+	Cell* ownerCell;
 public:
 	CBaseObject()
 		:active(true)
+		,cellvectorindex(-1)
 	{};
 	virtual ~CBaseObject(){};
 	virtual bool OnCollision(CBaseObject* a_obj) = 0;

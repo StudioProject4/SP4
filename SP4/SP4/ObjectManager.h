@@ -6,6 +6,8 @@
 
 #include "ManufactureManager.h"
 
+class CSpatialPartion;
+
 class CObjectManager :
 	public CEntity
 {
@@ -15,6 +17,8 @@ public:
 	TObjectListVector objectList;
 	TObjectListQueue inactiveObjectList;
 	CManufactureManager* manufacturer;
+	CSpatialPartion* SP;
+	int numOfUniqueId;
 	//CObjectManager(void);
 
 public:
@@ -22,7 +26,7 @@ public:
 	//static CObjectManager* GetInstance();
 	CObjectManager(void);
 	~CObjectManager(void);
-
+	bool Render();
 	bool Update();
 	bool Init();
 	bool Reset();

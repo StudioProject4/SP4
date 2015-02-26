@@ -34,7 +34,8 @@ void CMenuState::SetHUD(bool m_bHUDmode)
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
-		glOrtho( 0, WM->GetWindowWidth() , WM->GetWindowHeight(), 0, -1, 1 );    
+		//glOrtho( 0, WM->GetWindowWidth() , WM->GetWindowHeight(), 0, -1, 1 );    
+		glOrtho( 0, WM->GetOriginalWindowWidth() , WM->GetOriginalWindowHeight(), 0, -1, 1 );  
 		//std::cout<<"Window width"<<WINDOW_WIDTH<<std::endl;
 		//std::cout<<"Window Height"<<WINDOW_HEIGHT<<std::endl;
 		//glOrtho( 0, 800 , 600, 0, -1, 1 );      
@@ -57,10 +58,11 @@ void CMenuState::SetHUD(bool m_bHUDmode)
 void CMenuState::Render2D()
 {
 	FRM->drawFPS();
-	for(TBallVector::iterator it = ballList.begin(); it!= ballList.end(); ++it)
+	SP->RenderObjects();
+	/*for(TBallVector::iterator it = ballList.begin(); it!= ballList.end(); ++it)
 	{
 		(*it)->Render();
-	}
+	}*/
 
 }
 
@@ -128,6 +130,22 @@ void CMenuState::KeyboardDown(unsigned char key, int x, int y)
 		case '3':
 			MS->PrintBgmTrackList();
 			MS->TranverseBgmTrack(false);
+			break;
+		case '4':
+			SP->PrintDebugInformation();
+			break;
+		case '5':
+			this->ballList[0]->SetVelocity(1,0);
+			break;
+		case '6':
+			SP->RemoveObject(this->ballList[0]);
+			break;
+		case '7':
+			SP->UpdateObjectOwnerCell(ballList[0]);
+			SP->PrintDebugInformation();
+			break;
+		case '8':
+			SP->AddObject(this->ballList[0]);
 			break;
 	}
 }
@@ -219,6 +237,7 @@ bool CMenuState::Update()
 		//{
 		//	CGameStateManager::GetInstance()->ChangeState(myApplication::GetInstance());
 		//}
+	SP->UpdateObjects();
 
 	if(keyboard->myKeys[VK_ESCAPE] == true)
 	{
@@ -230,7 +249,9 @@ bool CMenuState::Update()
 		for(TBallVector::iterator it = ballList.begin(); it!= ballList.end(); ++it)
 		{
 			(*it)->Update();
+			SP->UpdateObjectOwnerCell((*it));
 		}
+		//SP->Update();
 	}
 
 	return true;
@@ -256,19 +277,25 @@ bool CMenuState::Init()
 	ball * newball = nullptr;
 
 	newball = new ball;
-	newball->SetPosition( 100,60);
+	newball->SetPosition( 0,20);
 	ballList.push_back(newball);
 
 	newball = new ball;
-	newball->SetPosition( 200,60);
+	newball->SetPosition( 0,40);
 	newball->SetColour(1,1,1);
 	ballList.push_back(newball);
 
 	newball = new ball;
-	newball->SetPosition(300,60);
+	newball->SetPosition(0,60);
 	newball->SetColour(1,0,0);
 	ballList.push_back(newball);
 
+	SP = new CSpatialPartion((short)WM->GetWindowWidth(),(short)WM->GetWindowHeight(),40,40);
+	
+	for(short i2 = 0; i2<ballList.size();++i2)
+	{
+		SP->AddObject(ballList[i2]);
+	}
 	//for(short i = 0 ; i<2000;++i)
 	//{
 	//	newball = new ball;
