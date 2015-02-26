@@ -3,11 +3,18 @@
 
 CPointsAddPU::CPointsAddPU(void)
 {
+	Init();
+
 }
 
 
 CPointsAddPU::~CPointsAddPU(void)
 {
+	if(theSprite != NULL)
+	{
+		delete theSprite;
+		theSprite = NULL;
+	}
 }
 
 bool CPointsAddPU::Update()
@@ -18,8 +25,11 @@ bool CPointsAddPU::Update()
 	
 bool CPointsAddPU::Render()
 {
-	
+	glPushMatrix();
+	glTranslatef(pos.x,pos.y,0);
 	theSprite->Render();
+	glPopMatrix();
+
 	return true;
 }
 
@@ -28,7 +38,8 @@ bool CPointsAddPU::Init()
 	name = "PointsAdd";
 	tag = "PtAdd";
 	genericTag = "PowerUp"; 
-
+	
+	
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("PointsAdd.tga");
 

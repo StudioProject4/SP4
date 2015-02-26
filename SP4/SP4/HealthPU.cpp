@@ -3,16 +3,26 @@
 
 CHealthPU::CHealthPU(void)
 {
+	Init();
 }
 
 
 CHealthPU::~CHealthPU(void)
 {
+	if(theSprite != NULL)
+	{
+		delete theSprite;
+		theSprite = NULL;
+	}
 }
 
 bool CHealthPU::Render()
 {
+	glPushMatrix();
+	glTranslatef(pos.x,pos.y,pos.z);
 	theSprite->Render();
+	glPopMatrix();
+
 	return true;
 }
 

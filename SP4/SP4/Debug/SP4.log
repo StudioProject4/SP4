@@ -1,27 +1,9 @@
-﻿Build started 25/2/2015 5:36:07 PM.
+﻿Build started 26/2/2015 2:56:43 PM.
      1>Project "C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\SP4\SP4.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SP4.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\includes /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt HealthPU.cpp InvinciblePU.cpp JumpPU.cpp ManufactureManager.cpp MenuState.cpp PointsAddPU.cpp PowerUp.cpp PowerUpFactory.cpp SpeedPU.cpp main.cpp myApplication.cpp
-         SpeedPU.cpp
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         PowerUp.cpp
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         InvinciblePU.cpp
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         HealthPU.cpp
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         Generating Code...
-         Compiling...
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\includes /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt myApplication.cpp
          myApplication.cpp
      1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
      1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
@@ -33,37 +15,11 @@
      1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\musicsystem\audio.h(241): warning C4172: returning address of local variable or temporary
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(47): warning C4552: '-' : operator has no effect; expected operator with side-effect
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(324): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(605): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(609): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(613): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-         MenuState.cpp
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(162): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(163): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\musicsystem\audio.h(241): warning C4172: returning address of local variable or temporary
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\menustate.cpp(156): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\menustate.cpp(160): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\menustate.cpp(164): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-         Generating Code...
-         Compiling...
-         JumpPU.cpp
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(13): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         main.cpp
-         PowerUpFactory.cpp
-         PointsAddPU.cpp
-         ManufactureManager.cpp
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(48): warning C4552: '-' : operator has no effect; expected operator with side-effect
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(305): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(588): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(592): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\myapplication.cpp(596): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
          All outputs are up-to-date.
        ManifestResourceCompile:
          All outputs are up-to-date.
@@ -128,4 +84,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:14.13
+Time Elapsed 00:00:03.00

@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <stdlib.h>
 using namespace std;
 #include "Vector3.h"
 #include "SContainer2D.h"
@@ -52,10 +53,14 @@ public:
 	}
 };
 
+class CObjectManager;
+
 class CMap
 {
 public:
-	CMap(void);
+	CObjectManager* OM;
+public:
+	CMap(CObjectManager* theObjectManager);
 	~CMap(void);
 
 	void Init( int theScreen_Height, int theScreen_Width, 

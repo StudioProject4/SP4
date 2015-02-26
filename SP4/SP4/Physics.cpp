@@ -1,5 +1,5 @@
 #include "Physics.h"
-
+#include "Map.h"
 CPhysics::CPhysics()
 	: map(NULL)
 {
