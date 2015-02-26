@@ -118,8 +118,10 @@
     <ClCompile Include="PowerUpFactory.cpp" />
     <ClCompile Include="RandomGeneratorSystem\RandomGenerator.cpp" />
     <ClCompile Include="RenderUntility.cpp" />
+    <ClCompile Include="SpatialPartion.cpp" />
     <ClCompile Include="SpeedPU.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="TestBallObject.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="tgaLoader.c" />
     <ClCompile Include="Vector3.cpp" />
@@ -175,9 +177,11 @@
     <ClInclude Include="RandomGeneratorSystem\RandomGenerator.h" />
     <ClInclude Include="RenderUntilty.h" />
     <ClInclude Include="SContainer2D.h" />
+    <ClInclude Include="SpatialPartion.h" />
     <ClInclude Include="SpeedPU.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SystemDefination.h" />
+    <ClInclude Include="TestBallObject.h" />
     <ClInclude Include="TextureImage.h" />
     <ClInclude Include="tgaLoader.h" />
     <ClInclude Include="ToolLibrary.h" />

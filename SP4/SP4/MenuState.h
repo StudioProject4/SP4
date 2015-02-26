@@ -1,6 +1,9 @@
 #pragma once
 #include "gamestate.h"
 
+#include "TestBallObject.h"
+#include <vector>
+
 class CMenuState :
 	public CGameState
 {
@@ -8,6 +11,9 @@ public:
 	static CMenuState* instance;
 private:
 	CMenuState(void);
+
+	typedef std::vector<ball*> TBallVector;
+	TBallVector ballList;
 public:
 	static CMenuState* GetInstance();
 	~CMenuState(void);

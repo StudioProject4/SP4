@@ -376,14 +376,6 @@ void myApplication::RenderBackground()
 
 void myApplication::Render2D()
 {
-	glPushMatrix();
-	glBindTexture(GL_TEXTURE_2D,testimage.texID);
-	glBegin(GL_QUADS);
-	glEnd();
-	glPopMatrix();
-	//drawFPS();
-
-	
 
 	RenderBackground();
 	RenderTileMap();

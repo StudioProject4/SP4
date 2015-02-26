@@ -72,8 +72,3 @@ bool CHealthPU::OnCollision(CBaseObject* a_obj)
 
 	return true;
 }
-
-bool CHealthPU::Update()
-{
-	return true;
-}
