@@ -4,6 +4,7 @@
 CChineseMale :: CChineseMale()
 {
 	Init();
+	
 }
 
 CChineseMale :: ~CChineseMale()

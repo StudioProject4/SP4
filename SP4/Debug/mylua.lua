@@ -19,6 +19,10 @@ WINDOW_POSITION_X = 250
 WINDOW_POSITION_Y = 50
 print("Finish lua global variable")
 
+print("Initing lua function")
+
+print("Finish lua global variable")
+
 print("initing lua function")
 function add(v1,v2)
 return v1+v2

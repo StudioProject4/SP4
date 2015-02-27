@@ -168,7 +168,7 @@ bool myApplication::Init()
 	CLeverDoor* lever=new CLeverDoor;
 	lever->Init(Vector3(600,568),Vector3(5,50));
 	CDoor* door=new CDoor;
-	door->Init(Vector3(400,568),Vector3(32,32));
+	door->Init(Vector3(350,80),Vector3(32,32));
 	lever->SetDoorLink(door);
 	door->AddTrigger(lever);
 
@@ -179,7 +179,6 @@ bool myApplication::Init()
 	OM->AddObject(theAITwo);
 	OM->AddObject(lever);
 	OM->AddObject(door);
-
 
 	 mapOffset_x =  mapOffset_y=
 	 tileOffset_x =tileOffset_y=
@@ -201,28 +200,6 @@ bool myApplication::Init()
 	theAITwo->phys.map=Map;
 
 	isMultiplayer = false;
-
-	////load map
-	//if(Map->LevelCount == 1)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
-	//if(Map->LevelCount == 2)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
-	//if(Map->LevelCount == 3)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
-	//if(Map->LevelCount == 4)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
-	//if(Map->LevelCount == 5)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
 	
 	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
 	playerTwo->Init(Vector3(60,20,0),Vector3(0,0,0),0);
@@ -243,7 +220,7 @@ bool myApplication::Init()
 bool myApplication::Update()
 {
 
-
+	
 	if(!isMultiplayer)
 	{
 		if(keyboard->myKeys['a'])
@@ -268,7 +245,7 @@ bool myApplication::Update()
 		{
 			//playerOne->OnCollision(&Hpadd);
 			//playerOne->OnCollision(&ptsAdd);
-			ptsAdd.OnCollision(playerOne);
+			//ptsAdd.OnCollision(playerOne);
 			//InvinOn.OnCollision(playerOne);
 			//Hpadd.OnCollision(playerOne);
 			//ptsAdd.OnCollision(&Hpadd);
@@ -425,12 +402,13 @@ void myApplication::RenderBackground()
 
 void myApplication::Render2D()
 {	
+	
 	RenderBackground();
 	RenderTileMap();
 
+	FRM->drawFPS();
 	OM->Render();
 
-	FRM->drawFPS();
 	
 }
 void myApplication::Render3D()

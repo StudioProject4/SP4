@@ -390,6 +390,7 @@ bool CMap::LoadFile(const string mapName)
 							//call factory to create a power up at this pos
 							temph = CManufactureManager::GetInstance()->CreatePowerUpRecovery();
 							temph->pos = this->lookupIndex(theColumnCounter-1,theLineCounter);
+							temph->Init();
 							OM->AddObject(temph);					
 
 							break;
@@ -398,6 +399,7 @@ bool CMap::LoadFile(const string mapName)
 							//call factory to create a power up at this pos
 							tempSpd = CManufactureManager::GetInstance()->CreatePowerUpSpeedUp();
 							tempSpd->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
+							tempSpd->Init();
 							OM->AddObject(tempSpd);
 							
 							break;
@@ -406,6 +408,7 @@ bool CMap::LoadFile(const string mapName)
 							//call factory to create a power up at this pos
 							tempIn = CManufactureManager::GetInstance()->CreatePowerUpInvincible();
 							tempIn->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
+							tempIn->Init();
 							OM->AddObject(tempIn);
 
 							break;
@@ -414,6 +417,7 @@ bool CMap::LoadFile(const string mapName)
 							//call factory to create a power up at this pos
 							tempPT = CManufactureManager::GetInstance()->CreatePowerUpPoints();
 							tempPT->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
+							tempPT->Init();
 							OM->AddObject(tempPT);
 
 							break;
@@ -422,6 +426,7 @@ bool CMap::LoadFile(const string mapName)
 							//call factory to create a power up at this pos
 							tempJp = CManufactureManager::GetInstance()->CreatePowerUpJumpHigh();
 							tempJp->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
+							tempJp->Init();
 							OM->AddObject(tempJp);	
 
 							break;
