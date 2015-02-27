@@ -15,6 +15,7 @@
 #include "InvinciblePU.h"
 #include "SpeedPU.h"
 #include "LeverDoor.h"
+#include "Door.h"
 
 CManufactureManager* CManufactureManager::instance = 0;
 
@@ -103,4 +104,9 @@ CLeverDoor* CManufactureManager::CreateObstacleLeverDoor()
 	obstacleBuilder->SetManufactureLeverDoor();
 	return dynamic_cast<CLeverDoor*>(obstacleBuilder->GetProduct());
 
+}
+CDoor* CManufactureManager::CreateObstacleDoor()
+{
+	obstacleBuilder->SetManufactureDoor();
+	return dynamic_cast<CDoor*>(obstacleBuilder->GetProduct());
 }

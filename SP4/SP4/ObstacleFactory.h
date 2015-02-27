@@ -11,6 +11,7 @@ public:
 	{
 		OBSTACLE_NONE,
 		OBSTACLE_LEVERDOOR,
+		OBSTACLE_DOOR,
 		OBSTACLE_TOTAL
 	};
 
@@ -26,7 +27,7 @@ public:
 	void SetManufactureType(EObstacleType typeToMake);
 	void setManufactureNone();
 	void SetManufactureLeverDoor();
-
+	void SetManufactureDoor();
 
 };
 

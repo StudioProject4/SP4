@@ -165,10 +165,14 @@ bool myApplication::Init()
 	playerTwo->Init(Vector3(60,20,0),Vector3(0,0,0),0);
 	theAIOne->SetPos(Vector3(600,200,0));
 
-	CLeverDoor* lever=new CLeverDoor;
-	lever->Init(Vector3(600,568),Vector3(5,50));
-	CDoor* door=new CDoor;
-	door->Init(Vector3(350,80),Vector3(32,32));
+
+	CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
+	//lever->Init(Vector3(600,568),Vector3(5,50));
+	lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+	CDoor* door= OM->manufacturer->CreateObstacleDoor();
+	door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X"),LM->GetWithCheckNumber<float>("DOOR_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+	//door->Init(Vector3(350,80),Vector3(32,32));
+
 	lever->SetDoorLink(door);
 	door->AddTrigger(lever);
 
@@ -255,16 +259,16 @@ bool myApplication::Update()
 		{
 			playerTwo->MoveLeft();
 		}
-		else if(keyboard->rightArrow == true)
+		if(keyboard->rightArrow == true)
 		{
 			playerTwo->MoveRight();
 		}
-		else if(keyboard->upArrow == true)
+		if(keyboard->upArrow == true)
 		{
 			playerTwo->Jump();
 		}
 
-		else if(!keyboard->rightArrow && !keyboard->leftArrow)
+		if(!keyboard->rightArrow && !keyboard->leftArrow)
 		{
 			playerTwo->phys.vel.x=0;
 			keyboard->rightArrow = false;
