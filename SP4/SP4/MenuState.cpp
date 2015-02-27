@@ -301,7 +301,7 @@ bool CMenuState::Init()
 	newball->SetColour(1,0,0);
 	ballList.push_back(newball);
 
-	SP = new CSpatialPartion((short)WM->GetWindowWidth(),(short)WM->GetWindowHeight(),400,300);
+	SP = new CSpatialPartion((short)WM->GetWindowWidth(),(short)WM->GetWindowHeight(),200,150);
 	
 	for(short i2 = 0; i2<ballList.size();++i2)
 	{

@@ -410,9 +410,11 @@ void myApplication::Render2D()
 	RenderBackground();
 	RenderTileMap();
 
-	FRM->drawFPS();
-	OM->Render();
+	//uncomment this to render the spatial partition grid
+	//this->OM->SP->RenderGrid();
 	
+	OM->Render();
+	FRM->drawFPS();
 }
 void myApplication::Render3D()
 {

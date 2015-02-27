@@ -346,20 +346,20 @@ void CSpatialPartion::RenderGrid()
 	int x = 0;
 	int y = 0;
 
-	float subPosX = 0 ;
-	float subPosY = 0 ;
+	//float subPosX = 0 ;
+	//float subPosY = 0 ;
 
 	for(unsigned short i =0 ; i<cellList.size();++i)
 	{
 		x = i % numCellX ;
 		y = i / numCellX ;
-		//std::cout<<"index X: "<<y<<std::endl;
-		//std::cout<< (( (x+1) *gridWidth) - (gridWidth*0.5)) *0.5<<std::endl;
-		//std::cout<< (( (y+1) *gridHeight) - (gridHeight*0.5)) *0.5<<std::endl;
-		//std::cout<< y<<std::endl;
-		subPosX = ((x+1)*cellSizeX - (cellSizeX*0.5));
-		subPosX = (gridHeight - ((y+1)*cellSizeY + (cellSizeY*0.5)));
-		RenderSquare( subPosX,subPosY,cellSizeX,cellSizeY);
+
+		//works
+		//subPosX = ((x+1)*cellSizeX - (cellSizeX*0.5));
+		//subPosY = ((y+1)*cellSizeY - (cellSizeY*0.5));
+		//std::cout<<subPosY<<std::endl;
+
+		RenderSquare( ((x+1)*cellSizeX - (cellSizeX*0.5)),((y+1)*cellSizeY - (cellSizeY*0.5)),cellSizeX,cellSizeY);
 	
 		//RenderSquare( (( (x+1) *gridWidth) - (gridWidth*0.5)) *0.5,(( (y+1) *gridHeight) + (gridHeight*0.5)) *0.5,cellSizeX,cellSizeY);
 	}
