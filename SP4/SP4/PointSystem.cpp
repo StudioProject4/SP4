@@ -37,9 +37,10 @@ void CPointSystem :: PointsReceive(int points)
 	//	this->points = ( points * 2 );	
 	//}
 	//else
-	{
-		this->points = points;
-	}
+	//{
+
+	this->points = this->points + points;
+//	}
 }
 
 int CPointSystem :: GetPoints()

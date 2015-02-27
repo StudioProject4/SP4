@@ -14,10 +14,11 @@ CChineseMob::~CChineseMob()
 	}
 }
 bool CChineseMob :: Update()
-{
-	pos = phys.Update(pos);
+{	
 	dir = AI.GetDir();
-	pos.x = AI.Update(pos).x;
+	//pos.x = 
+	AI.Update(pos,phys).x;
+	pos = phys.Update(pos);
 	return true;
 }
 bool CChineseMob :: Init()

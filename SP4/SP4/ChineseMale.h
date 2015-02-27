@@ -26,4 +26,6 @@ class CChineseMale : public CCharacter
 	private:
 		//CSprite * theSprite;
 		//CPowerUp* thePowerUp;
+
+
 };

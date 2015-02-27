@@ -18,7 +18,10 @@ bool CJumpPU::Update()
 	
 bool CJumpPU::Render()
 {
+	glPushMatrix();
+	glTranslatef(pos.x, pos.y, 0);
 	theSprite->Render();
+	glPopMatrix();
 
 	return true;
 }
@@ -31,7 +34,9 @@ bool CJumpPU::Init()
 
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("Jump.tga");
+
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
+
 	return true;
 }
 
