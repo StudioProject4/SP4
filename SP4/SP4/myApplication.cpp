@@ -407,7 +407,7 @@ void myApplication::Render2D()
 //	theAI->Render();
 	OM->Update();//will seperate into render and update later;
 	FRM->drawFPS();
->>>>>>> origin/master
+
 
 	OM->Render();
 
