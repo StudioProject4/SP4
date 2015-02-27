@@ -1,67 +1,5 @@
 #include "AI.h"
 
-CBFS :: CBFS()
-{
-	for(int i = 0 ; i < 10 ; i++)
-		for(int j = 0 ; j < 10 ; j++)
-		{
-			tempmap[i][j].x = j;
-			tempmap[i][j].y = i;
-			tempmap[i][j].tileCost = 1;
-			tempmap[i][j].isWall = false;
-		}
-}
-
-CBFS :: ~CBFS()
-{
-	
-}
-
-void CBFS :: SetUpGraph()
-{
-	for(int i = 0 ; i < 10 ; i++)
-	{
-		for(int j = 0 ; j < 10 ; j++)
-		{
-			node tempnode;
-			tempnode.x = tempmap[i][j].x;
-			tempnode.y = tempmap[i][j].y;
-			tempnode.tileCost = tempmap[i][j].tileCost;
-			tempnode.isWall = tempmap[i][j].isWall;
-			locations.push_back(tempnode);
-		}
-	}
-}
-
-void CBFS :: SearchNeighbours(node theNode)
-{
-
-}
-
-void CBFS :: SearchForPath(node start,node end)
-{
-	
-}
-
-float CA_Star :: DistanceToEnd(node start,node end)
-{
-	return ( abs(end.x-start.x) + abs(end.y-end.y) );
-}
-
-void CA_Star :: SearchBestPath(node start,node end,vector<node>locationList)
-{
-	float cost;
-	float newCost;
-	search.SetUpGraph();
-	//search.SearchNeighbours();
-	//search.SearchForPath();
-	for(int itr = 0 ; itr < search.path.size() ; itr++)
-	{
-		node tempnode = search.path[itr];	
-	}
-
-}
-
 CAStarPathFinding :: CAStarPathFinding()
 {
 	//for(int i = 0 ; i < 10 ; i++)
@@ -94,10 +32,10 @@ void CAStarPathFinding ::SetUpGraph(CMap theMap)
 	this->maxHorizontalTile = MAP_WIDTH;
 	this->maxVerticalTile = MAP_HEIGHT;
 
-	tempMap = new node*[maxHorizontalTile];
-	for(int i = 0 ; i < maxHorizontalTile ; ++i)
+	tempMap = new node*[maxVerticalTile];
+	for(int i = 0 ; i < maxVerticalTile ; ++i)
 	{
-		tempMap[i] = new node[maxVerticalTile];
+		tempMap[i] = new node[maxHorizontalTile];
 	}
 
 	for(int i = 0 ; i < this->maxVerticalTile ; i++)
@@ -123,20 +61,20 @@ void CAStarPathFinding :: SetUpPath(Vector3 startPosition,Vector3 endPosition)
 	{
 		for(int j = 0 ; j < this->maxHorizontalTile ; j++)
 		{
-			if(startPosition.x > tempMap[i][j].x && startPosition.x < tempMap[i][j].x && startPosition.y > tempMap[i][j].y && startPosition.y < tempMap[i][j].y)
+			if(startPosition.x > (tempMap[i][j].x - TILE_SIZE) && startPosition.x < (tempMap[i][j].x + TILE_SIZE) && startPosition.y > (tempMap[i][j].y - TILE_SIZE) && startPosition.y < (tempMap[i][j].y + TILE_SIZE))
 			{
-				
+				start = tempMap[i][j];
 			}
-			if(endPosition.x > tempMap[i][j].x && endPosition.x < tempMap[i][j].x && endPosition.y > tempMap[i][j].y && endPosition.y < tempMap[i][j].y)
+			if(endPosition.x >  (tempMap[i][j].x - TILE_SIZE) && endPosition.x < (tempMap[i][j].x + TILE_SIZE) && endPosition.y > (tempMap[i][j].y - TILE_SIZE) && endPosition.y < (tempMap[i][j].y + TILE_SIZE))
 			{
-				
+				end = tempMap[i][j];
 			}
 		}
 	}
 
 	//node start,node end
-	this->start = start;
-	this->end = end;
+	//this->start = start;
+	//this->end = end;
 	this->currentNode = start;
 
 	closeList.push_back(start);
@@ -159,6 +97,16 @@ void CAStarPathFinding :: SearchForPath()
 						openList.push_back(tempNode);
 					}
 					if(tempMap[i][j+1].isWall == false) //look right
+					{
+						tempNode = tempMap[i][j+1];
+						openList.push_back(tempNode);
+					}
+					if(tempMap[i][j].isWall == false) //look top
+					{
+						tempNode = tempMap[i][j-1];
+						openList.push_back(tempNode);
+					}
+					if(tempMap[i][j].isWall == false) //look bottom
 					{
 						tempNode = tempMap[i][j+1];
 						openList.push_back(tempNode);

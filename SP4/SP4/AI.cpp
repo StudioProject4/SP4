@@ -38,10 +38,10 @@ void CAILogic :: DetectionCheck ()
 	{
 		ChangeState(AI_IDLE);
 	}
-	else
-	{
-		ChangeState(AI_IDLE);
-	}
+	//else
+	//{
+	//	ChangeState(AI_IDLE);
+	//}
 	
 }
 
@@ -84,6 +84,7 @@ Vector3 CAILogic :: Update(Vector3 pos)
 
 	if(state == AI_PURSUE)
 	{
+		//FindPath();
 		/*if(targetPosition.x > pos.x)
 		{
 			this->dir.x = 1;
@@ -130,7 +131,6 @@ Vector3 CAILogic :: Update(Vector3 pos)
 bool CAILogic :: Init()
 {
 	//FindPath();
-	//pathFinding.SetUpGraph(theMap);
 
 	pos = Vector3(0,-28.008003,0);
 	dir = Vector3(0,0,0);

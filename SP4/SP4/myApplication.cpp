@@ -219,6 +219,9 @@ bool myApplication::Init()
 	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
 	playerTwo->Init(Vector3(60,20,0),Vector3(0,0,0),0);
 	theAIOne->SetPos(Vector3(600,200,0));
+	theAIOne->SetUpMap(*Map);
+	theAITwo->SetPos(Vector3(300,100,0));
+	theAITwo->SetUpMap(*Map);
 	
 
 	//Map->RunMap();
@@ -249,15 +252,15 @@ bool myApplication::Update()
 		{
 			playerOne->MoveLeft();
 		}
-		else if(keyboard->myKeys['d'])
+		if(keyboard->myKeys['d'])
 		{
 			playerOne->MoveRight();
 		}
-		else if(keyboard->myKeys['w'])
+		if(keyboard->myKeys['w'])
 		{
 			playerOne->Jump();
 		}
-		else if(!keyboard->myKeys['a']&&!keyboard->myKeys['d'])
+		if(!keyboard->myKeys['a']&&!keyboard->myKeys['d'])
 		{
 			playerOne->phys.vel.x=0;
 			keyboard->myKeysUp['a']=false;
@@ -276,13 +279,20 @@ bool myApplication::Update()
 		{
 			playerTwo->MoveLeft();
 		}
-		if(keyboard->rightArrow == true)
+		else if(keyboard->rightArrow == true)
 		{
 			playerTwo->MoveRight();
 		}
-		if(keyboard->upArrow == true)
+		else if(keyboard->upArrow == true)
 		{
 			playerTwo->Jump();
+		}
+
+		else if(!keyboard->rightArrow && !keyboard->leftArrow)
+		{
+			playerTwo->phys.vel.x=0;
+			keyboard->rightArrow = false;
+			keyboard->leftArrow = false;
 		}
 		
 	}
