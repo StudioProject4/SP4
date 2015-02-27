@@ -157,7 +157,7 @@ bool CLeverDoor::Update()
 {
 	float delta=0.0166;
 	//pos=phys.Update(pos);
-	float leverGrav=200;
+	float leverGrav=-200;
 	if(curAngle>-70&&curAngle<70)
 	{
 		if(applyGrav||angleVel!=0)

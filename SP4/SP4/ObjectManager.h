@@ -45,5 +45,8 @@ public:
 	CBaseObject* FetchObjectWithName(std::string objectName);
 	CBaseObject* FetchObjectWithTag(std::string objectTag);
 	CBaseObject* FetchObjectWithGenericTag(std::string objectTag);
+	void PrintDebugAllActiveObjects();
+	void PrintDebugAllInActiveObjects();
+	void PrintDebugInformation();
 };
 

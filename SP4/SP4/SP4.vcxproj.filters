@@ -28,9 +28,6 @@
     <Filter Include="Helper\Defination">
       <UniqueIdentifier>{96aa740b-b870-4ce1-b6db-97dc7ac57b50}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Helper\PackageIncludes">
-      <UniqueIdentifier>{8b642cec-5897-4d6c-bc98-c16779ae3a2d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Helper\CustomDataType">
       <UniqueIdentifier>{985bb204-a305-4649-8c14-13f7766b365c}</UniqueIdentifier>
     </Filter>
@@ -40,8 +37,38 @@
     <Filter Include="Helper\MusicSystem">
       <UniqueIdentifier>{aec95703-e1d5-4055-864c-dfeef01700c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SpatialPartitionTest">
+    <Filter Include="Character">
+      <UniqueIdentifier>{067bc28f-dbf4-4ee3-8e88-78fa346dfd50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Character\Player">
+      <UniqueIdentifier>{f13d6020-c397-41f2-94ab-47833bf03608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Character\AiMob">
+      <UniqueIdentifier>{47035453-1717-4d84-8775-575478e708c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectManagement">
+      <UniqueIdentifier>{8eb06bad-621a-4719-942e-f5e4e708318a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectManagement\SpatialPartition">
       <UniqueIdentifier>{02a9a800-d3e6-49eb-8f2f-6922f298f3e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectManagement\Factories">
+      <UniqueIdentifier>{fbceb475-70b2-4a03-aa10-9472d303564b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectManagement\Interface">
+      <UniqueIdentifier>{381dd402-3e07-4e8d-9936-36f9d6f59cdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AiLogic">
+      <UniqueIdentifier>{c7d79654-1378-4cef-b5bf-a709b8ae0db0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PowerUp">
+      <UniqueIdentifier>{ec9d69d3-1188-4975-8b3d-b973bf910c18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obstacle">
+      <UniqueIdentifier>{e04968e6-279e-4095-bad3-2f1f2f376788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="InputSystem">
+      <UniqueIdentifier>{c1b4cbf5-5455-4673-aaf1-d5af491ae23d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,12 +79,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FrameRateManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mouse.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Keyboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
@@ -93,22 +114,7 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Physics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MalayFemale.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ChineseMale.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PowerUp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="KennardTestState.cpp">
@@ -116,9 +122,6 @@
     </ClCompile>
     <ClCompile Include="RenderUntility.cpp">
       <Filter>Helper\RenderHelper</Filter>
-    </ClCompile>
-    <ClCompile Include="ObstacleBase.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MusicSystem\MusicSystem.cpp">
       <Filter>Helper\MusicSystem</Filter>
@@ -132,76 +135,124 @@
     <ClCompile Include="PointSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LeverDoor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MalayMob.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ChineseMob.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthPU.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InvinciblePU.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SpeedPU.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="JumpPU.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PointsAddPU.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AIMobBuilder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AIMobFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterBuilder.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterFactory.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ManufactureManager.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PowerUpBuilder.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PowerUpFactory.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AStarPathfinding.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="WindowManager.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="TestBallObject.cpp">
-      <Filter>SpatialPartitionTest</Filter>
+      <Filter>ObjectManagement\SpatialPartition</Filter>
     </ClCompile>
     <ClCompile Include="SpatialPartion.cpp">
-      <Filter>SpatialPartitionTest</Filter>
+      <Filter>ObjectManagement\SpatialPartition</Filter>
     </ClCompile>
-    <ClCompile Include="Door.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="AIMobBuilder.cpp">
+      <Filter>ObjectManagement\Factories</Filter>
     </ClCompile>
-    <ClCompile Include="TriggerBase.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="AIMobFactory.cpp">
+      <Filter>ObjectManagement\Factories</Filter>
     </ClCompile>
     <ClCompile Include="ObstacleFactory.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>ObjectManagement\Factories</Filter>
     </ClCompile>
     <ClCompile Include="ObstacleBuilder.cpp">
+      <Filter>ObjectManagement\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpFactory.cpp">
+      <Filter>ObjectManagement\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpBuilder.cpp">
+      <Filter>ObjectManagement\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterFactory.cpp">
+      <Filter>ObjectManagement\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterBuilder.cpp">
+      <Filter>ObjectManagement\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="ManufactureManager.cpp">
+      <Filter>ObjectManagement\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>ObjectManagement\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>AiLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="AStarPathfinding.cpp">
+      <Filter>AiLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="ChineseMale.cpp">
+      <Filter>Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MalayFemale.cpp">
+      <Filter>Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUp.cpp">
+      <Filter>PowerUp</Filter>
+    </ClCompile>
+    <ClCompile Include="SpeedPU.cpp">
+      <Filter>PowerUp</Filter>
+    </ClCompile>
+    <ClCompile Include="PointsAddPU.cpp">
+      <Filter>PowerUp</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpPU.cpp">
+      <Filter>PowerUp</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthPU.cpp">
+      <Filter>PowerUp</Filter>
+    </ClCompile>
+    <ClCompile Include="InvinciblePU.cpp">
+      <Filter>PowerUp</Filter>
+    </ClCompile>
+    <ClCompile Include="ChineseMob.cpp">
+      <Filter>Character\AiMob</Filter>
+    </ClCompile>
+    <ClCompile Include="MalayMob.cpp">
+      <Filter>Character\AiMob</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="LeverDoor.cpp">
+      <Filter>Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="TriggerBase.cpp">
+      <Filter>Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="ObstacleBase.cpp">
+      <Filter>Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>InputSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>InputSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="MalayMob.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ChineseMob.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ManufactureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -233,12 +284,6 @@
     <ClInclude Include="FrameRateManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Keyboard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mouse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LuaManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -260,9 +305,6 @@
     <ClInclude Include="SystemDefination.h">
       <Filter>Helper\Defination</Filter>
     </ClInclude>
-    <ClInclude Include="myLibrary.h">
-      <Filter>Helper\PackageIncludes</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Helper\CustomDataType</Filter>
     </ClInclude>
@@ -275,9 +317,6 @@
     <ClInclude Include="RandomGeneratorSystem\RandomGenerator.h">
       <Filter>Helper\RandomGenerator</Filter>
     </ClInclude>
-    <ClInclude Include="Mind.h">
-      <Filter>Helper\CustomDataType</Filter>
-    </ClInclude>
     <ClInclude Include="GameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -287,19 +326,10 @@
     <ClInclude Include="MenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BaseObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BaseObject.h">
@@ -308,22 +338,10 @@
     <ClInclude Include="BaseObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MalayFemale.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ChineseMale.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="WindowManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PowerUp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="KennardTestState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObstacleBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MusicSystem\Audio.h">
@@ -341,65 +359,92 @@
     <ClInclude Include="LeverDoor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MalayMob.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ChineseMob.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthPU.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InvinciblePU.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpeedPU.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpPU.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PointsAddPU.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMobBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIMobFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ManufactureManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerUpBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerUpFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TestBallObject.h">
-      <Filter>SpatialPartitionTest</Filter>
+      <Filter>ObjectManagement\SpatialPartition</Filter>
     </ClInclude>
     <ClInclude Include="SpatialPartion.h">
-      <Filter>SpatialPartitionTest</Filter>
+      <Filter>ObjectManagement\SpatialPartition</Filter>
     </ClInclude>
-    <ClInclude Include="Door.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PowerUpFactory.h">
+      <Filter>ObjectManagement\Factories</Filter>
     </ClInclude>
-    <ClInclude Include="TriggerBase.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PowerUpBuilder.h">
+      <Filter>ObjectManagement\Factories</Filter>
     </ClInclude>
     <ClInclude Include="ObstacleFactory.h">
-      <Filter>Header Files</Filter>
+      <Filter>ObjectManagement\Factories</Filter>
     </ClInclude>
     <ClInclude Include="ObstacleBuilder.h">
-      <Filter>Header Files</Filter>
+      <Filter>ObjectManagement\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterFactory.h">
+      <Filter>ObjectManagement\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterBuilder.h">
+      <Filter>ObjectManagement\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMobBuilder.h">
+      <Filter>ObjectManagement\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="AIMobFactory.h">
+      <Filter>ObjectManagement\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="ManufactureManager.h">
+      <Filter>ObjectManagement\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>ObjectManagement\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="PointsAddPU.h">
+      <Filter>PowerUp</Filter>
+    </ClInclude>
+    <ClInclude Include="SpeedPU.h">
+      <Filter>PowerUp</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUp.h">
+      <Filter>PowerUp</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthPU.h">
+      <Filter>PowerUp</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpPU.h">
+      <Filter>PowerUp</Filter>
+    </ClInclude>
+    <ClInclude Include="InvinciblePU.h">
+      <Filter>PowerUp</Filter>
+    </ClInclude>
+    <ClInclude Include="ChineseMale.h">
+      <Filter>Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ChineseMob.h">
+      <Filter>Character\AiMob</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Character</Filter>
+    </ClInclude>
+    <ClInclude Include="MalayMob.h">
+      <Filter>Character\AiMob</Filter>
+    </ClInclude>
+    <ClInclude Include="MalayFemale.h">
+      <Filter>Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstacleBase.h">
+      <Filter>Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="TriggerBase.h">
+      <Filter>Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>AiLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>InputSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
