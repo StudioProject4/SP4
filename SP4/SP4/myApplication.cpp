@@ -430,6 +430,7 @@ void myApplication::Render2D()
 	OM->Update();//will seperate into render and update later;
 	FRM->drawFPS();
 
+
 	OM->Render();
 
 	FRM->drawFPS();
