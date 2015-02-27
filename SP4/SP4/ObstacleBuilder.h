@@ -10,6 +10,7 @@ public:
 	~CObstacleBuilder(void);
 	
 	void SetManufactureLeverDoor();
+	void SetManufactureDoor();
 	CObstacleFactory* GetFactory();
 	CObstacleBase* GetProduct();
 

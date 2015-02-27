@@ -43,7 +43,16 @@ bool CInvinciblePU::OnCollision(CBaseObject* a_obj)
 	{
 		if(a_obj->name = "GenericChineseKid")
 		{
-
+			if(this->active == true)
+			{
+				CCharacter* Invintemp = (CCharacter*)a_obj;
+				Invintemp->SetIsInvulnerable(true);
+				this->active = false;
+				std::cout << "INvulneravblee true " << std::endl;
+			}else
+			{
+				std::cout << "Invulnerable TAKEN" << std::endl;
+			}
 		}
 		else
 		if(a_obj->name = "GenericMalayKid")

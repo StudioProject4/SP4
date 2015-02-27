@@ -28,6 +28,9 @@
 #include "PowerUp.h"
 #include "PointsAddPU.h"
 #include "HealthPU.h"
+#include "InvinciblePU.h"
+#include "JumpPU.h"
+#include "SpeedPU.h"
 #include "Map.h"
 
 #include "Physics.h"
@@ -100,6 +103,7 @@ private:
 	CHealthPU Hpadd;
 	CPointsAddPU ptsAdd;
 	CPointsAddPU* pts;
+	CInvinciblePU InvinOn;
 
 	int x, y;
 	
