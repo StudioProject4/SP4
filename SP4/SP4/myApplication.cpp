@@ -277,16 +277,16 @@ bool myApplication::Update()
 		{
 			playerTwo->MoveLeft();
 		}
-		else if(keyboard->rightArrow == true)
+		if(keyboard->rightArrow == true)
 		{
 			playerTwo->MoveRight();
 		}
-		else if(keyboard->upArrow == true)
+		if(keyboard->upArrow == true)
 		{
 			playerTwo->Jump();
 		}
 
-		else if(!keyboard->rightArrow && !keyboard->leftArrow)
+		if(!keyboard->rightArrow && !keyboard->leftArrow)
 		{
 			playerTwo->phys.vel.x=0;
 			keyboard->rightArrow = false;

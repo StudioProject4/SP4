@@ -4,13 +4,14 @@
 #include <time.h>
 #include <vector>
 #include "Map.h"
+#include "Physics.h"
 
 struct node
 {
 	float x;
 	float y;
 	int tileCost;
-	bool isWall;
+	bool isNotWall;
 	int index;
 };
 
@@ -26,6 +27,9 @@ class CAStarPathFinding
 	node currentNode;// use to keep track of current node
 	node start;
 	node end;
+
+	float cost_so_far;
+	float cost;
 
 	int maxHorizontalTile;
 	int maxVerticalTile;
@@ -63,11 +67,12 @@ class CAILogic
 		void SetEnemyPos(Vector3 & enemyPos);
 		Vector3 GetDir();
 
-		Vector3 Update(Vector3 pos);
+		Vector3 Update(Vector3 pos,CPhysics & thePhysics);
 		bool Init();
 
 		CAStarPathFinding pathFinding;
 	private:
+		bool foundPath;
 		Vector3 pos;
 		Vector3 dir;
 		AIState state;

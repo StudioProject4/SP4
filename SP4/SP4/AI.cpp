@@ -32,11 +32,13 @@ void CAILogic :: DetectionCheck ()
 		{
 			targetPosition = enemyPos;
 			ChangeState(AI_PURSUE);
+			
 		}
 	}
 	else if(pos.x == targetPosition.x && state == AI_PURSUE)
 	{
 		ChangeState(AI_IDLE);
+		foundPath = false;
 	}
 	//else
 	//{
@@ -69,7 +71,7 @@ void CAILogic :: IdleWanderRandomizer ()
 	}
 }
 
-Vector3 CAILogic :: Update(Vector3 pos)
+Vector3 CAILogic :: Update(Vector3 pos,CPhysics & thePhysics)
 {
 	this->pos = pos;
 
@@ -84,7 +86,11 @@ Vector3 CAILogic :: Update(Vector3 pos)
 
 	if(state == AI_PURSUE)
 	{
-		//FindPath();
+		if(foundPath == false)
+		{
+			FindPath();
+			foundPath = true;
+		}
 		/*if(targetPosition.x > pos.x)
 		{
 			this->dir.x = 1;
@@ -113,12 +119,12 @@ Vector3 CAILogic :: Update(Vector3 pos)
 		if(tempint == 1)
 		{
 			this->dir.x = 1;
-			this->pos.x = pos.x + 2;
+			thePhysics.MoveSide(false);
 		}
 		else if (tempint == 2)
 		{
 			this->dir.x = -1;
-			this->pos.x = pos.x - 2;
+			thePhysics.MoveSide(true);
 		}
 		else
 		{
@@ -131,6 +137,8 @@ Vector3 CAILogic :: Update(Vector3 pos)
 bool CAILogic :: Init()
 {
 	//FindPath();
+
+	foundPath = false;
 
 	pos = Vector3(0,-28.008003,0);
 	dir = Vector3(0,0,0);
