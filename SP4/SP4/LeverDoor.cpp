@@ -219,6 +219,7 @@ bool CLeverDoor::Render()
 bool CLeverDoor::Init(Vector3 pos,Vector3 size)
 {
 	tag= "CLeverDoor";
+	genericTag = "CObstacleBase";
 	name = "LeverDoor";
 	this->pos=pos;
 	this->length=size.y;

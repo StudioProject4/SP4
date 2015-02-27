@@ -161,27 +161,25 @@ bool myApplication::Init()
 	theAIOne = OM->manufacturer->CreateMalayMob();
 	theAITwo = OM->manufacturer->CreateChineseMob();
 
-	playerOne->Init(Vector3(600,580),Vector3(0,0,0),0);
-	playerTwo->Init(Vector3(60,20,0),Vector3(0,0,0),0);
+	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
+	playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
 	theAIOne->SetPos(Vector3(600,200,0));
+	theAITwo->SetPos(Vector3(300,100,0));
 
-	CLeverDoor* lever=new CLeverDoor;
-	lever->Init(Vector3(600,550),Vector3(5,50));
-	CDoor* door=new CDoor;
-	door->Init(Vector3(400,568),Vector3(32,32));
+
+	CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
+	lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+	CDoor* door= OM->manufacturer->CreateObstacleDoor();
+	door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X"),LM->GetWithCheckNumber<float>("DOOR_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+
 	lever->SetDoorLink(door);
 	door->AddTrigger(lever);
-	OM->AddObject(lever);
-	//lever=new CLeverDoor;
-	//lever->Init(Vector3(200,550),Vector3(5,50));
-	//lever->SetDoorLink(door);
-	//door->AddTrigger(lever);
 
 	// add all the Game Object into the object manager
 	OM->AddObject(playerOne);
 	OM->AddObject(playerTwo);
-	//OM->AddObject(theAIOne);
-	//OM->AddObject(theAITwo);
+	OM->AddObject(theAIOne);
+	OM->AddObject(theAITwo);
 	OM->AddObject(lever);
 	OM->AddObject(door);
 
@@ -201,18 +199,15 @@ bool myApplication::Init()
 
 	playerTwo->phys.map=Map;
 	playerOne->phys.map=Map;
+	theAIOne->SetUpMap(*Map);
+	theAITwo->SetUpMap(*Map);
 	theAIOne->phys.map=Map;
 	theAITwo->phys.map=Map;
 
+
 	isMultiplayer = false;
 	
-	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
-	playerTwo->Init(Vector3(60,20,0),Vector3(0,0,0),0);
-	theAIOne->SetPos(Vector3(600,200,0));
-	theAIOne->SetUpMap(*Map);
-	theAITwo->SetPos(Vector3(300,100,0));
-	theAITwo->SetUpMap(*Map);
-	
+
 
 	//Map->RunMap();
 
@@ -412,7 +407,7 @@ void myApplication::Render2D()
 	RenderTileMap();
 
 	//uncomment this to render the spatial partition grid
-	//this->OM->SP->RenderGrid();
+	this->OM->SP->RenderGrid();
 	
 	OM->Render();
 	FRM->drawFPS();

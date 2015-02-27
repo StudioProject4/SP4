@@ -16,6 +16,7 @@ CDoor::~CDoor(void)
 bool CDoor::Init(Vector3 pos,Vector3 size)
 {
 	tag= "CDoor";
+	genericTag = "CObstacleBase";
 	name = "door";
 
 	this->pos=pos;

@@ -31,6 +31,7 @@ public:
 	bool Init();
 	bool Reset();
 	bool CleanUp();
+	void CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex);
 	void CheckObjectCollision(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex);
 	void UpdateCollision();
 	void AddObject(CBaseObject* a_obj);

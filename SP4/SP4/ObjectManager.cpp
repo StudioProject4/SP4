@@ -42,7 +42,31 @@ bool CObjectManager::Render()
 	}
 	return true;
 }
+void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex)
+{
 
+		CBaseObject* otherObject = nullptr;
+		Vector3 OtherSize;
+	
+		for(int i = startingIndex; i< listOfObjectToCheck.size();++i)
+		{	
+			otherObject = listOfObjectToCheck[i];//paraphrasing
+
+			if(otherObject == a_obj)//avoid self check
+				continue;
+
+			if(a_obj->genericTag == "Character" || otherObject->genericTag == "Character")
+			{
+					OtherSize = otherObject->phys.size;
+					std::cout<<"Checking collision "<<a_obj->name <<" with "<< otherObject->name<<std::endl;
+					if(a_obj->phys.TestCol(otherObject->pos,OtherSize))
+					{
+						std::cout<<"COLLISION RESPONE ACTIVATED "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
+						a_obj->OnCollision(otherObject);
+					}
+			}
+		}
+}
 void CObjectManager::CheckObjectCollision(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex)
 {
 	CBaseObject* otherObject = nullptr;
@@ -67,83 +91,50 @@ void CObjectManager::CheckObjectCollision(CBaseObject* a_obj, TObjectListVector&
 
 void CObjectManager::UpdateCollision()
 {
-	short x = 0;
-	short y = 0;
+	short x = 0;//x index of a cell
+	short y = 0;//y index of a cell
 	CBaseObject* a_obj = nullptr;
 	for(int i = 0 ; i < SP->cellList.size(); ++i )//loop through all cells
 	{
-		//get the index of the cells
-		x = i % SP->numCellX;
-		y = i / SP->numCellX;
+		if(SP->cellList[i].objectList.empty())//skip empty cell
+			continue;
+
 
 		Cell& a_cell = SP->cellList[i];
 
+		//get the index of the current cell
+		x = i % SP->numCellX;
+		y = i / SP->numCellX;
 
-		for(int j = 0 ; j< a_cell.objectList.size();++j)//loop through all object inside objectlist of a cell
+		for(int j = 0 ; j< a_cell.objectList.size();++j)//loop through all object inside objectlist of non empty cell
 		{
 			a_obj = a_cell.objectList[j];
-<<<<<<< HEAD
-			if(a_obj->genericTag!="Character")
-				continue;
-			CheckObjectCollision(a_obj,a_cell.objectList, j + 1);//checking a object with a list of object,skipping self check.The List of object is only within it own grid at there
-			//checkCollision with neighbouring cells.//the idea is to check only with the cells at a decided direction side
-			//for example
-			/*
-			123
-			456
-			789
-			if current cell is 5, the check will check 1,4,7,and 2. this is to cut down check by half,inside of looping through all neighbouring cell,which could be redudant
-			imagne cell 5 check with 1,2,3,4,6,7,8,9 and then the immediate next check 6th cell will check with 3,2,5,8,6,there will be repeated check of 5 with 6 and then 6 with 5 later on.
-			
-			in coutesy of the source of code from MakingGamesWithBen,youtuber.Thank you.
-			*/
-			//if(x >0)//nested left cell check
-			//{
-			//	if(y>0)
-			//	{
-			//		//top left grid check
-			//		CheckObjectCollision(a_obj,SP->GetCell( x-1 , y-1 )->objectList,0);
-			//	}
-			//	if(y<SP->numCellY-1)
-			//	{
-			//		//bottom left
-			//		CheckObjectCollision(a_obj,SP->GetCell( x-1 , y+1 )->objectList,0);
-			//	}
-			//}
-			////upper check
-			//if(y>0)
-			//{
-			//	CheckObjectCollision(a_obj,SP->GetCell( x , y-1 )->objectList,0);
-			//}
-=======
+			//std::cout<<"Checking object "<<a_obj->name<<" at cell "<<x<<" , "<<y <<std::endl;
+			CheckCollisionCharacterWithObject(a_obj,SP->GetCell( x , y )->objectList, 0);//checking a object with a list of object,skipping self check.The List of object is only within it own grid at there
 
-			if(a_obj->genericTag != "Character")
-				continue;
-
-			//a_obj->PrintDebugInformation();
-			//CheckObjectCollision(a_obj,a_cell.objectList, j + 1);//checking a object with a list of object,skipping self check.The List of object is only within it own grid at there
-			//checkCollision with neighbouring cells.//the idea is to check only with the cells at a decided direction side
-			//in coutesy of the source of code from MakingGamesWithBen,youtuber.Thank you.
-			//*/
-			for(int l=-1;l<2;l++)
+			if(y < SP->numCellY-1)
 			{
-				if( x+l>0 && x+l<SP->numCellX)
+				CheckCollisionCharacterWithObject(a_obj,SP->GetCell( x , y+1)->objectList,0);//check top cell
+			}
+
+			if(x >0)//nested left cell check
+			{
+				CheckCollisionCharacterWithObject(a_obj,SP->GetCell( x-1 , y)->objectList,0);//check left cell
+
+				if(y < SP->numCellY-1)
 				{
-					for(int k =-1;k<2;k++)
-					{
-						if(y+k>0&&y+k<SP->numCellY)
-						{
-							CheckObjectCollision(a_obj,SP->cellList[i].objectList, 0);
-						}
-					}
+
+					CheckCollisionCharacterWithObject(a_obj,SP->GetCell( x-1 , y+1)->objectList,0);//check top left cell
+				}
+				if(y>0)
+				{
+					CheckCollisionCharacterWithObject(a_obj,SP->GetCell( x-1 , y-1)->objectList,0);//bottom left cell
 				}
 			}
->>>>>>> origin/master
+
 		}
+
 	}
-
-
-
 }
 
 bool CObjectManager::Update()
@@ -190,7 +181,7 @@ bool CObjectManager::Init()
 {
 	name = "objectmanager";
 	manufacturer = CManufactureManager::GetInstance();
-	SP = new CSpatialPartion(CWindowManager::GetInstance()->GetOriginalWindowWidth(),CWindowManager::GetInstance()->GetOriginalWindowHeight(),800,600);
+	SP = new CSpatialPartion(CWindowManager::GetInstance()->GetOriginalWindowWidth(),CWindowManager::GetInstance()->GetOriginalWindowHeight(),TILE_SIZE,TILE_SIZE);
 	return true;
 }
 
