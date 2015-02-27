@@ -14,21 +14,19 @@ CMalayMob :: ~CMalayMob()
 }
 bool CMalayMob :: Update()
 {
-	pos.y = phys.Update(pos).y;
+	pos = phys.Update(pos);
 	dir = AI.GetDir();
 	pos.x = AI.Update(pos).x;
 	return true;
 }
 bool CMalayMob :: Init()
 {
-	//AI.Init();
-
 	name = "MalayMob";
 	tag = "MalayMob";
 	genericTag = "Enemy";
 
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("sonia2.tga");
+	theSprite->LoadTGA("rockyground.tga");
 	
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 
@@ -69,4 +67,9 @@ bool CMalayMob :: OnCollision(CBaseObject* a_obj)
 void CMalayMob :: SetPos(Vector3 newPos)
 {
 	this->pos = newPos;
+}
+
+void CMalayMob :: SetUpMap(CMap theMap)
+{
+	AI.pathFinding.SetUpGraph(theMap);
 }

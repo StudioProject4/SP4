@@ -14,36 +14,6 @@ struct node
 	int index;
 };
 
-class CBFS
-{
-	public:
-
-		CBFS();
-		~CBFS();
-
-		node tempmap[10][10];
-		std :: vector<node> locations; // vectors of positions
-		std :: vector<node> badPath;
-		std :: vector<node> path;
-
-		void SetUpGraph();
-		void SearchNeighbours(node theNode); // search for poistions it links to 
-		void SearchForPath(node start,node end); // search for a path from start to end
-};
-
-class CA_Star
-{
-	public:
-		CA_Star();
-		~CA_Star();
-		CBFS search;
-
-		std :: vector<node>bestPath; 
-
-		float DistanceToEnd(node start,node end);
-		void SearchBestPath(node start,node end,vector<node>locationList);
-};
-
 class CAStarPathFinding
 {
 	public:

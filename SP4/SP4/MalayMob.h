@@ -18,6 +18,7 @@ class CMalayMob : public CBaseObject
 		bool OnCollision(CBaseObject* a_obj);
 
 		void SetPos(Vector3 newPos);
+		void SetUpMap(CMap theMap);
 
 		CAILogic AI;
 		//CSprite * theSprite;

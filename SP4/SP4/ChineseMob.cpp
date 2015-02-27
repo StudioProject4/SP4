@@ -15,21 +15,19 @@ CChineseMob::~CChineseMob()
 }
 bool CChineseMob :: Update()
 {
-	pos.y = phys.Update(pos).y;
+	pos = phys.Update(pos);
 	dir = AI.GetDir();
 	pos.x = AI.Update(pos).x;
 	return true;
 }
 bool CChineseMob :: Init()
 {
-	//AI.Init();
-
 	name = "ChineseMob";
 	tag = "ChineseMob";
 	genericTag = "Enemy";
 
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("sonia2.tga");
+	theSprite->LoadTGA("tenri.tga");
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 
@@ -70,4 +68,9 @@ bool CChineseMob :: OnCollision(CBaseObject* a_obj)
 void CChineseMob :: SetPos(Vector3 newPos)
 {
 	this->pos = newPos;
+}
+
+void CChineseMob :: SetUpMap(CMap theMap)
+{
+	AI.pathFinding.SetUpGraph(theMap);
 }

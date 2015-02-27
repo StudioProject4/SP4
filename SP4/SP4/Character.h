@@ -14,7 +14,7 @@ class CCharacter : public CBaseObject
 			pos = (0,0,0);
 			dir = (0,0,0);
 			isInvulnerable == false;
-			invultimer = clock();
+			//invultimer = clock();
 		};
 		virtual ~CCharacter(){};
 		void Jump();
@@ -23,12 +23,14 @@ class CCharacter : public CBaseObject
 		void SetPlayerID(int theID);
 		bool GetIsInvulnerable();
 		void SetIsInvulnerable(bool set);
+		int refTime;
 
 		CHealthSystem hp;
-		clock_t invultimer;
+		//clock_t invultimer;
 
 		MVCTime * invulTimer;
 	private:
 		int playerID;	
 		bool isInvulnerable;
+		
 };
