@@ -26,7 +26,7 @@ bool CDoor::Init(Vector3 pos,Vector3 size)
 
 bool CDoor::Render()
 {
-	if(active)
+	if(active&&!triggered)
 	{
 		glPushMatrix();
 		glTranslatef(pos.x,pos.y,pos.z);
@@ -64,11 +64,11 @@ void CDoor::TriggerEvent()
 {
 	if(triggered)
 	{
-		active=false;
+		//active=false;
 	}
 	else
 	{
-		active=true;
+		//active=true;
 	}
 }
 
@@ -79,7 +79,7 @@ bool CDoor::Update()
 
 bool CDoor::OnCollision(CBaseObject* obj)
 {
-	if(active)
+	if(active&&!triggered)
 		obj->phys.vel.x=0;
 	return false;
 }

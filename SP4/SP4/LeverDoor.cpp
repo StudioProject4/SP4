@@ -26,7 +26,7 @@ bool CLeverDoor::OnCollision(CBaseObject* obj)
 	Vector3 w0=this->pos;
 	Vector3 b1=obj->pos;
 	Vector3 N=this->normal;
-	w0-=Vector3(0,length*0.5,0);
+	w0+=Vector3(0,length*0.5,0);
 	Vector3 NP(-N.y,N.x,0);
 	NP.Normalize();
 	//w0=w0-NP*(length*0.5);
@@ -42,7 +42,7 @@ bool CLeverDoor::OnCollision(CBaseObject* obj)
 	//*
 	if(obj->phys.vel.Dot(N)<0)
 	{
-		return false;
+		//return false;
 	}
 	//*/
 	w0=w0-N*(r+h*0.5);//offset the wall to a point by radius and width of wall
@@ -62,8 +62,8 @@ bool CLeverDoor::OnCollision(CBaseObject* obj)
 
 	colPoint=bh;
 
-	Vector3 w1=w0+NP*(l+r);
-	Vector3 w2=w0-NP*(r);
+	Vector3 w1=w0+NP*(r);
+	Vector3 w2=w0-NP*(l+r);
 	width1=w1;
 	width2=w2;
 	
@@ -81,9 +81,9 @@ bool CLeverDoor::OnCollision(CBaseObject* obj)
 	float nYpos=0;
 	
 	float tempAngle=-curAngle;
-	nYpos=cos(tempAngle*3.142/180)*-offset;//get y pos based on the angle and the offset
+	nYpos=cos(tempAngle*3.1415/180)*-(offset);//get y pos based on the angle and the offset
 	//offset it based on height of object
-	nYpos+=pos.y;
+	nYpos+=pos.y+2;
 
 	//use dot product to check normals and to get the 
 	//dir the object is relative to me(wheather is to the left or to the right)
@@ -105,7 +105,7 @@ bool CLeverDoor::OnCollision(CBaseObject* obj)
 		if(obj->phys.vel.Dot(N)>0)
 		{
 			float nAVel=obj->phys.vel.Dot(normal);//finds the mag of vel in dir of the normal
-			angleVel-=nAVel;//mod the angle vel based on that
+			angleVel+=nAVel;//mod the angle vel based on that
 			Vector3 vel=obj->phys.vel;
 			float ratio=(nAVel*nAVel)/vel.LengthSquared();
 			obj->phys.vel=obj->phys.vel*ratio;//reduce the vel by a percentage based on how 
@@ -113,36 +113,26 @@ bool CLeverDoor::OnCollision(CBaseObject* obj)
 		}
 		if((w0-b1).Dot(normal)>0)//go1 pos to go2 pos
 		{
-			if(curAngle>=40)
-			{
-				obj->pos.y=nYpos;
-				obj->phys.inAir=false;
-				if(obj->phys.vel.x>-0.001&&obj->phys.vel.x<0.001)
-					obj->pos.x+=5*delta;;
-			}
-		}
-		else
-		{
-			
 			if(curAngle<=-40)
 			{
 				obj->pos.y=nYpos;
 				obj->phys.inAir=false;
 				if(obj->phys.vel.x>-0.001&&obj->phys.vel.x<0.001)
-					obj->pos.x-=5*delta;
+					obj->pos.x+=5*delta;
 				
 			}
 		}
-	}
-	if(curAngle<offTrigger)
-	{
-		triggered=false;
-		doorLink->Trigger();
-	}
-	else if(curAngle>onTrigger)
-	{
-		triggered=true;
-		doorLink->Trigger();
+		else
+		{
+			
+			if(curAngle>=40)
+			{
+				obj->pos.y=nYpos;
+				obj->phys.inAir=false;
+				if(obj->phys.vel.x>-0.001&&obj->phys.vel.x<0.001)
+					obj->pos.x-=5*delta;;
+			}
+		}
 	}
 	//move the object back so that its not colliding anymore
 
@@ -161,7 +151,7 @@ bool CLeverDoor::Update()
 	if(curAngle>-70&&curAngle<70)
 	{
 		if(applyGrav||angleVel!=0)
-			angleVel+=normal.y*leverGrav*delta;
+			angleVel-=normal.y*leverGrav*delta;
 		if(angleVel<1&&angleVel>-1)
 			angleVel=0;
 	}
@@ -180,21 +170,29 @@ bool CLeverDoor::Update()
 		curAngle=minAngle;
 		angleVel=0;
 	}
+	if(curAngle<offTrigger)
+	{
+		triggered=false;
+		doorLink->Trigger();
+	}
+	else if(curAngle>onTrigger)
+	{
+		triggered=true;
+		doorLink->Trigger();
+	}
 
 	return true;
 }
 
 bool CLeverDoor::Render()
 {
-	
-	//glEnable(GL_TEXTURE_2D);
 	glPushMatrix();
 	glColor3f(1,1,1);
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 		glTranslatef(pos.x,pos.y,0);
-		glTranslatef(0,-length/2,0);
-		glRotatef(curAngle,0,0,1);
 		glTranslatef(0,length/2,0);
+		glRotatef(curAngle,0,0,1);
+		glTranslatef(0,-length/2,0);
 		glScalef(this->width,this->length,0);
 		//glBindTexture(GL_TEXTURE_2D,this->testimage.texID);
 		glBegin (GL_TRIANGLE_STRIP);
@@ -212,95 +210,7 @@ bool CLeverDoor::Render()
 			glVertex3f(0.5,-0.5,0);
 		glEnd();
 	//glDisable(GL_TEXTURE_2D);
-	glPopMatrix();
-	glPushMatrix();
-	glColor3f(0,1,1);
-		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-		glTranslatef(width1.x,width1.y,0);
-		glScalef(5,5,0);
-		//glBindTexture(GL_TEXTURE_2D,this->testimage.texID);
-		glBegin (GL_TRIANGLE_STRIP);
-			glNormal3f(0,0,1);
-			glTexCoord2f(0,0);
-			glVertex3f(-0.5, 0.5, 0);
-		
-			glTexCoord2f(0,1.0);
-			glVertex3f(-0.5,-0.5,0);
-
-			glTexCoord2f(1.0,0.0);
-			glVertex3f(0.5,0.5,0);
-
-			glTexCoord2f(1.0,1.0);
-			glVertex3f(0.5,-0.5,0);
-		glEnd();
-	//glDisable(GL_TEXTURE_2D);
-	glPopMatrix();
-	glPushMatrix();
-	glColor3f(0,1,1);
-		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-		glTranslatef(width2.x,width2.y,0);
-		glScalef(5,5,0);
-		//glBindTexture(GL_TEXTURE_2D,this->testimage.texID);
-		glBegin (GL_TRIANGLE_STRIP);
-			glNormal3f(0,0,1);
-			glTexCoord2f(0,0);
-			glVertex3f(-0.5, 0.5, 0);
-		
-			glTexCoord2f(0,1.0);
-			glVertex3f(-0.5,-0.5,0);
-
-			glTexCoord2f(1.0,0.0);
-			glVertex3f(0.5,0.5,0);
-
-			glTexCoord2f(1.0,1.0);
-			glVertex3f(0.5,-0.5,0);
-		glEnd();
-	//glDisable(GL_TEXTURE_2D);
-	glPopMatrix();
 	
-	glPushMatrix();
-	glColor3f(1,0,1);
-		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-		glTranslatef(colPoint.x,colPoint.y,0);
-		glScalef(5,5,0);
-		//glBindTexture(GL_TEXTURE_2D,this->testimage.texID);
-		glBegin (GL_TRIANGLE_STRIP);
-			glNormal3f(0,0,1);
-			glTexCoord2f(0,0);
-			glVertex3f(-0.5, 0.5, 0);
-		
-			glTexCoord2f(0,1.0);
-			glVertex3f(-0.5,-0.5,0);
-
-			glTexCoord2f(1.0,0.0);
-			glVertex3f(0.5,0.5,0);
-
-			glTexCoord2f(1.0,1.0);
-			glVertex3f(0.5,-0.5,0);
-		glEnd();
-	//glDisable(GL_TEXTURE_2D);
-	glPopMatrix();
-	glPushMatrix();
-	glColor3f(1,1,0);
-		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-		glTranslatef(pos.x,pos.y-length*0.5,0);
-		glScalef(5,5,0);
-		//glBindTexture(GL_TEXTURE_2D,this->testimage.texID);
-		glBegin (GL_TRIANGLE_STRIP);
-			glNormal3f(0,0,1);
-			glTexCoord2f(0,0);
-			glVertex3f(-0.5, 0.5, 0);
-		
-			glTexCoord2f(0,1.0);
-			glVertex3f(-0.5,-0.5,0);
-
-			glTexCoord2f(1.0,0.0);
-			glVertex3f(0.5,0.5,0);
-
-			glTexCoord2f(1.0,1.0);
-			glVertex3f(0.5,-0.5,0);
-		glEnd();
-	//glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
 	return true;
 }

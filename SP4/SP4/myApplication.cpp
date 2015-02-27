@@ -161,22 +161,27 @@ bool myApplication::Init()
 	theAIOne = OM->manufacturer->CreateMalayMob();
 	theAITwo = OM->manufacturer->CreateChineseMob();
 
-	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
+	playerOne->Init(Vector3(600,580),Vector3(0,0,0),0);
 	playerTwo->Init(Vector3(60,20,0),Vector3(0,0,0),0);
 	theAIOne->SetPos(Vector3(600,200,0));
 
 	CLeverDoor* lever=new CLeverDoor;
-	lever->Init(Vector3(600,568),Vector3(5,50));
+	lever->Init(Vector3(600,550),Vector3(5,50));
 	CDoor* door=new CDoor;
 	door->Init(Vector3(400,568),Vector3(32,32));
 	lever->SetDoorLink(door);
 	door->AddTrigger(lever);
+	OM->AddObject(lever);
+	//lever=new CLeverDoor;
+	//lever->Init(Vector3(200,550),Vector3(5,50));
+	//lever->SetDoorLink(door);
+	//door->AddTrigger(lever);
 
 	// add all the Game Object into the object manager
 	OM->AddObject(playerOne);
 	OM->AddObject(playerTwo);
-	OM->AddObject(theAIOne);
-	OM->AddObject(theAITwo);
+	//OM->AddObject(theAIOne);
+	//OM->AddObject(theAITwo);
 	OM->AddObject(lever);
 	OM->AddObject(door);
 
