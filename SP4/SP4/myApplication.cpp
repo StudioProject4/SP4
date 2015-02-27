@@ -202,6 +202,8 @@ bool myApplication::Init()
 
 	isMultiplayer = false;
 
+	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
+	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
 
 	return true;
 }
