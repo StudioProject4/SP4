@@ -126,7 +126,7 @@ bool myApplication::Init()
 	//startupServer("server.exe");
 
 	//loading texture
-	LoadTGA(&testimage,"sonia2.tga");
+	//LoadTGA(&testimage,"sonia2.tga");
 
 
 	//background
@@ -155,20 +155,31 @@ bool myApplication::Init()
 	WM = CWindowManager::GetInstance();
 	MS = CMusicSystem::GetInstance();
 	OM = new CObjectManager();
-	
-	//playerOne = OM->manufacturer->CreateChineseMale();
-	//playerTwo = new CMalayFemale();
-	//theAIOne = new CMalayMob();
-	//theAITwo = new CChineseMob();
 
 	playerOne = OM->manufacturer->CreateChineseMale();
 	playerTwo = OM->manufacturer->CreateMalayFemale();
 	theAIOne = OM->manufacturer->CreateMalayMob();
 	theAITwo = OM->manufacturer->CreateChineseMob();
-	//CPowerUp *pc = OM->manufacturer->CreatePowerUpPoints();
-	//CHealthPU* pc = OM->manufacturer->CreatePowerUpRecovery();
-	
-	testmale = OM->manufacturer->CreateChineseMale();
+
+	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
+	playerTwo->Init(Vector3(60,20,0),Vector3(0,0,0),0);
+	theAIOne->SetPos(Vector3(600,200,0));
+
+	CLeverDoor* lever=new CLeverDoor;
+	lever->Init(Vector3(600,568),Vector3(5,50));
+	CDoor* door=new CDoor;
+	door->Init(Vector3(400,568),Vector3(32,32));
+	lever->SetDoorLink(door);
+	door->AddTrigger(lever);
+
+	// add all the Game Object into the object manager
+	OM->AddObject(playerOne);
+	OM->AddObject(playerTwo);
+	OM->AddObject(theAIOne);
+	OM->AddObject(theAITwo);
+	OM->AddObject(lever);
+	OM->AddObject(door);
+
 
 	 mapOffset_x =  mapOffset_y=
 	 tileOffset_x =tileOffset_y=
@@ -181,7 +192,6 @@ bool myApplication::Init()
 
 	//map
 	Map = new CMap(this->OM);
-	//Map->Init( SCREEN_HEIGHT, SCREEN_WIDTH, 1632, 1344, TILE_SIZE );
 	Map->Init(SCREEN_HEIGHT,SCREEN_WIDTH*2,SCREEN_HEIGHT,SCREEN_WIDTH*2,TILE_SIZE);
 	Map->RunMap();
 
@@ -191,59 +201,6 @@ bool myApplication::Init()
 	theAITwo->phys.map=Map;
 
 	isMultiplayer = false;
-
-	playerOne->Init(Vector3(0,20,0),Vector3(0,0,0),0);
-	playerTwo->Init(Vector3(0,20,0),Vector3(0,0,0),0);
-	
-
-	////load map
-	//if(Map->LevelCount == 1)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
-	//if(Map->LevelCount == 2)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
-	//if(Map->LevelCount == 3)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
-	//if(Map->LevelCount == 4)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
-	//if(Map->LevelCount == 5)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
-	
-	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
-	playerTwo->Init(Vector3(60,20,0),Vector3(0,0,0),0);
-	theAIOne->SetPos(Vector3(600,200,0));
-	
-	CLeverDoor* lever=new CLeverDoor;
-	lever->Init(Vector3(600,568),Vector3(5,50));
-	CDoor* door=new CDoor;
-	door->Init(Vector3(400,568),Vector3(32,32));
-	lever->SetDoorLink(door);
-	door->AddTrigger(lever);
-
-	//Map->RunMap();
-
-	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
-	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
-
-	//std::cout<< Map->getNumOfTiles_MapHeight()<<std::endl;
-	//std::cout<< Map->getNumOfTiles_MapWidth()<<std::endl;
-
-	// add all the Game Object into the object manager
-	OM->AddObject(playerOne);
-	OM->AddObject(playerTwo);
-	OM->AddObject(theAIOne);
-	OM->AddObject(theAITwo);
-	OM->AddObject(lever);
-	OM->AddObject(door);
 
 
 	return true;
@@ -356,10 +313,11 @@ bool myApplication::Update()
 		//theAIOne->Update();
 		theAITwo->AI.SetEnemyPos(playerTwo->pos);
 		//theAITwo->Update();
-		OM->Update();
+		
 	}
+	OM->Update();
 
-		Map->RunMap();
+	Map->RunMap();
 		
 	return true;
 }
@@ -427,19 +385,6 @@ void myApplication::Render2D()
 {	
 	RenderBackground();
 	RenderTileMap();
-
-	playerOne->Render();
-	playerTwo->Render();
-	theAIOne->Render();
-	theAITwo->Render();
-
-
-	//playerOne->Render();
-	//playerTwo->Render();
-//	theAI->Render();
-	OM->Update();//will seperate into render and update later;
-	FRM->drawFPS();
-
 
 	OM->Render();
 
@@ -555,15 +500,16 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			MS->ResetSoundTrackPlayPosition(MS->currentSoundTrack);
 			break;
 		case '6':
-			MS->PrintSoundTrackList();
+			//MS->PrintSoundTrackList();
+			OM->PrintDebugAllInActiveObjects();
 			break;
 		case '7':
-			std::cout<< testmale<<std::endl;
-			testmale->PrintDebugInformation();
-			
+			//std::cout<< testmale<<std::endl;
+			//testmale->PrintDebugInformation();
+			OM->PrintDebugAllActiveObjects();
 			break;
 		case '8':
-			
+			OM->PrintDebugInformation();
 			break;
 		case '9':
 			MS->Exit();

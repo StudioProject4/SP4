@@ -163,12 +163,10 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="MenuState.h" />
-    <ClInclude Include="Mind.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MusicSystem\Audio.h" />
     <ClInclude Include="MusicSystem\MusicSystem.h" />
     <ClInclude Include="myApplication.h" />
-    <ClInclude Include="myLibrary.h" />
     <ClInclude Include="MyMath.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="ObjLoader.h" />

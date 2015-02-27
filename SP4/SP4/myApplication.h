@@ -49,8 +49,8 @@ private:
 	//int previousTime;
 	//long timelastcall;
 	//float frequency;
-	CChineseMale* testmale;
-	TextureImage testimage;
+	//CChineseMale* testmale;
+	//TextureImage testimage;
 public:
 	static char** argv;
 	static myApplication* GetInstance();
