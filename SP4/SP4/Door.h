@@ -9,7 +9,7 @@ class CDoor :
 	public CObstacleBase
 {
 protected:
-	CSprite* sprite;
+	//CSprite* sprite;
 	bool triggered;
 	std::vector<CTriggerBase*> triggerList;//for triggers that all must be active before it will move
 	void TriggerEvent();//what happens when its triggered

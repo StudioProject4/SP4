@@ -34,7 +34,7 @@ public:
 
 	//void InvinItem();			//take in invincible
 
-	CSprite * theSprite;
+	//CSprite * theSprite;
 	
 
 	// Are you going to have derived power up class from this class ,or are you going to use this class for all type of power up ?

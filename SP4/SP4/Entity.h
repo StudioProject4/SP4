@@ -7,6 +7,7 @@ public:
 	char* genericTag;//for the parent type
 	char* tag;//for the child type
 	unsigned short id;
+	//bool deleted;
 public:
 
 	CEntity(void)
@@ -14,6 +15,7 @@ public:
 		, tag(" ")
 		, id(0)
 		, genericTag(0)
+		//, deleted(false)
 	{
 	}
 	virtual ~CEntity(void)
@@ -27,6 +29,7 @@ public:
 	virtual bool Release()
 	{
 		delete this;
+		//deleted = true;
 		return true;
 	}
 

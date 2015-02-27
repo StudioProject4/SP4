@@ -3,8 +3,8 @@
 #include "TriggerBase.h"
 
 
-CDoor::CDoor(void):
-sprite(NULL)
+CDoor::CDoor(void)//:
+//theSprite(NULL)
 {
 }
 
@@ -16,8 +16,8 @@ CDoor::~CDoor(void)
 bool CDoor::Init(Vector3 pos,Vector3 size)
 {
 	this->pos=pos;
-	sprite=new CSprite(1);
-	this->phys.size=Vector3(sprite->GetImageSizeX(),sprite->GetImageSizeY());
+	theSprite=new CSprite(1);
+	this->phys.size=Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY());
 	
 	triggered=false;
 
@@ -30,7 +30,7 @@ bool CDoor::Render()
 	{
 		glPushMatrix();
 		glTranslatef(pos.x,pos.y,pos.z);
-		sprite->Render();
+		theSprite->Render();
 		glPopMatrix();
 	}
 	return true;
