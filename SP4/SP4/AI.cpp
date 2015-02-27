@@ -88,7 +88,7 @@ Vector3 CAILogic :: Update(Vector3 pos,CPhysics & thePhysics)
 	{
 		if(foundPath == false)
 		{
-			FindPath();
+			//FindPath();
 			foundPath = true;
 		}
 		/*if(targetPosition.x > pos.x)

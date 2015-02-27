@@ -50,11 +50,11 @@ void CAStarPathFinding ::SetUpGraph(CMap theMap)
 			tempMap[i][j].tileCost = 1;
 			if(theMap.theScreenMap[i][j] == 0)
 			{
-				tempMap[i][j].isNotWall = true;
+				tempMap[i][j].isNotWall = false; // a wall
 			}
 			else
 			{
-				tempMap[i][j].isNotWall = false;
+				tempMap[i][j].isNotWall = true; // not a wall
 			}
 			tempMap[i][j].index = ((i * maxHorizontalTile) + j);
 		}
@@ -63,8 +63,6 @@ void CAStarPathFinding ::SetUpGraph(CMap theMap)
 
 void CAStarPathFinding :: SetUpPath(Vector3 startPosition,Vector3 endPosition)
 {
-	
-	
 		for(int i = 0 ; i < this->maxVerticalTile ; i++)
 		{
 			for(int j = 0 ; j < this->maxHorizontalTile ; j++)
@@ -101,14 +99,16 @@ void CAStarPathFinding :: SearchForPath()
 
 			if(tempMap[i][j].x == currentNode.x && tempMap[i][j].y == currentNode.y) // if currentnode is found
 			{
-				//bool inOpenList = false;
-				//for(it = openList.begin(); it!= openList.end();++it)
-				//{
-					//if()
-					//{
-					//	inOpenList = true;
-					//}
-				//}
+				/*bool inOpenList = false;
+				for(it = openList.begin(); it!= openList.end();++it)
+						{
+							if(it->index == tempNode.index)
+							{
+								inOpenList = true;
+							}
+						}
+						if(inOpenList = true;)
+						{	}*/
 				node tempNode;
 				//if(tempMap[i-1][j].isNotWall == true) //not in air
 				{
@@ -202,7 +202,9 @@ float CAStarPathFinding :: DistanceToEnd(node checkingNode)
 
 void CAStarPathFinding :: FindPath()
 {
+	std :: vector<node> ::iterator it;
 	int searchCounter = 0;
+	int searchAttempts = 0;
 	bool search = false;
 	cost_so_far = 0;
 	//SetUpGraph(10,10,tempMap[0][1],tempMap[0][8]);
@@ -214,6 +216,20 @@ void CAStarPathFinding :: FindPath()
 		ChooseAPath();
 		if(currentNode.index == end.index || searchCounter > 299)
 		{
+			if(currentNode.index != end.index && searchAttempts < 2)
+			{
+				notCorrectPath = closeList;
+				/*for(it = closeList.begin(); it!= closeList.end();++it)
+				{
+					if(it->index != start.index)
+					closeList.erase(it);
+				}*/
+				closeList.clear();
+				searchAttempts ++;
+				searchCounter = 0;
+				currentNode = start;
+			}
+			else
 			search = true;		
 		}
 	}
@@ -224,11 +240,73 @@ void CAStarPathFinding :: ChooseAPath()
 {
 	std :: vector<node> ::iterator it;
 	std :: vector<node> ::iterator it2;
-	//node bestNode;
-	//bestNode.tileCost = 1000;
+	std :: vector<node> ::iterator it3;
+
 	cost = 1000;
 	int nodeIndex;
+	//node bestNode;
+	//bestNode.tileCost = 1000;
 	
+	nodeIndex = CheckForPath();
+
+	for(it = openList.begin(); it!= openList.end();++it)
+	{
+		if(it->index == nodeIndex)
+		{
+			bool inCloseList = false;
+			bool inWrongList = false;
+			for(it2 = closeList.begin(); it2!= closeList.end();++it2)
+			{
+				if(it2->index == nodeIndex)
+				{
+					inCloseList = true;
+				}
+				
+			}
+			for(it3 = notCorrectPath.begin(); it3!= notCorrectPath.end();++it3)
+			{
+				if(it3->index == nodeIndex)
+				{
+					inWrongList = true;
+				}
+			}
+			if(inCloseList == false && inWrongList == false)
+			{
+				AddInPath(nodeIndex);
+				break;
+			}
+			else
+			{
+				it = openList.erase(it);
+				ChooseAPath();
+				break;
+			}
+		}
+	}
+
+}
+
+void CAStarPathFinding :: AddInPath(int index)
+{
+	std :: vector<node> ::iterator it;
+	for(it = openList.begin(); it!= openList.end();++it)
+	{
+		if(it->index == index)
+		{
+			closeList.push_back(*it);
+			currentNode = *it;
+			it=openList.erase(it);
+			break;
+		}
+	}
+}
+
+int CAStarPathFinding :: CheckForPath()
+{
+	std :: vector<node> ::iterator it;
+
+	int nodeIndex;
+
 	for(it = openList.begin(); it!= openList.end();++it)
 	{
 		if(cost > it->tileCost + DistanceToEnd(*it))
@@ -239,27 +317,5 @@ void CAStarPathFinding :: ChooseAPath()
 		}
 	}
 
-	for(it = openList.begin(); it!= openList.end();++it)
-	{
-		if(it->index == nodeIndex)
-		{
-			bool inCloseList = false;
-			for(it2 = closeList.begin(); it2!= closeList.end();++it2)
-			{
-				if(it2->index == nodeIndex)
-				{
-					inCloseList = true;
-				}
-			}
-			if(inCloseList == false)
-			{
-				closeList.push_back(*it);
-				currentNode = *it;
-				it=openList.erase(it);
-				break;
-			}
-
-		}
-	}
-
+	return nodeIndex;
 }
