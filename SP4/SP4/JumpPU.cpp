@@ -2,6 +2,7 @@
 #include "Physics.h"
 CJumpPU::CJumpPU(void)
 {
+	Init();
 }
 
 
