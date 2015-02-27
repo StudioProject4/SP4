@@ -57,8 +57,8 @@ void CMenuState::SetHUD(bool m_bHUDmode)
 
 void CMenuState::Render2D()
 {
-	FRM->drawFPS();
-	SP->RenderObjects();
+	
+	
 	SP->RenderGrid();
 	//SP->RenderSquare(400,300,100,100);
 	//SP->RenderSquare(300,300,100,100);
@@ -68,7 +68,8 @@ void CMenuState::Render2D()
 	{
 		(*it)->Render();
 	}*/
-
+	SP->RenderObjects();
+	FRM->drawFPS();
 }
 
 void CMenuState::Render3D()
@@ -287,20 +288,20 @@ bool CMenuState::Init()
 	ball * newball = nullptr;
 
 	newball = new ball;
-	newball->SetPosition( 0,20);
+	newball->SetPosition( 10,20);
 	ballList.push_back(newball);
 
 	newball = new ball;
-	newball->SetPosition( 0,40);
+	newball->SetPosition( 20,40);
 	newball->SetColour(1,1,1);
 	ballList.push_back(newball);
 
 	newball = new ball;
-	newball->SetPosition(0,60);
+	newball->SetPosition(30,60);
 	newball->SetColour(1,0,0);
 	ballList.push_back(newball);
 
-	SP = new CSpatialPartion((short)WM->GetWindowWidth(),(short)WM->GetWindowHeight(),10,10);
+	SP = new CSpatialPartion((short)WM->GetWindowWidth(),(short)WM->GetWindowHeight(),400,300);
 	
 	for(short i2 = 0; i2<ballList.size();++i2)
 	{

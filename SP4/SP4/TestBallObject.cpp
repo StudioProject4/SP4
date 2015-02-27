@@ -10,7 +10,7 @@ using namespace std;
 #include "MyMath.h"
 
 CTestBallObject::CTestBallObject(void)
-	:radius(100.f)
+	:radius(10.f)
 	,posX(0.f)
 	,posY(0.f)
 	,delta_theta(0.1f)
