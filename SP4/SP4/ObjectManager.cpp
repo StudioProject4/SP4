@@ -29,6 +29,7 @@ void CObjectManager::AddObject(CBaseObject* a_obj)
 	SP->AddObject(a_obj);
 	++numOfUniqueId;
 	a_obj->id = numOfUniqueId;
+
 }
 bool CObjectManager::Render()
 {
@@ -393,4 +394,27 @@ CBaseObject* CObjectManager::FetchObjectWithGenericTag(std::string objectTag)
 		std::cout<<"<FATAL ERROR> Cannot Find inactive gameobject to recycle"<<std::endl;
 	}
 	return a_obj;
+}
+void CObjectManager::PrintDebugAllActiveObjects()
+{
+	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
+	{
+		(*it)->PrintDebugInformation();
+	}
+}
+
+void CObjectManager::PrintDebugAllInActiveObjects()
+{
+	for(TObjectListVector::iterator it = inactiveObjectList.begin(); it!=inactiveObjectList.end(); ++it)
+	{
+		(*it)->PrintDebugInformation();
+	}
+}
+
+void CObjectManager::PrintDebugInformation()
+{
+	CEntity::PrintDebugInformation();
+	std::cout<<"Active object List size"<<objectList.size()<<std::endl;
+	std::cout<<"InActive object List size"<<inactiveObjectList.size()<<std::endl;
+	SP->PrintDebugInformation();
 }
