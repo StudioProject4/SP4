@@ -38,7 +38,7 @@ bool CMalayFemale :: Init()
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("sonia2.tga");
 
-	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
+	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
 	SetPlayerID(2);
 	
 	return true;

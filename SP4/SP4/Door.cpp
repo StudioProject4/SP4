@@ -15,6 +15,9 @@ CDoor::~CDoor(void)
 
 bool CDoor::Init(Vector3 pos,Vector3 size)
 {
+	tag= "CDoor";
+	name = "door";
+
 	this->pos=pos;
 	theSprite=new CSprite(1);
 	this->phys.size=Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY());
@@ -79,6 +82,7 @@ bool CDoor::Update()
 
 bool CDoor::OnCollision(CBaseObject* obj)
 {
+	std::cout<<"door collieded"<<std::endl;
 	if(active)
 		obj->phys.vel.x=0;
 	return false;

@@ -35,7 +35,7 @@ bool CSpeedPU::Init()
 	
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("SpeedUp.tga");
-
+	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
 	return true;
 }
 

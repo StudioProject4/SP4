@@ -34,7 +34,7 @@ bool CHealthPU::Init()
 	
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("HealthCross.tga");
-
+	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
 	return true;
 }
 
@@ -45,7 +45,7 @@ bool CHealthPU::Update()
 
 bool CHealthPU::OnCollision(CBaseObject* a_obj)
 {
-
+	std::cout<<"health  collieded"<<std::endl;
 	if(a_obj->genericTag = "Character")
 	{
 		if(a_obj->name = "GenericChineseKid")

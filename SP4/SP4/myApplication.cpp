@@ -431,7 +431,7 @@ void myApplication::Render2D()
 	RenderTileMap();
 
 	OM->Render();
-
+	
 	FRM->drawFPS();
 	
 }

@@ -49,6 +49,7 @@ bool CPointsAddPU::Init()
 
 bool CPointsAddPU::OnCollision(CBaseObject* a_obj)
 {
+	std::cout<<"points collieded"<<std::endl;
 	if(a_obj->genericTag = "Character")
 	{
 		if(this->active == true)
@@ -64,7 +65,7 @@ bool CPointsAddPU::OnCollision(CBaseObject* a_obj)
 			std::cout << "Ptsfalse" << std::endl;
 		}
 	}
-
+	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
 	return true;
 
 }

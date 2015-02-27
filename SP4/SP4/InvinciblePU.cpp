@@ -32,7 +32,7 @@ bool CInvinciblePU::Init()
 
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("Invincible.tga");
-	
+	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
 	return true;
 }
 
