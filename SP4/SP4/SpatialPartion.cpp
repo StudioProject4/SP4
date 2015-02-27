@@ -3,7 +3,9 @@
 #include <iostream>
 using namespace std;
 #include <GL\glut.h>
+#include "Sprite.h"
 
+//#define DEBUG_CODE
 
 CSpatialPartion::CSpatialPartion(short gridWidth,short gridHeight,short cellSizeX,short cellSizeY)
 		:gridWidth(gridWidth)
@@ -108,6 +110,70 @@ void CSpatialPartion::AddObject(CBaseObject* a_obj,Cell* knownCell)
 	knownCell->objectList.push_back(a_obj);
 	a_obj->ownerCell = knownCell;
 	a_obj->cellvectorindex = knownCell->objectList.size()-1;
+
+#ifdef DEBUG_CODE
+	bool stopLeft = false;
+	bool stopRight = false;
+
+	Vector3 topLimit;
+	Vector3 botLimit;
+
+	Vector3 topLeft;
+	Vector3 botRight;
+
+	topLeft.Set(a_obj->pos.x + a_obj->phys.size.x *0.5,a_obj->pos.y + a_obj->phys.size.y*0.5);
+	botRight.Set(a_obj->pos.x - a_obj->phys.size.x *0.5,a_obj->pos.y - a_obj->phys.size.y*0.5);
+
+	for(int i=0;i<numCellX&&!(stopLeft&&stopRight);i++)//goes through the grids from small to big
+	{//note that i*gridsize is on the left side of the grid
+		if(!stopLeft)//should be the biggest possible
+		{
+			if(topLeft.x<a_obj->pos.x+(i+1)*cellSizeX)
+			{
+				topLimit.x=i;
+				stopLeft=true;
+			}
+		}
+		if(!stopRight)//as small as possible
+		{
+			if(botRight.x>a_obj->pos.x+(i+1)*cellSizeX)//+1 cause i am testing if its larger then the next square
+			{
+				botLimit.x=i;
+				stopRight=true;
+			}
+		}
+	}
+	stopRight=false;
+	stopLeft=false;
+	for(int i=0;i<numCellY&&!(stopLeft&&stopRight);i++)
+	{
+		if(!stopLeft)//should be the largest possible
+		{
+			if(topLeft.y<a_obj->pos.y+(i+1)*cellSizeY)
+			{
+				topLimit.y=i;
+				stopLeft=true;
+			}
+		}
+		if(!stopRight)//should be the smallest possible
+		{
+			if(botRight.y>a_obj->pos.y+(i+1)*cellSizeY)
+			{
+				botLimit.y=i;
+				stopRight=true;
+			}
+		}
+	}
+	for(int i=botLimit.x;i<=topLimit.x;++i)
+	{
+		for(int j=botLimit.y;j<=topLimit.y;++j)
+		{
+			cellList[i*numCellY+j].objectList.push_back(a_obj);
+		}
+	}
+
+#endif
+
 }
 
 //add object into a calculated cell;
@@ -115,9 +181,70 @@ void CSpatialPartion::AddObject(CBaseObject* a_obj,Cell* knownCell)
 void CSpatialPartion::AddObject(CBaseObject* a_obj)
 {
 	Cell* a_cell = GetCell(a_obj->pos.x,a_obj->pos.y);
-	a_cell->objectList.push_back(a_obj);
-	a_obj->ownerCell = a_cell;
-	a_obj->cellvectorindex = a_cell->objectList.size()-1;
+	AddObject(a_obj,a_cell);
+	//a_cell->objectList.push_back(a_obj);
+	//a_obj->ownerCell = a_cell;
+	//a_obj->cellvectorindex = a_cell->objectList.size()-1;
+
+	//bool stopLeft = false;
+	//bool stopRight = false;
+
+	//Vector3 topLimit;
+	//Vector3 botLimit;
+
+	//Vector3 topLeft;
+	//Vector3 botRight;
+
+	//topLeft.Set(a_obj->pos.x + a_obj->phys.size.x *0.5,a_obj->pos.y + a_obj->phys.size.y*0.5);
+	//botRight.Set(a_obj->pos.x - a_obj->phys.size.x *0.5,a_obj->pos.y - a_obj->phys.size.y*0.5);
+
+	//for(int i=0;i<numCellX&&!(stopLeft&&stopRight);i++)//goes through the grids from small to big
+	//{//note that i*gridsize is on the left side of the grid
+	//	if(!stopLeft)//should be the biggest possible
+	//	{
+	//		if(topLeft.x<a_obj->pos.x+(i+1)*cellSizeX)
+	//		{
+	//			topLimit.x=i;
+	//			stopLeft=true;
+	//		}
+	//	}
+	//	if(!stopRight)//as small as possible
+	//	{
+	//		if(botRight.x>a_obj->pos.x+(i+1)*cellSizeX)//+1 cause i am testing if its larger then the next square
+	//		{
+	//			botLimit.x=i;
+	//			stopRight=true;
+	//		}
+	//	}
+	//}
+	//stopRight=false;
+	//stopLeft=false;
+	//for(int i=0;i<numCellY&&!(stopLeft&&stopRight);i++)
+	//{
+	//	if(!stopLeft)//should be the largest possible
+	//	{
+	//		if(topLeft.y<a_obj->pos.y+(i+1)*cellSizeY)
+	//		{
+	//			topLimit.y=i;
+	//			stopLeft=true;
+	//		}
+	//	}
+	//	if(!stopRight)//should be the smallest possible
+	//	{
+	//		if(botRight.y>a_obj->pos.y+(i+1)*cellSizeY)
+	//		{
+	//			botLimit.y=i;
+	//			stopRight=true;
+	//		}
+	//	}
+	//}
+	//for(int i=botLimit.x;i<=topLimit.x;++i)
+	//{
+	//	for(int j=botLimit.y;j<=topLimit.y;++j)
+	//	{
+	//		cellList[i*numCellY+j].objectList.push_back(a_obj);
+	//	}
+	//}
 }
 
 void CSpatialPartion::Update()
@@ -173,6 +300,76 @@ void CSpatialPartion::UpdateObjectOwnerCell(CBaseObject* a_obj)
 	
 }
 
+//render one square for debug
+void CSpatialPartion::RenderSquare(float posX,float posY, float sizeX,float sizeY,bool drawBoundery)
+{
+	glPushMatrix();
+
+	glColor3f(1,0,0);
+
+	//working
+	//float left = (posX - (sizeX * 0.5));
+	//float right = (left + sizeX);
+	//float top = (posY + (sizeY*0.5));
+	//float bottom = (top - sizeY);
+
+	glBegin(GL_QUADS);
+
+
+	//glVertex2f(left,top);//top left
+	//glVertex2f(right,top);//top right
+	//glVertex2f(right,bottom);//bottom right
+	//glVertex2f(left,bottom); //bottom left
+
+	glVertex2f((posX - (sizeX * 0.5)),(posY + (sizeY*0.5)));//top left
+	glVertex2f((posX + (sizeX * 0.5)),(posY + (sizeY*0.5)));//top right
+	glVertex2f((posX + (sizeX * 0.5)),(posY - (sizeY*0.5)));//bottom right
+	glVertex2f((posX - (sizeX * 0.5)),(posY - (sizeY*0.5))); //bottom left
+	glEnd();
+
+	glColor3f(1,1,1);
+	glBegin(GL_LINE_STRIP);
+	glVertex2f((posX - (sizeX * 0.5)),(posY + (sizeY*0.5)));//top left
+	glVertex2f((posX + (sizeX * 0.5)),(posY + (sizeY*0.5)));//top right
+	glVertex2f((posX + (sizeX * 0.5)),(posY - (sizeY*0.5)));//bottom right
+	glVertex2f((posX - (sizeX * 0.5)),(posY - (sizeY*0.5))); //bottom left
+	glVertex2f((posX - (sizeX * 0.5)),(posY + (sizeY*0.5)));//top left
+	glEnd();
+
+	glPopMatrix();
+}
+
+//render the grid for debug
+void CSpatialPartion::RenderGrid()
+{
+	glPushMatrix();
+	int x = 0;
+	int y = 0;
+
+	//float subPosX = 0 ;
+	//float subPosY = 0 ;
+
+	for(unsigned short i =0 ; i<cellList.size();++i)
+	{
+		x = i % numCellX ;
+		y = i / numCellX ;
+
+		//works
+		//subPosX = ((x+1)*cellSizeX - (cellSizeX*0.5));
+		//subPosY = ((y+1)*cellSizeY - (cellSizeY*0.5));
+		//std::cout<<subPosY<<std::endl;
+
+		RenderSquare( ((x+1)*cellSizeX - (cellSizeX*0.5)),((y+1)*cellSizeY - (cellSizeY*0.5)),cellSizeX,cellSizeY);
+	
+		//RenderSquare( (( (x+1) *gridWidth) - (gridWidth*0.5)) *0.5,(( (y+1) *gridHeight) + (gridHeight*0.5)) *0.5,cellSizeX,cellSizeY);
+	}
+	//RenderSquare( 200, 150 ,400,300);
+   // RenderSquare( 600, 150 ,400,300);
+	//RenderSquare( 200, 450 ,400,300);
+	//RenderSquare( 600, 450 ,400,300);
+	glPopMatrix();
+}
+
 void CSpatialPartion::PrintDebugInformation()
 {
 	/*
@@ -196,14 +393,9 @@ void CSpatialPartion::PrintDebugInformation()
 	{
 		if(!cellList[i].objectList.empty())
 		{
-			cout<<"Cell index: "<<i<<" is size of"<< cellList[i].objectList.size() <<endl;
-			//short indexX = 0;
-			//short indexY = 0;
-
-			//for(unsigned short j =0 ; j<cellList[i].objectList.size();++j)
-			//{
-
-			//}
+			cout<<"Cell Raw index: "<<i<<" Index X: "<<i % numCellX<<" Index Y: "<<i / numCellX<<" is size of "<< cellList[i].objectList.size() <<endl;
+			//std::cout<<"Index X: "<<i % numCellX<<std::endl;
+			//std::cout<<<<std::endl;
 		}
 	}
 }

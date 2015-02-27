@@ -4,7 +4,6 @@
 CPointsAddPU::CPointsAddPU(void)
 {
 	Init();
-
 }
 
 
@@ -43,28 +42,31 @@ bool CPointsAddPU::Init()
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("PointsAdd.tga");
 
-	//points::getinstance()->addpoints
+	phys.Init(pos, Vector3(theSprite->GetImageSizeX(), theSprite->GetImageSizeY()));
+	pts = CPointSystem::GetInstance();
+
 	return true;
 }
 
 bool CPointsAddPU::OnCollision(CBaseObject* a_obj)
 {
+	std::cout<<"points collieded"<<std::endl;
 	if(a_obj->genericTag = "Character")
 	{
 		if(this->active == true)
 		{
 			CCharacter* temp=(CCharacter*)a_obj;
-			//temp->points.PointsReceive(50);
-			
+			pts->PointsReceive(10);
 			this->active = false;
 			std::cout << "POINTS ADDEDD" << std::endl;
+			std::cout << pts->GetPoints() << "as " << std::endl;
 		}else
 		if(this->active == false)
 		{
-			std::cout << "Ptsfalse" << std::endl;
+			//std::cout << "Ptsfalse" << std::endl;
 		}
 	}
-
+	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
 	return true;
 
 }

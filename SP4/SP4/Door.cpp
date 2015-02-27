@@ -15,6 +15,9 @@ CDoor::~CDoor(void)
 
 bool CDoor::Init(Vector3 pos,Vector3 size)
 {
+	tag= "CDoor";
+	name = "door";
+
 	this->pos=pos;
 	theSprite=new CSprite(1);
 	this->phys.size=Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY());

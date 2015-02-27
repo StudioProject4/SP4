@@ -19,6 +19,17 @@ WINDOW_POSITION_X = 250
 WINDOW_POSITION_Y = 50
 print("Finish lua global variable")
 
+print("initing obstacle variable")
+LEVER_POS_X = 600
+LEVER_POS_Y = 568
+LEVER_SIZE_X = 5
+LEVER_SIZE_Y = 50
+DOOR_POS_X = 400
+DOOR_POS_Y = 568
+DOOR_SIZE_X = 32
+DOOR_SIZE_Y = 32
+print("Finish obstacle variable")
+
 print("initing lua function")
 function add(v1,v2)
 return v1+v2

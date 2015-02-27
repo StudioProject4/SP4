@@ -16,6 +16,7 @@ class CJumpPU;
 class CInvinciblePU;
 class CObstacleBase;
 class CLeverDoor;
+class CDoor;
 
 class CManufactureManager
 {
@@ -43,6 +44,6 @@ public:
 	CJumpPU* CreatePowerUpJumpHigh();
 	CSpeedPU* CreatePowerUpSpeedUp();
 	CLeverDoor* CreateObstacleLeverDoor();
-
+	CDoor* CreateObstacleDoor();
 };
 

@@ -26,6 +26,8 @@ class CCharacter : public CBaseObject
 		int refTime;
 
 		CHealthSystem hp;
+
+		string al;			//alpha;
 		//clock_t invultimer;
 
 		MVCTime * invulTimer;

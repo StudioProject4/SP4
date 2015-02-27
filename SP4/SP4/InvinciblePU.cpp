@@ -5,6 +5,7 @@ CInvinciblePU::CInvinciblePU(void)
 	: InvinOnP1(false)
 	, InvinOnP2(false)
 {
+	Init();
 }
 
 
@@ -20,7 +21,10 @@ bool CInvinciblePU::Update()
 	
 bool CInvinciblePU::Render()
 {
+	glPushMatrix();
+	glTranslatef(pos.x, pos.y, 0);
 	theSprite->Render();
+	glPopMatrix();
 	return true;
 }
 
@@ -32,7 +36,9 @@ bool CInvinciblePU::Init()
 
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("Invincible.tga");
-	
+
+	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
+
 	return true;
 }
 
@@ -47,17 +53,32 @@ bool CInvinciblePU::OnCollision(CBaseObject* a_obj)
 			{
 				CCharacter* Invintemp = (CCharacter*)a_obj;
 				Invintemp->SetIsInvulnerable(true);
+				Invintemp->invulTimer->SetActive(true, Invintemp->refTime);
 				this->active = false;
+				//Invintemp->invulTimer->SetActive(false, Invintemp->refTime);
 				std::cout << "INvulneravblee true " << std::endl;
 			}else
+			if(this->active == false)
 			{
-				std::cout << "Invulnerable TAKEN" << std::endl;
+				//std::cout << "Invulnerable TAKEN" << std::endl;
 			}
 		}
 		else
 		if(a_obj->name = "GenericMalayKid")
 		{
-		
+			if(this->active == true)
+			{
+				CCharacter* Invintemp = (CCharacter*)a_obj;
+				Invintemp->SetIsInvulnerable(true);
+				Invintemp->invulTimer->SetActive(true, Invintemp->refTime);
+
+				this->active = false;
+				std::cout << "INvulneravblee true " << std::endl;
+			}else
+			if(this->active == false)
+			{
+				//std::cout << "Invulnerable TAKEN" << std::endl;
+			}
 			
 		}
 	}

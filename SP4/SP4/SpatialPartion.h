@@ -93,6 +93,10 @@ public:
 	//add object into a calculated cell;
 	void AddObject(CBaseObject* a_obj);
 
+	//render the grid for debug
+	void RenderGrid();
+	void RenderSquare(float posX,float posY, float sizeX,float sizeY,bool drawBoundery = true);
+
 	void Update();
 	//void UpdateCell();
 	void UpdateObjectOwnerCell(CBaseObject* a_obj);

@@ -2,6 +2,7 @@
 
 #include "ObstacleBase.h"
 #include "LeverDoor.h"
+#include "Door.h"
 
 CObstacleFactory::CObstacleFactory(void)
 	: currentManufactureType(OBSTACLE_NONE)
@@ -21,14 +22,23 @@ void CObstacleFactory::CreateProduct()
 {
 	switch(currentManufactureType)
 	{
-	case OBSTACLE_NONE:
 
-		std::cout << "<ERROR> Invalid Obstacle creation" << std::endl;
-		break;
-	case OBSTACLE_LEVERDOOR:
+		default:
+				std::cout << "<ERROR> Invalid Obstacle creation" << std::endl;
+			break;
 
-		product = new CLeverDoor();
-		break;
+		case OBSTACLE_NONE:
+
+			std::cout << "<ERROR> Invalid Obstacle creation" << std::endl;
+			break;
+
+		case OBSTACLE_LEVERDOOR:
+			product = new CLeverDoor();
+			break;
+
+		case OBSTACLE_DOOR:
+			product = new CDoor();
+			break;
 	}
 }
 	
@@ -46,8 +56,12 @@ void CObstacleFactory::setManufactureNone()
 {
 	currentManufactureType = this->OBSTACLE_NONE;
 }
-	
 void CObstacleFactory::SetManufactureLeverDoor()
 {
+	std::cout<<currentManufactureType<<std::endl;
 	currentManufactureType = this->OBSTACLE_LEVERDOOR;
+}
+void CObstacleFactory::SetManufactureDoor()
+{
+	currentManufactureType = this->OBSTACLE_DOOR;
 }

@@ -13,6 +13,7 @@ CLeverDoor::~CLeverDoor(void)
 
 bool CLeverDoor::OnCollision(CBaseObject* obj)
 {
+	std::cout<<"lever door collieded"<<std::endl;
 	//finding the normal to this object based on the length
 	//cos(angle)=adjacent/hyp
 	//assuming hyp(length)=1
@@ -217,6 +218,8 @@ bool CLeverDoor::Render()
 
 bool CLeverDoor::Init(Vector3 pos,Vector3 size)
 {
+	tag= "CLeverDoor";
+	name = "LeverDoor";
 	this->pos=pos;
 	this->length=size.y;
 	this->width=size.x;

@@ -4,13 +4,14 @@
 #include <time.h>
 #include <vector>
 #include "Map.h"
+#include "Physics.h"
 
 struct node
 {
 	float x;
 	float y;
 	int tileCost;
-	bool isWall;
+	bool isNotWall;
 	int index;
 };
 
@@ -27,6 +28,9 @@ class CAStarPathFinding
 	node start;
 	node end;
 
+	float cost_so_far;
+	float cost;
+
 	int maxHorizontalTile;
 	int maxVerticalTile;
 
@@ -36,11 +40,13 @@ class CAStarPathFinding
 	void ChooseAPath();
 	float DistanceToEnd(node checkingNode); //heuristic
 	void FindPath(); // find the best path, the "main"
+	void AddInPath(int index);
+	int CheckForPath();
 
 	typedef std :: vector<node> TNodeVector;
 	std :: vector<node> closeList; // tile to not consider
 	std :: vector<node> openList; // tile to consider
-	std :: vector<node> correctPath; // comfirmed path
+	std :: vector<node> notCorrectPath; // wrong path
 };
 
 class CAILogic
@@ -63,11 +69,12 @@ class CAILogic
 		void SetEnemyPos(Vector3 & enemyPos);
 		Vector3 GetDir();
 
-		Vector3 Update(Vector3 pos);
+		Vector3 Update(Vector3 pos,CPhysics & thePhysics);
 		bool Init();
 
 		CAStarPathFinding pathFinding;
 	private:
+		bool foundPath;
 		Vector3 pos;
 		Vector3 dir;
 		AIState state;

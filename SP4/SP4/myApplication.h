@@ -25,6 +25,7 @@
 #include "MalayMob.h"
 #include "WindowManager.h"
 
+#include "PointSystem.h"
 #include "PowerUp.h"
 #include "PointsAddPU.h"
 #include "HealthPU.h"
@@ -104,6 +105,7 @@ private:
 	CPointsAddPU ptsAdd;
 	CPointsAddPU* pts;
 	CInvinciblePU InvinOn;
+	CPointSystem* points;
 
 	int x, y;
 	

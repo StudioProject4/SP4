@@ -10,7 +10,7 @@ using namespace std;
 #include "MyMath.h"
 
 CTestBallObject::CTestBallObject(void)
-	:radius(20.f)
+	:radius(10.f)
 	,posX(0.f)
 	,posY(0.f)
 	,delta_theta(0.1f)
@@ -22,6 +22,8 @@ CTestBallObject::CTestBallObject(void)
 	,ownerCell(nullptr)
 	,cellvectorindex(-1)
 {
+	phys.Init(Vector3(posX,posY),Vector3(radius,radius));
+	
 }
 
 
@@ -40,6 +42,7 @@ bool CTestBallObject::Render()
 		glVertex3f( radius*cos(angle), radius*sin(angle), 0 );
 	glEnd();
 	glPopMatrix();
+	phys.Update(Vector3(posX,posY));
 	return true;
 }
 void CTestBallObject::SetVelocity(float x,float y)

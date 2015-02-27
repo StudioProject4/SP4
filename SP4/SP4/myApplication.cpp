@@ -185,7 +185,6 @@ bool myApplication::Init()
 	OM->AddObject(lever);
 	OM->AddObject(door);
 
-
 	 mapOffset_x =  mapOffset_y=
 	 tileOffset_x =tileOffset_y=
 	 mapFineOffset_x= mapFineOffset_y=
@@ -206,28 +205,6 @@ bool myApplication::Init()
 	theAITwo->phys.map=Map;
 
 	isMultiplayer = false;
-
-	////load map
-	//if(Map->LevelCount == 1)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
-	//if(Map->LevelCount == 2)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
-	//if(Map->LevelCount == 3)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
-	//if(Map->LevelCount == 4)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
-	//if(Map->LevelCount == 5)
-	//{
-	//	Map->LoadMap("Level1_1.csv");
-	//}
 	
 	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
 	playerTwo->Init(Vector3(60,20,0),Vector3(0,0,0),0);
@@ -248,7 +225,7 @@ bool myApplication::Init()
 bool myApplication::Update()
 {
 
-
+	
 	if(!isMultiplayer)
 	{
 		if(keyboard->myKeys['a'])
@@ -273,7 +250,7 @@ bool myApplication::Update()
 		{
 			//playerOne->OnCollision(&Hpadd);
 			//playerOne->OnCollision(&ptsAdd);
-			ptsAdd.OnCollision(playerOne);
+			//ptsAdd.OnCollision(playerOne);
 			//InvinOn.OnCollision(playerOne);
 			//Hpadd.OnCollision(playerOne);
 			//ptsAdd.OnCollision(&Hpadd);
@@ -283,16 +260,16 @@ bool myApplication::Update()
 		{
 			playerTwo->MoveLeft();
 		}
-		else if(keyboard->rightArrow == true)
+		if(keyboard->rightArrow == true)
 		{
 			playerTwo->MoveRight();
 		}
-		else if(keyboard->upArrow == true)
+		if(keyboard->upArrow == true)
 		{
 			playerTwo->Jump();
 		}
 
-		else if(!keyboard->rightArrow && !keyboard->leftArrow)
+		if(!keyboard->rightArrow && !keyboard->leftArrow)
 		{
 			playerTwo->phys.vel.x=0;
 			keyboard->rightArrow = false;
@@ -430,13 +407,15 @@ void myApplication::RenderBackground()
 
 void myApplication::Render2D()
 {	
+	
 	RenderBackground();
 	RenderTileMap();
 
-	OM->Render();
-
-	FRM->drawFPS();
+	//uncomment this to render the spatial partition grid
+	//this->OM->SP->RenderGrid();
 	
+	OM->Render();
+	FRM->drawFPS();
 }
 void myApplication::Render3D()
 {

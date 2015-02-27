@@ -57,13 +57,19 @@ void CMenuState::SetHUD(bool m_bHUDmode)
 
 void CMenuState::Render2D()
 {
-	FRM->drawFPS();
-	SP->RenderObjects();
+	
+	
+	SP->RenderGrid();
+	//SP->RenderSquare(400,300,100,100);
+	//SP->RenderSquare(300,300,100,100);
+	//SP->RenderSquare(200,300,100,100);
+	//SP->RenderSquare(100,300,100,100);
 	/*for(TBallVector::iterator it = ballList.begin(); it!= ballList.end(); ++it)
 	{
 		(*it)->Render();
 	}*/
-
+	SP->RenderObjects();
+	FRM->drawFPS();
 }
 
 void CMenuState::Render3D()
@@ -138,14 +144,19 @@ void CMenuState::KeyboardDown(unsigned char key, int x, int y)
 			this->ballList[0]->SetVelocity(1,0);
 			break;
 		case '6':
-			SP->RemoveObject(this->ballList[0]);
+			this->ballList[0]->SetVelocity(-1,0);
 			break;
 		case '7':
-			SP->UpdateObjectOwnerCell(ballList[0]);
-			SP->PrintDebugInformation();
+			this->ballList[0]->SetVelocity(0,1);
 			break;
 		case '8':
-			SP->AddObject(this->ballList[0]);
+			this->ballList[0]->SetVelocity(0,-1);
+			break;
+		case '9':
+			this->ballList[0]->SetVelocity(0,0);
+			break;
+		case 'a':
+			std::cout<<ballList[0]->pos<<std::endl;
 			break;
 	}
 }
@@ -277,20 +288,20 @@ bool CMenuState::Init()
 	ball * newball = nullptr;
 
 	newball = new ball;
-	newball->SetPosition( 0,20);
+	newball->SetPosition( 10,20);
 	ballList.push_back(newball);
 
 	newball = new ball;
-	newball->SetPosition( 0,40);
+	newball->SetPosition( 20,40);
 	newball->SetColour(1,1,1);
 	ballList.push_back(newball);
 
 	newball = new ball;
-	newball->SetPosition(0,60);
+	newball->SetPosition(30,60);
 	newball->SetColour(1,0,0);
 	ballList.push_back(newball);
 
-	SP = new CSpatialPartion((short)WM->GetWindowWidth(),(short)WM->GetWindowHeight(),40,40);
+	SP = new CSpatialPartion((short)WM->GetWindowWidth(),(short)WM->GetWindowHeight(),200,150);
 	
 	for(short i2 = 0; i2<ballList.size();++i2)
 	{

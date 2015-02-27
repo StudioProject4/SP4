@@ -47,15 +47,19 @@ void CObjectManager::CheckObjectCollision(CBaseObject* a_obj, TObjectListVector&
 {
 	CBaseObject* otherObject = nullptr;
 	Vector3 OtherSize;
-	for(int i = 0; i< listOfObjectToCheck.size();++i)
-	{
+	
+	for(int i = startingIndex; i< listOfObjectToCheck.size();++i)
+	{	
+
 		otherObject = listOfObjectToCheck[i];//paraphrasing
 		if(otherObject!=a_obj)
 		{
-			OtherSize=otherObject->phys.size;
+			OtherSize = otherObject->phys.size;
+			std::cout<<"checking "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
 			if(a_obj->phys.TestCol(otherObject->pos,OtherSize))
 			{
-				otherObject->OnCollision(a_obj);
+				std::cout<<"collided "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
+				a_obj->OnCollision(otherObject);
 			}
 		}
 	}
@@ -78,6 +82,7 @@ void CObjectManager::UpdateCollision()
 		for(int j = 0 ; j< a_cell.objectList.size();++j)//loop through all object inside objectlist of a cell
 		{
 			a_obj = a_cell.objectList[j];
+<<<<<<< HEAD
 			if(a_obj->genericTag!="Character")
 				continue;
 			CheckObjectCollision(a_obj,a_cell.objectList, j + 1);//checking a object with a list of object,skipping self check.The List of object is only within it own grid at there
@@ -110,8 +115,35 @@ void CObjectManager::UpdateCollision()
 			//{
 			//	CheckObjectCollision(a_obj,SP->GetCell( x , y-1 )->objectList,0);
 			//}
+=======
+
+			if(a_obj->genericTag != "Character")
+				continue;
+
+			//a_obj->PrintDebugInformation();
+			//CheckObjectCollision(a_obj,a_cell.objectList, j + 1);//checking a object with a list of object,skipping self check.The List of object is only within it own grid at there
+			//checkCollision with neighbouring cells.//the idea is to check only with the cells at a decided direction side
+			//in coutesy of the source of code from MakingGamesWithBen,youtuber.Thank you.
+			//*/
+			for(int l=-1;l<2;l++)
+			{
+				if( x+l>0 && x+l<SP->numCellX)
+				{
+					for(int k =-1;k<2;k++)
+					{
+						if(y+k>0&&y+k<SP->numCellY)
+						{
+							CheckObjectCollision(a_obj,SP->cellList[i].objectList, 0);
+						}
+					}
+				}
+			}
+>>>>>>> origin/master
 		}
 	}
+
+
+
 }
 
 bool CObjectManager::Update()

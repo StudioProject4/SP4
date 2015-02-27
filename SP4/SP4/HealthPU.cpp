@@ -35,6 +35,8 @@ bool CHealthPU::Init()
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("HealthCross.tga");
 
+	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
+
 	return true;
 }
 
@@ -52,14 +54,15 @@ bool CHealthPU::OnCollision(CBaseObject* a_obj)
 		{
 			if(this->active == true)
 			{
-				CCharacter* temp=(CCharacter*)a_obj;
+				CCharacter* temp = (CCharacter*)a_obj;
 				temp->hp.RecoverHealth();
 				this->active = false;
 				std::cout << "HEALTH ADDED" << std::endl;
+				std::cout << temp->hp.GetHealth() << std::endl;
 			}else
 			if(this->active == false)
 			{
-				std::cout << "taken" << std::endl;
+				//std::cout << "taken" << std::endl;
 			}
 
 		}
@@ -75,7 +78,7 @@ bool CHealthPU::OnCollision(CBaseObject* a_obj)
 			}else
 			if(this->active == false)
 			{
-				std::cout << "taken" << std::endl;
+				//std::cout << "taken" << std::endl;
 			}
 		}
 	}
