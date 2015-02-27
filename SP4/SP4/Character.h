@@ -4,6 +4,7 @@
 #include "HealthSystem.h"
 #include "PointSystem.h"
 #include <time.h>
+#include "MVCtime.h"
 
 class CCharacter : public CBaseObject
 {
@@ -12,6 +13,7 @@ class CCharacter : public CBaseObject
 		{
 			pos = (0,0,0);
 			dir = (0,0,0);
+			isInvulnerable == false;
 			invultimer = clock();
 		};
 		virtual ~CCharacter(){};
@@ -19,9 +21,14 @@ class CCharacter : public CBaseObject
 		void MoveLeft();
 		void MoveRight();
 		void SetPlayerID(int theID);
+		bool GetIsInvulnerable();
+		void SetIsInvulnerable(bool set);
 
 		CHealthSystem hp;
 		clock_t invultimer;
+
+		MVCTime * invulTimer;
 	private:
 		int playerID;	
+		bool isInvulnerable;
 };

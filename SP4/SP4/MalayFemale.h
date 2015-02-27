@@ -23,5 +23,5 @@ class CMalayFemale : public CCharacter
 		bool OnCollision(CBaseObject* a_obj);
 	private:
 		TextureImage Texture;
-		CSprite * theSprite;
+		//CSprite * theSprite;
 };

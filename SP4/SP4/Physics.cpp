@@ -68,7 +68,7 @@ void CPhysics::Jump()
 {
 	if(!inAir)
 	{
-		vel.y=80;
+		vel.y=-80;
 	}
 }
 
@@ -82,14 +82,16 @@ Vector3 CPhysics::Update(Vector3 pos)
 	//	size.y=-size.y;
 	//}
 	//get the pos of where it will get to
-	vel.y-=gravity*delta;
+	vel.y+=gravity*delta;
 	maptilex=maptiley = getTile(pos+size*0.5+vel*delta);//middle
 	if(vel.x>0)
 	{
 		if(TestColMap(pos,false,false,false,true,map))
 		{
 			int temp=getTile(pos+Vector3(size.x*0.5,0,0)+vel*delta);
-			//vel.x=0;
+			vel.x=0;
+			//pos.x=(float)(((int)(pos.x/TILE_SIZE))*TILE_SIZE)+TILE_SIZE*0.495;//casted to int to remove the remainder then back to float
+
 		}
 		//maptilex=temp;
 	}
@@ -98,7 +100,8 @@ Vector3 CPhysics::Update(Vector3 pos)
 		if(TestColMap(pos,false,false,true,false,map))
 		{
 			int temp=getTile(pos+Vector3(-size.x*0.5,0,0)+vel*delta);
-			//vel.x=0;
+			vel.x=0;
+			//pos.x=(float)(((int)(pos.x/TILE_SIZE))*TILE_SIZE)+TILE_SIZE*0.495;//casted to int to remove the remainder then back to float
 		}
 	}
 	if(vel.y>0)
@@ -108,6 +111,7 @@ Vector3 CPhysics::Update(Vector3 pos)
 			int temp=getTile(pos+Vector3(0,size.y*0.5,0)+vel*delta);
 			vel.y=0;
 			inAir=false;
+			//pos.y=(float)(((int)(pos.y/TILE_SIZE))*TILE_SIZE)+TILE_SIZE*0.495;//casted to int to remove the remainder then back to float
 		}
 		else
 		{
@@ -121,7 +125,8 @@ Vector3 CPhysics::Update(Vector3 pos)
 		{
 			int temp=getTile(pos+Vector3(0,-size.y*0.5,0)+vel*delta);
 			vel.y=0;
-			inAir=false;
+			//pos.y=(float)(((int)(pos.y/TILE_SIZE))*TILE_SIZE)+TILE_SIZE*0.4;//casted to int to remove the remainder then back to float
+
 		}
 		else
 		{
@@ -153,9 +158,10 @@ bool CPhysics::TestColMap(Vector3 pos,
 								   bool m_bCheckUpwards, bool m_bCheckDownwards, 
 								   bool m_bCheckLeft, bool m_bCheckRight, CMap* map,int x_offset,int y_offset)
 {
+	float delta=0.0166;
 	//The pos.x and pos.y are the top left corner of the hero, so we find the tile which this position occupies.
-	int tile_topleft_x = (int)floor((float)(x_offset+pos.x-LEFT_BORDER-TILE_SIZE*0.5) / TILE_SIZE);
-	int tile_topleft_y = (int)floor((float)(y_offset+pos.y-BOTTOM_BORDER-TILE_SIZE*0.5)/ TILE_SIZE);
+	int tile_topleft_x = (int)floor((float)(x_offset+pos.x+vel.x*delta-LEFT_BORDER-TILE_SIZE*0.5) / TILE_SIZE);
+	int tile_topleft_y = (int)floor((float)(y_offset+pos.y+vel.y*delta-BOTTOM_BORDER-TILE_SIZE*0.5)/ TILE_SIZE);
 	int proceed=false;
 	Vector3 reference[9];
 	int j=0;
@@ -175,12 +181,14 @@ bool CPhysics::TestColMap(Vector3 pos,
 			reference[j].Set((tile_topleft_x)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y)*TILE_SIZE+BOTTOM_BORDER);
 			j++;
 		}
-		if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x] == 0)
-		{
-			proceed=true;
-			reference[j].Set((tile_topleft_x)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y+1)*TILE_SIZE+BOTTOM_BORDER);
-			j++;
-		}
+		/*
+			if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x] == 0)
+			{
+				proceed=true;
+				reference[j].Set((tile_topleft_x)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y+1)*TILE_SIZE+BOTTOM_BORDER);
+				j++;
+			}
+			*/
 	}
 
 	if (m_bCheckRight)
@@ -191,12 +199,14 @@ bool CPhysics::TestColMap(Vector3 pos,
 			reference[j].Set((tile_topleft_x+1)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y)*TILE_SIZE+BOTTOM_BORDER);
 			j++;
 		}
+		/*
 		if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x+1] == 0)
 		{
 			reference[j].Set((tile_topleft_x+1)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y+1)*TILE_SIZE+BOTTOM_BORDER);
 			proceed=true;
 			j++;
 		}
+		*/
 	}
 
 	if (m_bCheckUpwards)
@@ -235,7 +245,7 @@ bool CPhysics::TestColMap(Vector3 pos,
 	{
 		for(int i=0;i<j;++i)
 		{
-			if(abs(reference[i].x-x_offset-pos.x)<TILE_SIZE*1.5f-6 && abs(reference[i].y-y_offset-pos.y)<TILE_SIZE*1.5-6)
+			if(abs(reference[i].x-x_offset-pos.x)<TILE_SIZE*1.7f-6 && abs(reference[i].y-y_offset-pos.y)<TILE_SIZE*1.7-6)
 			{
 				return true;
 			}

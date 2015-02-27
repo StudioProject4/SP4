@@ -12,6 +12,7 @@ CSpatialPartion::CSpatialPartion(short gridWidth,short gridHeight,short cellSize
 		,cellSizeY(cellSizeY)
 		,numCellX(0)
 		,numCellY(0)
+		,objectAllDeletedOutside(false)
 {
 	numCellX = ceil((float) gridWidth/cellSizeX);
 	numCellY = ceil((float) gridHeight/cellSizeY);
@@ -23,6 +24,14 @@ CSpatialPartion::CSpatialPartion(short gridWidth,short gridHeight,short cellSize
 
 CSpatialPartion::~CSpatialPartion(void)
 {
+	//std::cout<<objectAllDeletedOutside<<std::endl;
+	if(objectAllDeletedOutside == false)
+	{
+		for(unsigned short i =0 ; i<cellList.size();++i)
+		{
+			cellList[i].deleteAllObjectUponDestruction = true;
+		}
+	}
 }
 
 //Get cell based on the position input
@@ -37,7 +46,7 @@ Cell* CSpatialPartion::GetCell(float posX,float posY)
 
 //Get cell based on grid index
 
-Cell* CSpatialPartion::GetCell(short indexX,short indexY)
+Cell* CSpatialPartion::GetCell(int indexX,int indexY)
 {
 
 	// boundary check
@@ -49,6 +58,7 @@ Cell* CSpatialPartion::GetCell(short indexX,short indexY)
 	return &cellList[ (indexY*numCellX) + indexX ];
 
 }
+
 
 //Remove object from a cell;
 
@@ -160,6 +170,7 @@ void CSpatialPartion::UpdateObjectOwnerCell(CBaseObject* a_obj)
 		RemoveObject(a_obj);
 		AddObject(a_obj,a_cell);
 	}
+	
 }
 
 void CSpatialPartion::PrintDebugInformation()

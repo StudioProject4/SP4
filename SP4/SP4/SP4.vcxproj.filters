@@ -192,6 +192,12 @@
     <ClCompile Include="SpatialPartion.cpp">
       <Filter>SpatialPartitionTest</Filter>
     </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TriggerBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ObstacleFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -382,6 +388,12 @@
     </ClInclude>
     <ClInclude Include="SpatialPartion.h">
       <Filter>SpatialPartitionTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TriggerBase.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ObstacleFactory.h">
       <Filter>Header Files</Filter>

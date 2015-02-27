@@ -1,10 +1,11 @@
 #ifndef __LEVERDOOR_H__
 #define __LEVERDOOR_H__
 
-#include "ObstacleBase.h"
+#include "TriggerBase.h"
 #include "Vector3.h"
 
-class CLeverDoor:public CObstacleBase
+
+class CLeverDoor:public CTriggerBase
 {
 private:
 	float offTrigger,onTrigger,maxAngle,minAngle;
@@ -15,6 +16,7 @@ private:
 	float width;
 	float angleVel;
 	bool applyGrav;
+	bool trigger;
 public:
 	float curAngle;
 	CLeverDoor(void);

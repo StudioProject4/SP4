@@ -134,6 +134,7 @@ void KennardTestState::Render2D()
 {
 	test.Render();
 	theLever.Render();
+	theDoor.Render();
 	/*
 	glEnable(GL_TEXTURE_2D);
 	glPushMatrix();
@@ -261,7 +262,13 @@ bool KennardTestState::Init()
 	test.Init();
 	test.pos=Vector3(300,300,0);
 	test.phys.Init(test.pos,Vector3(50,50,0));
+
 	theLever.Init(Vector3(400,57,0),Vector3(5,50));
+	theDoor.Init(Vector3(700,60),Vector3(10,10));
+	theLever.SetDoorLink(&theDoor);
+	theDoor.AddTrigger(&theLever);
+
+
 	map.Init(SCREEN_HEIGHT,SCREEN_WIDTH*2,SCREEN_HEIGHT,SCREEN_WIDTH*2,TILE_SIZE);
 	map.LoadMap("test.csv");
 	test.phys.map=&map;

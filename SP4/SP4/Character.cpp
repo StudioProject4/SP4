@@ -27,3 +27,13 @@ void CCharacter :: SetPlayerID(int theID)
 {
 	playerID = theID;
 }
+
+void CCharacter :: SetIsInvulnerable(bool set)
+{
+	isInvulnerable = set;
+}
+
+bool CCharacter :: GetIsInvulnerable()
+{
+	return isInvulnerable;
+}

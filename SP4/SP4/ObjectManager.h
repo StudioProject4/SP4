@@ -13,9 +13,9 @@ class CObjectManager :
 {
 public:
 	typedef std::vector<CBaseObject*> TObjectListVector;
-	typedef std::deque<CBaseObject*> TObjectListQueue;
+	//typedef std::deque<CBaseObject*> TObjectListQueue;
 	TObjectListVector objectList;
-	TObjectListQueue inactiveObjectList;
+	TObjectListVector inactiveObjectList;
 	CManufactureManager* manufacturer;
 	CSpatialPartion* SP;
 	int numOfUniqueId;
@@ -31,6 +31,8 @@ public:
 	bool Init();
 	bool Reset();
 	bool CleanUp();
+	void CheckObjectCollision(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex);
+	void UpdateCollision();
 	void AddObject(CBaseObject* a_obj);
 	CBaseObject* FindObjectWithName(std::string objectName);
 	CBaseObject* FindObjectWithTag(std::string objectTag);

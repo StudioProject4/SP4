@@ -27,6 +27,7 @@ CTestBallObject::CTestBallObject(void)
 
 CTestBallObject::~CTestBallObject(void)
 {
+	std::cout<<"test ball destory"<<std::endl;
 }
 
 bool CTestBallObject::Render()

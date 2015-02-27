@@ -27,7 +27,15 @@ bool CChineseMale :: Init(Vector3 newPos,Vector3 newDir,int entityID)
 bool CChineseMale :: Update()
 {
 	pos=phys.Update(pos);
-	//std::cout<<phys.Update(pos)<<std::endl;
+	//std::cout<<phys.Update(pos)<<std::endl
+	if(GetIsInvulnerable() == true)
+	{
+		if(invulTimer->TestTime(refTime))
+		{
+			SetIsInvulnerable(true);
+			invulTimer->SetActive(false,refTime);
+		}
+	}
 	return true;
 }
 
@@ -40,9 +48,15 @@ bool CChineseMale :: Init()
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("sonia2.tga");
 
+	SetIsInvulnerable(false);
+
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	SetPlayerID(1);
 
+	invulTimer = MVCTime :: GetInstance();
+	refTime = invulTimer->PushNewTime(1000);
+	invulTimer->SetActive(false,refTime);
+	
 	return true;
 }
 
@@ -57,21 +71,21 @@ bool CChineseMale :: CleanUp()
 }
 bool CChineseMale :: OnCollision(CBaseObject* a_obj)
 {
-	if(a_obj->genericTag = "Character")
-	{
-		//nothing
-	}
-	if(a_obj->genericTag = "Enemy")
-	{
-		if(a_obj->tag = "MalayMob")
-		{
-			if(clock() - invultimer > 5000)
-			{
-				hp.TakeDMG();
-				std :: cout << "ChineseMale's HP : " << hp.GetHealth() << std :: endl;
-			}
-		}
-	}
+	//if(a_obj->genericTag = "Character")
+	//{
+	//	//nothing
+	//}
+	//if(a_obj->genericTag = "Enemy")
+	//{
+	//	if(a_obj->tag = "MalayMob")
+	//	{
+	//		if(clock() - invultimer > 5000)
+	//		{
+	//			hp.TakeDMG();
+	//			std :: cout << "ChineseMale's HP : " << hp.GetHealth() << std :: endl;
+	//		}
+	//	}
+	//}
 	//if(a_obj->genericTag = "Powerup")
 	//{
 	//	//to be continued when powerups are done
@@ -98,10 +112,10 @@ bool CChineseMale :: OnCollision(CBaseObject* a_obj)
 	//	}
 
 	//}
-	if(a_obj->genericTag = "Obstacle")
-	{
-		//to be continued when powerups are done
-	}
+	//if(a_obj->genericTag = "Obstacle")
+	//{
+	//	//to be continued when powerups are done
+	//}
 
 	//if(a_obj->genericTag = "Character")
 	//{

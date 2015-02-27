@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "Physics.h"
 
+class CSprite;
 class Cell;
 
 class CBaseObject:public CEntity
@@ -16,12 +17,14 @@ public:
 	Vector3 dir;
 	short cellvectorindex;
 	Cell* ownerCell;
+	CSprite * theSprite;
 public:
 	CBaseObject()
 		:active(true)
 		,cellvectorindex(-1)
 	{};
 	virtual ~CBaseObject(){};
+	
 	virtual bool OnCollision(CBaseObject* a_obj) = 0;
 	virtual bool Render() = 0;
 

@@ -262,7 +262,7 @@ searchResult CMap::lookPositionText(Vector3 currentPosition, bool strict)
 	
 		ScreenNum = theScreenMap[result.yIndex][result.xIndex];
 	//	std::cout << ScreenNum << std::endl;
-
+		
 		return result;
 	
 }

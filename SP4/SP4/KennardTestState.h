@@ -6,6 +6,7 @@
 #include "LeverDoor.h"
 #include "TestObject.h"
 #include "Map.h"
+#include "Door.h"
 
 
 class KennardTestState :
@@ -27,6 +28,7 @@ public:
 	CMap map;
 
 	CLeverDoor theLever;
+	CDoor theDoor;
 
 	void InputKey(int key,int x,int y);
 	void InputUpKey(int key, int x, int y){};
@@ -36,6 +38,7 @@ public:
 	void MouseClick(int button,int state,int x,int y);
 	void MouseWheel(int button,int dir,int x,int y);
 	
+
 	void changeSize(int w,int h);
 	void SetHUD(bool m_bHUDmode);
 	

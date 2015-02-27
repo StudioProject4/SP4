@@ -1,3 +1,4 @@
+#include "myApplication.h"
 #include "MenuState.h"
 #include "Mouse.h"
 #include "Keyboard.h"
@@ -5,7 +6,7 @@
 #include "FrameRateManager.h"
 #include "GameStateManager.h"
 #include "MusicSystem\MusicSystem.h"
-#include "myApplication.h"
+
 
 
 CMenuState* CMenuState::instance = 0;
@@ -317,9 +318,11 @@ bool CMenuState::CleanUp()
 		delete OM;
 		OM = 0;
 	}
-	for(TBallVector::iterator it = ballList.begin(); it!= ballList.end(); ++it)
-	{
-		delete (*it);
-	}
+
+	//SP->NotifyAllObjectsAlreadyDeletedOutside();
+	delete SP;
+
+	
+
 	return true;
 }

@@ -56,7 +56,8 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freeglut.lib;winmm.lib;irrklang.lib;lua5.1.lib;Timer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freeglut.lib;winmm.lib;irrklang.lib;lua5.1.lib;Timer.lib;ws2_32.lib;RakNet_VS2008_DLL_Debug_Win32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -86,6 +87,7 @@
     <ClCompile Include="CharacterFactory.cpp" />
     <ClCompile Include="ChineseMale.cpp" />
     <ClCompile Include="ChineseMob.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="FrameRateManager.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
@@ -126,6 +128,7 @@
     <ClCompile Include="TestBallObject.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="tgaLoader.c" />
+    <ClCompile Include="TriggerBase.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
@@ -141,6 +144,7 @@
     <ClInclude Include="ChineseMob.h" />
     <ClInclude Include="DatabaseLibrary.h" />
     <ClInclude Include="DatatypeDefination.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FrameRateManager.h" />
     <ClInclude Include="GameState.h" />
@@ -189,6 +193,7 @@
     <ClInclude Include="TextureImage.h" />
     <ClInclude Include="tgaLoader.h" />
     <ClInclude Include="ToolLibrary.h" />
+    <ClInclude Include="TriggerBase.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>

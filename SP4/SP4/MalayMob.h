@@ -20,7 +20,7 @@ class CMalayMob : public CBaseObject
 		void SetPos(Vector3 newPos);
 
 		CAILogic AI;
-		CSprite * theSprite;
+		//CSprite * theSprite;
 	private:
 		
 };

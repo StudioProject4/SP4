@@ -21,7 +21,7 @@ bool CMalayMob :: Update()
 }
 bool CMalayMob :: Init()
 {
-	AI.Init();
+	//AI.Init();
 
 	name = "MalayMob";
 	tag = "MalayMob";

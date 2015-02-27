@@ -24,6 +24,7 @@ class CChineseMale : public CCharacter
 
 		bool OnCollision(CBaseObject* a_obj);
 	private:
-		CSprite * theSprite;
+		//CSprite * theSprite;
+		int refTime;
 		//CPowerUp* thePowerUp;
 };
