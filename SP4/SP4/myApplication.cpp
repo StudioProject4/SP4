@@ -3,6 +3,8 @@
 #include "RakNet\BitStream.h"
 
 #include "myApplication.h"
+#include "LeverDoor.h"
+#include "Door.h"
 #include "PowerUpFactory.h"
 #include <mmsystem.h>
 using namespace RakNet;
@@ -220,6 +222,12 @@ bool myApplication::Init()
 	playerTwo->Init(Vector3(60,20,0),Vector3(0,0,0),0);
 	theAIOne->SetPos(Vector3(600,200,0));
 	
+	CLeverDoor* lever=new CLeverDoor;
+	lever->Init(Vector3(600,568),Vector3(5,50));
+	CDoor* door=new CDoor;
+	door->Init(Vector3(400,568),Vector3(32,32));
+	lever->SetDoorLink(door);
+	door->AddTrigger(lever);
 
 	//Map->RunMap();
 
@@ -234,6 +242,8 @@ bool myApplication::Init()
 	OM->AddObject(playerTwo);
 	OM->AddObject(theAIOne);
 	OM->AddObject(theAITwo);
+	OM->AddObject(lever);
+	OM->AddObject(door);
 
 
 	return true;

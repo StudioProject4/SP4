@@ -49,7 +49,7 @@ void CObjectManager::CheckObjectCollision(CBaseObject* a_obj, TObjectListVector&
 	for(int i = startingIndex; i< listOfObjectToCheck.size();++i)
 	{
 		otherObject = listOfObjectToCheck[i];//paraphrasing
-		OtherSize.Set(otherObject->theSprite->GetImageSizeX(),otherObject->theSprite->GetImageSizeY());
+		OtherSize=otherObject->phys.size;
 		if(a_obj->phys.TestCol(otherObject->pos,OtherSize))
 		{
 			a_obj->OnCollision(otherObject);
@@ -153,7 +153,7 @@ bool CObjectManager::Init()
 {
 	name = "objectmanager";
 	manufacturer = CManufactureManager::GetInstance();
-//	SP = new CSpatialPartion(CWindowManager::GetInstance()->GetOriginalWindowWidth(),CWindowManager::GetInstance()->GetOriginalWindowHeight(),TILE_SIZE*2,TILE_SIZE*2);
+	SP = new CSpatialPartion(CWindowManager::GetInstance()->GetOriginalWindowWidth(),CWindowManager::GetInstance()->GetOriginalWindowHeight(),TILE_SIZE*2,TILE_SIZE*2);
 	return true;
 }
 

@@ -88,7 +88,6 @@ Vector3 CPhysics::Update(Vector3 pos)
 	{
 		if(TestColMap(pos,false,false,false,true,map))
 		{
-			int temp=getTile(pos+Vector3(size.x*0.5,0,0)+vel*delta);
 			vel.x=0;
 			//pos.x=(float)(((int)(pos.x/TILE_SIZE))*TILE_SIZE)+TILE_SIZE*0.495;//casted to int to remove the remainder then back to float
 
@@ -99,7 +98,6 @@ Vector3 CPhysics::Update(Vector3 pos)
 	{
 		if(TestColMap(pos,false,false,true,false,map))
 		{
-			int temp=getTile(pos+Vector3(-size.x*0.5,0,0)+vel*delta);
 			vel.x=0;
 			//pos.x=(float)(((int)(pos.x/TILE_SIZE))*TILE_SIZE)+TILE_SIZE*0.495;//casted to int to remove the remainder then back to float
 		}
@@ -160,8 +158,8 @@ bool CPhysics::TestColMap(Vector3 pos,
 {
 	float delta=0.0166;
 	//The pos.x and pos.y are the top left corner of the hero, so we find the tile which this position occupies.
-	int tile_topleft_x = (int)floor((float)(x_offset+pos.x+vel.x*delta-LEFT_BORDER-TILE_SIZE*0.5) / TILE_SIZE);
-	int tile_topleft_y = (int)floor((float)(y_offset+pos.y+vel.y*delta-BOTTOM_BORDER-TILE_SIZE*0.5)/ TILE_SIZE);
+	int tile_topleft_x = (int)floor((float)(x_offset+pos.x+vel.x*delta-TILE_SIZE*0.5) / TILE_SIZE);
+	int tile_topleft_y = (int)floor((float)(y_offset+pos.y+vel.y*delta-TILE_SIZE*0.5)/ TILE_SIZE);
 	int proceed=false;
 	Vector3 reference[9];
 	int j=0;
@@ -175,68 +173,75 @@ bool CPhysics::TestColMap(Vector3 pos,
 	}
 	if (m_bCheckLeft)
 	{
-		if (map->theScreenMap[tile_topleft_y][tile_topleft_x] == 0)
-		{
-			proceed=true;
-			reference[j].Set((tile_topleft_x)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y)*TILE_SIZE+BOTTOM_BORDER);
-			j++;
-		}
-		/*
+		if((int)(pos.y-TILE_SIZE/2)%32>2)
 			if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x] == 0)
 			{
 				proceed=true;
-				reference[j].Set((tile_topleft_x)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y+1)*TILE_SIZE+BOTTOM_BORDER);
+				reference[j].Set((tile_topleft_x)*TILE_SIZE,(tile_topleft_y+1)*TILE_SIZE);
 				j++;
 			}
-			*/
+		if((int)(pos.y-TILE_SIZE/2)%32<30)
+			if (map->theScreenMap[tile_topleft_y][tile_topleft_x] == 0)
+			{
+				proceed=true;
+				reference[j].Set((tile_topleft_x)*TILE_SIZE,(tile_topleft_y)*TILE_SIZE);
+				j++;
+			
+			}
 	}
 
 	if (m_bCheckRight)
 	{
-		if (map->theScreenMap[tile_topleft_y][tile_topleft_x+1] == 0)
-		{
-			proceed=true;
-			reference[j].Set((tile_topleft_x+1)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y)*TILE_SIZE+BOTTOM_BORDER);
-			j++;
-		}
-		/*
-		if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x+1] == 0)
-		{
-			reference[j].Set((tile_topleft_x+1)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y+1)*TILE_SIZE+BOTTOM_BORDER);
-			proceed=true;
-			j++;
-		}
-		*/
+		if((int)(pos.y-TILE_SIZE/2)%32<30)
+			if (map->theScreenMap[tile_topleft_y][tile_topleft_x+1] == 0)
+			{
+				proceed=true;
+				reference[j].Set((tile_topleft_x+1)*TILE_SIZE,(tile_topleft_y)*TILE_SIZE);
+				j++;
+			}
+		
+		if((int)(pos.y-TILE_SIZE/2)%32>2)
+			if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x+1] == 0)
+			{
+				reference[j].Set((tile_topleft_x+1)*TILE_SIZE,(tile_topleft_y+1)*TILE_SIZE);
+				proceed=true;
+				j++;
+			}
 	}
 
 	if (m_bCheckUpwards)
 	{
-		if (map->theScreenMap[tile_topleft_y][tile_topleft_x] == 0)
-		{
-			proceed=true;
-			reference[j].Set((tile_topleft_x)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y)*TILE_SIZE+BOTTOM_BORDER);
-			j++;
-		}
-		if (map->theScreenMap[tile_topleft_y][tile_topleft_x+1] == 0)
-		{
-			proceed=true;
-			reference[j].Set((tile_topleft_x+1)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y)*TILE_SIZE+BOTTOM_BORDER);
-			j++;
-		}
+		if((int)(pos.x-TILE_SIZE/2)%32<30)
+			if (map->theScreenMap[tile_topleft_y][tile_topleft_x] == 0)
+			{
+				proceed=true;
+				reference[j].Set((tile_topleft_x)*TILE_SIZE,(tile_topleft_y)*TILE_SIZE);
+				j++;
+			}
+			
+		if((int)(pos.x-TILE_SIZE/2)%32>2)
+			if (map->theScreenMap[tile_topleft_y][tile_topleft_x+1] == 0)
+			{
+				proceed=true;
+				reference[j].Set((tile_topleft_x+1)*TILE_SIZE,(tile_topleft_y)*TILE_SIZE);
+				j++;
+			}
 	}
 
 	if (m_bCheckDownwards)
 	{
+		if((int)(pos.x-TILE_SIZE/2)%32<30)
 		if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x] == 0)
 		{
 			proceed=true;
-			reference[j].Set((tile_topleft_x)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y+1)*TILE_SIZE+BOTTOM_BORDER);
+			reference[j].Set((tile_topleft_x)*TILE_SIZE,(tile_topleft_y+1)*TILE_SIZE);
 			j++;
 		}
+		if((int)(pos.x-TILE_SIZE/2)%32>2)
 		if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x+1] == 0)
 		{
 			proceed=true;
-			reference[j].Set((tile_topleft_x+1)*TILE_SIZE+LEFT_BORDER,(tile_topleft_y+1)*TILE_SIZE+BOTTOM_BORDER);
+			reference[j].Set((tile_topleft_x+1)*TILE_SIZE,(tile_topleft_y+1)*TILE_SIZE);
 			j++;
 		}
 	}
