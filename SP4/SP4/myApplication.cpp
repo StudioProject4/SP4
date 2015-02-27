@@ -268,6 +268,7 @@ bool myApplication::Update()
 			//playerOne->OnCollision(&Hpadd);
 			//playerOne->OnCollision(&ptsAdd);
 			ptsAdd.OnCollision(playerOne);
+			//InvinOn.OnCollision(playerOne);
 			//Hpadd.OnCollision(playerOne);
 			//ptsAdd.OnCollision(&Hpadd);
 		}

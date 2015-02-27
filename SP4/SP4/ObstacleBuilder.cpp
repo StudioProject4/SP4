@@ -3,11 +3,13 @@
 
 CObstacleBuilder::CObstacleBuilder(void)
 {
+	factory = new CObstacleFactory();
 }
 
 
 CObstacleBuilder::~CObstacleBuilder(void)
 {
+	delete factory;
 }
 
 void CObstacleBuilder::SetManufactureLeverDoor()

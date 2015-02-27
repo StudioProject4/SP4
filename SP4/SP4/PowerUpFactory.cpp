@@ -3,6 +3,10 @@
 #include "PowerUp.h"//remove if not needed
 #include "HealthPU.h"
 #include "PointsAddPU.h"
+#include "SpeedPU.h"
+#include "InvinciblePU.h"
+#include "JumpPU.h"
+
 CPowerUpFactory::CPowerUpFactory(void)
 	:currentManufactureType(POWERUP_NONE)
 {
@@ -87,18 +91,18 @@ void CPowerUpFactory::CreateProduct()
 			break;
 		case POWERUP_SPEEDUP:
 			//Demo
-			//product = new CSpeedUpPowerUp();
+			product = new CSpeedPU();
 			break;
 
 		case POWERUP_INVINCIBLE:
 			//Demo
-			//product = new CInvincibleUp();
+			product = new CInvinciblePU();
 			break;
 
 		case POWERUP_HIGHJUMP:
 			//
 			//Demo
-			//product = new CHighJump();
+			product = new CJumpPU();
 			break;
 
 	};

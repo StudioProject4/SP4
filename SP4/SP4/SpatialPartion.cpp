@@ -40,7 +40,7 @@ Cell* CSpatialPartion::GetCell(float posX,float posY)
 {
 	//short cellx = ((short)(posX/this->cellSizeX));
 	//short celly = ((short)(posY/this->cellSizeY));
-	return GetCell( ((short)(posX/this->cellSizeX)) , ((short)(posY/this->cellSizeY)) );
+	return GetCell( ((int)(posX/this->cellSizeX)) , ((int)(posY/this->cellSizeY)) );
 
 }
 
