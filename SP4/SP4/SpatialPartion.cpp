@@ -5,10 +5,6 @@
 #include <GL\glut.h>
 #include "Sprite.h"
 
-
-
-//#define DEBUG_CODE
-
 static float myRoundFunc(float toRound)
 {
   return std::ceil(toRound - 0.5);
@@ -68,9 +64,9 @@ Cell* CSpatialPartion::GetCell(int indexX,int indexY)
 
 }
 
+#ifdef SP_V1
 
 //Remove object from a cell;
-
 void CSpatialPartion::RemoveObject(CBaseObject* a_obj)
 {
 	unsigned short indexoftheobject = a_obj->cellvectorindex;//paraphrasing
@@ -88,13 +84,7 @@ void CSpatialPartion::RemoveObject(CBaseObject* a_obj)
 	}
 
 
-
-
-
-
 }
-
-
 
 //add object into a known cell;
 
@@ -103,85 +93,6 @@ void CSpatialPartion::AddObject(CBaseObject* a_obj,Cell* knownCell)
 	knownCell->objectList.push_back(a_obj);
 	a_obj->ownerCell = knownCell;
 	a_obj->cellvectorindex = knownCell->objectList.size()-1;
-
-	//short cellx = 0;
-	//short celly = 0;
-	//cellx = (((short)((a_obj)->TopLeft.x/this->cellSizeX)));
-	//celly = (((short)((a_obj)->TopLeft.y/this->cellSizeY)));
-
-	//(a_obj)->TopLeftCellIndex.Set(cellx,celly);
-
-	//cellx = (((short)((a_obj)->BottomRight.x/this->cellSizeX)));
-	//celly = (((short)((a_obj)->BottomRight.y/this->cellSizeY)));
-	//(a_obj)->BottomRightCellIndex.Set(cellx,celly);
-
-	//std::vector<Vector3> celltomodify;
-	
-	
-
-#ifdef DEBUG_CODE
-	bool stopLeft = false;
-	bool stopRight = false;
-
-	Vector3 topLimit;
-	Vector3 botLimit;
-
-	Vector3 topLeft;
-	Vector3 botRight;
-
-	topLeft.Set(a_obj->pos.x + a_obj->phys.size.x *0.5,a_obj->pos.y + a_obj->phys.size.y*0.5);
-	botRight.Set(a_obj->pos.x - a_obj->phys.size.x *0.5,a_obj->pos.y - a_obj->phys.size.y*0.5);
-
-	for(int i=0;i<numCellX&&!(stopLeft&&stopRight);i++)//goes through the grids from small to big
-	{//note that i*gridsize is on the left side of the grid
-		if(!stopLeft)//should be the biggest possible
-		{
-			if(topLeft.x<a_obj->pos.x+(i+1)*cellSizeX)
-			{
-				topLimit.x=i;
-				stopLeft=true;
-			}
-		}
-		if(!stopRight)//as small as possible
-		{
-			if(botRight.x>a_obj->pos.x+(i+1)*cellSizeX)//+1 cause i am testing if its larger then the next square
-			{
-				botLimit.x=i;
-				stopRight=true;
-			}
-		}
-	}
-	stopRight=false;
-	stopLeft=false;
-	for(int i=0;i<numCellY&&!(stopLeft&&stopRight);i++)
-	{
-		if(!stopLeft)//should be the largest possible
-		{
-			if(topLeft.y<a_obj->pos.y+(i+1)*cellSizeY)
-			{
-				topLimit.y=i;
-				stopLeft=true;
-			}
-		}
-		if(!stopRight)//should be the smallest possible
-		{
-			if(botRight.y>a_obj->pos.y+(i+1)*cellSizeY)
-			{
-				botLimit.y=i;
-				stopRight=true;
-			}
-		}
-	}
-	for(int i=botLimit.x;i<=topLimit.x;++i)
-	{
-		for(int j=botLimit.y;j<=topLimit.y;++j)
-		{
-			cellList[i*numCellY+j].objectList.push_back(a_obj);
-		}
-	}
-
-#endif
-
 }
 
 //add object into a calculated cell;
@@ -190,84 +101,20 @@ void CSpatialPartion::AddObject(CBaseObject* a_obj)
 {
 	Cell* a_cell = GetCell(a_obj->pos.x,a_obj->pos.y);
 	AddObject(a_obj,a_cell);
-	//a_cell->objectList.push_back(a_obj);
-	//a_obj->ownerCell = a_cell;
-	//a_obj->cellvectorindex = a_cell->objectList.size()-1;
-
-	//bool stopLeft = false;
-	//bool stopRight = false;
-
-	//Vector3 topLimit;
-	//Vector3 botLimit;
-
-	//Vector3 topLeft;
-	//Vector3 botRight;
-
-	//topLeft.Set(a_obj->pos.x + a_obj->phys.size.x *0.5,a_obj->pos.y + a_obj->phys.size.y*0.5);
-	//botRight.Set(a_obj->pos.x - a_obj->phys.size.x *0.5,a_obj->pos.y - a_obj->phys.size.y*0.5);
-
-	//for(int i=0;i<numCellX&&!(stopLeft&&stopRight);i++)//goes through the grids from small to big
-	//{//note that i*gridsize is on the left side of the grid
-	//	if(!stopLeft)//should be the biggest possible
-	//	{
-	//		if(topLeft.x<a_obj->pos.x+(i+1)*cellSizeX)
-	//		{
-	//			topLimit.x=i;
-	//			stopLeft=true;
-	//		}
-	//	}
-	//	if(!stopRight)//as small as possible
-	//	{
-	//		if(botRight.x>a_obj->pos.x+(i+1)*cellSizeX)//+1 cause i am testing if its larger then the next square
-	//		{
-	//			botLimit.x=i;
-	//			stopRight=true;
-	//		}
-	//	}
-	//}
-	//stopRight=false;
-	//stopLeft=false;
-	//for(int i=0;i<numCellY&&!(stopLeft&&stopRight);i++)
-	//{
-	//	if(!stopLeft)//should be the largest possible
-	//	{
-	//		if(topLeft.y<a_obj->pos.y+(i+1)*cellSizeY)
-	//		{
-	//			topLimit.y=i;
-	//			stopLeft=true;
-	//		}
-	//	}
-	//	if(!stopRight)//should be the smallest possible
-	//	{
-	//		if(botRight.y>a_obj->pos.y+(i+1)*cellSizeY)
-	//		{
-	//			botLimit.y=i;
-	//			stopRight=true;
-	//		}
-	//	}
-	//}
-	//for(int i=botLimit.x;i<=topLimit.x;++i)
-	//{
-	//	for(int j=botLimit.y;j<=topLimit.y;++j)
-	//	{
-	//		cellList[i*numCellY+j].objectList.push_back(a_obj);
-	//	}
-	//}
 }
 
-void CSpatialPartion::Update()
+void CSpatialPartion::UpdateObjectOwnerCell(CBaseObject* a_obj)
 {
-	//for(TCellVector::iterator it = cellList.begin(); it!= cellList.end();++it)
-	//{
-	//	if(!(*it).objectList.empty())//if the cell objectlist is not empty,meaning got object inside
-	//	{
-	//		for(TBallVector::iterator it2 = (*it).objectList.begin(); it2 !=(*it).objectList.end(); ++it2)
-	//		{
-	//			UpdateObjectCell( (*it2) );
-	//		}
-	//	}
-	//}
+	Cell* a_cell = GetCell(a_obj->pos.x,a_obj->pos.y);
+	if(a_cell != a_obj->ownerCell)
+	{
+		RemoveObject(a_obj);
+		AddObject(a_obj,a_cell);
+	}
+	
 }
+
+#endif
 std::vector<Cell*> CSpatialPartion::GetObjectStretchedCells(CBaseObject* a_obj)
 {
 	std::vector<Cell*> CellStretchedAcrossed;
@@ -285,14 +132,6 @@ std::vector<Cell*> CSpatialPartion::GetObjectStretchedCells(CBaseObject* a_obj)
 		}
 	}
 	return CellStretchedAcrossed;
-	//std::cout<<std::endl;
-	//std::cout<<std::endl;
-	//for(unsigned short i = 0 ; i<indexOfCellStretchedAcrossed.size();++i)
-	//{
-	//	std::cout<<indexOfCellStretchedAcrossed[i]<<std::endl;
-	//}
-	//a_obj->celltomodify.clear();
-	//a_obj->celltomodify = celltomodify;
 }
 void CSpatialPartion::UpdateObjectTopLeftAndBottomRightCell(CBaseObject* a_obj)
 {
@@ -309,6 +148,12 @@ void CSpatialPartion::UpdateObjectTopLeftAndBottomRightCell(CBaseObject* a_obj)
 	(a_obj)->BottomRightCellIndex.Set(cellx,celly);
 }
 
+void CSpatialPartion::AddObjectNeo(CBaseObject* a_obj)
+{
+	Cell* a_cell = GetCell(a_obj->pos.x,a_obj->pos.y);
+	AddObjectNeo(a_obj,a_cell,true);
+}
+
 void CSpatialPartion::AddObjectNeo(CBaseObject* a_obj,Cell* theCell,bool duplicateCheck)
 {
 	if(duplicateCheck)
@@ -321,7 +166,6 @@ void CSpatialPartion::AddObjectNeo(CBaseObject* a_obj,Cell* theCell,bool duplica
 			}
 		}
 	}
-
 	theCell->objectListNeo.push_back(a_obj);
 }
 
@@ -336,11 +180,6 @@ void CSpatialPartion::RemoveObjectNeo(CBaseObject* a_obj,Cell* theCell)
 			break;
 		}
 	}
-}
-
-void CSpatialPartion::UpdateOwnerCellNeo(CBaseObject* a_obj,Cell* theCell)
-{
-	
 }
 
 void CSpatialPartion::UpdateObjectStretchedCells(CBaseObject* a_obj)
@@ -397,17 +236,6 @@ void CSpatialPartion::RenderObjects()
 			}
 		}
 	}
-}
-
-void CSpatialPartion::UpdateObjectOwnerCell(CBaseObject* a_obj)
-{
-	Cell* a_cell = GetCell(a_obj->pos.x,a_obj->pos.y);
-	if(a_cell != a_obj->ownerCell)
-	{
-		RemoveObject(a_obj);
-		AddObject(a_obj,a_cell);
-	}
-	
 }
 
 //render one square for debug

@@ -30,12 +30,12 @@ void CObjectManager::AddObject(CBaseObject* a_obj)
 {
 	objectList.push_back(a_obj);
 #ifdef SP_V1
-	
+	SP->AddObject(a_obj);
 #endif
 #ifdef SP_V2
-
+	SP->AddObjectNeo(a_obj);
 #endif
-	SP->AddObject(a_obj);
+	
 	++numOfUniqueId;
 	a_obj->id = numOfUniqueId;
 
