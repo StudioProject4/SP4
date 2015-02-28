@@ -36,7 +36,7 @@ bool CHealthPU::Init()
 	theSprite->LoadTGA("HealthCross.tga");
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
-
+	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 	return true;
 }
 

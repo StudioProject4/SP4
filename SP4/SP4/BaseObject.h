@@ -71,6 +71,18 @@ public:
 	virtual bool Init() = 0;
 	virtual bool Reset()= 0;
 	virtual bool CleanUp() = 0;
+	virtual void UpdateObjectTopLeftAndBottomRightPoint(bool sizeOfObjectIsInRadius)
+	{
+		if(sizeOfObjectIsInRadius)
+		{
+			TopLeft.Set(pos.x - phys.size.x,pos.y - phys.size.y);
+			BottomRight.Set(pos.x + phys.size.x,pos.y + phys.size.y);
+		}else
+		{
+			TopLeft.Set(pos.x - phys.size.x *0.5,pos.y - phys.size.y*0.5);
+			BottomRight.Set(pos.x + phys.size.x*0.5,pos.y + phys.size.y*0.5);
+		}
+	};
 };
 
 

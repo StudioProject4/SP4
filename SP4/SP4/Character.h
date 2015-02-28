@@ -31,6 +31,15 @@ class CCharacter : public CBaseObject
 		//clock_t invultimer;
 
 		MVCTime * invulTimer;
+
+		void PrintDebugInformation()
+		{
+			std::cout<<" pos"<<pos<<std::endl;
+			std::cout<<" Top Left Point"<<TopLeft<<std::endl;
+			std::cout<<" Bottom Right Point"<<BottomRight<<std::endl;
+			std::cout<<" Top Left Cell Index"<<TopLeftCellIndex<<std::endl;
+			std::cout<<" Bottom Right Cell Index"<<BottomRightCellIndex<<std::endl;
+		};
 	private:
 		int playerID;	
 		bool isInvulnerable;

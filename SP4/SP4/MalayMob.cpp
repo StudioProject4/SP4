@@ -30,7 +30,7 @@ bool CMalayMob :: Init()
 	theSprite->LoadTGA("rockyground.tga");
 	
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
-
+	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 	return true;
 }	
 bool CMalayMob :: Reset()

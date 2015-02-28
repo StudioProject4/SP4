@@ -142,6 +142,7 @@
     <ClInclude Include="CharacterFactory.h" />
     <ClInclude Include="ChineseMale.h" />
     <ClInclude Include="ChineseMob.h" />
+    <ClInclude Include="CodeDefination.h" />
     <ClInclude Include="DatabaseLibrary.h" />
     <ClInclude Include="DatatypeDefination.h" />
     <ClInclude Include="Door.h" />

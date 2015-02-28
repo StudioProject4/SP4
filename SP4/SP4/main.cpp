@@ -85,9 +85,9 @@ int main(int argc, char **argv )
 		WM->Init(LM->GetWithCheckNumber<int>("WINDOW_WIDTH"),LM->GetWithCheckNumber<int>("WINDOW_HEIGHT"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"),LM->GetWithCheckBoolean("FULLSCREEN"),LM->GetWithCheckString("PROGRAM_NAME").c_str());
 		
 		myApplication::argv=argv;
-		//GSM->ChangeState(myApplication::GetInstance());
+		GSM->ChangeState(myApplication::GetInstance());
 		//GSM->ChangeState(KennardTestState::GetInstance());
-		GSM->ChangeState(CMenuState::GetInstance());
+		//GSM->ChangeState(CMenuState::GetInstance());
 		//glutInitWindowPosition(LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"));
 		//glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 		//glutCreateWindow(LM->GetWithCheckString("PROGRAM_NAME").c_str());

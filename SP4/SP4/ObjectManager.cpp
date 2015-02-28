@@ -4,6 +4,8 @@
 #include "WindowManager.h"
 #include "Sprite.h"
 #include "TestBallObject.h"
+#include "GameStateManager.h"
+
 //CObjectManager* CObjectManager::instance = 0;
 
 CObjectManager::CObjectManager(void)
@@ -27,6 +29,12 @@ CObjectManager::~CObjectManager(void)
 void CObjectManager::AddObject(CBaseObject* a_obj)
 {
 	objectList.push_back(a_obj);
+#ifdef SP_V1
+	
+#endif
+#ifdef SP_V2
+
+#endif
 	SP->AddObject(a_obj);
 	++numOfUniqueId;
 	a_obj->id = numOfUniqueId;
@@ -59,10 +67,10 @@ void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObje
 			if(a_obj->genericTag == "Character" || otherObject->genericTag == "Character")
 			{
 					OtherSize = otherObject->phys.size;
-					std::cout<<"Checking collision "<<a_obj->name <<" with "<< otherObject->name<<std::endl;
+					//std::cout<<"Checking collision "<<a_obj->name <<" with "<< otherObject->name<<"!!!"<<std::endl;
 					if(a_obj->phys.TestCol(otherObject->pos,OtherSize))
 					{
-						std::cout<<"COLLISION RESPONE ACTIVATED "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
+						//std::cout<<"COLLISION RESPONE ACTIVATED "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
 						a_obj->OnCollision(otherObject);
 					}
 			}
@@ -80,10 +88,10 @@ void CObjectManager::CheckObjectCollision(CBaseObject* a_obj, TObjectListVector&
 		if(otherObject!=a_obj)
 		{
 			OtherSize = otherObject->phys.size;
-			std::cout<<"checking "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
+			//std::cout<<"checking "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
 			if(a_obj->phys.TestCol(otherObject->pos,OtherSize))
 			{
-				std::cout<<"collided "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
+				//std::cout<<"collided "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
 				a_obj->OnCollision(otherObject);
 			}
 		}
@@ -92,6 +100,7 @@ void CObjectManager::CheckObjectCollision(CBaseObject* a_obj, TObjectListVector&
 
 void CObjectManager::UpdateCollision()
 {
+#ifdef SP_V1
 	short x = 0;//x index of a cell
 	short y = 0;//y index of a cell
 	CBaseObject* a_obj = nullptr;
@@ -136,6 +145,20 @@ void CObjectManager::UpdateCollision()
 		}
 
 	}
+#endif
+
+#ifdef SP_V2
+	if(CGameStateManager::GetInstance()->currentState == CGameStateManager::STATE_MYAPPLICATION)
+	{
+		this->UpdateGridCheckCall();
+		
+	}
+	if(CGameStateManager::GetInstance()->currentState == CGameStateManager::STATE_MENU)
+	{
+		this->UpdateGridTestBallCheckCall();
+	}
+#endif
+
 }
 
 bool CObjectManager::Update()
@@ -157,12 +180,23 @@ bool CObjectManager::Update()
 	//	}
 	//}
 	UpdateCollision();
+
 	for(unsigned short it = 0; it < objectList.size(); ++it)
 	{
 		if( objectList[it]->active == true)
 		{
 			objectList[it]->Update();
+
+#ifdef SP_V1
 			SP->UpdateObjectOwnerCell(objectList[it]);
+#endif
+
+#ifdef SP_V2
+			objectList[it]->UpdateObjectTopLeftAndBottomRightPoint(false);
+			SP->UpdateObjectTopLeftAndBottomRightCell(objectList[it]);
+			SP->UpdateObjectStretchedCells(objectList[it]);
+#endif	
+
 			//(*it)->Render();
 		}else
 		{
@@ -173,7 +207,6 @@ bool CObjectManager::Update()
 			objectList.pop_back();
 		}
 	}
-	
 	
 	return true;
 }
@@ -454,108 +487,32 @@ void CObjectManager::PrintDebugInformation()
 	std::cout<<"InActive object List size"<<inactiveObjectList.size()<<std::endl;
 	SP->PrintDebugInformation();
 }
+#ifdef SP_V2
 void CObjectManager::UpdateGridCheckCall()
 {
+	//short currx = 0;//x index of a cell
+	//short curry = 0;//y index of a cell
 	CBaseObject* a_obj = nullptr;
+
 	for(int i = 0 ; i < SP->cellList.size(); ++i )//loop through all cells
 	{
-		if(SP->cellList[i].objectList.empty())//skip empty cell
+		if(SP->cellList[i].objectListNeo.empty())//skip empty cell
 			continue;
-
-
-		Cell& a_cell = SP->cellList[i];
-
-		for(int j = 0 ; j< a_cell.objectList.size();++j)//loop through all object inside objectlist of non empty cell
-		{
-			a_obj = a_cell.objectList[j];
-
-
-			//////Grid information
-			/*
-			grid index X goes from 0 to 'n' number from left to right
-			grid index Y goes from 0 to 'n' number from top to bottom
-			*/
-			///////
-
-			if( (a_obj->TopLeftCellIndex.x >= 0 &&  a_obj->TopLeftCellIndex.y >= 0) && (a_obj->BottomRightCellIndex.x < SP->numCellX && a_obj->BottomRightCellIndex.y < SP->numCellY) )//if within whole Spatial partition
-			{	
-
-				for(int ownY = a_obj->TopLeftCellIndex.y; ownY <=a_obj->BottomRightCellIndex.y;++ownY)//loop through all own occupied cells
-				{
-					for(int ownX = a_obj->TopLeftCellIndex.x; ownX <=a_obj->BottomRightCellIndex.x;++ownX)
-					{
-						//a_ball->UpdateCollision(SP->GetCell(ownX,ownY)->objectListNeo,j+1);
-						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(ownX,ownY)->objectListNeo,0);
-					}
-				}
-
-				////call neighbouring cells.
-				if( a_obj->TopLeftCellIndex.y-1 >= 0)//nested celling cells check
-				{
-					for(int topX = a_obj->TopLeftCellIndex.x; topX<=a_obj->BottomRightCellIndex.x;++topX )//loop through all top celling cells
-					{	
-						//std::cout<<"testing top cells"<<std::endl;
-						//a_ball->UpdateCollision( SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,j+1);
-						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
-					}
-
-					if(a_obj->TopLeftCellIndex.x-1 >= 0 )//celling,top left cell check
-					{
-						//std::cout<<"testing top left cells"<<std::endl;
-						//a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,j+1);
-						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
-					}
-				}
-
-				if(a_obj->TopLeftCellIndex.x-1 >= 0 )///nested left border cells check
-				{
-					for(int leftY = a_obj->TopLeftCellIndex.y; leftY <= a_obj->BottomRightCellIndex.y; ++leftY)///loop through all left border cells
-					{
-						//std::cout<<"testing left cells"<<std::endl;
-						//a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),leftY)->objectListNeo,j+1);
-						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),leftY)->objectListNeo,0);
-					}
-
-					if(a_obj->BottomRightCellIndex.y+1 < SP->numCellY )//check bottom left cell
-					{
-						//std::cout<<"testing bottom left cells"<<std::endl;
-						//a_ball->UpdateCollision(SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->BottomRightCellIndex.y+1))->objectListNeo,j+1);
-						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->BottomRightCellIndex.y+1))->objectListNeo,0);
-					}
-
-				}
-
-			}
-			else
-			{
-				//std::cout<<"out of bound"<<std::endl;
-			}
-		}
-	}
-}
-void CObjectManager::UpdateGridTestBallCheckCall()
-{
-	//short x = 0;//x index of a cell
-	//short y = 0;//y index of a cell
-	CBaseObject* a_obj = nullptr;
-	CTestBallObject* a_ball = nullptr;
-	for(int i = 0 ; i < SP->cellList.size(); ++i )//loop through all cells
-	{
-		if(SP->cellList[i].objectList.empty())//skip empty cell
-			continue;
-
-
+		
+		
 		Cell& a_cell = SP->cellList[i];
 
 		////get the index of the current cell
-		//x = i % SP->numCellX;
-		//y = i / SP->numCellX;
-
-		for(int j = 0 ; j< a_cell.objectList.size();++j)//loop through all object inside objectlist of non empty cell
+		//currx = i % SP->numCellX;
+		//curry = i / SP->numCellX;
+		//std::cout<<"currx "<<currx<<" curry" <<curry<<std::endl;
+		for(int j = 0 ; j< a_cell.objectListNeo.size();++j)//loop through all object inside objectlist of non empty cell
 		{
-			a_obj = a_cell.objectList[j];
+			
+			a_obj = a_cell.objectListNeo[j];
 
-			a_ball = dynamic_cast<CTestBallObject*>(a_obj);
+			
+			//int lasttimecalled = a_ball->timecalled;
 
 			//////Grid information
 			/*
@@ -586,23 +543,27 @@ void CObjectManager::UpdateGridTestBallCheckCall()
 				{
 					for(int ownX = a_obj->TopLeftCellIndex.x; ownX <=a_obj->BottomRightCellIndex.x;++ownX)
 					{
-						a_ball->UpdateCollision(SP->GetCell(ownX,ownY)->objectListNeo,j+1);
+						//a_ball->UpdateCollision(SP->GetCell(ownX,ownY)->objectListNeo,0);
+						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(ownX,ownY)->objectListNeo,0);
 					}
 				}
-
+				//int nexttimecalled = a_ball->timecalled;
+				//std::cout<<"time called diff"<<nexttimecalled-lasttimecalled<<std::endl;
 				////call neighbouring cells.
 				if( a_obj->TopLeftCellIndex.y-1 >= 0)//nested celling cells check
 				{
 					for(int topX = a_obj->TopLeftCellIndex.x; topX<=a_obj->BottomRightCellIndex.x;++topX )//loop through all top celling cells
 					{	
 						//std::cout<<"testing top cells"<<std::endl;
-						a_ball->UpdateCollision( SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,j+1);
+						//a_ball->UpdateCollision( SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
+						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
 					}
 
 					if(a_obj->TopLeftCellIndex.x-1 >= 0 )//celling,top left cell check
 					{
 						//std::cout<<"testing top left cells"<<std::endl;
-						a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,j+1);
+						//a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
+						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
 					}
 				}
 
@@ -611,13 +572,16 @@ void CObjectManager::UpdateGridTestBallCheckCall()
 					for(int leftY = a_obj->TopLeftCellIndex.y; leftY <= a_obj->BottomRightCellIndex.y; ++leftY)///loop through all left border cells
 					{
 						//std::cout<<"testing left cells"<<std::endl;
-						a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),leftY)->objectListNeo,j+1);
+						//a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),leftY)->objectListNeo,0);
+						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),leftY)->objectListNeo,0);
+					
 					}
 
 					if(a_obj->BottomRightCellIndex.y+1 < SP->numCellY )//check bottom left cell
 					{
 						//std::cout<<"testing bottom left cells"<<std::endl;
-						a_ball->UpdateCollision(SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->BottomRightCellIndex.y+1))->objectListNeo,j+1);
+						//a_ball->UpdateCollision(SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->BottomRightCellIndex.y+1))->objectListNeo,0);
+						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->BottomRightCellIndex.y+1))->objectListNeo,0);
 					}
 
 				}
@@ -630,3 +594,104 @@ void CObjectManager::UpdateGridTestBallCheckCall()
 		}
 	}
 }
+void CObjectManager::UpdateGridTestBallCheckCall()
+{
+	//short x = 0;//x index of a cell
+	//short y = 0;//y index of a cell
+	CBaseObject* a_obj = nullptr;
+	CTestBallObject* a_ball = nullptr;
+	for(int i = 0 ; i < SP->cellList.size(); ++i )//loop through all cells
+	{
+		if(SP->cellList[i].objectListNeo.empty())//skip empty cell
+			continue;
+
+
+		Cell& a_cell = SP->cellList[i];
+
+		////get the index of the current cell
+		//x = i % SP->numCellX;
+		//y = i / SP->numCellX;
+
+		for(int j = 0 ; j< a_cell.objectListNeo.size();++j)//loop through all object inside objectlist of non empty cell
+		{
+			
+			a_obj = a_cell.objectListNeo[j];
+
+			a_ball = dynamic_cast<CTestBallObject*>(a_obj);
+			//int lasttimecalled = a_ball->timecalled;
+
+			//////Grid information
+			/*
+			grid index X goes from 0 to 'n' number from left to right
+			grid index Y goes from 0 to 'n' number from top to bottom
+			*/
+			///////
+			//if((a_obj->TopLeftCellIndex.x >= 0 &&  a_obj->TopLeftCellIndex.y >= 0))
+			//{
+			//	std::cout<<"top left OK"<<std::endl;
+			//}else
+			//{
+			//	std::cout<<"top left NOO"<<std::endl;
+			//}
+
+			//if( ( a_obj->BottomRightCellIndex.x>=0 && a_obj->BottomRightCellIndex.x < SP->numCellX) &&( a_obj->BottomRightCellIndex.y >= 0 && a_obj->BottomRightCellIndex.y < SP->numCellY))
+			//{
+			//	std::cout<<"bottom right OK"<<std::endl;
+			//}else
+			//{
+			//	std::cout<<"bottom right NOO"<<std::endl;
+			//}
+
+			if( (a_obj->TopLeftCellIndex.x >= 0 &&  a_obj->TopLeftCellIndex.y >= 0) && (a_obj->BottomRightCellIndex.x < SP->numCellX && a_obj->BottomRightCellIndex.y < SP->numCellY) )//if within whole Spatial partition
+			{	
+
+				for(int ownY = a_obj->TopLeftCellIndex.y; ownY <=a_obj->BottomRightCellIndex.y;++ownY)//loop through all own occupied cells
+				{
+					for(int ownX = a_obj->TopLeftCellIndex.x; ownX <=a_obj->BottomRightCellIndex.x;++ownX)
+					{
+						a_ball->UpdateCollision(SP->GetCell(ownX,ownY)->objectListNeo,0);
+					}
+				}
+				//int nexttimecalled = a_ball->timecalled;
+				//std::cout<<"time called diff"<<nexttimecalled-lasttimecalled<<std::endl;
+				////call neighbouring cells.
+				if( a_obj->TopLeftCellIndex.y-1 >= 0)//nested celling cells check
+				{
+					for(int topX = a_obj->TopLeftCellIndex.x; topX<=a_obj->BottomRightCellIndex.x;++topX )//loop through all top celling cells
+					{	
+						//std::cout<<"testing top cells"<<std::endl;
+						a_ball->UpdateCollision( SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
+					}
+
+					if(a_obj->TopLeftCellIndex.x-1 >= 0 )//celling,top left cell check
+					{
+						//std::cout<<"testing top left cells"<<std::endl;
+						a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
+					}
+				}
+
+				if(a_obj->TopLeftCellIndex.x-1 >= 0 )///nested left border cells check
+				{
+					for(int leftY = a_obj->TopLeftCellIndex.y; leftY <= a_obj->BottomRightCellIndex.y; ++leftY)///loop through all left border cells
+					{
+						//std::cout<<"testing left cells"<<std::endl;
+						a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),leftY)->objectListNeo,0);
+					}
+
+					if(a_obj->BottomRightCellIndex.y+1 < SP->numCellY )//check bottom left cell
+					{
+						//std::cout<<"testing bottom left cells"<<std::endl;
+						a_ball->UpdateCollision(SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->BottomRightCellIndex.y+1))->objectListNeo,0);
+					}
+
+				}
+
+			}
+			else
+			{
+				//std::cout<<"out of bound"<<std::endl;
+			}
+		}
+	}
+}
+#endif

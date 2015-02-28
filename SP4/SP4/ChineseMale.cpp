@@ -52,6 +52,7 @@ bool CChineseMale :: Init()
 	SetIsInvulnerable(false);
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
+	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 	SetPlayerID(1);
 
 	invulTimer = MVCTime :: GetInstance();

@@ -296,6 +296,7 @@ std::vector<Cell*> CSpatialPartion::GetObjectStretchedCells(CBaseObject* a_obj)
 }
 void CSpatialPartion::UpdateObjectTopLeftAndBottomRightCell(CBaseObject* a_obj)
 {
+	//std::cout<<"Updateing Object "<<(a_obj)->TopLeft<<std::endl;
 	short cellx = 0;
 	short celly = 0;
 	cellx = (((short)((a_obj)->TopLeft.x/this->cellSizeX)));

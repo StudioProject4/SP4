@@ -5,6 +5,9 @@
 #include <vector>
 
 #include "ManufactureManager.h"
+//#include "SpatialPartion.h"
+
+#include "CodeDefination.h"
 
 class CSpatialPartion;
 class CTestBallObject;
@@ -47,13 +50,16 @@ public:
 	CBaseObject* FetchObjectWithName(std::string objectName);
 	CBaseObject* FetchObjectWithTag(std::string objectTag);
 	CBaseObject* FetchObjectWithGenericTag(std::string objectTag);
+
+	bool ChangeSpatialParition(CSpatialPartion* newSP);
+
+#ifdef SP_V2
+	void UpdateGridTestBallCheckCall();
+	void UpdateGridCheckCall();
+#endif
+
 	void PrintDebugAllActiveObjects();
 	void PrintDebugAllInActiveObjects();
 	void PrintDebugInformation();
-	bool ChangeSpatialParition(CSpatialPartion* newSP);
-
-	///new function for new spatial partition
-	void UpdateGridTestBallCheckCall();
-	void UpdateGridCheckCall();
 };
 

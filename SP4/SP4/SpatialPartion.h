@@ -21,7 +21,9 @@ typedef std::vector<CBaseObject*> TObjectVector;
 //	short x;
 //	short y;
 //};
+//#define SP_V2
 
+//#define SP_V1
 
 class Cell
 {

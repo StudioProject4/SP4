@@ -111,8 +111,8 @@ bool myApplication::Init()
 	}
 	//*/
 	tag = "application";
-	name = "Main Application";
-
+	name = "myApplication";
+	
 	glEnable(GL_TEXTURE_2D);
 
 	//frameCount = 0;
@@ -154,13 +154,16 @@ bool myApplication::Init()
 	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
 	MS = CMusicSystem::GetInstance();
+	GSM = CGameStateManager::GetInstance();
 	OM = new CObjectManager();
+	
+	GSM->currentState = GSM->STATE_MYAPPLICATION;
 
 	playerOne = OM->manufacturer->CreateChineseMale();
 	playerTwo = OM->manufacturer->CreateMalayFemale();
 	theAIOne = OM->manufacturer->CreateMalayMob();
 	theAITwo = OM->manufacturer->CreateChineseMob();
-
+	
 	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
 	playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
 	theAIOne->SetPos(Vector3(600,200,0));
@@ -176,13 +179,36 @@ bool myApplication::Init()
 	door->AddTrigger(lever);
 
 	// add all the Game Object into the object manager
+#ifndef DEBUG_MODE
 	OM->AddObject(playerOne);
 	OM->AddObject(playerTwo);
 	OM->AddObject(theAIOne);
 	OM->AddObject(theAITwo);
 	OM->AddObject(lever);
 	OM->AddObject(door);
+#endif
 
+#ifdef DEBUG_MODE
+	CTestBallObject *newball = new ball;
+	newball->SetPosition( 10,20);
+	newball->id = 1;
+	ballList.push_back(newball);
+	OM->AddObject(newball);
+
+	newball = new ball;
+	newball->SetPosition(300,400);
+	newball->SetColour(0,1,0);
+	newball->radius = 100.f;
+	ballList.push_back(newball);
+	OM->AddObject(newball);
+
+	newball = new ball;
+	newball->SetPosition(100,100);
+	newball->SetColour(0,0,1);
+	newball->radius = 20.f;
+	ballList.push_back(newball);
+	OM->AddObject(newball);
+#endif
 	 mapOffset_x =  mapOffset_y=
 	 tileOffset_x =tileOffset_y=
 	 mapFineOffset_x= mapFineOffset_y=
@@ -219,8 +245,37 @@ bool myApplication::Init()
 
 bool myApplication::Update()
 {
-
-	
+	//use for debugging spatial partition inside myApplication
+#ifdef DEBUG_MODE
+	if(keyboard->myKeys['a'])
+	{
+		ballList[0]->SetVelocity(-5,0);
+	}
+	if(keyboard->myKeys['d'])
+	{
+		ballList[0]->SetVelocity(5,0);
+	}
+	if(keyboard->myKeys['w'])
+	{
+		ballList[0]->SetVelocity(0,-5);
+	}
+	if(keyboard->myKeys['s'])
+	{
+		ballList[0]->SetVelocity(0,5);
+	}
+	if(keyboard->myKeys['r'])
+	{
+		ballList[0]->radius *= 0.5;
+	}
+	if(keyboard->myKeys['t'])
+	{
+		ballList[0]->radius*=2;
+	}
+	if(keyboard->myKeys[VK_SPACE] == true)
+	{
+		ballList[0]->SetVelocity(0,0);
+	}
+#endif
 	if(!isMultiplayer)
 	{
 		if(keyboard->myKeys['a'])
@@ -522,15 +577,18 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			break;
 		case '6':
 			//MS->PrintSoundTrackList();
-			OM->PrintDebugAllInActiveObjects();
+			//OM->PrintDebugAllInActiveObjects();
+			
 			break;
 		case '7':
 			//std::cout<< testmale<<std::endl;
 			//testmale->PrintDebugInformation();
-			OM->PrintDebugAllActiveObjects();
+			//OM->PrintDebugAllActiveObjects();
+			OM->objectList[0]->UpdateObjectTopLeftAndBottomRightPoint(false);
 			break;
 		case '8':
-			OM->PrintDebugInformation();
+			//OM->PrintDebugInformation();
+			OM->objectList[0]->PrintDebugInformation();
 			break;
 		case '9':
 			MS->Exit();

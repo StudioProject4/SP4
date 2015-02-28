@@ -292,19 +292,19 @@ bool CMenuState::Update()
 		//}
 	if(keyboard->myKeys['a'])
 	{
-		ballList[0]->SetVelocity(-1,0);
+		ballList[0]->SetVelocity(-5,0);
 	}
 	if(keyboard->myKeys['d'])
 	{
-		ballList[0]->SetVelocity(1,0);
+		ballList[0]->SetVelocity(5,0);
 	}
 	if(keyboard->myKeys['w'])
 	{
-		ballList[0]->SetVelocity(0,-1);
+		ballList[0]->SetVelocity(0,-5);
 	}
 	if(keyboard->myKeys['s'])
 	{
-		ballList[0]->SetVelocity(0,1);
+		ballList[0]->SetVelocity(0,5);
 	}
 	if(keyboard->myKeys['r'])
 	{
@@ -314,30 +314,33 @@ bool CMenuState::Update()
 	{
 		ballList[0]->radius*=2;
 	}
-	if(keyboard->myKeys[VK_ESCAPE] == true)
-	{
-		exit(0);
-	}
 	if(keyboard->myKeys[VK_SPACE] == true)
 	{
 		ballList[0]->SetVelocity(0,0);
 	}
+	if(keyboard->myKeys[VK_ESCAPE] == true)
+	{
+		exit(0);
+	}
+
 	
 	//SP->UpdateObjects();
-	OM->SP->UpdateObjects();
+	
 
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
 		//std::cout<<"Update"<<std::endl;
+		OM->Update();
 		//SP->UpdateObjects();
-		for(unsigned short it = 0; it< ballList.size(); ++it)
-		{
-			//(*it)->Update();
-			OM->SP->UpdateObjectOwnerCell(ballList[it]);
+		//OM->SP->UpdateObjects();
+		//for(unsigned short it = 0; it< ballList.size(); ++it)
+		//{
+		//	//(*it)->Update();
+		//	OM->SP->UpdateObjectOwnerCell(ballList[it]);
 
-			//ballList[it]->UpdateCollision(ballList,it+1);
-		}
-		OM->UpdateGridTestBallCheckCall();
+		//	//ballList[it]->UpdateCollision(ballList,it+1);
+		//}
+		//OM->UpdateGridTestBallCheckCall();
 	}/*else
 	{
 		std::cout<<"NotUpdate"<<std::endl;
@@ -349,7 +352,7 @@ bool CMenuState::Update()
 bool CMenuState::Init()
 {
 	inited = true;
-
+	
 	name = "menu";
 	tag = "application";
 
@@ -360,14 +363,15 @@ bool CMenuState::Init()
 	WM = CWindowManager::GetInstance();
 	MS = CMusicSystem::GetInstance();
 	OM = new CObjectManager();
-
+	GSM = CGameStateManager::GetInstance();
+	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
 	ball * newball = nullptr;
 
 	newball = new ball;
 	newball->SetPosition( 10,20);
-	newball->id = 9;
+	newball->id = 1;
 	ballList.push_back(newball);
 
 	//newball = new ball;
@@ -376,10 +380,11 @@ bool CMenuState::Init()
 	//newball->id = 8;
 	//ballList.push_back(newball);
 
-	//newball = new ball;
-	//newball->SetPosition(30,60);
-	//newball->SetColour(1,0,0);
-	//ballList.push_back(newball);
+	newball = new ball;
+	newball->SetPosition(400,300);
+	newball->SetColour(0,1,0);
+	newball->radius = 100.f;
+	ballList.push_back(newball);
 
 	SP = new CSpatialPartion((short)WM->GetWindowWidth(),(short)WM->GetWindowHeight(),32,32);
 	OM->ChangeSpatialParition(SP);

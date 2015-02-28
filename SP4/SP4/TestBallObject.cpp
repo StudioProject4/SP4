@@ -21,8 +21,10 @@ CTestBallObject::CTestBallObject(void)
 	,velocityY(0.f)
 	,ownerCell(nullptr)
 	,cellvectorindex(-1)
+	,timecalled(0)
 {
 	name = "test balls";
+	genericTag = "Character";
 	phys.Init(Vector3(posX,posY),Vector3(radius,radius));
 
 }
@@ -88,8 +90,9 @@ void CTestBallObject::Move(float posx,float posy)
 bool CTestBallObject::Update()
 {
 	phys.size.Set(radius,radius);
-	TopLeft.Set(pos.x - phys.size.x,pos.y - phys.size.y);
-	BottomRight.Set(pos.x + phys.size.x,pos.y + phys.size.y);
+	this->UpdateObjectTopLeftAndBottomRightPoint(true);
+	//TopLeft.Set(pos.x - phys.size.x,pos.y - phys.size.y);
+	//BottomRight.Set(pos.x + phys.size.x,pos.y + phys.size.y);
 
 	this->pos.x += this->velocityX;
 	this->pos.y += this->velocityY;
