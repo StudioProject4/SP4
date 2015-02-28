@@ -1,11 +1,18 @@
 #include "SpatialPartion.h"
 #include "BaseObject.h"
 #include <iostream>
-using namespace std;
+//using namespace std;
 #include <GL\glut.h>
 #include "Sprite.h"
 
+
+
 //#define DEBUG_CODE
+
+static float myRoundFunc(float toRound)
+{
+  return std::ceil(toRound - 0.5);
+}
 
 CSpatialPartion::CSpatialPartion(short gridWidth,short gridHeight,short cellSizeX,short cellSizeY)
 		:gridWidth(gridWidth)
@@ -54,8 +61,8 @@ Cell* CSpatialPartion::GetCell(int indexX,int indexY)
 	// boundary check
 	if(indexX < 0) indexX = 0;
 	if(indexY < 0) indexY = 0;
-	if(indexX > numCellX) indexX = numCellX -1;
-	if(indexY > numCellY) indexY = numCellY -1;
+	if(indexX >= numCellX) indexX = numCellX -1;
+	if(indexY >= numCellY) indexY = numCellY -1;
 
 	return &cellList[ (indexY*numCellX) + indexX ];
 
@@ -79,29 +86,15 @@ void CSpatialPartion::RemoveObject(CBaseObject* a_obj)
 		//correct the swapped element to be the index of the object being swapped out.
 		cellofobject[indexoftheobject]->cellvectorindex = a_obj->cellvectorindex;
 	}
-	
-	////clean up the object
-	//a_obj->ownerCell = nullptr;
-	//a_obj->cellvectorindex = - 1;
 
 
-	//vector<ball*>& cellballs= a_obj->ownerCell->objectList;
-	//cellballs[a_obj->cellvectorindex] = cellballs.back();
-	//cellballs.pop_back();
-	//cout<<"removing obj vector index "<<a_obj->cellvectorindex<<endl;
-	//cout<<"cellballs.size() "<<a_obj->ownerCell->objectList.size()<<endl;
-	//if(a_obj->cellvectorindex < cellballs.size())
-	//{
-	//	cout<<"Swapping index: "<<cellballs[a_obj->cellvectorindex]->cellvectorindex<<"With "<< a_obj->cellvectorindex<<endl;
-	//	cellballs[a_obj->cellvectorindex]->cellvectorindex = a_obj->cellvectorindex;
-	//}else
-	//{
-	//	cout<< "invalid cell vector index "<<endl;
-	//}
-	//cout<< "passed through "<<endl;
-	//a_obj->cellvectorindex = -1;
-	//a_obj->ownerCell = nullptr;
+
+
+
+
 }
+
+
 
 //add object into a known cell;
 
@@ -110,6 +103,21 @@ void CSpatialPartion::AddObject(CBaseObject* a_obj,Cell* knownCell)
 	knownCell->objectList.push_back(a_obj);
 	a_obj->ownerCell = knownCell;
 	a_obj->cellvectorindex = knownCell->objectList.size()-1;
+
+	//short cellx = 0;
+	//short celly = 0;
+	//cellx = (((short)((a_obj)->TopLeft.x/this->cellSizeX)));
+	//celly = (((short)((a_obj)->TopLeft.y/this->cellSizeY)));
+
+	//(a_obj)->TopLeftCellIndex.Set(cellx,celly);
+
+	//cellx = (((short)((a_obj)->BottomRight.x/this->cellSizeX)));
+	//celly = (((short)((a_obj)->BottomRight.y/this->cellSizeY)));
+	//(a_obj)->BottomRightCellIndex.Set(cellx,celly);
+
+	//std::vector<Vector3> celltomodify;
+	
+	
 
 #ifdef DEBUG_CODE
 	bool stopLeft = false;
@@ -260,6 +268,102 @@ void CSpatialPartion::Update()
 	//	}
 	//}
 }
+std::vector<Cell*> CSpatialPartion::GetObjectStretchedCells(CBaseObject* a_obj)
+{
+	std::vector<Cell*> CellStretchedAcrossed;
+
+	for(int y = a_obj->TopLeftCellIndex.y; y <=a_obj->BottomRightCellIndex.y;   ++y)//because the screen is flipped so it is revesed/
+	{
+		//cout<<"Looping through"<<y<<std::endl;
+		for(int x = a_obj->TopLeftCellIndex.x; x <=a_obj->BottomRightCellIndex.x;++x)
+		{
+			//std::cout<<"Index X:"<<x<<" Index Y: "<<y<<std::endl;
+			CellStretchedAcrossed.push_back(GetCell(x,y));
+			//std::cout<<"Adding "<<temp<<std::endl;
+			//indexOfCellStretchedAcrossed.push_back(temp);
+		
+		}
+	}
+	return CellStretchedAcrossed;
+	//std::cout<<std::endl;
+	//std::cout<<std::endl;
+	//for(unsigned short i = 0 ; i<indexOfCellStretchedAcrossed.size();++i)
+	//{
+	//	std::cout<<indexOfCellStretchedAcrossed[i]<<std::endl;
+	//}
+	//a_obj->celltomodify.clear();
+	//a_obj->celltomodify = celltomodify;
+}
+void CSpatialPartion::UpdateObjectTopLeftAndBottomRightCell(CBaseObject* a_obj)
+{
+	short cellx = 0;
+	short celly = 0;
+	cellx = (((short)((a_obj)->TopLeft.x/this->cellSizeX)));
+	celly = (((short)((a_obj)->TopLeft.y/this->cellSizeY)));
+
+	(a_obj)->TopLeftCellIndex.Set(cellx,celly);
+
+	cellx = (((short)((a_obj)->BottomRight.x/this->cellSizeX)));
+	celly = (((short)((a_obj)->BottomRight.y/this->cellSizeY)));
+	(a_obj)->BottomRightCellIndex.Set(cellx,celly);
+}
+
+void CSpatialPartion::AddObjectNeo(CBaseObject* a_obj,Cell* theCell,bool duplicateCheck)
+{
+	if(duplicateCheck)
+	{
+		for(unsigned short i = 0 ; theCell->objectListNeo.size();++i)
+		{
+			if(theCell->objectListNeo[i] == a_obj)
+			{
+				return;
+			}
+		}
+	}
+
+	theCell->objectListNeo.push_back(a_obj);
+}
+
+void CSpatialPartion::RemoveObjectNeo(CBaseObject* a_obj,Cell* theCell)
+{
+	for(unsigned short i = 0 ; theCell->objectListNeo.size();++i)
+	{
+		if(theCell->objectListNeo[i] == a_obj)
+		{
+			theCell->objectListNeo[i] = theCell->objectListNeo.back();
+			theCell->objectListNeo.pop_back();
+			break;
+		}
+	}
+}
+
+void CSpatialPartion::UpdateOwnerCellNeo(CBaseObject* a_obj,Cell* theCell)
+{
+	
+}
+
+void CSpatialPartion::UpdateObjectStretchedCells(CBaseObject* a_obj)
+{
+	std::vector<Cell*>& newCells =GetObjectStretchedCells(a_obj);
+
+	if(a_obj->ownerCellNeo != newCells)
+	{
+
+		for(unsigned short i = 0 ; i<a_obj->ownerCellNeo.size();++i)//remove old links
+		{
+			RemoveObjectNeo(a_obj,a_obj->ownerCellNeo[i]);
+		}
+
+		a_obj->ownerCellNeo = newCells;//swap to new ones.
+
+		for(unsigned short j = 0 ; j<a_obj->ownerCellNeo.size();++j)//add new links
+		{
+			AddObjectNeo(a_obj,a_obj->ownerCellNeo[j],false);
+		}
+
+	}
+
+}
 
 void CSpatialPartion::UpdateObjects()
 {
@@ -270,6 +374,9 @@ void CSpatialPartion::UpdateObjects()
 			for(TObjectVector::iterator it2 = (*it).objectList.begin(); it2 !=(*it).objectList.end(); ++it2)
 			{
 				(*it2)->Update();
+
+				UpdateObjectTopLeftAndBottomRightCell(*it2);		
+				UpdateObjectStretchedCells(*it2);
 			}
 		}
 	}
@@ -283,7 +390,9 @@ void CSpatialPartion::RenderObjects()
 		{
 			for(TObjectVector::iterator it2 = (*it).objectList.begin(); it2 !=(*it).objectList.end(); ++it2)
 			{
+				
 				(*it2)->Render();
+				
 			}
 		}
 	}
@@ -399,3 +508,4 @@ void CSpatialPartion::PrintDebugInformation()
 		}
 	}
 }
+

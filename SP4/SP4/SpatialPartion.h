@@ -27,6 +27,7 @@ class Cell
 {
 public:
 	TObjectVector objectList;
+	TObjectVector objectListNeo;//for testing
 	bool deleteAllObjectUponDestruction;
 public:
 	Cell()
@@ -39,7 +40,13 @@ public:
 			CleanUp();
 		}
 	};
-
+	void PrintDebugInformation()
+	{
+		for(TObjectVector::iterator it = objectListNeo.begin(); it!= objectListNeo.end(); ++it)
+		{
+			(*it)->PrintDebugInformation();
+		}
+	};
 	bool CleanUp()
 	{
 		for(TObjectVector::iterator it = objectList.begin(); it!= objectList.end(); ++it)
@@ -56,6 +63,21 @@ public:
 	};
 };
 
+struct SIndex2D
+{
+	short x;
+	short y;
+	SIndex2D()
+		:x(-1)
+		,y(-1)
+	{};
+
+	friend std::ostream& operator<<( std::ostream& os, SIndex2D& rhs)
+	{
+		os << "[ " << rhs.x << ", " << rhs.y << " ]";
+		return os;
+	};
+};
 
 class CSpatialPartion
 {
@@ -110,5 +132,15 @@ public:
 	}
 	//print information
 	void PrintDebugInformation();
+
+	/////////////////////////////////////////
+	//new function for big object in many grid
+	void UpdateObjectTopLeftAndBottomRightCell(CBaseObject* a_obj);
+	void UpdateObjectStretchedCells(CBaseObject* a_obj);
+	std::vector<Cell*> GetObjectStretchedCells(CBaseObject* a_obj);
+	void AddObjectNeo(CBaseObject* a_obj,Cell* theCell,bool duplicateCheck = true);
+	void RemoveObjectNeo(CBaseObject* a_obj,Cell* theCell);
+	void UpdateOwnerCellNeo(CBaseObject* a_obj,Cell* theCell);
+	//////////////////////////////////////////
 };
 

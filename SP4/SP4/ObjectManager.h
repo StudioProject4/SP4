@@ -7,6 +7,7 @@
 #include "ManufactureManager.h"
 
 class CSpatialPartion;
+class CTestBallObject;
 
 class CObjectManager :
 	public CEntity
@@ -31,7 +32,7 @@ public:
 	bool Init();
 	bool Reset();
 	bool CleanUp();
-	void CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex);
+	void CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex = 0);
 	void CheckObjectCollision(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex);
 	void UpdateCollision();
 	void AddObject(CBaseObject* a_obj);
@@ -49,5 +50,10 @@ public:
 	void PrintDebugAllActiveObjects();
 	void PrintDebugAllInActiveObjects();
 	void PrintDebugInformation();
+	bool ChangeSpatialParition(CSpatialPartion* newSP);
+
+	///new function for new spatial partition
+	void UpdateGridTestBallCheckCall();
+	void UpdateGridCheckCall();
 };
 

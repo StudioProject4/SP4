@@ -59,7 +59,7 @@ void CMenuState::Render2D()
 {
 	
 	
-	SP->RenderGrid();
+	//SP->RenderGrid();
 	//SP->RenderSquare(400,300,100,100);
 	//SP->RenderSquare(300,300,100,100);
 	//SP->RenderSquare(200,300,100,100);
@@ -68,7 +68,11 @@ void CMenuState::Render2D()
 	{
 		(*it)->Render();
 	}*/
-	SP->RenderObjects();
+	//SP->RenderObjects();
+
+	OM->SP->RenderGrid();
+	OM->SP->RenderObjects();
+
 	FRM->drawFPS();
 }
 
@@ -141,22 +145,60 @@ void CMenuState::KeyboardDown(unsigned char key, int x, int y)
 			SP->PrintDebugInformation();
 			break;
 		case '5':
-			this->ballList[0]->SetVelocity(1,0);
+			this->ballList[0]->SetVelocity(10,0);
 			break;
 		case '6':
-			this->ballList[0]->SetVelocity(-1,0);
+			this->ballList[0]->SetVelocity(-10,0);
 			break;
 		case '7':
-			this->ballList[0]->SetVelocity(0,1);
+			this->ballList[0]->SetVelocity(0,10);
 			break;
 		case '8':
-			this->ballList[0]->SetVelocity(0,-1);
+			this->ballList[0]->SetVelocity(0,-10);
 			break;
 		case '9':
-			this->ballList[0]->SetVelocity(0,0);
+			std::cout<<std::endl;
+			std::cout<<"Ball pos"<<ballList[0]->pos<<std::endl;
+			std::cout<<"Ball Top Left Point"<<ballList[0]->TopLeft<<std::endl;
+			std::cout<<"Ball Bottom Right Point"<<ballList[0]->BottomRight<<std::endl;
+			std::cout<<"Ball Top Left Cell Index"<<ballList[0]->TopLeftCellIndex<<std::endl;
+			std::cout<<"Ball Bottom Right Cell Index"<<ballList[0]->BottomRightCellIndex<<std::endl;
+			//this->ballList[0]->SetVelocity(0,0);
 			break;
-		case 'a':
-			std::cout<<ballList[0]->pos<<std::endl;
+		case 'o':
+			//SP->AddObjectNeo(ballList[0],&SP->cellList[4]);
+			//for(short i = 0 ; i <SP->cellList[4].objectListNeo.size();++i)
+			//{
+			//	SP->cellList[4].objectListNeo[i]->PrintDebugInformation();
+			//}
+
+			//std::cout<<ballList[0]->ownerCellNeo.size()<<std::endl;
+			std::cout<<std::endl;
+			std::cout<<SP->GetCell(0,0)->objectListNeo.size()<<std::endl;
+			std::cout<<SP->GetCell(1,0)->objectListNeo.size()<<std::endl;
+			std::cout<<SP->GetCell(0,1)->objectListNeo.size()<<std::endl;
+			std::cout<<SP->GetCell(1,1)->objectListNeo.size()<<std::endl;
+			break;
+		case 'c':
+			system("cls");
+			break;
+		case 'p':
+			for(short i = 0 ; i<ballList[0]->ownerCellNeo.size();++i)
+			{
+				std::cout<<ballList[0]->ownerCellNeo[i]<<std::endl;
+			}
+			break;
+		case 'v':
+			SP->GetCell(0,0)->PrintDebugInformation();
+			break;
+		case 'b':
+			SP->GetCell(1,0)->PrintDebugInformation();
+			break;
+		case 'n':
+			SP->GetCell(0,1)->PrintDebugInformation();
+			break;
+		case 'm':
+			SP->GetCell(1,1)->PrintDebugInformation();
 			break;
 	}
 }
@@ -248,22 +290,58 @@ bool CMenuState::Update()
 		//{
 		//	CGameStateManager::GetInstance()->ChangeState(myApplication::GetInstance());
 		//}
-	SP->UpdateObjects();
-
+	if(keyboard->myKeys['a'])
+	{
+		ballList[0]->SetVelocity(-1,0);
+	}
+	if(keyboard->myKeys['d'])
+	{
+		ballList[0]->SetVelocity(1,0);
+	}
+	if(keyboard->myKeys['w'])
+	{
+		ballList[0]->SetVelocity(0,-1);
+	}
+	if(keyboard->myKeys['s'])
+	{
+		ballList[0]->SetVelocity(0,1);
+	}
+	if(keyboard->myKeys['r'])
+	{
+		ballList[0]->radius *= 0.5;
+	}
+	if(keyboard->myKeys['t'])
+	{
+		ballList[0]->radius*=2;
+	}
 	if(keyboard->myKeys[VK_ESCAPE] == true)
 	{
 		exit(0);
 	}
+	if(keyboard->myKeys[VK_SPACE] == true)
+	{
+		ballList[0]->SetVelocity(0,0);
+	}
+	
+	//SP->UpdateObjects();
+	OM->SP->UpdateObjects();
 
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
-		for(TBallVector::iterator it = ballList.begin(); it!= ballList.end(); ++it)
+		//std::cout<<"Update"<<std::endl;
+		//SP->UpdateObjects();
+		for(unsigned short it = 0; it< ballList.size(); ++it)
 		{
-			(*it)->Update();
-			SP->UpdateObjectOwnerCell((*it));
+			//(*it)->Update();
+			OM->SP->UpdateObjectOwnerCell(ballList[it]);
+
+			//ballList[it]->UpdateCollision(ballList,it+1);
 		}
-		//SP->Update();
-	}
+		OM->UpdateGridTestBallCheckCall();
+	}/*else
+	{
+		std::cout<<"NotUpdate"<<std::endl;
+	}*/
 
 	return true;
 }
@@ -289,23 +367,26 @@ bool CMenuState::Init()
 
 	newball = new ball;
 	newball->SetPosition( 10,20);
+	newball->id = 9;
 	ballList.push_back(newball);
 
-	newball = new ball;
-	newball->SetPosition( 20,40);
-	newball->SetColour(1,1,1);
-	ballList.push_back(newball);
+	//newball = new ball;
+	//newball->SetPosition( 50,20);
+	//newball->SetColour(1,1,1);
+	//newball->id = 8;
+	//ballList.push_back(newball);
 
-	newball = new ball;
-	newball->SetPosition(30,60);
-	newball->SetColour(1,0,0);
-	ballList.push_back(newball);
+	//newball = new ball;
+	//newball->SetPosition(30,60);
+	//newball->SetColour(1,0,0);
+	//ballList.push_back(newball);
 
-	SP = new CSpatialPartion((short)WM->GetWindowWidth(),(short)WM->GetWindowHeight(),200,150);
-	
+	SP = new CSpatialPartion((short)WM->GetWindowWidth(),(short)WM->GetWindowHeight(),32,32);
+	OM->ChangeSpatialParition(SP);
 	for(short i2 = 0; i2<ballList.size();++i2)
 	{
-		SP->AddObject(ballList[i2]);
+		OM->AddObject(ballList[i2]);
+		//SP->AddObject(ballList[i2]);
 	}
 	//for(short i = 0 ; i<2000;++i)
 	//{
