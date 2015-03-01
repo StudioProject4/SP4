@@ -23,7 +23,8 @@ CTestBallObject::CTestBallObject(void)
 	,cellvectorindex(-1)
 	,timecalled(0)
 {
-	name = "test balls";
+	name = "ball";
+	tag = "testball";
 	genericTag = "Character";
 	phys.Init(Vector3(posX,posY),Vector3(radius,radius));
 
@@ -37,12 +38,13 @@ CTestBallObject::~CTestBallObject(void)
 
 bool CTestBallObject::Render()
 {
+
 	glPushMatrix();
 	glTranslatef(pos.x,pos.y,0);
 	glColor3f(colour_red,colour_green,colour_blue);
 	glBegin( GL_POLYGON ); // OR GL_LINE_LOOP
 		for( float angle = 0; angle < 2*Math::PI; angle += delta_theta )
-		glVertex3f( radius*cos(angle), radius*sin(angle), 0 );
+		glVertex3f( phys.size.x*cos(angle), phys.size.y*sin(angle), 0 );
 	glEnd();
 	glPopMatrix();
 	//phys.Update(pos);
@@ -89,7 +91,7 @@ void CTestBallObject::Move(float posx,float posy)
 
 bool CTestBallObject::Update()
 {
-	phys.size.Set(radius,radius);
+	//phys.size.Set(radius,radius);
 	this->UpdateObjectTopLeftAndBottomRightPoint(true);
 	//TopLeft.Set(pos.x - phys.size.x,pos.y - phys.size.y);
 	//BottomRight.Set(pos.x + phys.size.x,pos.y + phys.size.y);

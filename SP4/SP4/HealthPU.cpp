@@ -37,6 +37,7 @@ bool CHealthPU::Init()
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
+
 	return true;
 }
 
@@ -62,7 +63,7 @@ bool CHealthPU::OnCollision2(CBaseObject* a_obj)
 			}else
 			if(this->active == false)
 			{
-				//std::cout << "taken" << std::endl;
+				std::cout << "taken" << std::endl;
 			}
 
 		}

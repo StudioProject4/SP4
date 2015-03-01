@@ -167,25 +167,25 @@ void CMenuState::KeyboardDown(unsigned char key, int x, int y)
 			break;
 		case 'o':
 			//SP->AddObjectNeo(ballList[0],&SP->cellList[4]);
-			//for(short i = 0 ; i <SP->cellList[4].objectListNeo.size();++i)
+			//for(short i = 0 ; i <SP->cellList[4].objectList.size();++i)
 			//{
-			//	SP->cellList[4].objectListNeo[i]->PrintDebugInformation();
+			//	SP->cellList[4].objectList[i]->PrintDebugInformation();
 			//}
 
-			//std::cout<<ballList[0]->ownerCellNeo.size()<<std::endl;
+			//std::cout<<ballList[0]->ownerCellList.size()<<std::endl;
 			std::cout<<std::endl;
-			std::cout<<SP->GetCell(0,0)->objectListNeo.size()<<std::endl;
-			std::cout<<SP->GetCell(1,0)->objectListNeo.size()<<std::endl;
-			std::cout<<SP->GetCell(0,1)->objectListNeo.size()<<std::endl;
-			std::cout<<SP->GetCell(1,1)->objectListNeo.size()<<std::endl;
+			std::cout<<SP->GetCell(0,0)->objectList.size()<<std::endl;
+			std::cout<<SP->GetCell(1,0)->objectList.size()<<std::endl;
+			std::cout<<SP->GetCell(0,1)->objectList.size()<<std::endl;
+			std::cout<<SP->GetCell(1,1)->objectList.size()<<std::endl;
 			break;
 		case 'c':
 			system("cls");
 			break;
 		case 'p':
-			for(short i = 0 ; i<ballList[0]->ownerCellNeo.size();++i)
+			for(short i = 0 ; i<ballList[0]->ownerCellList.size();++i)
 			{
-				std::cout<<ballList[0]->ownerCellNeo[i]<<std::endl;
+				std::cout<<ballList[0]->ownerCellList[i]<<std::endl;
 			}
 			break;
 		case 'v':

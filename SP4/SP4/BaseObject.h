@@ -8,32 +8,7 @@
 class CSprite;
 class Cell;
 
-//class CSpatialPartion;
-//
-//struct SIndex2D
-//{
-//	short x;
-//	short y;
-//	SIndex2D()
-//		:x(-1)
-//		,y(-1)
-//	{};
-//};
-//class CIndexContainer
-//{
-//public: 
-//	friend CSpatialPartion;
-//public:
-//	std::vector<SIndex2D> indexOfCellsStretchedAcrossed;
-//
-//	CIndexContainer()
-//	{};
-//
-//	std::vector<Cell*> GetCellsStretchedAcrossed()
-//	{
-//
-//	};
-//};
+#include "CodeDefination.h"
 
 class CBaseObject:public CEntity
 {
@@ -42,25 +17,24 @@ public:
 	bool active;
 	Vector3 pos;
 	Vector3 dir;
+
+	CSprite * theSprite;
 	short cellvectorindex;
 	Cell* ownerCell;
-	CSprite * theSprite;
 
 
-	//for testing spatial partition of big object in multple cell
+#ifdef SP_V2
 	Vector3 TopLeft;
 	Vector3 BottomRight;
 	Vector3 TopLeftCellIndex;
 	Vector3 BottomRightCellIndex;
-	std::vector<Cell*> ownerCellNeo;
-	std::vector<Vector3>celltomodify;
-	short cellVectorIndexNeo;
-	//std::vector<CIndexContainer> listOfCellsScretchAcross;
+	std::vector<Cell*> ownerCellList;
+#endif
+
 public:
 	CBaseObject()
 		:active(true)
 		,cellvectorindex(-1)
-		,cellVectorIndexNeo(-1)
 	{};
 	virtual ~CBaseObject(){};
 	
