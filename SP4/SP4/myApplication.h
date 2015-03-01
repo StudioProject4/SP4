@@ -14,6 +14,10 @@
 #include "Mouse.h"
 #include "Keyboard.h"
 #include "LuaManager.h"
+#include "ObjectManager.h"
+
+#include "KeeYangTestState.h"
+#include "KennardTestState.h"
 
 #include "DatatypeDefination.h"
 #include "GameStateManager.h"

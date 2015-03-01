@@ -1,8 +1,6 @@
 #pragma once
 #include "Entity.h"
 
-#include "ObjectManager.h"
-
 class CGameStateManager;
 class CFrameRateManager;
 class CLuaManager;
@@ -10,6 +8,7 @@ class CMouse;
 class CKeyboard;
 class CWindowManager;
 class CMusicSystem;
+class CObjectManager;
 
 class CGameState:public CEntity
 {

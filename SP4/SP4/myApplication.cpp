@@ -357,10 +357,6 @@ bool myApplication::Update()
 		
 		}
 	}
-		if(keyboard->myKeys[VK_ESCAPE] == true)
-		{
-			exit(0);
-		}
 		if(keyboard->myKeys['j'] == true)
 		{
 			playerTwo->MoveLeft();
@@ -375,8 +371,7 @@ bool myApplication::Update()
 		}
 		if(keyboard->myKeys[VK_ESCAPE] == true)
 		{
-			exit(0);
-			//GSM->PopAndCleanLastState();
+			GSM->ExitApplication();
 		}
 		if(keyboard->myKeys['k'] == true)
 		{
@@ -607,7 +602,7 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			OM->PrintDebugAllActiveObjects();
 			break;
 		case '9':
-			MS->Exit();
+			//GSM->GoBackToPreviousState();
 			break;
 		case 'c':
 			system("cls");
