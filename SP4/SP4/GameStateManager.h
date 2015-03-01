@@ -6,6 +6,15 @@ class CGameState;
 class CGameStateManager
 {
 public:
+	enum EGameStateType
+	{
+		STATE_NONE,
+		STATE_MYAPPLICATION,
+		STATE_MENU,
+		STATE_TOTAL
+	};
+	EGameStateType currentState;
+
 	static CGameStateManager* instance;
 private:
 	std::stack<CGameState*> gamestatestack;

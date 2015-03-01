@@ -40,11 +40,13 @@ class CAStarPathFinding
 	void ChooseAPath();
 	float DistanceToEnd(node checkingNode); //heuristic
 	void FindPath(); // find the best path, the "main"
+	void AddInPath(int index);
+	int CheckForPath();
 
 	typedef std :: vector<node> TNodeVector;
 	std :: vector<node> closeList; // tile to not consider
 	std :: vector<node> openList; // tile to consider
-	std :: vector<node> correctPath; // comfirmed path
+	std :: vector<node> notCorrectPath; // wrong path
 };
 
 class CAILogic

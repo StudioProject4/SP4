@@ -390,9 +390,7 @@ bool CMap::LoadFile(const string mapName)
 							//call factory to create a power up at this pos
 							temph = CManufactureManager::GetInstance()->CreatePowerUpRecovery();
 							temph->pos = this->lookupIndex(theColumnCounter-1,theLineCounter);
-
 							temph->Init();
-
 							OM->AddObject(temph);					
 
 							break;

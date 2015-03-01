@@ -38,7 +38,7 @@ bool CInvinciblePU::Init()
 	theSprite->LoadTGA("Invincible.tga");
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
-
+	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 	return true;
 }
 

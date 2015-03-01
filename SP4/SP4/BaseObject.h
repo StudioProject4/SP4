@@ -4,9 +4,36 @@
 #include "Vector3.h"
 #include "Entity.h"
 #include "Physics.h"
-
+#include <vector>
 class CSprite;
 class Cell;
+
+//class CSpatialPartion;
+//
+//struct SIndex2D
+//{
+//	short x;
+//	short y;
+//	SIndex2D()
+//		:x(-1)
+//		,y(-1)
+//	{};
+//};
+//class CIndexContainer
+//{
+//public: 
+//	friend CSpatialPartion;
+//public:
+//	std::vector<SIndex2D> indexOfCellsStretchedAcrossed;
+//
+//	CIndexContainer()
+//	{};
+//
+//	std::vector<Cell*> GetCellsStretchedAcrossed()
+//	{
+//
+//	};
+//};
 
 class CBaseObject:public CEntity
 {
@@ -18,10 +45,22 @@ public:
 	short cellvectorindex;
 	Cell* ownerCell;
 	CSprite * theSprite;
+
+
+	//for testing spatial partition of big object in multple cell
+	Vector3 TopLeft;
+	Vector3 BottomRight;
+	Vector3 TopLeftCellIndex;
+	Vector3 BottomRightCellIndex;
+	std::vector<Cell*> ownerCellNeo;
+	std::vector<Vector3>celltomodify;
+	short cellVectorIndexNeo;
+	//std::vector<CIndexContainer> listOfCellsScretchAcross;
 public:
 	CBaseObject()
 		:active(true)
 		,cellvectorindex(-1)
+		,cellVectorIndexNeo(-1)
 	{};
 	virtual ~CBaseObject(){};
 	
@@ -32,6 +71,18 @@ public:
 	virtual bool Init() = 0;
 	virtual bool Reset()= 0;
 	virtual bool CleanUp() = 0;
+	virtual void UpdateObjectTopLeftAndBottomRightPoint(bool sizeOfObjectIsInRadius)
+	{
+		if(sizeOfObjectIsInRadius)
+		{
+			TopLeft.Set(pos.x - phys.size.x,pos.y - phys.size.y);
+			BottomRight.Set(pos.x + phys.size.x,pos.y + phys.size.y);
+		}else
+		{
+			TopLeft.Set(pos.x - phys.size.x *0.5,pos.y - phys.size.y*0.5);
+			BottomRight.Set(pos.x + phys.size.x*0.5,pos.y + phys.size.y*0.5);
+		}
+	};
 };
 
 

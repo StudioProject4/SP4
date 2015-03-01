@@ -5,8 +5,12 @@
 #include <vector>
 
 #include "ManufactureManager.h"
+//#include "SpatialPartion.h"
+
+#include "CodeDefination.h"
 
 class CSpatialPartion;
+class CTestBallObject;
 
 class CObjectManager :
 	public CEntity
@@ -31,6 +35,7 @@ public:
 	bool Init();
 	bool Reset();
 	bool CleanUp();
+	void CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex = 0);
 	void CheckObjectCollision(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex);
 	void UpdateCollision();
 	void AddObject(CBaseObject* a_obj);
@@ -45,6 +50,14 @@ public:
 	CBaseObject* FetchObjectWithName(std::string objectName);
 	CBaseObject* FetchObjectWithTag(std::string objectTag);
 	CBaseObject* FetchObjectWithGenericTag(std::string objectTag);
+
+	bool ChangeSpatialParition(CSpatialPartion* newSP);
+
+#ifdef SP_V2
+	void UpdateGridTestBallCheckCall();
+	void UpdateGridCheckCall();
+#endif
+
 	void PrintDebugAllActiveObjects();
 	void PrintDebugAllInActiveObjects();
 	void PrintDebugInformation();

@@ -36,7 +36,7 @@ bool CJumpPU::Init()
 	theSprite->LoadTGA("Jump.tga");
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
-
+	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 	return true;
 }
 

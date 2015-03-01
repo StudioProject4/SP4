@@ -43,6 +43,7 @@ bool CPointsAddPU::Init()
 	theSprite->LoadTGA("PointsAdd.tga");
 
 	phys.Init(pos, Vector3(theSprite->GetImageSizeX(), theSprite->GetImageSizeY()));
+	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 	pts = CPointSystem::GetInstance();
 
 	return true;

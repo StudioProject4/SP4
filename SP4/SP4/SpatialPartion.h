@@ -4,29 +4,17 @@
 
 #include <vector>
 
+#include "CodeDefination.h"
+
 class CBaseObject;
 
 typedef std::vector<CBaseObject*> TObjectVector;
-
-//class CCell
-//{
-//public:
-//	TBallVector objectList;
-//public:
-//	CCell(){};
-//	~CCell(){};
-//};
-//struct container2D
-//{
-//	short x;
-//	short y;
-//};
-
 
 class Cell
 {
 public:
 	TObjectVector objectList;
+	TObjectVector objectListNeo;//for testing
 	bool deleteAllObjectUponDestruction;
 public:
 	Cell()
@@ -39,7 +27,13 @@ public:
 			CleanUp();
 		}
 	};
-
+	void PrintDebugInformation()
+	{
+		for(TObjectVector::iterator it = objectListNeo.begin(); it!= objectListNeo.end(); ++it)
+		{
+			(*it)->PrintDebugInformation();
+		}
+	};
 	bool CleanUp()
 	{
 		for(TObjectVector::iterator it = objectList.begin(); it!= objectList.end(); ++it)
@@ -81,9 +75,7 @@ public:
 	//Get cell based on grid index
 	Cell* GetCell(int indexX,int indexY);
 
-	////Calculate cell index
-	//container2D& GetCellIndex(Cell* a_cell);
-
+#ifdef SP_V1
 	//Remove object from a cell;
 	void RemoveObject(CBaseObject* a_obj);
 
@@ -92,22 +84,33 @@ public:
 
 	//add object into a calculated cell;
 	void AddObject(CBaseObject* a_obj);
+#endif
 
-	//render the grid for debug
-	void RenderGrid();
-	void RenderSquare(float posX,float posY, float sizeX,float sizeY,bool drawBoundery = true);
-
-	void Update();
 	//void UpdateCell();
 	void UpdateObjectOwnerCell(CBaseObject* a_obj);
 
+	//can ignore these and call from outside
 	void UpdateObjects();
 	void RenderObjects();
+	///////////////////////////////////////
 
 	void NotifyAllObjectsAlreadyDeletedOutside()
 	{
 		objectAllDeletedOutside = true;
 	}
+
+#ifdef SP_V2
+	void UpdateObjectTopLeftAndBottomRightCell(CBaseObject* a_obj);
+	void UpdateObjectStretchedCells(CBaseObject* a_obj);
+	std::vector<Cell*> GetObjectStretchedCells(CBaseObject* a_obj);
+	void AddObjectNeo(CBaseObject* a_obj,Cell* theCell,bool duplicateCheck = true);
+	void AddObjectNeo(CBaseObject* a_obj);
+	void RemoveObjectNeo(CBaseObject* a_obj,Cell* theCell);
+#endif
+
+	//rendering for debug
+	void RenderGrid();
+	void RenderSquare(float posX,float posY, float sizeX,float sizeY,bool drawBoundery = true);
 	//print information
 	void PrintDebugInformation();
 };

@@ -21,11 +21,11 @@ print("Finish lua global variable")
 
 print("initing obstacle variable")
 LEVER_POS_X = 600
-LEVER_POS_Y = 568
+LEVER_POS_Y = 520
 LEVER_SIZE_X = 5
-LEVER_SIZE_Y = 50
+LEVER_SIZE_Y = 80
 DOOR_POS_X = 400
-DOOR_POS_Y = 568
+DOOR_POS_Y = 540
 DOOR_SIZE_X = 32
 DOOR_SIZE_Y = 32
 print("Finish obstacle variable")

@@ -31,6 +31,7 @@ bool CChineseMob :: Init()
 	theSprite->LoadTGA("tenri.tga");
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
+	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 
 	return true;
 }

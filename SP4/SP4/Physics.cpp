@@ -109,7 +109,7 @@ Vector3 CPhysics::Update(Vector3 pos)
 			int temp=getTile(pos+Vector3(0,size.y*0.5,0)+vel*delta);
 			vel.y=0;
 			inAir=false;
-			//pos.y=(float)(((int)(pos.y/TILE_SIZE))*TILE_SIZE)+TILE_SIZE*0.495;//casted to int to remove the remainder then back to float
+			pos.y=(float)(((int)(pos.y/TILE_SIZE))*TILE_SIZE)+TILE_SIZE*0.495;//casted to int to remove the remainder then back to float
 		}
 		else
 		{

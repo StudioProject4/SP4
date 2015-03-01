@@ -16,12 +16,13 @@ CDoor::~CDoor(void)
 bool CDoor::Init(Vector3 pos,Vector3 size)
 {
 	tag= "CDoor";
+	genericTag = "CObstacleBase";
 	name = "door";
 
 	this->pos=pos;
 	theSprite=new CSprite(1);
 	this->phys.size=Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY());
-	
+	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 	triggered=false;
 
 	return true;
@@ -29,7 +30,7 @@ bool CDoor::Init(Vector3 pos,Vector3 size)
 
 bool CDoor::Render()
 {
-	if(active)
+	if(active&&!triggered)
 	{
 		glPushMatrix();
 		glTranslatef(pos.x,pos.y,pos.z);
@@ -67,11 +68,11 @@ void CDoor::TriggerEvent()
 {
 	if(triggered)
 	{
-		active=false;
+		//active=false;
 	}
 	else
 	{
-		active=true;
+		//active=true;
 	}
 }
 
@@ -82,8 +83,7 @@ bool CDoor::Update()
 
 bool CDoor::OnCollision(CBaseObject* obj)
 {
-	std::cout<<"door collieded"<<std::endl;
-	if(active)
+	if(active&&!triggered)
 		obj->phys.vel.x=0;
 	return false;
 }

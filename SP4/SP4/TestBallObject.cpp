@@ -21,9 +21,12 @@ CTestBallObject::CTestBallObject(void)
 	,velocityY(0.f)
 	,ownerCell(nullptr)
 	,cellvectorindex(-1)
+	,timecalled(0)
 {
+	name = "test balls";
+	genericTag = "Character";
 	phys.Init(Vector3(posX,posY),Vector3(radius,radius));
-	
+
 }
 
 
@@ -42,7 +45,33 @@ bool CTestBallObject::Render()
 		glVertex3f( radius*cos(angle), radius*sin(angle), 0 );
 	glEnd();
 	glPopMatrix();
-	phys.Update(Vector3(posX,posY));
+	//phys.Update(pos);
+
+
+	//glPushMatrix();
+	//glBegin(GL_LINE_STRIP);
+	//glVertex2f((pos.x - (radius)),(pos.y + (radius)));//top left
+	//glVertex2f((pos.x + (radius)),(pos.y + (radius)));//top right
+	//glVertex2f((pos.x + (radius)),(pos.y - (radius)));//bottom right
+	//glVertex2f((pos.x - (radius)),(pos.y - (radius))); //bottom left
+	//glVertex2f((pos.x - (radius)),(pos.y + (radius)));//top left
+	//
+	//glEnd();
+	//glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(1,1,1);
+	glBegin(GL_LINE_STRIP);
+	glVertex2f(TopLeft.x,TopLeft.y);//top left
+	glVertex2f(BottomRight.x,TopLeft.y);//top right
+	glVertex2f(BottomRight.x,BottomRight.y);//bottom right
+	glVertex2f(TopLeft.x,BottomRight.y); //bottom left
+	glVertex2f(TopLeft.x,TopLeft.y);//top left
+	
+	glEnd();
+	glPopMatrix();
+
+
 	return true;
 }
 void CTestBallObject::SetVelocity(float x,float y)
@@ -60,6 +89,11 @@ void CTestBallObject::Move(float posx,float posy)
 
 bool CTestBallObject::Update()
 {
+	phys.size.Set(radius,radius);
+	this->UpdateObjectTopLeftAndBottomRightPoint(true);
+	//TopLeft.Set(pos.x - phys.size.x,pos.y - phys.size.y);
+	//BottomRight.Set(pos.x + phys.size.x,pos.y + phys.size.y);
+
 	this->pos.x += this->velocityX;
 	this->pos.y += this->velocityY;
 	return true;
@@ -82,5 +116,9 @@ void CTestBallObject::SetColour(float red,float green,float blue)
 
 void CTestBallObject::PrintDebugInformation()
 {
-	cout<<"PosX: "<<posX<<" PosY: "<<posY<<endl;
+	std::cout<<" pos"<<pos<<std::endl;
+	std::cout<<" Top Left Point"<<TopLeft<<std::endl;
+	std::cout<<" Bottom Right Point"<<BottomRight<<std::endl;
+	std::cout<<" Top Left Cell Index"<<TopLeftCellIndex<<std::endl;
+	std::cout<<" Bottom Right Cell Index"<<BottomRightCellIndex<<std::endl;
 }

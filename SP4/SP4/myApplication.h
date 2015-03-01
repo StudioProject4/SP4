@@ -138,5 +138,8 @@ private:
 	
 	//bool LoadTGA(TextureImage *texture,const char *filename);
 	//bool LoadTGA(TextureImage *texture,char *filename);
+
+	typedef std::vector<ball*> TBallVector;
+	TBallVector ballList;
 };
 
