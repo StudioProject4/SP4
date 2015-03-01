@@ -30,15 +30,18 @@ public:
 	//static CObjectManager* GetInstance();
 	CObjectManager(void);
 	~CObjectManager(void);
+
 	bool Render();
 	bool Update();
 	bool Init();
 	bool Reset();
 	bool CleanUp();
+
 	void CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex = 0);
 	void CheckObjectCollision(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex);
 	void UpdateCollision();
 	void AddObject(CBaseObject* a_obj);
+
 	CBaseObject* FindObjectWithName(std::string objectName);
 	CBaseObject* FindObjectWithTag(std::string objectTag);
 	CBaseObject* FindObjectWithGenericTag(std::string objectTag);
@@ -46,7 +49,7 @@ public:
 	TObjectListVector FindObjectsWithTag(std::string objectTag);
 	TObjectListVector FindObjectsWithGenericTag(std::string objectTag);
 
-	CBaseObject* FetchObject();
+	//CBaseObject* FetchObject();
 	CBaseObject* FetchObjectWithName(std::string objectName);
 	CBaseObject* FetchObjectWithTag(std::string objectTag);
 	CBaseObject* FetchObjectWithGenericTag(std::string objectTag);
@@ -61,5 +64,18 @@ public:
 	void PrintDebugAllActiveObjects();
 	void PrintDebugAllInActiveObjects();
 	void PrintDebugInformation();
+
+	inline void AddToInActiveList(CBaseObject* a_obj)
+	{ 
+		a_obj->active = false;
+		this->inactiveObjectList.push_back(a_obj);
+	};
+
+	inline void AddToActiveList(CBaseObject* a_obj)
+	{
+		a_obj->active = true;
+		this->objectList.push_back(a_obj);
+	};
+
 };
 

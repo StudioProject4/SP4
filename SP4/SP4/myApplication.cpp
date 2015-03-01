@@ -195,19 +195,19 @@ bool myApplication::Init()
 	ballList.push_back(newball);
 	OM->AddObject(newball);
 
-	newball = new ball;
-	newball->SetPosition(300,400);
-	newball->SetColour(0,1,0);
-	newball->radius = 100.f;
-	ballList.push_back(newball);
-	OM->AddObject(newball);
+	//newball = new ball;
+	//newball->SetPosition(300,400);
+	//newball->SetColour(0,1,0);
+	//newball->radius = 100.f;
+	//ballList.push_back(newball);
+	//OM->AddObject(newball);
 
-	newball = new ball;
-	newball->SetPosition(100,100);
-	newball->SetColour(0,0,1);
-	newball->radius = 20.f;
-	ballList.push_back(newball);
-	OM->AddObject(newball);
+	//newball = new ball;
+	//newball->SetPosition(100,100);
+	//newball->SetColour(0,0,1);
+	//newball->radius = 20.f;
+	//ballList.push_back(newball);
+	//OM->AddObject(newball);
 #endif
 	 mapOffset_x =  mapOffset_y=
 	 tileOffset_x =tileOffset_y=
@@ -246,6 +246,7 @@ bool myApplication::Init()
 bool myApplication::Update()
 {
 	//use for debugging spatial partition inside myApplication
+
 #ifdef DEBUG_MODE
 	if(keyboard->myKeys['a'])
 	{
@@ -276,6 +277,7 @@ bool myApplication::Update()
 		ballList[0]->SetVelocity(0,0);
 	}
 #endif
+
 	if(!isMultiplayer)
 	{
 		if(keyboard->myKeys['a'])
@@ -538,6 +540,7 @@ void myApplication::InputKey(int key, int x, int y)
 void myApplication::KeyboardDown(unsigned char key, int x, int y)
 {
 	keyboard->myKeys[key] = true;
+	CBaseObject* temp = nullptr;
 
 	switch(key)
 	{
@@ -549,8 +552,18 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//std::cout<<MS->currentSoundTrack<<std::endl;
 			//MS->FetchSound()->PrintDebugInformation();
 			//MS->PlaySoundPoolTrack2D("sound1.mp3");
-			std::cout<<WM->GetWindowRatioDifferenceX()<<std::endl;
-			std::cout<<WM->GetWindowRatioDifferenceY()<<std::endl;
+			//std::cout<<WM->GetWindowRatioDifferenceX()<<std::endl;
+			//std::cout<<WM->GetWindowRatioDifferenceY()<<std::endl;
+			
+			temp = OM->FetchObjectWithName("ball");
+			std::cout<<temp<<std::endl;
+			if(temp)
+			{
+				temp->phys.size.Set(100,100);
+			}else
+			{
+				std::cout<<"nothing came out"<<std::endl;
+			}
 		break;
 
 		case '2':
@@ -559,8 +572,10 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//MS->PlayBgmTrack("bgm2.mp3");
 			//MS->PlaySoundTrack(1);
 			//std::cout<<MS->currentSoundTrack<<std::endl;
-			MS->PlaySoundPoolTrack2D("sound2.mp3");
-			
+			//MS->PlaySoundPoolTrack2D("sound2.mp3");
+			//ballList[0]->active = false;
+			temp = OM->FindObjectWithName("ball");
+			temp->active = false;
 		break;
 		
 		case '3':
@@ -584,14 +599,18 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//std::cout<< testmale<<std::endl;
 			//testmale->PrintDebugInformation();
 			//OM->PrintDebugAllActiveObjects();
-			OM->objectList[0]->UpdateObjectTopLeftAndBottomRightPoint(false);
+			//OM->objectList[0]->UpdateObjectTopLeftAndBottomRightPoint(false);
+			OM->PrintDebugAllInActiveObjects();
 			break;
 		case '8':
 			//OM->PrintDebugInformation();
-			OM->objectList[0]->PrintDebugInformation();
+			OM->PrintDebugAllActiveObjects();
 			break;
 		case '9':
 			MS->Exit();
+			break;
+		case 'c':
+			system("cls");
 			break;
 	}
 }
