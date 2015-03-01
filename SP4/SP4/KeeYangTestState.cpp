@@ -214,6 +214,7 @@ void CKeeYangTestState::KeyboardDown(unsigned char key, int x, int y)
 			break;
 		case 'b':
 			//SP->GetCell(1,0)->PrintDebugInformation();
+			GSM->ExitApplication();
 			break;
 		case 'n':
 			//SP->GetCell(0,1)->PrintDebugInformation();

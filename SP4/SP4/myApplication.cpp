@@ -1,7 +1,12 @@
+#include "CodeDefination.h"
+
+#ifdef NETWORK_CODE
 #include "RakNet\WindowsIncludes.h"
 #include "RakNet\RakPeerInterface.h"
 #include "RakNet\BitStream.h"
 #include "MyMsgIDs.h"
+using namespace RakNet;
+#endif
 
 #include "myApplication.h"
 #include "ManufactureManager.h"
@@ -9,12 +14,14 @@
 #include "Door.h"
 #include "PowerUpFactory.h"
 #include <mmsystem.h>
-using namespace RakNet;
+
 myApplication* myApplication::instance = NULL;
 
 myApplication::myApplication(void)
 	: Map(NULL)
+#ifdef NETWORK_CODE
 	,rakpeer_(RakPeerInterface::GetInstance())
+#endif
 {
 	//Init();
 }
@@ -29,49 +36,42 @@ myApplication* myApplication::GetInstance()
 
 myApplication::~myApplication(void)
 {
+#ifdef NETWORK_CODE
 	rakpeer_->Shutdown(100);
 	RakPeerInterface::DestroyInstance(rakpeer_);
+#endif
 }
 
 char** myApplication::argv=NULL;
 
 bool myApplication::CleanUp()
 {
-	MS->Exit();
 
 	if(Map != NULL)
 	{
 		delete Map;
 		Map = NULL;
-	}
-
-	if(instance != NULL)
-	{
-		Release();
-		instance = NULL;
-	}
-	return true;
-	if(playerOne != NULL)
-	{
-		delete playerOne;
-		playerOne = NULL;
-	}
-	if(playerTwo != NULL)
-	{
-		delete playerTwo;
-		playerTwo - NULL;
-	}
-	if(theAIOne != NULL)
-	{
-		delete theAIOne;
-		theAIOne = NULL;
-	}
-	if(theAITwo != NULL)
-	{
-		delete theAITwo;
-		theAITwo = NULL;
-	}
-	CMusicSystem::GetInstance()->Exit();
+	}	
+	//if(playerOne != NULL)
+	//{
+	//	delete playerOne;
+	//	playerOne = NULL;
+	//}
+	//if(playerTwo != NULL)
+	//{
+	//	delete playerTwo;
+	//	playerTwo - NULL;
+	//}
+	//if(theAIOne != NULL)
+	//{
+	//	delete theAIOne;
+	//	theAIOne = NULL;
+	//}
+	//if(theAITwo != NULL)
+	//{
+	//	delete theAITwo;
+	//	theAITwo = NULL;
+	//}
 	if(instance != NULL)
 	{
 		Release();
@@ -89,11 +89,8 @@ bool myApplication::Reset()
 bool myApplication::Init()
 {
 	inited = true;
-	//for(unsigned short i = 0; i<255; ++i)
-	//{
-	//	myKeys[i] = false;
-	//}
-	
+
+#ifdef NETWORK_CODE
 	std::ifstream inData;	
 	std::string serverip;
 
@@ -113,7 +110,7 @@ bool myApplication::Init()
 			//return false;
 		}
 	}
-	//*/
+#endif
 	tag = "application";
 	name = "myApplication";
 	
@@ -221,11 +218,11 @@ bool myApplication::Init()
 	theAIOne->phys.map=Map;
 	theAITwo->phys.map=Map;
 
-
+#ifdef NETWORK_CODE
 	isMultiplayer = false;
-	
-	charControl=3;
+		charControl=3;
 
+#endif
 
 	//Map->RunMap();
 
@@ -270,36 +267,7 @@ bool myApplication::Update()
 	}
 #endif
 
-		if(keyboard->myKeys['a'])
-		{
-			ballList[0]->SetVelocity(-5,0);
-		}
-		if(keyboard->myKeys['d'])
-		{
-			ballList[0]->SetVelocity(5,0);
-		}
-		if(keyboard->myKeys['w'])
-		{
-			ballList[0]->SetVelocity(0,-5);
-		}
-		if(keyboard->myKeys['s'])
-		{
-			ballList[0]->SetVelocity(0,5);
-		}
-		if(keyboard->myKeys['r'])
-		{
-			ballList[0]->radius *= 0.5;
-		}
-		if(keyboard->myKeys['t'])
-		{
-			ballList[0]->radius*=2;
-		}
-		if(keyboard->myKeys[VK_SPACE] == true)
-		{
-			ballList[0]->SetVelocity(0,0);
-		}
-	#endif
-
+#ifdef NETWORK_CODE
 	if (Packet* packet = rakpeer_->Receive())
 	{
 		RakNet::BitStream bs(packet->data, packet->length, false);
@@ -563,24 +531,26 @@ bool myApplication::Update()
 			velChanged=false;
 		}
 	}
-		if(keyboard->myKeys[VK_ESCAPE] == true)
-		{
-			exit(0);
-		}
+#endif
+
 		if(keyboard->myKeys[VK_ESCAPE] == true)
 		{
 			GSM->ExitApplication();
 		}
 		
-	if(FRM->UpdateAndCheckTimeThreehold())
-	{
-		theAIOne->AI.SetEnemyPos(playerOne->pos);
-		//theAIOne->Update();
-		theAITwo->AI.SetEnemyPos(playerTwo->pos);
-		//theAITwo->Update();
+		if(FRM->UpdateAndCheckTimeThreehold())
+		{
+			theAIOne->AI.SetEnemyPos(playerOne->pos);
+			//theAIOne->Update();
+			theAITwo->AI.SetEnemyPos(playerTwo->pos);
+			//theAITwo->Update();
+			OM->Update();
 		
-	}
+		}
+
+#ifdef NETWORK_CODE
 	OM->Update(charControl);
+#endif
 
 	Map->RunMap();
 		
@@ -652,9 +622,11 @@ void myApplication::Render2D()
 	RenderBackground();
 	RenderTileMap();
 
+#ifdef DEBUG_CODE
 	//uncomment this to render the spatial partition grid
 	this->OM->SP->RenderGrid();
-	
+#endif
+
 	OM->Render();
 	FRM->drawFPS();
 }
@@ -896,6 +868,7 @@ void myApplication::SetHUD(bool m_bHUDmode)
 	}
 };
 
+#ifdef NETWORK_CODE
 void myApplication::startupServer(LPCTSTR lpApplicationName)
 {
 	// additional information
@@ -924,3 +897,4 @@ void myApplication::closeServer()
 	CloseHandle( pi.hProcess );
 	CloseHandle( pi.hThread );
 }
+#endif

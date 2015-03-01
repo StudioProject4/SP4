@@ -485,7 +485,7 @@ void CObjectManager::PrintDebugInformation()
 	std::cout<<"InActive object List size"<<inactiveObjectList.size()<<std::endl;
 	SP->PrintDebugInformation();
 }
-
+#ifdef NETWORK_CODE
 void CObjectManager::WriteAllObjects(RakNet::BitStream &bs)
 {
 	bs.Write(objectList.size());
@@ -532,7 +532,7 @@ void CObjectManager::WriteAllObjects(RakNet::BitStream &bs)
 		}
 	}
 }
-
+#endif
 #ifdef SP_V2
 void CObjectManager::UpdateGridCheckCall()
 {

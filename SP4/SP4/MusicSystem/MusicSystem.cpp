@@ -780,8 +780,10 @@ bool CMusicSystem::Init()
 
 bool CMusicSystem::CleanUp()
 {
+	
 	if(engine)
 	{
+		//std::cout<<"cleaning"<<std::endl;
 		engine->stopAllSounds();
 
 		TAudioMap::iterator it;
@@ -837,8 +839,9 @@ bool CMusicSystem::Release()
 {
 	if(engine)
 	{
+		//std::cout<<"releasing"<<std::endl;
 		engine->drop();
-		engine = 0;
+		engine = nullptr;
 		delete this;
 
 		return true;
@@ -852,6 +855,7 @@ bool CMusicSystem::Exit()
 	{
 		if(CleanUp() && Release())
 		{
+			engine = nullptr;
 			return true;
 		}
 	}

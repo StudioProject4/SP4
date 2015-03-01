@@ -34,9 +34,6 @@
     <Filter Include="Helper\RandomGenerator">
       <UniqueIdentifier>{38787029-4425-4412-ab33-f318a693dede}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Helper\MusicSystem">
-      <UniqueIdentifier>{aec95703-e1d5-4055-864c-dfeef01700c4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Character">
       <UniqueIdentifier>{067bc28f-dbf4-4ee3-8e88-78fa346dfd50}</UniqueIdentifier>
     </Filter>
@@ -71,7 +68,10 @@
       <UniqueIdentifier>{c1b4cbf5-5455-4673-aaf1-d5af491ae23d}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameStates">
-      <UniqueIdentifier>{0a054e9b-009f-44f7-b1c8-fd1e8a4ad41a}</UniqueIdentifier>
+      <UniqueIdentifier>{817e96d1-ac1c-4bd2-b955-5cd82106ac26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MusicSystem">
+      <UniqueIdentifier>{aec95703-e1d5-4055-864c-dfeef01700c4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,7 +115,10 @@
       <Filter>Helper\RenderHelper</Filter>
     </ClCompile>
     <ClCompile Include="MusicSystem\MusicSystem.cpp">
-      <Filter>Helper\MusicSystem</Filter>
+      <Filter>MusicSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Helper\RenderHelper</Filter>
     </ClCompile>
     <ClCompile Include="HealthSystem.cpp">
       <Filter>Source Files</Filter>
@@ -264,8 +267,8 @@
     <ClCompile Include="WindowManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KennardTestState.cpp">
-      <Filter>GameStates</Filter>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameState.cpp">
       <Filter>GameStates</Filter>
@@ -273,16 +276,14 @@
     <ClCompile Include="GameStateManager.cpp">
       <Filter>GameStates</Filter>
     </ClCompile>
-    <ClCompile Include="MenuState.cpp">
-      <Filter>GameStates</Filter>
-    </ClCompile>
     <ClCompile Include="KeeYangTestState.cpp">
       <Filter>GameStates</Filter>
-    <ClCompile Include="Character.cpp">
-      <Filter>Character</Filter>
     </ClCompile>
-    <ClCompile Include="BaseObject.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="KennardTestState.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>GameStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -362,10 +363,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MusicSystem\Audio.h">
-      <Filter>Helper\MusicSystem</Filter>
+      <Filter>MusicSystem</Filter>
     </ClInclude>
     <ClInclude Include="MusicSystem\MusicSystem.h">
-      <Filter>Helper\MusicSystem</Filter>
+      <Filter>MusicSystem</Filter>
     </ClInclude>
     <ClInclude Include="HealthSystem.h">
       <Filter>Header Files</Filter>
@@ -463,10 +464,16 @@
     <ClInclude Include="CodeDefination.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LeverDoor.h">
+      <Filter>Obstacle</Filter>
+    </ClInclude>
     <ClInclude Include="GameState.h">
       <Filter>GameStates</Filter>
     </ClInclude>
     <ClInclude Include="GameStateManager.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="KeeYangTestState.h">
       <Filter>GameStates</Filter>
     </ClInclude>
     <ClInclude Include="KennardTestState.h">
@@ -474,11 +481,6 @@
     </ClInclude>
     <ClInclude Include="MenuState.h">
       <Filter>GameStates</Filter>
-    </ClInclude>
-    <ClInclude Include="KeeYangTestState.h">
-      <Filter>GameStates</Filter>
-    <ClInclude Include="LeverDoor.h">
-      <Filter>Obstacle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

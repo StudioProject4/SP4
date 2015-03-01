@@ -1,5 +1,11 @@
 #pragma once
+
+#include "CodeDefination.h"
+
+#ifdef NETWORK_CODE
 #include "RakNet\BitStream.h"
+#endif
+
 #include "BaseObject.h"
 
 #include <queue>
@@ -7,8 +13,6 @@
 
 #include "ManufactureManager.h"
 //#include "SpatialPartion.h"
-
-#include "CodeDefination.h"
 
 class CSpatialPartion;
 class CTestBallObject;
@@ -44,7 +48,9 @@ public:
 	void UpdateCollision();
 	void AddObject(CBaseObject* a_obj);
 
+#ifdef NETWORK_CODE
 	void WriteAllObjects(RakNet::BitStream &bs);
+#endif
 
 	CBaseObject* FindObjectWithName(std::string objectName);
 	CBaseObject* FindObjectWithTag(std::string objectTag);

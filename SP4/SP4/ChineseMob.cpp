@@ -1,7 +1,12 @@
+#include "CodeDefination.h"
+
+#ifdef NETWORK_CODE
 #include "RakNet\WindowsIncludes.h"
 #include "RakNet\RakPeerInterface.h"
 #include "RakNet\BitStream.h"
 #include "MyMsgIDs.h"
+#endif
+
 #include "ChineseMob.h"
 #include "Character.h"
 
@@ -60,6 +65,7 @@ bool CChineseMob :: Render()
 
 bool CChineseMob :: OnCollision2(CBaseObject* a_obj)
 {
+#ifdef NETWORK_CODE
 	if(a_obj->genericTag = "Character")
 	{
 		if(a_obj->tag = "MalayFemale")
@@ -76,6 +82,7 @@ bool CChineseMob :: OnCollision2(CBaseObject* a_obj)
 			RakNet::RakPeerInterface::GetInstance()->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,RakNet::UNASSIGNED_SYSTEM_ADDRESS,true);
 		}
 	}
+#endif
 	return true;
 }
 

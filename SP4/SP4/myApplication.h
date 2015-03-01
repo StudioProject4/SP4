@@ -1,6 +1,10 @@
+
+#include "CodeDefination.h"
+#ifdef NETWORK_CODE
 #include "RakNet\WindowsIncludes.h"
 #include "RakNet\BitStream.h"
 #include "RakNet\RakPeerInterface.h"
+#endif
 
 #pragma once
 
@@ -84,9 +88,10 @@ public:
 	void Render3D();
 	void RenderScene();
 
+#ifdef NETWORK_CODE
 	void startupServer(LPCTSTR lpApplicationName);
 	void closeServer(void);
-
+#endif
 	//CFrameRateManager* FRM;
 	//CLuaManager* LM;
 	//CMouse* mouse;
@@ -117,6 +122,11 @@ private:
 	
 	int Scr;
 
+#ifdef NETWORK_CODE
+	STARTUPINFO si;     
+	PROCESS_INFORMATION pi;
+	RakNet::RakPeerInterface* rakpeer_;
+
 	//multiplayer stuff
 	bool isMultiplayer;
 	
@@ -128,6 +138,8 @@ private:
 	int control;
 
 	//end of multiplayer stuff
+
+#endif
 
 	//Imagee
 	TextureImage BackgroundTexture[2];
@@ -144,9 +156,6 @@ private:
 	void RenderTileMap();
 	void RenderBackground();
 	
-	STARTUPINFO si;     
-	PROCESS_INFORMATION pi;
-	RakNet::RakPeerInterface* rakpeer_;
 
 	//void printw (float x, float y, float z, char* format, ...);
 	//void calculateFPS();

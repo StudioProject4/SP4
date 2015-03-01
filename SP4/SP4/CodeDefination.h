@@ -7,3 +7,5 @@
 #ifndef SP_V2
 #define SP_V1
 #endif
+
+//#define NETWORK_CODE
