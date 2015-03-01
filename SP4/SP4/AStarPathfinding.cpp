@@ -67,11 +67,11 @@ void CAStarPathFinding :: SetUpPath(Vector3 startPosition,Vector3 endPosition)
 		{
 			for(int j = 0 ; j < this->maxHorizontalTile ; j++)
 			{
-				if((startPosition.x > (tempMap[i][j].x - TILE_SIZE)) && (startPosition.x < (tempMap[i][j].x + TILE_SIZE)) && (startPosition.y > (tempMap[i][j].y - TILE_SIZE)) && (startPosition.y < (tempMap[i][j].y + TILE_SIZE)))
+				if((startPosition.x > (tempMap[i][j].x - TILE_SIZE/2)) && (startPosition.x < (tempMap[i][j].x + TILE_SIZE/2)) && (startPosition.y > (tempMap[i][j].y - TILE_SIZE/2)) && (startPosition.y < (tempMap[i][j].y + TILE_SIZE/2)))
 				{
 					start = tempMap[i][j];
 				}
-				if((endPosition.x >  (tempMap[i][j].x - TILE_SIZE)) && (endPosition.x < (tempMap[i][j].x + TILE_SIZE)) && (endPosition.y > (tempMap[i][j].y - TILE_SIZE)) && (endPosition.y < (tempMap[i][j].y + TILE_SIZE)))
+				if((endPosition.x >  (tempMap[i][j].x - TILE_SIZE/2)) && (endPosition.x < (tempMap[i][j].x + TILE_SIZE/2)) && (endPosition.y > (tempMap[i][j].y - TILE_SIZE/2)) && (endPosition.y < (tempMap[i][j].y + TILE_SIZE/2)))
 				{
 					end = tempMap[i][j];
 				}
@@ -219,12 +219,8 @@ void CAStarPathFinding :: FindPath()
 			if(currentNode.index != end.index && searchAttempts < 2)
 			{
 				notCorrectPath = closeList;
-				/*for(it = closeList.begin(); it!= closeList.end();++it)
-				{
-					if(it->index != start.index)
-					closeList.erase(it);
-				}*/
 				closeList.clear();
+				closeList.push_back(start);
 				searchAttempts ++;
 				searchCounter = 0;
 				currentNode = start;
@@ -305,7 +301,7 @@ int CAStarPathFinding :: CheckForPath()
 {
 	std :: vector<node> ::iterator it;
 
-	int nodeIndex;
+	int nodeIndex = 0;
 
 	for(it = openList.begin(); it!= openList.end();++it)
 	{

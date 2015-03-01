@@ -17,8 +17,8 @@ bool CChineseMob :: Update()
 {	
 	dir = AI.GetDir();
 	//pos.x = 
-	AI.Update(pos,phys).x;
-	pos = phys.Update(pos);
+	pos = AI.Update(pos,phys);
+	//pos = phys.Update(pos);
 	return true;
 }
 bool CChineseMob :: Init()
