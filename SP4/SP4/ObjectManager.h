@@ -1,4 +1,5 @@
 #pragma once
+#include "RakNet\BitStream.h"
 #include "BaseObject.h"
 
 #include <queue>
@@ -31,6 +32,7 @@ public:
 	CObjectManager(void);
 	~CObjectManager(void);
 	bool Render();
+	bool Update(int multiplayerMode);
 	bool Update();
 	bool Init();
 	bool Reset();
@@ -39,6 +41,7 @@ public:
 	void CheckObjectCollision(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex);
 	void UpdateCollision();
 	void AddObject(CBaseObject* a_obj);
+	void WriteAllObjects(RakNet::BitStream &bs);
 	CBaseObject* FindObjectWithName(std::string objectName);
 	CBaseObject* FindObjectWithTag(std::string objectTag);
 	CBaseObject* FindObjectWithGenericTag(std::string objectTag);

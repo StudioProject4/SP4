@@ -126,9 +126,6 @@
     <ClCompile Include="MusicSystem\MusicSystem.cpp">
       <Filter>Helper\MusicSystem</Filter>
     </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Helper\RenderHelper</Filter>
-    </ClCompile>
     <ClCompile Include="HealthSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -276,6 +273,12 @@
     <ClCompile Include="WindowManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Character</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myApplication.h">
@@ -377,9 +380,6 @@
     <ClInclude Include="PointSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LeverDoor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TestBallObject.h">
       <Filter>ObjectManagement\SpatialPartition</Filter>
     </ClInclude>
@@ -469,6 +469,9 @@
     </ClInclude>
     <ClInclude Include="CodeDefination.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LeverDoor.h">
+      <Filter>Obstacle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

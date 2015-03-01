@@ -1,5 +1,7 @@
-
+#include "RakNet\WindowsIncludes.h"
+#include "RakNet\BitStream.h"
 #include "RakNet\RakPeerInterface.h"
+
 #pragma once
 
 
@@ -111,8 +113,18 @@ private:
 	
 	int Scr;
 
+	//multiplayer stuff
 	bool isMultiplayer;
 	
+	short charControl;//1: player 1,2: player 2,3: both players
+
+	bool velChanged;
+
+	//something to control who sends what
+	int control;
+
+	//end of multiplayer stuff
+
 	//Imagee
 	TextureImage BackgroundTexture[2];
 	TextureImage TileMapTexture[50];
