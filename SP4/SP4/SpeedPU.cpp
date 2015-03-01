@@ -41,7 +41,7 @@ bool CSpeedPU::Init()
 	return true;
 }
 
-bool CSpeedPU::OnCollision(CBaseObject* a_obj)
+bool CSpeedPU::OnCollision2(CBaseObject* a_obj)
 {
 
 	if(a_obj->genericTag = "Character")

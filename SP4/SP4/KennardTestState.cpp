@@ -9,6 +9,8 @@
 #include "LuaManager.h"
 #include "Mouse.h"
 #include "FrameRateManager.h"
+#include "ObjectManager.h"
+#include "GameStateManager.h"
 
 KennardTestState::KennardTestState(void):
 map(new CObjectManager())
@@ -31,6 +33,17 @@ void KennardTestState::KeyboardDown(unsigned char key,int x,int y)
 	{
 		keyboard->myKeys[key] = true;
 		keyboard->myKeysUp[key]=false;
+	}
+	switch(key)
+	{
+		case 'n':
+			//SP->GetCell(0,1)->PrintDebugInformation();
+			GSM->GoBackLastState();
+			break;
+		case 'm':
+			//SP->GetCell(1,1)->PrintDebugInformation();
+			GSM->GoToPreviousState();
+			break;
 	}
 }
 
@@ -192,6 +205,10 @@ void KennardTestState::RenderScene(void)
 
 bool KennardTestState::Update()
 {
+	if(keyboard->myKeys[VK_ESCAPE] == true)
+	{
+		CGameStateManager::GetInstance()->ExitApplication();
+	}
 	if(keyboard->myKeys[' '])
 	{
 		keyboard->myKeys[' ']=false;
@@ -237,7 +254,8 @@ bool KennardTestState::Update()
 		theLever.curAngle++;
 		cout<<theLever.curAngle<<"\n";
 	}
-	
+
+
 	test.Update();
 	
 	theLever.Update();
@@ -253,12 +271,14 @@ bool KennardTestState::Update()
 bool KennardTestState::Init()
 {
 	inited=true;
+	name = "kennardTestState";
 	//getting instance of managers
 	FRM = CFrameRateManager::GetInstance();
 	LM = CLuaManager::GetInstance();
 	mouse = CMouse::GetInstance();
 	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
+	GSM = CGameStateManager::GetInstance();
 	test.Init();
 	test.pos=Vector3(300,300,0);
 	test.phys.Init(test.pos,Vector3(50,50,0));

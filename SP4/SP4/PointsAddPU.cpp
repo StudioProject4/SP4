@@ -49,7 +49,7 @@ bool CPointsAddPU::Init()
 	return true;
 }
 
-bool CPointsAddPU::OnCollision(CBaseObject* a_obj)
+bool CPointsAddPU::OnCollision2(CBaseObject* a_obj)
 {
 	std::cout<<"points collieded"<<std::endl;
 	if(a_obj->genericTag = "Character")
@@ -67,7 +67,7 @@ bool CPointsAddPU::OnCollision(CBaseObject* a_obj)
 			//std::cout << "Ptsfalse" << std::endl;
 		}
 	}
-	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
+	//phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
 	return true;
 
 }

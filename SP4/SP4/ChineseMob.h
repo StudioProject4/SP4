@@ -15,7 +15,7 @@ class CChineseMob : public CBaseObject
 		bool CleanUp();
 		bool Render();
 
-		bool OnCollision(CBaseObject* a_obj);
+		bool OnCollision2(CBaseObject* a_obj);
 
 		void SetPos(Vector3 newPos);
 		void SetUpMap(CMap theMap);

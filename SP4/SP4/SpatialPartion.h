@@ -14,7 +14,6 @@ class Cell
 {
 public:
 	TObjectVector objectList;
-	TObjectVector objectListNeo;//for testing
 	bool deleteAllObjectUponDestruction;
 public:
 	Cell()
@@ -29,7 +28,7 @@ public:
 	};
 	void PrintDebugInformation()
 	{
-		for(TObjectVector::iterator it = objectListNeo.begin(); it!= objectListNeo.end(); ++it)
+		for(TObjectVector::iterator it = objectList.begin(); it!= objectList.end(); ++it)
 		{
 			(*it)->PrintDebugInformation();
 		}
@@ -101,8 +100,8 @@ public:
 
 #ifdef SP_V2
 	void UpdateObjectTopLeftAndBottomRightCell(CBaseObject* a_obj);
-	void UpdateObjectStretchedCells(CBaseObject* a_obj);
-	std::vector<Cell*> GetObjectStretchedCells(CBaseObject* a_obj);
+	void UpdateObjectMultipleCells(CBaseObject* a_obj);
+	std::vector<Cell*> GetObjectMultipleCells(CBaseObject* a_obj);
 	void AddObjectNeo(CBaseObject* a_obj,Cell* theCell,bool duplicateCheck = true);
 	void AddObjectNeo(CBaseObject* a_obj);
 	void RemoveObjectNeo(CBaseObject* a_obj,Cell* theCell);

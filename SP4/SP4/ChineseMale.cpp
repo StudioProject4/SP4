@@ -71,7 +71,7 @@ bool CChineseMale :: CleanUp()
 {
 	return true;
 }
-bool CChineseMale :: OnCollision(CBaseObject* a_obj)
+bool CChineseMale :: OnCollision2(CBaseObject* a_obj)
 {
 	//if(a_obj->genericTag = "Character")
 	//{

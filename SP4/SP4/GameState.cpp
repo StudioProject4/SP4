@@ -1,6 +1,5 @@
 #include "GameState.h"
 
-
 CGameState::CGameState(void)
 	:inited(false)
 	,GSM(0)
