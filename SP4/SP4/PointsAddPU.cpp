@@ -66,7 +66,7 @@ bool CPointsAddPU::OnCollision(CBaseObject* a_obj)
 			//std::cout << "Ptsfalse" << std::endl;
 		}
 	}
-	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
+	//phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
 	return true;
 
 }
