@@ -5,6 +5,9 @@
 #include "Sprite.h"
 #include "TestBallObject.h"
 #include "GameStateManager.h"
+#include "Character.h"
+#include "LeverDoor.h"
+#include "Door.h"
 
 //CObjectManager* CObjectManager::instance = 0;
 
@@ -35,10 +38,15 @@ void CObjectManager::AddObject(CBaseObject* a_obj)
 #ifdef SP_V2
 	SP->AddObjectNeo(a_obj);
 #endif
-	
-	++numOfUniqueId;
-	a_obj->id = numOfUniqueId;
-
+	if(numOfUniqueId>a_obj->id||a_obj->id==0)
+	{
+		++numOfUniqueId;
+		a_obj->id = numOfUniqueId;
+	}
+	else
+	{
+		numOfUniqueId=a_obj->id;
+	}
 }
 bool CObjectManager::Render()
 {
@@ -163,7 +171,29 @@ void CObjectManager::UpdateCollision()
 
 bool CObjectManager::Update()
 {
-	UpdateCollision();
+	return Update(3);
+}
+
+bool CObjectManager::Update(int multiplayerMode)
+{
+	//for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
+	//{
+	//	if( (*it)->active == true)
+	//	{
+	//		(*it)->Update();
+	//	
+	//		//(*it)->Render();
+	//	}else
+	//	{
+	//		inactiveObjectList.push_back((*it));
+	//		//objectList.erase(it);
+	//		//using swapping method to delete element.
+	//		((*it)) = objectList.back();
+	//		objectList.pop_back();
+	//	}
+	//}
+	if(multiplayerMode==1||multiplayerMode==3)//either controls first player or all players
+		UpdateCollision();
 
 	for(unsigned short it = 0; it < objectList.size(); ++it)
 	{
@@ -455,6 +485,54 @@ void CObjectManager::PrintDebugInformation()
 	std::cout<<"InActive object List size"<<inactiveObjectList.size()<<std::endl;
 	SP->PrintDebugInformation();
 }
+
+void CObjectManager::WriteAllObjects(RakNet::BitStream &bs)
+{
+	bs.Write(objectList.size());
+	for(TObjectListVector::iterator it=objectList.begin();it!=objectList.end();++it)
+	{
+		CBaseObject* temp=*it;
+		//basic info
+		bs.Write(temp->genericTag);
+		bs.Write(temp->tag);
+		bs.Write(temp->id);
+		bs.Write(temp->pos.x);
+		bs.Write(temp->pos.y);
+		bs.Write(temp->pos.z);
+
+		//more specific info
+		if(temp->genericTag=="Character")
+		{
+			CCharacter* temp2=(CCharacter*)temp;
+			bs.Write(temp2->hp.GetHealth());
+		}
+		else if(temp->genericTag=="PowerUp")
+		{
+
+		}
+		else if(temp->tag=="CLeverDoor")
+		{
+			CLeverDoor* temp2=(CLeverDoor*)temp;
+			bs.Write(temp2->curAngle);
+			bs.Write(temp2->GetDoorID());
+		}
+		else if(temp->tag=="CDoor")
+		{
+			CDoor* temp2=(CDoor*)temp;
+			vector<int> temp3=temp2->GetTriggerID();
+			bs.Write(temp3.size());
+			for(vector<int>::iterator it=temp3.begin();it!=temp3.end();++it)
+			{
+				bs.Write(*it);
+			}
+		}
+		else if(temp->genericTag=="Enemy")
+		{
+
+		}
+	}
+}
+
 #ifdef SP_V2
 void CObjectManager::UpdateGridCheckCall()
 {

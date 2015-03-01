@@ -11,11 +11,11 @@
 using namespace std;
 
 ServerApp::ServerApp() : 
-	rakpeer_(RakPeerInterface::GetInstance()),
-	newID(0)
+	rakpeer_(RakPeerInterface::GetInstance())
+	,newID(0)
 	//newProjectileID(0),
-	//maxPlayers(2),
-	//playerNum(0)
+	,maxPlayers(2)
+	,playerNum(0)
 {
 	rakpeer_->Startup(100, &SocketDescriptor(1691, 0), 1);
 	rakpeer_->SetMaximumIncomingConnections(100);
@@ -49,7 +49,7 @@ void ServerApp::Loop()
 		switch (msgid)
 		{
 		case ID_NEW_INCOMING_CONNECTION:
-			/*
+			
 			playerNum = static_cast<unsigned int>(clients_.size());
 			if(playerNum+1>maxPlayers)//here test for the 2 player thing
 			{
@@ -57,11 +57,12 @@ void ServerApp::Loop()
 			}
 			else
 			{
+				playerNum++;
+				cout<<"new connection\n";
+				AcceptConnection(packet->systemAddress);
 
 			}
-			*/
-			cout<<"new connection\n";
-			AcceptConnection(packet->systemAddress);
+			
 			//SendWelcomePackage(packet->systemAddress);
 			break;
 		case ID_JOIN_GAME:
@@ -75,21 +76,27 @@ void ServerApp::Loop()
 						break;
 					}
 				}
-				if(gameStart)//for games that already started
+				//if(gameStart)//for games that already started
 				{
 					SendGamePackage((*it)->address,(*it)->username,(*it)->ClientID);
 				}
-				else
+				//else
 				{
-					SendLobbyInfo((*it)->address,(*it)->username,(*it)->ClientID);
+					//SendLobbyInfo((*it)->address,(*it)->username,(*it)->ClientID);
 				}
 			}
+			else
+			{
+				//send error msg
+			}
 			break;
+		case ID_START:
+			gameStart=true;//only does this for gameStart
 		case ID_SEND_OBJECT_INFO:
-		case ID_START_COUNTDOWN:
 		case ID_CANCEL_START:
 		case ID_OBJ_UPDATE:
 		case ID_NEW_LEVEL:
+		case ID_NEW_PLAYER:
 		case ID_MOVEMENT:
 			bs.Reset();
 			rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,packet->systemAddress,true);
@@ -107,28 +114,17 @@ void ServerApp::Loop()
 void ServerApp::SendGamePackage(SystemAddress& addr,string name,int ClientID)
 {
 	unsigned int shipcount = static_cast<unsigned int>(clients_.size());
-	unsigned char msgid = ID_WELCOME;
+	unsigned char msgid;
 	
 	RakNet::BitStream bs;
-	bs.Write(msgid);
-	//write other info about the new client
-	bs.Write(shipcount);
-
-	for (vector<ClientInfo*>::iterator itr = clients_.begin(); itr != clients_.end(); ++itr)
-	{
-		bs.Write((*itr)->ClientID);
-		//write other clients' information here
-	}
-
-
-	rakpeer_->Send(&bs, HIGH_PRIORITY, RELIABLE_ORDERED,0, addr, false);
-
-	bs.Reset();
 	//send to every one that a new person is here
-	msgid=ID_JOIN_GAME;
+	msgid=ID_NEW_PLAYER;
 	bs.Write(msgid);
+	
+	bs.Write(ClientID);
+
 	//new client information
-	rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,addr,true);
+	rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,addr,true);//send to everyone except the new client
 
 
 	//check for null error here
@@ -175,6 +171,7 @@ void ServerApp::AcceptConnection(SystemAddress& addr)
 	++newID;
 	temp->ClientID=newID;
 	clients_.push_back(temp);
+	SendGamePackage(addr,"someone",temp->ClientID);
 }
 
 void ServerApp::SendDisconnectionNotification(SystemAddress& addr)

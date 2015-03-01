@@ -117,9 +117,6 @@
     <ClCompile Include="MusicSystem\MusicSystem.cpp">
       <Filter>Helper\MusicSystem</Filter>
     </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Helper\RenderHelper</Filter>
-    </ClCompile>
     <ClCompile Include="HealthSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -281,6 +278,11 @@
     </ClCompile>
     <ClCompile Include="KeeYangTestState.cpp">
       <Filter>GameStates</Filter>
+    <ClCompile Include="Character.cpp">
+      <Filter>Character</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -369,9 +371,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PointSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LeverDoor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TestBallObject.h">
@@ -478,6 +477,8 @@
     </ClInclude>
     <ClInclude Include="KeeYangTestState.h">
       <Filter>GameStates</Filter>
+    <ClInclude Include="LeverDoor.h">
+      <Filter>Obstacle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

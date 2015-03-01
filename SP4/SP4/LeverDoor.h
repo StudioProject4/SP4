@@ -1,6 +1,7 @@
 #ifndef __LEVERDOOR_H__
 #define __LEVERDOOR_H__
 
+#include "Door.h"
 #include "TriggerBase.h"
 #include "Vector3.h"
 
@@ -24,8 +25,15 @@ public:
 	bool Init(Vector3 pos,Vector3 size);
 	bool Update();
 	bool Render();
-	bool OnCollision(CBaseObject*);
-
+	bool OnCollision2(CBaseObject*);
+	int GetDoorID()
+	{
+		if(doorLink!=NULL)
+		{
+			return doorLink->id;
+		}
+		return 0;
+	}
 };
 
 #endif

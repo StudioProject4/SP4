@@ -61,7 +61,7 @@ public:
 		}
 		return false;
 	}
-	bool OnCollision(CBaseObject* a_obj)
+	bool OnCollision2(CBaseObject* a_obj)
 	{
 		std::cout<<"Collided with"<<a_obj->name<<" "<<a_obj->id<<std::endl;
 		return true;

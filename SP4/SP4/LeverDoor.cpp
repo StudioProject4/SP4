@@ -11,7 +11,7 @@ CLeverDoor::~CLeverDoor(void)
 {
 }
 
-bool CLeverDoor::OnCollision(CBaseObject* obj)
+bool CLeverDoor::OnCollision2(CBaseObject* obj)
 {
 	//std::cout<<"lever door collieded"<<std::endl;
 	//finding the normal to this object based on the length

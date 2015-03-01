@@ -55,7 +55,7 @@ bool CMalayFemale :: CleanUp()
 	return true;
 }
 
-bool CMalayFemale :: OnCollision(CBaseObject* a_obj)
+bool CMalayFemale :: OnCollision2(CBaseObject* a_obj)
 {
 	//if(a_obj->genericTag = "Character")
 	//{

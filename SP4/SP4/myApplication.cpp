@@ -1,8 +1,10 @@
 #include "RakNet\WindowsIncludes.h"
 #include "RakNet\RakPeerInterface.h"
 #include "RakNet\BitStream.h"
+#include "MyMsgIDs.h"
 
 #include "myApplication.h"
+#include "ManufactureManager.h"
 #include "LeverDoor.h"
 #include "Door.h"
 #include "PowerUpFactory.h"
@@ -99,6 +101,8 @@ bool myApplication::Init()
 
 	inData >> serverip;
 	
+	//startupServer("server.exe");
+
 	//*
 	if (RAKNET_STARTED == rakpeer_->Startup(1,&SocketDescriptor(), 1))
 	{
@@ -106,7 +110,7 @@ bool myApplication::Init()
 		if (!RAKNET_STARTED == rakpeer_->Connect(serverip.c_str(), 1691, 0, 0))
 		{
 			cout<<"failed";
-			return false;
+			//return false;
 		}
 	}
 	//*/
@@ -114,19 +118,6 @@ bool myApplication::Init()
 	name = "myApplication";
 	
 	glEnable(GL_TEXTURE_2D);
-
-	//frameCount = 0;
-	//fps = 0;
-	//currentTime = 0;
-	//previousTime = 0;
-	//font_style = GLUT_BITMAP_TIMES_ROMAN_24;
-	//timelastcall=timeGetTime();
-	//frequency = 30.0f;
-
-	//startupServer("server.exe");
-
-	//loading texture
-	//LoadTGA(&testimage,"sonia2.tga");
 
 
 	//background
@@ -233,6 +224,7 @@ bool myApplication::Init()
 
 	isMultiplayer = false;
 	
+	charControl=3;
 
 
 	//Map->RunMap();
@@ -243,10 +235,10 @@ bool myApplication::Init()
 	return true;
 }
 
+
 bool myApplication::Update()
 {
 	//use for debugging spatial partition inside myApplication
-
 #ifdef DEBUG_MODE
 	if(keyboard->myKeys['a'])
 	{
@@ -278,104 +270,306 @@ bool myApplication::Update()
 	}
 #endif
 
-	if(!isMultiplayer)
-	{
 		if(keyboard->myKeys['a'])
 		{
-			playerOne->MoveLeft();
+			ballList[0]->SetVelocity(-5,0);
 		}
 		if(keyboard->myKeys['d'])
 		{
-			playerOne->MoveRight();
+			ballList[0]->SetVelocity(5,0);
 		}
 		if(keyboard->myKeys['w'])
 		{
-			playerOne->Jump();
+			ballList[0]->SetVelocity(0,-5);
 		}
-		if(!keyboard->myKeys['a']&&!keyboard->myKeys['d'])
+		if(keyboard->myKeys['s'])
 		{
-			playerOne->phys.vel.x=0;
-			keyboard->myKeysUp['a']=false;
-			keyboard->myKeysUp['d']=false;
+			ballList[0]->SetVelocity(0,5);
 		}
-		else if(keyboard->myKeys['s'])
+		if(keyboard->myKeys['r'])
 		{
-			//playerOne->OnCollision(&Hpadd);
-			//playerOne->OnCollision(&ptsAdd);
-			//ptsAdd.OnCollision(playerOne);
-			//InvinOn.OnCollision(playerOne);
-			//Hpadd.OnCollision(playerOne);
-			//ptsAdd.OnCollision(&Hpadd);
+			ballList[0]->radius *= 0.5;
 		}
+		if(keyboard->myKeys['t'])
+		{
+			ballList[0]->radius*=2;
+		}
+		if(keyboard->myKeys[VK_SPACE] == true)
+		{
+			ballList[0]->SetVelocity(0,0);
+		}
+	#endif
+
+	if (Packet* packet = rakpeer_->Receive())
+	{
+		RakNet::BitStream bs(packet->data, packet->length, false);
 		
-		if(keyboard->leftArrow == true)
+		unsigned char msgid = 0;
+		RakNet::Time timestamp = 0;
+
+		bs.Read(msgid);
+
+		if (msgid == ID_TIMESTAMP)
 		{
-			playerTwo->MoveLeft();
-		}
-		if(keyboard->rightArrow == true)
-		{
-			playerTwo->MoveRight();
-		}
-		if(keyboard->upArrow == true)
-		{
-			playerTwo->Jump();
+			bs.Read(timestamp);
+			bs.Read(msgid);
 		}
 
-		if(!keyboard->rightArrow && !keyboard->leftArrow)
+		switch(msgid)
 		{
-			playerTwo->phys.vel.x=0;
-			keyboard->rightArrow = false;
-			keyboard->leftArrow = false;
+		case ID_GAME_PACKAGE:
+			{
+				int objNum=0;
+				int mapNum;
+
+				bs.Read(mapNum);
+				bs.Read(objNum);
+
+				vector<CLeverDoor*> leverList;
+				vector<CDoor*> doorList;
+				vector<int> doorRefList;
+				vector<vector<int>>leverRefList;
+
+				charControl=2;//if you recieve this u are for sure player 2
+
+				for(int i=0;i<objNum;++i)
+				{
+					char genTag[256];
+					char tag[256];
+					float x,y,z;
+					unsigned short id;
+					bs.Read(genTag);
+					bs.Read(tag);
+					bs.Read(id);
+					bs.Read(x);
+					bs.Read(y);
+					bs.Read(z);
+					if(genTag=="Character")
+					{
+						int currentHp;
+						bs.Read(currentHp);
+						if(tag=="ChineseMale")
+						{
+							playerOne->pos.Set(x,y,z);
+							playerOne->hp.SetHealth(currentHp);
+						}
+						else if(tag=="MalayFemale")
+						{
+							playerTwo->pos.Set(x,y,z);
+							playerTwo->hp.SetHealth(currentHp);
+						}
+					}
+					else if(tag=="CLeverDoor")
+					{
+						float angle;
+						int doorID;
+						bs.Read(angle);
+						bs.Read(doorID);
+						CLeverDoor* temp=CManufactureManager::GetInstance()->CreateObstacleLeverDoor();
+						temp->Init(Vector3(x,y,z),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+						temp->curAngle=angle;
+						temp->id=id;
+						OM->AddObject(temp);
+						leverList.push_back(temp);
+						doorRefList.push_back(doorID);												
+					}
+					else if(tag=="CDoor")
+					{
+						int num=0;
+						bs.Read(num);
+						CDoor* temp=CManufactureManager::GetInstance()->CreateObstacleDoor();
+						vector<int>leverRef;
+						for(int i=0;i<num;i++)
+						{
+							int temp;
+							bs.Read(temp);
+							leverRef.push_back(temp);
+						}
+						temp->Init(Vector3(x,y,z),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+						temp->id=id;
+						OM->AddObject(temp);
+						leverRefList.push_back(leverRef);
+						doorList.push_back(temp);
+					}
+					else
+					{
+						
+					}
+				}
+				vector<int>::iterator it2=doorRefList.begin();
+				for(vector<CLeverDoor*>::iterator it=leverList.begin();it!=leverList.end()&&it2!=doorRefList.end();++it2,++it)
+				{
+					for(vector<CDoor*>::iterator it3=doorList.begin();it3!=doorList.end();++it3)
+					{
+						if((*it3)->id==(*it2))
+						{
+							(*it3)->AddTrigger((*it));
+							(*it)->SetDoorLink((*it3));
+							break;
+						}
+					}
+				}
+			}
+			break;
+		case ID_VEL_CHANGED:
+			{
+				short charControl;
+				float x,y,z;
+				bs.Read(charControl);
+				if(charControl==3)
+					break;
+				bs.Read(x);
+				bs.Read(y);
+				bs.Read(z);
+				switch(charControl)
+				{
+				case 1:
+					playerOne->phys.vel.Set(x,y,z);
+					
+					break;
+				case 2:
+					playerTwo->phys.vel.Set(x,y,z);
+
+					break;
+				}
+			}
+			break;
+		case ID_CLIENT_DISCONNECT:
+			{
+				charControl=3;//if the other guy disconnect u now control both
+			}
+			break;
+		case ID_WELCOME:
+			{
+
+			}
+			break;
+		case ID_NEW_PLAYER:
+			{
+				charControl=1;//if you recieve this you are for sure player 1
+
+				BitStream bs2;
+				unsigned char msgID=ID_GAME_PACKAGE;
+				bs.Write(msgID);
+				bs.Write(Map->Level);
+				OM->WriteAllObjects(bs2);
+				rakpeer_->Send(&bs2,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+			}
+			break;
 		}
-		
+
 	}
-	else if(isMultiplayer)
 	{
 		if(keyboard->myKeys['a'])
 		{
-			//ifplayeroOne
-			playerOne->MoveLeft();
-			//ifplayerTwo
-			playerTwo->MoveLeft();
+			if(charControl==1||charControl==3)
+			{
+				if(playerOne->phys.vel.x<=0)
+					velChanged=true;		
+				playerOne->MoveLeft();
+			}
+			else if(charControl==2)
+			{
+				if(playerTwo->phys.vel.x<=0)
+					velChanged=true;	
+				playerTwo->MoveLeft();
+			}
 		}
 		if(keyboard->myKeys['d'])
 		{
-			//ifplayeroOne
-			playerOne->MoveRight();
-			//ifplayerTwo
-			playerTwo->MoveRight();
+			if(charControl==1||charControl==3)
+			{
+				if(playerOne->phys.vel.x>=0)
+				{
+					velChanged=true;
+				}
+				playerOne->MoveRight();
+			}
+			else if(charControl==2)
+			{
+				if(playerTwo->phys.vel.y>=0)
+				{
+					velChanged=false;
+				}
+				playerTwo->MoveRight();
+			}
 		}
 		if(keyboard->myKeys['w'])
 		{
-			//ifplayeroOne
-			playerOne->Jump();
-			//ifplayerTwo
-			playerTwo->Jump();
+			if(charControl==1||charControl==3)
+			{
+				if(!playerOne->phys.inAir)
+					velChanged=true;
+				playerOne->Jump();
+			}
+			else if(charControl==2)
+			{
+				if(!playerTwo->phys.inAir)
+					velChanged=true;
+				playerTwo->Jump();
+			}
 		}
 		if(keyboard->myKeys['s'])
 		{
 		
 		}
+		if(charControl==3)
+		{
+			if(keyboard->myKeys['j'] == true)
+			{
+				if(playerTwo->phys.vel.x<=0)
+					velChanged=true;	
+				playerTwo->MoveLeft();
+			}
+			if(keyboard->myKeys['l'] == true)
+			{
+				if(playerTwo->phys.vel.x>=0)
+					velChanged=true;	
+				playerTwo->MoveRight();
+			}
+			if(keyboard->myKeys['i'] == true)
+			{
+				if(!playerTwo->phys.inAir)
+					velChanged=true;
+				playerTwo->Jump();
+			}
+			if(keyboard->myKeys['k'] == true)
+			{
+		
+			}
+
+		}
+		if(velChanged==true)
+		{
+			//send vel message
+			BitStream bs;
+			unsigned char msgID=ID_VEL_CHANGED;
+			bs.Write(msgID);
+			bs.Write(charControl);
+			switch(charControl)
+			{
+			case 1:
+				bs.Write(playerOne->phys.vel.x);
+				bs.Write(playerOne->phys.vel.y);
+				bs.Write(playerOne->phys.vel.z);
+				break;
+			case 2:
+				bs.Write(playerTwo->phys.vel.x);
+				bs.Write(playerTwo->phys.vel.y);
+				bs.Write(playerTwo->phys.vel.z);
+				break;
+			}
+			rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+			velChanged=false;
+		}
 	}
-		if(keyboard->myKeys['j'] == true)
+		if(keyboard->myKeys[VK_ESCAPE] == true)
 		{
-			playerTwo->MoveLeft();
-		}
-		if(keyboard->myKeys['l'] == true)
-		{
-			playerTwo->MoveRight();
-		}
-		if(keyboard->myKeys['i'] == true)
-		{
-			playerTwo->Jump();
+			exit(0);
 		}
 		if(keyboard->myKeys[VK_ESCAPE] == true)
 		{
 			GSM->ExitApplication();
-		}
-		if(keyboard->myKeys['k'] == true)
-		{
-		
 		}
 		
 	if(FRM->UpdateAndCheckTimeThreehold())
@@ -386,7 +580,7 @@ bool myApplication::Update()
 		//theAITwo->Update();
 		
 	}
-	OM->Update();
+	OM->Update(charControl);
 
 	Map->RunMap();
 		

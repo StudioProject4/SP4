@@ -1,5 +1,5 @@
-#include "Map.h"
 #include "ObjectManager.h"
+#include "Map.h"
 #include "ManufactureManager.h"
 #include <stdlib.h>
 

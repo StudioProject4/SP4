@@ -82,6 +82,7 @@
     <ClCompile Include="AIMobBuilder.cpp" />
     <ClCompile Include="AIMobFactory.cpp" />
     <ClCompile Include="AStarPathfinding.cpp" />
+    <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CharacterBuilder.cpp" />
     <ClCompile Include="CharacterFactory.cpp" />

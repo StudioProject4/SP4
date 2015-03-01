@@ -53,7 +53,7 @@ bool CMalayMob :: Render()
 	return true;
 }
 
-bool CMalayMob :: OnCollision(CBaseObject* a_obj)
+bool CMalayMob :: OnCollision2(CBaseObject* a_obj)
 {
 	if(a_obj->genericTag = "Character")
 	{
