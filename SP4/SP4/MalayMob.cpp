@@ -1,4 +1,5 @@
 #include "MalayMob.h"
+#include "ImageManager.h"
 
 CMalayMob :: CMalayMob()
 {
@@ -27,7 +28,8 @@ bool CMalayMob :: Init()
 	genericTag = "Enemy";
 
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("rockyground.tga");
+	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("rockyground.tga"));
+	//theSprite->LoadTGA("rockyground.tga");
 	
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);

@@ -45,8 +45,8 @@ void CAStarPathFinding ::SetUpGraph(CMap theMap)
 			//setup graph
 
 			//temp setup till i get the map
-			tempMap[i][j].x = j * TILE_SIZE;
-			tempMap[i][j].y = i * TILE_SIZE;
+			tempMap[i][j].x = ((j * TILE_SIZE) + TILE_SIZE/2);
+			tempMap[i][j].y = ((i * TILE_SIZE) + TILE_SIZE/2);
 			tempMap[i][j].tileCost = 1;
 			if(theMap.theScreenMap[i][j] == 0)
 			{
@@ -56,6 +56,7 @@ void CAStarPathFinding ::SetUpGraph(CMap theMap)
 			{
 				tempMap[i][j].isNotWall = true; // not a wall
 			}
+			//tempMap[i][j].isNotWall = true;
 			tempMap[i][j].index = ((i * maxHorizontalTile) + j);
 		}
 	}

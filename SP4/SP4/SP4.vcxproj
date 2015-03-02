@@ -95,6 +95,7 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="HealthPU.cpp" />
     <ClCompile Include="HealthSystem.cpp" />
+    <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="InvinciblePU.cpp" />
     <ClCompile Include="JumpPU.cpp" />
     <ClCompile Include="KeeYangTestState.cpp" />
@@ -133,6 +134,9 @@
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="tgaLoader.c" />
     <ClCompile Include="TriggerBase.cpp" />
+    <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UIButtonCircle.cpp" />
+    <ClCompile Include="UIButtonRectangle.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
@@ -157,6 +161,7 @@
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="HealthPU.h" />
     <ClInclude Include="HealthSystem.h" />
+    <ClInclude Include="ImageManager.h" />
     <ClInclude Include="InvinciblePU.h" />
     <ClInclude Include="JumpPU.h" />
     <ClInclude Include="KeeYangTestState.h" />
@@ -200,6 +205,9 @@
     <ClInclude Include="tgaLoader.h" />
     <ClInclude Include="ToolLibrary.h" />
     <ClInclude Include="TriggerBase.h" />
+    <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UIButtonCircle.h" />
+    <ClInclude Include="UIButtonRectangle.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>

@@ -2,8 +2,6 @@
 
 
 CInvinciblePU::CInvinciblePU(void)
-	: InvinOnP1(false)
-	, InvinOnP2(false)
 {
 	Init();
 }
@@ -47,40 +45,40 @@ bool CInvinciblePU::OnCollision2(CBaseObject* a_obj,bool again)
 
 	if(a_obj->genericTag = "Character")
 	{
-		//if(a_obj->name = "GenericChineseKid")
-		//{
-		//	if(this->active == true)
-		//	{
-		//		//CCharacter* Invintemp = (CCharacter*)a_obj;
-		//		//Invintemp->SetIsInvulnerable(true);
-		//	//	Invintemp->invulTimer->SetActive(true, Invintemp->refTime);
-		//		this->active = false;
-		//		//Invintemp->invulTimer->SetActive(false, Invintemp->refTime);
-		//		std::cout << "INvulneravblee true " << std::endl;
-		//	}else
-		//	if(this->active == false)
-		//	{
-		//		//std::cout << "Invulnerable TAKEN" << std::endl;
-		//	}
-		//}
-		//else
-		//if(a_obj->name = "GenericMalayKid")
-		//{
-		//	if(this->active == true)
-		//	{
-		//		//CCharacter* Invintemp = (CCharacter*)a_obj;
-		//		//Invintemp->SetIsInvulnerable(true);
-		//		//Invintemp->invulTimer->SetActive(true, Invintemp->refTime);
-
-		//		this->active = false;
-		//		std::cout << "INvulneravblee true " << std::endl;
-		//	}else
-		//	if(this->active == false)
-		//	{
-		//		//std::cout << "Invulnerable TAKEN" << std::endl;
-		//	}
-		//	
-		//}
+		if(a_obj->name = "GenericChineseKid")
+		{
+			if(this->active == true)
+			{
+				CCharacter* Invintemp = (CCharacter*)a_obj;
+				Invintemp->SetIsInvulnerable(true);
+				Invintemp->invulTimer->SetActive(true, Invintemp->refTime);
+				Invintemp->invulTimer->SetLimit(Invintemp->refTime, 5000);
+				//this->active = false;
+				//std::cout << "INvulneravblee true " << std::endl;
+			}else
+			if(this->active == false)
+			{
+				//std::cout << "Invulnerable TAKEN" << std::endl;
+			}
+		}
+		else
+		if(a_obj->name = "GenericMalayKid")
+		{
+			if(this->active == true)
+			{
+				CCharacter* Invintemp = (CCharacter*)a_obj;
+				Invintemp->SetIsInvulnerable(true);
+				Invintemp->invulTimer->SetActive(true, Invintemp->refTime);
+				Invintemp->invulTimer->SetLimit(Invintemp->refTime, 5000);
+				this->active = false;
+				std::cout << "INvulneravblee true " << std::endl;
+			}else
+			if(this->active == false)
+			{
+				//std::cout << "Invulnerable TAKEN" << std::endl;
+			}
+			
+		}
 	}
 
 	return true;

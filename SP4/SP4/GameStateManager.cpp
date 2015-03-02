@@ -1,6 +1,11 @@
 #include "GameStateManager.h"
 #include "GameState.h"
+
 #include "MusicSystem\MusicSystem.h"
+#include "ImageManager.h"
+#include "FrameRateManager.h"
+#include "LuaManager.h"
+#include "WindowManager.h"
 
 //#define DEFENSIVE_CODE
 
@@ -264,7 +269,8 @@ void CGameStateManager::GoToPreviousState()
 }
 bool CGameStateManager::CleanUp()
 {
-	if(CMusicSystem::GetInstance()->Exit())
+	gamestatestack.clear();
+	if(CMusicSystem::GetInstance()->Exit() && CImageManager::GetInstance()->Exit()&& CFrameRateManager::GetInstance()->Exit() && CWindowManager::GetInstance()->Exit())
 	{
 		return true;
 	}
@@ -274,10 +280,21 @@ bool CGameStateManager::CleanUp()
 void CGameStateManager::ExitApplication()
 {
 	//if all singeton object exit successfully then exit(0)
+	//static int called = 0 ;
+	//called++;
+
+	//printf("\n exiting program %d",called);
+
 	if(CleanUp())
 	{	
-		exit(0);
+		printf("\nsafely exit");
+		
+	}else
+	{
+		printf("\nUnsafely exit");
 	}
+	
+	exit(0);
 }
 
 void CGameStateManager::PrintDebugInformation()

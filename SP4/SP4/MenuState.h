@@ -1,11 +1,16 @@
 #pragma once
 #include "gamestate.h"
 
+#include "Sprite.h"
+
 class CMenuState :
 	public CGameState
 {
 public:
 	static CMenuState* instance;
+private:
+	CSprite backgroundImage[1];
+	CSprite buttonImage[4];
 private:
 	CMenuState(void);
 public:
@@ -27,6 +32,7 @@ public:
 	 void Render3D();
 	 void RenderScene(void);
 	
+	 void RenderBackground();
 
 	 bool Update();
 	 bool Init();

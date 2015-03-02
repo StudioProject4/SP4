@@ -32,6 +32,7 @@ void CAILogic :: DetectionCheck ()
 		{
 			targetPosition = enemyPos;
 			ChangeState(AI_PURSUE);
+			//foundPath = false;
 			
 		}
 	}
@@ -49,11 +50,18 @@ void CAILogic :: DetectionCheck ()
 
 void CAILogic :: FindPath ()
 {
+	std :: vector<node> ::iterator it;
+
+
 	pathFinding.SetUpPath(pos,targetPosition);
 	if(pathFinding.start.index != pathFinding.end.index)
 	{
 		pathFinding.FindPath();
 		foundPath = true;
+		for(it = pathFinding.closeList.begin(); it < pathFinding.closeList.end(); ++it)
+			{
+				cout << it->index << endl;
+			}
 	}
 }
 
@@ -81,8 +89,6 @@ Vector3 CAILogic :: Update(Vector3 pos,CPhysics & thePhysics)
 
 	StateCheck();
 
-	std :: vector<node> ::iterator it;
-
 	if(state == AI_PURSUE)
 	{
 		if(foundPath == false)
@@ -91,10 +97,6 @@ Vector3 CAILogic :: Update(Vector3 pos,CPhysics & thePhysics)
 			pathFinding.openList.clear();
 			pathFinding.notCorrectPath.clear();
 			FindPath();
-			for(it = pathFinding.closeList.begin(); it < pathFinding.closeList.end(); ++it)
-			{
-				cout << it->index << endl;
-			}
 		}
 		else if(foundPath == true)
 		{

@@ -85,6 +85,7 @@ public:
 	bool Init(int windowWidth,int windowHeight = 600,int windowPositionX = 50,int windowPositionY = 50,bool fullScreen = false,std::string programName = "newWindow");
 	bool Reset();
 	bool CleanUp();
+	bool Exit();
 	void PrintDebugDefaultWindowInformation();
 	void PrintDebugWindowInformation();
 	void PrintDebugInformation();
@@ -141,7 +142,7 @@ public:
 	{
 		return defaultWindowStatus.programName;
 	};
-
+	
 public:
 	//setter//without updates to the glutscreen
 	inline int GetOriginalWindowHeight()

@@ -1,6 +1,8 @@
 #include "ChineseMale.h"
 #include "Physics.h"
 
+#include "ImageManager.h"
+
 CChineseMale :: CChineseMale()
 {
 	Init();
@@ -47,7 +49,11 @@ bool CChineseMale :: Init()
 	genericTag = "Character";
 
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("sonia2.tga");
+	
+	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("sonia2.tga"));
+	//theSprite->LoadTGA("sonia2.tga");
+	
+
 
 	SetIsInvulnerable(false);
 

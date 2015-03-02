@@ -23,7 +23,9 @@
 #include "KennardTestState.h"
 
 #include "DatatypeDefination.h"
+
 #include "GameStateManager.h"
+#include "ImageManager.h"
 
 #include "MalayFemale.h"
 #include "ChineseMale.h"
@@ -38,6 +40,9 @@
 #include "JumpPU.h"
 #include "SpeedPU.h"
 #include "Map.h"
+
+#include "ChinesePoints.h"
+#include "MalayPoints.h"
 
 #include "Physics.h"
 

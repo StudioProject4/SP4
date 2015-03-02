@@ -78,7 +78,23 @@ bool CWindowManager::CleanUp()
 {
 	return true;
 }
+bool CWindowManager::Exit()
+{
+	if(instance != 0 )
+	{
+		CleanUp();
 
+		delete instance;
+		instance = 0 ;
+
+		return true;
+	}else
+	{
+		return true;
+	}
+
+	return false;
+}
 void CWindowManager::SetAndUpdateWindowDimension(int newWindowWidth,int newWindowHeight)
 {
 	SetWindowWidth(newWindowWidth);

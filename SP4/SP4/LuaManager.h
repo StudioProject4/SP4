@@ -178,7 +178,26 @@ public:
 		PCall(arglist.size(),1);
 		return ToNumber<type>();
 	}
+	bool Exit()
+	{
+		if(instance != 0)
+		{
+			//CleanUp();
+			//if(L != 0)
+			//{
+			//	delete L;
+			//	L = 0;
+			//}
+			delete instance;
+			instance = 0;
 
+			return true;
+		}else
+		{
+			return true;
+		}
+		return false;
+	}
 	////not working
 	//template<typename type>
 	//inline enumprimitiveDataType CheckDataType(type)
