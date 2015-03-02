@@ -899,8 +899,8 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//std::cout<<MS->currentSoundTrack<<std::endl;
 			//MS->PlaySoundPoolTrack2D("sound2.mp3");
 			//ballList[0]->active = false;
-			temp = OM->FindObjectWithName("ball");
-			temp->active = false;
+			//temp = OM->FindObjectWithName("ball");
+			//temp->active = false;
 		break;
 		
 		case '3':
@@ -959,21 +959,50 @@ void myApplication::MouseWheel(int button, int dir, int x, int y)
 }
 void myApplication::MouseClick(int button, int state, int x, int y)
 {
-	mouse->lastX = x;
-	mouse->lastY = y;
 
 	switch (button) {
-
 		case GLUT_LEFT_BUTTON:
-			mouse->mLButtonUp = state;		
+			switch(state)
+			{
+				case GLUT_DOWN:
+					//mouse->mLButtonUp = true;	
+					mouse->SetLeftButton(true);
+					break;
+				case GLUT_UP:
+					//mouse->mLButtonUp = false;	
+					mouse->SetLeftButton(false);
+					break;
+			}
 			break;
 
 		case GLUT_RIGHT_BUTTON:
-			mouse->mRButtonUp = state;		
+
+			switch(state)
+			{
+				case GLUT_DOWN:
+					//mouse->mRButtonUp = true;	
+					mouse->SetRightButton(true);
+					break;
+				case GLUT_UP:
+					//mouse->mRButtonUp = false;
+					mouse->SetRightButton(false);
+					break;
+			}
 			break;
 
 		case GLUT_MIDDLE_BUTTON:
-			mouse->middleButtonUp = state;
+		
+			switch(state)
+			{
+				case GLUT_DOWN:
+					//mouse->middleButtonUp = true;	
+					mouse->SetMiddleButton(true);
+					break;
+				case GLUT_UP:
+					//mouse->middleButtonUp = false;	
+					mouse->SetMiddleButton(false);
+					break;
+			}
 			break;
 	}
 }

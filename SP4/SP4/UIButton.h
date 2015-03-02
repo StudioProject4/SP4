@@ -12,6 +12,9 @@ public:
 	//Vector3 size;
 	CSprite ownTexture;
 	char* name;
+
+	bool onHover;
+	bool down;
 public:
 	CUIButton(void);
 	~CUIButton(void);

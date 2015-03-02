@@ -65,15 +65,18 @@ void KennardTestState::MouseMove(int x,int y)
 
 void KennardTestState::MouseClick(int button,int state,int x,int y)
 {
+
 	switch (button) {
 		case GLUT_LEFT_BUTTON:
 			switch(state)
 			{
 				case GLUT_DOWN:
-					mouse->mLButtonUp = true;	
+					//mouse->mLButtonUp = true;	
+					mouse->SetLeftButton(true);
 					break;
 				case GLUT_UP:
-					mouse->mLButtonUp = false;	
+					//mouse->mLButtonUp = false;	
+					mouse->SetLeftButton(false);
 					break;
 			}
 			break;
@@ -83,10 +86,12 @@ void KennardTestState::MouseClick(int button,int state,int x,int y)
 			switch(state)
 			{
 				case GLUT_DOWN:
-					mouse->mRButtonUp = true;	
+					//mouse->mRButtonUp = true;	
+					mouse->SetRightButton(true);
 					break;
 				case GLUT_UP:
-					mouse->mRButtonUp = false;	
+					//mouse->mRButtonUp = false;
+					mouse->SetRightButton(false);
 					break;
 			}
 			break;
@@ -96,10 +101,12 @@ void KennardTestState::MouseClick(int button,int state,int x,int y)
 			switch(state)
 			{
 				case GLUT_DOWN:
-					mouse->middleButtonUp = true;	
+					//mouse->middleButtonUp = true;	
+					mouse->SetMiddleButton(true);
 					break;
 				case GLUT_UP:
-					mouse->middleButtonUp = false;	
+					//mouse->middleButtonUp = false;	
+					mouse->SetMiddleButton(false);
 					break;
 			}
 			break;

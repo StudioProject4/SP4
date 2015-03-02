@@ -38,6 +38,19 @@ bool CUIButtonCircle::Render()
 		//glPopMatrix();
 
 			glPushMatrix();
+
+			if(onHover)
+			{
+				ownTexture.SetColour4f(0.5f,0.5f,1.f);
+				if(down)
+				{
+					ownTexture.SetColour4f(0.f,1.f,0.f);
+				}
+			}else
+			{
+				ownTexture.SetColour4f(1.f,1.f,1.f);
+			}
+
 			glTranslatef(position.x,position.y,0);
 			//glScalef(1.8f,1.3f,1.f);
 				ownTexture.Render();
@@ -48,7 +61,15 @@ bool CUIButtonCircle::Render()
 
 bool CUIButtonCircle::ColisionCheck(CMouse* theMouse)
 {
-	return CollisionCheckColliderSphere(Vector3(theMouse->lastX,theMouse->lastY));
+	bool result =  CollisionCheckColliderSphere(Vector3(theMouse->lastX,theMouse->lastY));
+	if(result == true && theMouse->CheckLeftButtonDown())
+	{
+		down = true;
+	}else
+	{
+		down = false;
+	}
+	return result;
 	
 }
 void CUIButtonCircle::CalculateRadius()
@@ -66,8 +87,10 @@ bool CUIButtonCircle::CollisionCheckColliderSphere(Vector3& pos)
 {
 	if( (this->position - pos).Length() < this->radius)
 	{
+		onHover = true;
 		return true;
 	}
+	onHover = false;
 	return false;
 }
 void CUIButtonCircle::SetSize(Vector3& Size)

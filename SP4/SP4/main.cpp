@@ -94,8 +94,6 @@ int main(int argc, char **argv )
 		IM->RegisterTGA("tenri.tga");
 		IM->RegisterTGA("rockyground.tga");
 		GSM->ChangeState(CMenuState::GetInstance());
-		//GSM->ChangeState(KennardTestState::GetInstance());
-		//GSM->ChangeState(CKeeYangTestState::GetInstance());
 
 		//GSM->ChangeState(myApplication::GetInstance());
 

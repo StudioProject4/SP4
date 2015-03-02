@@ -14,6 +14,10 @@ CSprite::CSprite()
 	,currentlayer(currentlayer)
 	,currenttimecounter(0)
 	,lateralinvert(false)
+	,RED(1.f)
+	,BLUE(1.f)
+	,GREEN(1.f)
+	,ALPHA(1.f)
 {
 
 	framesize.x = 1.0f/maxframe;
@@ -164,7 +168,7 @@ void CSprite::Render(void)
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glColor4f(RED, GREEN,BLUE,ALPHA);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBindTexture(GL_TEXTURE_2D, owntexture.texID);
 
@@ -199,7 +203,7 @@ void CSprite::Render(void)
 				glEnd();
 			glPopMatrix();
 		}
-		
+	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glPopMatrix();
 }
 void CSprite::SetAnimationLayer(ushort newlayer)
@@ -291,6 +295,13 @@ void  CSprite::TranverseAnimationLayer(bool forward,bool warp)
 			}
 		}
 	}
+}
+void CSprite::SetColour4f(float red,float green,float blue,float alpha)
+{
+	this->RED = red;
+	this->GREEN = green;
+	this->BLUE = blue;
+	this->ALPHA = alpha;
 }
 void CSprite::CheckUp(void)
 {

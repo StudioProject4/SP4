@@ -23,6 +23,17 @@ bool CUIButtonRectangle::Render()
 	if(active)
 	{
 		glPushMatrix();
+		if(onHover)
+		{
+			ownTexture.SetColour4f(0.5f,0.5f,1.f);
+			if(down)
+			{
+				ownTexture.SetColour4f(0.f,1.f,0.f);
+			}
+		}else
+		{
+			ownTexture.SetColour4f(1.f,1.f,1.f);
+		}
 			glTranslatef(position.x,position.y,0);
 				ownTexture.Render();
 		glPopMatrix();
@@ -32,16 +43,25 @@ bool CUIButtonRectangle::Render()
 
 bool CUIButtonRectangle::ColisionCheck(CMouse* theMouse)
 {
-	return CollisionCheckColliderBox(Vector3(theMouse->lastX,theMouse->lastY));
+	bool result = CollisionCheckColliderBox(Vector3(theMouse->lastX,theMouse->lastY));
+	if(result == true && theMouse->CheckLeftButtonDown())
+	{
+		down = true;
+	}else
+	{
+		down = false;
+	}
+	return result;
 }
 
 bool CUIButtonRectangle::CollisionCheckColliderBox(Vector3& pos)
 {
 	if( (pos.x >= TopLeft.x && pos.x <= BottomRight.x) && (pos.y >= TopLeft.y && pos.y <= BottomRight.y) )
 	{
-		std::cout<<"rec"<<std::endl;
+		onHover = true;
 		return true;
 	}
+	onHover = false;
 	return false;
 }
 void CUIButtonRectangle::CalculateTopLeftAndBottomRightPoint()
