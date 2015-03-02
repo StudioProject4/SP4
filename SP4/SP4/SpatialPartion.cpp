@@ -158,7 +158,7 @@ void CSpatialPartion::AddObjectNeo(CBaseObject* a_obj,Cell* theCell,bool duplica
 {
 	if(duplicateCheck)
 	{
-		for(unsigned short i = 0 ; theCell->objectList.size();++i)
+		for(unsigned short i = 0 ; i<theCell->objectList.size();++i)
 		{
 			if(theCell->objectList[i] == a_obj)
 			{

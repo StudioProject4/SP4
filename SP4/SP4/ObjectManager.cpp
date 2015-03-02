@@ -38,12 +38,12 @@ void CObjectManager::AddObject(CBaseObject* a_obj)
 #ifdef SP_V2
 	SP->AddObjectNeo(a_obj);
 #endif
-	if(numOfUniqueId>a_obj->id||a_obj->id==0)
+	if(a_obj->id==0)
 	{
 		++numOfUniqueId;
 		a_obj->id = numOfUniqueId;
 	}
-	else
+	else if(a_obj->id>numOfUniqueId)
 	{
 		numOfUniqueId=a_obj->id;
 	}
@@ -169,6 +169,25 @@ void CObjectManager::UpdateCollision()
 
 }
 
+bool CObjectManager::LoadingSetup()
+{
+	for(TObjectListVector::iterator it=objectList.begin();it!=objectList.end();)
+	{
+		if((*it)->genericTag!="Character")
+		{
+			(*it)->active=false;
+			
+			inactiveObjectList.push_back(*it);
+			//objectList.erase(it);
+			//using swapping method to delete element.
+			it=objectList.erase(it);
+			continue;
+		}
+	++it;
+	}
+	return true;
+}
+
 bool CObjectManager::Update()
 {
 	return Update(3);
@@ -216,7 +235,8 @@ bool CObjectManager::Update(int multiplayerMode)
 			inactiveObjectList.push_back(objectList[it]);
 			//objectList.erase(it);
 			//using swapping method to delete element.
-			objectList[it] = objectList.back();
+			swap(objectList[it],objectList.back());
+			//objectList[it] = objectList.back();
 			objectList.pop_back();
 		}
 	}

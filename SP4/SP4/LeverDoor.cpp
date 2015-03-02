@@ -1,6 +1,13 @@
+#include "RakNet\RakPeerInterface.h"
+#include "RakNet\BitStream.h"
+#include "MyMsgIDs.h"
+
 #include "LeverDoor.h"
 #include "Door.h"
 
+using namespace RakNet;
+
+extern RakPeerInterface* rakPeerGlobal;
 
 CLeverDoor::CLeverDoor(void)
 {
@@ -135,6 +142,21 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj)
 			}
 		}
 	}
+	BitStream bs;
+	unsigned char msgid=ID_OBJ_UPDATE;
+	bs.Write(msgid);
+	bs.Write(this->tag);
+	bs.Write(this->id);
+	bs.Write(obj->id);
+	bs.Write(this->curAngle);
+	bs.Write(this->angleVel);
+	bs.Write(obj->pos.x);
+	bs.Write(obj->pos.y);
+	bs.Write(obj->pos.z);
+	bs.Write(obj->phys.vel.x);
+	bs.Write(obj->phys.vel.y);
+	bs.Write(obj->phys.vel.z);
+	rakPeerGlobal->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
 	//move the object back so that its not colliding anymore
 
 	//after changing the angle
