@@ -8,7 +8,7 @@ CSprite::CSprite()
 	,numberoflayer(1)
 	,currentframe(0)
 	,pause(false)
-	,frameinterval(20)
+	,frameinterval(10)
 	,framespeed(1)
 	,size(32.f,32.f)//the size need to be inline with tilesize
 	,currentlayer(currentlayer)
@@ -145,8 +145,9 @@ void CSprite::LiveOn(float dt)
 {
 	if(!pause)
 	{
-		currenttimecounter += framespeed * dt ;
+		currenttimecounter += (framespeed * dt);
 		//std::cout<<"Current time counter"<<currenttimecounter<<std::endl;
+		//std::cout<<"frameinterval "<<this->frameinterval<<std::endl;
 		//std::cout<<"currentframe: "<<currentframe<<std::endl;
 
 		if(currenttimecounter > frameinterval)
@@ -217,6 +218,7 @@ void CSprite::SetFrameSpeed(float newframespeed)
 void CSprite::SetFrameInterval(float newframeinterval)
 {
 	this->frameinterval = newframeinterval;
+	
 }
 void CSprite::SetImageSize(float x,float y)
 {
@@ -229,6 +231,47 @@ void CSprite::SetVitalInformation(ushort maxframe,ushort numberoflayer)
 	this->numberoflayer = numberoflayer;
 	framesize.x = 1.0f/this->maxframe;
 	framesize.y = 1.0f/this->numberoflayer;
+}
+
+void CSprite::SetColour4f(float red,float green,float blue,float alpha)
+{
+	this->RED = red;
+	this->GREEN = green;
+	this->BLUE = blue;
+	this->ALPHA = alpha;
+}
+float CSprite::GetAlpha()
+{
+	return ALPHA;
+}
+void CSprite::SetAlpha(float newAlpha)
+{
+	if(newAlpha >1.0f)
+	{
+		newAlpha = 1.0f;
+	}
+	if(newAlpha <0.0f)
+	{
+		newAlpha = 0.0f;
+	}
+	ALPHA = newAlpha;
+}
+void CSprite::OverrideTGATexture(TextureImage* newTexture)
+{
+	this->owntexture = *newTexture;
+}
+short CSprite::GetCurrentFrameIndex()
+{
+	return currentframe;
+}
+
+float CSprite::GetImageSizeX()
+{
+	return size.x;
+}
+float CSprite::GetImageSizeY()
+{
+	return size.y;
 }
 void CSprite::TranverseAnimationFrame(bool forward,bool warp )
 {
@@ -296,13 +339,7 @@ void  CSprite::TranverseAnimationLayer(bool forward,bool warp)
 		}
 	}
 }
-void CSprite::SetColour4f(float red,float green,float blue,float alpha)
-{
-	this->RED = red;
-	this->GREEN = green;
-	this->BLUE = blue;
-	this->ALPHA = alpha;
-}
+
 void CSprite::CheckUp(void)
 {
 	std::cout<<"Current frame index: "<<currentframe<<std::endl;

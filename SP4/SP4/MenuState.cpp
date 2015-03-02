@@ -274,7 +274,7 @@ bool CMenuState::Update()
 			//std::cout<<"=D "<<std::endl;
 		}
 	}
-
+	backgroundImage[0].LiveOn(FRM->deltaTime*0.01);
 	if(keyboard->myKeys[VK_ESCAPE] == true)
 	{
 		GSM->ExitApplication();
@@ -307,11 +307,14 @@ bool CMenuState::Init()
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
-
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
-
+	//testdecorator = &backgroundImage[0];
+	testdecorator = new CSpriteFadeExtend(&backgroundImage[0]);
+	//testdecorator->SetFrameSpeed(100);
+	//testdecorator->SetFadingSpeed(0.01f);
+	//testdecorator->SetFadeInMode();
 	CUIButton* a_button = 0;
 
 	a_button = new CUIButtonRectangle();
@@ -410,7 +413,8 @@ void CMenuState::RenderBackground()
 	//glDisable(GL_TEXTURE_2D);
 	glPushMatrix();
 	glTranslatef(400,300,0);
-	backgroundImage[0].Render();
+	testdecorator->Render(FRM->deltaTime);
+	//backgroundImage[0].Render();
 	glPopMatrix();
 }
  void CMenuState::PageTransitionTrigger(std::string buttonName)

@@ -134,6 +134,7 @@
     <ClCompile Include="SpeedPU.cpp" />
     <ClCompile Include="SplashState.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteFadeExtend.cpp" />
     <ClCompile Include="TestBallObject.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="tgaLoader.c" />
@@ -209,6 +210,7 @@
     <ClInclude Include="SpeedPU.h" />
     <ClInclude Include="SplashState.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteFadeExtend.h" />
     <ClInclude Include="SystemDefination.h" />
     <ClInclude Include="TestBallObject.h" />
     <ClInclude Include="TextureImage.h" />

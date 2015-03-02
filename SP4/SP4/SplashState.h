@@ -3,6 +3,7 @@
 
 #include "Sprite.h"
 #include <vector>
+#include "SpriteFadeExtend.h"
 
 class CSplashState :
 	public CGameState
@@ -10,10 +11,11 @@ class CSplashState :
 public:
 	static CSplashState* instance;
 private:
-	CSprite backgroundImage[1];
+	CSprite backgroundImage[2];
 	typedef std::vector<CUIButton*> TButtonList;
 	TButtonList buttonList;
-
+	CSpriteFadeExtend* backgroundFade;
+	CSpriteFadeExtend* IntroFade;
 private:
 	CSplashState(void);
 public:

@@ -116,6 +116,7 @@ void CSplashState::MouseClick(int button, int state, int x, int y)
 				case GLUT_DOWN:
 					//mouse->mLButtonUp = true;	
 					mouse->SetLeftButton(true);
+					GSM->ChangeState(CMenuState::GetInstance());
 					break;
 				case GLUT_UP:
 					//mouse->mLButtonUp = false;	
@@ -217,10 +218,10 @@ void CSplashState::Render2D()
 {
 	RenderBackground();
 
-	for(TButtonList::iterator it = buttonList.begin(); it != buttonList.end(); ++it)
-	{
-		(*it)->Render();
-	}
+	//for(TButtonList::iterator it = buttonList.begin(); it != buttonList.end(); ++it)
+	//{
+	//	(*it)->Render();
+	//}
 
 	FRM->drawFPS();
 }
@@ -253,18 +254,37 @@ void CSplashState::RenderScene(void)
 
 bool CSplashState::Update()
 {
-	for(unsigned short i = 0 ; i< buttonList.size();++i)
+	//for(unsigned short i = 0 ; i< buttonList.size();++i)
+	//{
+	//	buttonList[i]->Update();
+	//	if(buttonList[i]->ColisionCheck(mouse))
+	//	{
+	//		//std::cout<<"Button COllided"<<std::endl;
+	//		PageTransitionTrigger(buttonList[i]->name);
+	//	}else
+	//	{
+	//		//std::cout<<"=D "<<std::endl;
+	//	}
+	//}
+	if(backgroundFade->GetAlpha() >= 1.0f)
 	{
-		buttonList[i]->Update();
-		if(buttonList[i]->ColisionCheck(mouse))
-		{
-			//std::cout<<"Button COllided"<<std::endl;
-			PageTransitionTrigger(buttonList[i]->name);
-		}else
-		{
-			//std::cout<<"=D "<<std::endl;
-		}
+		backgroundFade->SetFadingSpeed(0.025f);
+		backgroundFade->SetFadeOutMode();
 	}
+
+	if(IntroFade->GetAlpha() >= 1.0f)
+	{
+		IntroFade->SetFadeOutMode();
+	}
+
+	if(IntroFade->GetAlpha() <= 0.0f)
+	{
+		GSM->ChangeState(CMenuState::GetInstance());
+	}
+
+	backgroundFade->LiveOn(FRM->deltaTime);
+
+	IntroFade->LiveOn(FRM->deltaTime);
 
 	if(keyboard->myKeys[VK_ESCAPE] == true)
 	{
@@ -298,53 +318,67 @@ bool CSplashState::Init()
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
-
-	backgroundImage[0].Init(1,1,0);
+	IM->RegisterTGA("flare.tga");
+	backgroundImage[0].Init(5,1,0);
 	backgroundImage[0].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
-	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("flare.tga"));
 
-	CUIButton* a_button = 0;
-
-	a_button = new CUIButtonRectangle();
-	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.35);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
-	a_button->name ="SinglePlayerButton";
-	buttonList.push_back(a_button);
-
-	a_button = new CUIButtonRectangle();
-	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.6);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
-	a_button->name ="OnlinePlayButton";
-	buttonList.push_back(a_button);
-
-	a_button = new CUIButtonRectangle();
-	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.85);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
-	a_button->name ="OptionButton";
-	buttonList.push_back(a_button);
+	backgroundImage[1].Init(1,1,0);
+	backgroundImage[1].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
+	backgroundImage[1].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
 
 
-	a_button = new CUIButtonCircle();
-	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1,WM->GetOriginalWindowHeight()*0.9);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
-	a_button->name ="CreditButton";
-	buttonList.push_back(a_button);
+	backgroundFade = new CSpriteFadeExtend(&backgroundImage[0]);
+	backgroundFade->SetFrameInterval(160);
+	backgroundFade->SetFadingSpeed(0.01f);
+	backgroundFade->SetFadeInMode(0.1f);
 
-	a_button = new CUIButtonCircle();
-	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.9,WM->GetOriginalWindowHeight()*0.9);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
-	a_button->name ="ExitButton";
-	buttonList.push_back(a_button);
+	IntroFade = new CSpriteFadeExtend(&backgroundImage[1]);
+	IntroFade->SetFadingSpeed(0.025f);
+	IntroFade->SetFadeInMode(0.1f);
+	
+	//CUIButton* a_button = 0;
+
+	//a_button = new CUIButtonRectangle();
+	//a_button->ownTexture.Init(1);
+	//a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
+	//a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.35);
+	//a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	//a_button->name ="SinglePlayerButton";
+	//buttonList.push_back(a_button);
+
+	//a_button = new CUIButtonRectangle();
+	//a_button->ownTexture.Init(1);
+	//a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
+	//a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.6);
+	//a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	//a_button->name ="OnlinePlayButton";
+	//buttonList.push_back(a_button);
+
+	//a_button = new CUIButtonRectangle();
+	//a_button->ownTexture.Init(1);
+	//a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
+	//a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.85);
+	//a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	//a_button->name ="OptionButton";
+	//buttonList.push_back(a_button);
+
+
+	//a_button = new CUIButtonCircle();
+	//a_button->ownTexture.Init(1);
+	//a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	//a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1,WM->GetOriginalWindowHeight()*0.9);
+	//a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
+	//a_button->name ="CreditButton";
+	//buttonList.push_back(a_button);
+
+	//a_button = new CUIButtonCircle();
+	//a_button->ownTexture.Init(1);
+	//a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	//a_button->SetPosition(WM->GetOriginalWindowWidth()*0.9,WM->GetOriginalWindowHeight()*0.9);
+	//a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
+	//a_button->name ="ExitButton";
+	//buttonList.push_back(a_button);
 	
 
 	return true;
@@ -371,7 +405,16 @@ bool CSplashState::CleanUp()
 		delete OM;
 		OM = 0;
 	}
-
+	if(backgroundFade != 0)
+	{
+		delete backgroundFade;
+		backgroundFade = 0;
+	}
+	if(IntroFade != 0)
+	{
+		delete IntroFade;
+		IntroFade = 0;
+	}
 
 	return true;
 }
@@ -400,8 +443,24 @@ void CSplashState::RenderBackground()
 	//glPopMatrix();
 	//glDisable(GL_TEXTURE_2D);
 	glPushMatrix();
-	glTranslatef(400,300,0);
-	backgroundImage[0].Render();
+
+	if(backgroundFade->GetAlpha() > 0.0f)
+	{
+		glPushMatrix();
+			glTranslatef(400,300,0);
+			backgroundFade->Render(FRM->deltaTime);
+		glPopMatrix();
+	}
+	//backgroundImage[0].Render();
+
+	if(backgroundFade->GetAlpha() <= 0.0f)
+	{
+		glPushMatrix();
+			glTranslatef(400,300,0);
+			IntroFade->Render(FRM->deltaTime);
+		glPopMatrix();
+	}
+
 	glPopMatrix();
 }
  void CSplashState::PageTransitionTrigger(std::string buttonName)

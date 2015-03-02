@@ -3,7 +3,7 @@
 
 #include "Sprite.h"
 #include <vector>
-
+#include "SpriteFadeExtend.h"
 class CMenuState :
 	public CGameState
 {
@@ -11,6 +11,7 @@ public:
 	static CMenuState* instance;
 private:
 	CSprite backgroundImage[1];
+	CSpriteFadeExtend* testdecorator;
 	typedef std::vector<CUIButton*> TButtonList;
 	TButtonList buttonList;
 
