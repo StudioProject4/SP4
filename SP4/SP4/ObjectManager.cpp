@@ -230,7 +230,7 @@ bool CObjectManager::Update(int multiplayerMode)
 #endif	
 
 			//(*it)->Render();
-		}else
+			}else
 		{
 			inactiveObjectList.push_back(objectList[it]);
 			//objectList.erase(it);

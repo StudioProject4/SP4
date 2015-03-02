@@ -431,9 +431,6 @@
     <ClInclude Include="JumpPU.h">
       <Filter>PowerUp</Filter>
     </ClInclude>
-    <ClInclude Include="InvinciblePU.h">
-      <Filter>PowerUp</Filter>
-    </ClInclude>
     <ClInclude Include="ChineseMale.h">
       <Filter>Character\Player</Filter>
     </ClInclude>
@@ -493,6 +490,9 @@
     </ClInclude>
     <ClInclude Include="MenuState.h">
       <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="InvinciblePU.h">
+      <Filter>Obstacle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
