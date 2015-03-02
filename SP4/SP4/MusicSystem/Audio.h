@@ -44,7 +44,14 @@ public:
 		}
 		return false;
 	}
-
+	inline int GetPlayLength()
+	{
+		if(audio)
+		{
+			return audio->getPlayLength();
+		}
+		return false;
+	}
 	inline int GetPlayPosition()
 	{
 		if(audio)

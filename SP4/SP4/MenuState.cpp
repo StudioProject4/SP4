@@ -9,7 +9,7 @@
 #include "GameStateManager.h"
 #include "ImageManager.h"
 #include "MusicSystem\MusicSystem.h"
-
+#include "MusicSystem\Audio.h"
 #include "UIButtonCircle.h"
 #include "UIButtonRectangle.h"
 //system manager include
@@ -262,6 +262,7 @@ void CMenuState::RenderScene(void)
 
 bool CMenuState::Update()
 {
+
 	for(unsigned short i = 0 ; i< buttonList.size();++i)
 	{
 		buttonList[i]->Update();
@@ -295,13 +296,18 @@ bool CMenuState::Init()
 	tag = "CMenuState";
 	genericTag = "CGameState";
 
+	MS = CMusicSystem::GetInstance();
+	//MS->ResetBgmTrackPlayPosition(MS->currentBgmTrack);
+	//MS->PauseBgmTrack(MS->currentBgmTrack);
+	MS->PlayBgmTrack("underthemoon.mp3");
+
 	IM = CImageManager::GetInstance();
 	FRM = CFrameRateManager::GetInstance();
 	LM = CLuaManager::GetInstance();
 	mouse = CMouse::GetInstance();
 	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
-	MS = CMusicSystem::GetInstance();
+
 	OM = new CObjectManager();
 	GSM = CGameStateManager::GetInstance();
 	GSM->currentState = GSM->STATE_MENU;
