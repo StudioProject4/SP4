@@ -71,9 +71,16 @@ void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObje
 
 			if(otherObject == a_obj)//avoid self check
 				continue;
-
-			if(a_obj->genericTag == "Character" || otherObject->genericTag == "Character")
+			string gen1=a_obj->genericTag;
+			string gen2=otherObject->genericTag;
+			string tag1=a_obj->tag;
+			string tag2=otherObject->tag;
+			if(gen1 == "Character" || gen2 == "Character")
 			{
+				if((charControl==1&&(tag1=="ChineseMale"||tag2=="ChineseMale"))
+					||(charControl==2&&(tag1=="MalayFemale"||tag2=="MalayFemale"))
+					||charControl==3)
+				{
 					OtherSize = otherObject->phys.size;
 					//std::cout<<"Checking collision "<<a_obj->name <<" with "<< otherObject->name<<"!!!"<<std::endl;
 					if(a_obj->phys.TestCol(otherObject->pos,OtherSize))
@@ -81,6 +88,7 @@ void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObje
 						//std::cout<<"COLLISION RESPONE ACTIVATED "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
 						a_obj->OnCollision(otherObject);
 					}
+				}
 			}
 		}
 }
@@ -211,7 +219,7 @@ bool CObjectManager::Update(int multiplayerMode)
 	//		objectList.pop_back();
 	//	}
 	//}
-	if(multiplayerMode==1||multiplayerMode==3)//either controls first player or all players
+	this->charControl=multiplayerMode;
 		UpdateCollision();
 
 	for(unsigned short it = 0; it < objectList.size(); ++it)

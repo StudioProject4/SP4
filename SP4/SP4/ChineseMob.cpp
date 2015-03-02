@@ -63,7 +63,7 @@ bool CChineseMob :: Render()
 	return true;
 }
 
-bool CChineseMob :: OnCollision2(CBaseObject* a_obj)
+bool CChineseMob :: OnCollision2(CBaseObject* a_obj,bool again)
 {
 #ifdef NETWORK_CODE
 	if(a_obj->genericTag = "Character")

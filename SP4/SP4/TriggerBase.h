@@ -20,7 +20,7 @@ public:
 	virtual bool Init(Vector3 pos,Vector3 size)=0;
 	virtual bool Update()=0;
 	virtual bool Render()=0;
-	virtual bool OnCollision2(CBaseObject*) = 0;
+	virtual bool OnCollision2(CBaseObject*,bool again=false) = 0;
 	CTriggerBase(void);
 	~CTriggerBase(void);
 };

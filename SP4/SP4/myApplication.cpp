@@ -383,9 +383,9 @@ bool myApplication::Update()
 			break;
 		case ID_VEL_CHANGED:
 			{
-				short charControl;
+				short charControl1;
 				float x,y,z,x1,y1,z1;
-				bs.Read(charControl);
+				bs.Read(charControl1);
 				if(charControl==3)
 					break;
 				bs.Read(x);
@@ -394,7 +394,7 @@ bool myApplication::Update()
 				bs.Read(x1);
 				bs.Read(y1);
 				bs.Read(z1);
-				switch(charControl)
+				switch(charControl1)
 				{
 				case 1:
 					playerOne->phys.vel.Set(x,y,z);
@@ -500,7 +500,7 @@ bool myApplication::Update()
 				}
 				if(temp1!=NULL&&temp2!=NULL)
 				{
-					temp1->OnCollision2(temp2);
+					temp1->OnCollision2(temp2,true);
 				}
 				else
 				{
@@ -638,7 +638,7 @@ bool myApplication::Update()
 		
 		}
 		
-
+		MVCTime::GetInstance()->UpdateTime();
 		OM->Update(charControl);
 
 

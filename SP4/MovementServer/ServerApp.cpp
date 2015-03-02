@@ -93,7 +93,7 @@ void ServerApp::Loop()
 		case ID_COLLISION:
 		case ID_SEND_OBJECT_INFO:
 			bs.ResetReadPointer();
-			rakpeer_->Send(&bs,HIGH_PRIORITY,UNRELIABLE_SEQUENCED,0,packet->systemAddress,true);
+			rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,packet->systemAddress,true);
 			break;
 		case ID_START:
 			gameStart=true;//only does this for gameStart

@@ -43,7 +43,7 @@ bool CMalayPoints::Update()
 	return true;
 }
 
-bool CMalayPoints::OnCollision2(CBaseObject* a_obj)
+bool CMalayPoints::OnCollision2(CBaseObject* a_obj,bool again)
 {
 	
 	CMalayFemale* tempMF = (CMalayFemale*)a_obj;
