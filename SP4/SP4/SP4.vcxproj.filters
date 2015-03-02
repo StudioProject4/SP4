@@ -291,6 +291,9 @@
     <ClCompile Include="MenuState.cpp">
       <Filter>GameStates</Filter>
     </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myApplication.h">
@@ -490,6 +493,9 @@
     </ClInclude>
     <ClInclude Include="MenuState.h">
       <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InvinciblePU.h">
       <Filter>PowerUp</Filter>

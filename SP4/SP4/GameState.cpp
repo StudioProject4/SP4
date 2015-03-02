@@ -8,6 +8,7 @@ CGameState::CGameState(void)
 	,WM(0)
 	,MS(0)
 	,OM(0)
+	,IM(0)
 	,mouse(0)
 	,keyboard(0)
 {

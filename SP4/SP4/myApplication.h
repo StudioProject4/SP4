@@ -23,7 +23,9 @@
 #include "KennardTestState.h"
 
 #include "DatatypeDefination.h"
+
 #include "GameStateManager.h"
+#include "ImageManager.h"
 
 #include "MalayFemale.h"
 #include "ChineseMale.h"
