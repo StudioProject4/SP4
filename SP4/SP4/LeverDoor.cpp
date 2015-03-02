@@ -1,8 +1,16 @@
+#include "RakNet\RakPeerInterface.h"
+#include "RakNet\BitStream.h"
+#include "MyMsgIDs.h"
+
 #include "LeverDoor.h"
 #include "Door.h"
 
+using namespace RakNet;
 
-CLeverDoor::CLeverDoor(void)
+extern RakPeerInterface* rakPeerGlobal;
+
+CLeverDoor::CLeverDoor(void):
+lastTime(0)
 {
 }
 
@@ -93,13 +101,13 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj)
 	float delta=0.0166;
 	float leverGrav=200;
 	
-		
+	bool modded=false;
 
 	if(obj->phys.vel.LengthSquared()==0)
 	{
 		//angleVel-=normal.y*leverGrav*delta;
 		//obj->pos.y=nYpos;
-		applyGrav=false;
+		//applyGrav=false;
 	}
 	else
 	{
@@ -110,7 +118,7 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj)
 			Vector3 vel=obj->phys.vel;
 			float ratio=(nAVel*nAVel)/vel.LengthSquared();
 			obj->phys.vel=obj->phys.vel*ratio;//reduce the vel by a percentage based on how 
-				
+			modded=true;
 		}
 		if((w0-b1).Dot(normal)>0)//go1 pos to go2 pos
 		{
@@ -120,7 +128,7 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj)
 				obj->phys.inAir=false;
 				if(obj->phys.vel.x>-0.001&&obj->phys.vel.x<0.001)
 					obj->pos.x+=5*delta;
-				
+				modded=true;
 			}
 		}
 		else
@@ -132,8 +140,29 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj)
 				obj->phys.inAir=false;
 				if(obj->phys.vel.x>-0.001&&obj->phys.vel.x<0.001)
 					obj->pos.x-=5*delta;;
+				modded=true;
 			}
 		}
+	}
+	long now=timeGetTime();
+	if(now-lastTime>10&&modded)
+	{
+		BitStream bs;
+		unsigned char msgid=ID_OBJ_UPDATE;
+		bs.Write(msgid);
+		bs.Write(this->tag);
+		bs.Write(this->id);
+		bs.Write(obj->id);
+		bs.Write(this->curAngle);
+		bs.Write(this->angleVel);
+		//bs.Write(this->applyGrav);
+		bs.Write(obj->pos.x);
+		bs.Write(obj->pos.y);
+		bs.Write(obj->pos.z);
+		bs.Write(obj->phys.vel.x);
+		bs.Write(obj->phys.vel.y);
+		bs.Write(obj->phys.vel.z);
+		rakPeerGlobal->Send(&bs,HIGH_PRIORITY,UNRELIABLE_SEQUENCED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
 	}
 	//move the object back so that its not colliding anymore
 

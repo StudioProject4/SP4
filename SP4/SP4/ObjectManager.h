@@ -44,6 +44,8 @@ public:
 	bool Reset();
 	bool CleanUp();
 
+	bool LoadingSetup();
+
 	void CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex = 0);
 	void CheckObjectCollision(CBaseObject* a_obj, TObjectListVector& listOfObjectToCheck,int startingIndex);
 	void UpdateCollision();

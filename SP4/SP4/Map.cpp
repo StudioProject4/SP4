@@ -8,6 +8,8 @@
 #include "SpeedPU.h"
 #include "JumpPU.h"
 #include "InvinciblePU.h"
+#include "ChinesePoints.h"
+#include "MalayPoints.h"
 
 #include <iostream>
 CMap::CMap(CObjectManager* theObjectManager)
@@ -378,6 +380,8 @@ bool CMap::LoadFile(const string mapName)
 					CSpeedPU* tempSpd = nullptr;
 					CInvinciblePU* tempIn = nullptr;
 					CJumpPU* tempJp = nullptr;
+					CChinesePoints* tempCpt = nullptr;
+					CMalayPoints* tempMpt = nullptr;
 
 					while(getline(iss, token, ','))
 					{
@@ -428,6 +432,24 @@ bool CMap::LoadFile(const string mapName)
 							tempJp->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
 							tempJp->Init();
 							OM->AddObject(tempJp);	
+
+							break;
+						case 8:		//Chinese Sign
+							theScreenMap[theLineCounter][theColumnCounter++] = 1;
+							//call factory to create a power up at this pos
+							tempCpt = CManufactureManager::GetInstance()->CreateChinesePoints();
+							tempCpt->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
+							tempCpt->Init(tempCpt->pos, tempCpt->phys.size);
+							OM->AddObject(tempCpt);	
+
+							break;
+						case 9:		//Halal Sign
+							theScreenMap[theLineCounter][theColumnCounter++] = 1;
+							//call factory to create a power up at this pos
+							tempMpt = CManufactureManager::GetInstance()->CreateMalayPoints();
+							tempMpt->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
+							tempMpt->Init(tempMpt->pos, tempMpt->phys.size);
+							OM->AddObject(tempMpt);	
 
 							break;
 						default:

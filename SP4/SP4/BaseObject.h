@@ -35,6 +35,7 @@ public:
 	CBaseObject()
 		:active(true)
 		,cellvectorindex(-1)
+		,lastCall(0)
 	{};
 	virtual ~CBaseObject(){};
 	
@@ -58,6 +59,8 @@ public:
 			BottomRight.Set(pos.x + phys.size.x*0.5,pos.y + phys.size.y*0.5);
 		}
 	};
+protected:
+	long lastCall;
 };
 
 

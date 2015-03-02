@@ -90,20 +90,26 @@ void ServerApp::Loop()
 				//send error msg
 			}
 			break;
+		case ID_COLLISION:
+		case ID_SEND_OBJECT_INFO:
+			bs.ResetReadPointer();
+			rakpeer_->Send(&bs,HIGH_PRIORITY,UNRELIABLE_SEQUENCED,0,packet->systemAddress,true);
+			break;
 		case ID_START:
 			gameStart=true;//only does this for gameStart
-		case ID_SEND_OBJECT_INFO:
+		case ID_GAME_PACKAGE:
 		case ID_CANCEL_START:
 		case ID_OBJ_UPDATE:
 		case ID_NEW_LEVEL:
 		case ID_NEW_PLAYER:
 		case ID_MOVEMENT:
-			bs.Reset();
+		case ID_VEL_CHANGED:
+			bs.ResetReadPointer();
 			rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,packet->systemAddress,true);
 			break;
 		default:
 			std::cout << "Unhandled Message Identifier: " << (int)msgid << std::endl;
-			assert(msgid>=ID_USER_PACKET_ENUM);
+			assert(msgid<=ID_USER_PACKET_ENUM);
 		}
 
 		rakpeer_->DeallocatePacket(packet);
@@ -152,7 +158,7 @@ void ServerApp::SendLobbyInfo(SystemAddress& addr,string name,int ClientID)
 	}
 
 
-	rakpeer_->Send(&bs, HIGH_PRIORITY, RELIABLE_ORDERED,0, addr, false);
+	RakPeerInterface::GetInstance()->Send(&bs, HIGH_PRIORITY, RELIABLE_ORDERED,0, addr, false);
 
 	bs.Reset();
 	//send to every one that a new person is here

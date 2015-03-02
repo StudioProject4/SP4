@@ -49,6 +49,15 @@ bool CSpeedPU::OnCollision2(CBaseObject* a_obj)
 		if(a_obj->name = "GenericChineseKid")
 		{
 			//speed up
+			if(this->active == true)
+			{
+
+				this->active = false;
+
+			}else
+			{
+				//std::cout << "taken " << std::endl;
+			}
 		}
 		else
 		if(a_obj->name = "GenericMalayKid")

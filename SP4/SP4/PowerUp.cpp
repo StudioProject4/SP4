@@ -26,7 +26,9 @@ bool CPowerUp::Init()
 	jump height
 	*/
 
-
+	/*name = "Powerup";
+	tag = "PU";
+	genericTag = "CPowerUp";*/
 
 	return true;
 }

@@ -12,15 +12,18 @@ public:
 		OBSTACLE_NONE,
 		OBSTACLE_LEVERDOOR,
 		OBSTACLE_DOOR,
+		OBSTACLE_CHINAPTS,
+		OBSTACLE_MALAYPTS,
 		OBSTACLE_TOTAL
 	};
 
+	EObstacleType currentManufactureType;
+	CObstacleBase* product;
+
+public:
 	CObstacleFactory(void);
 	CObstacleFactory(EObstacleType typeToMake);
 	~CObstacleFactory(void);
-
-	EObstacleType currentManufactureType;
-	CObstacleBase* product;
 
 	void CreateProduct();
 	CObstacleBase* GetProduct();
@@ -28,6 +31,9 @@ public:
 	void setManufactureNone();
 	void SetManufactureLeverDoor();
 	void SetManufactureDoor();
+	void SetManufactureChinesePoints();
+	void SetManufactureMalayPoints();
 
+	//CChinesePoints* CChinesePoints;
 };
 

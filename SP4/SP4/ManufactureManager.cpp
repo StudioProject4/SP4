@@ -16,6 +16,8 @@
 #include "SpeedPU.h"
 #include "LeverDoor.h"
 #include "Door.h"
+#include "ChinesePoints.h"
+#include "MalayPoints.h"
 
 CManufactureManager* CManufactureManager::instance = 0;
 
@@ -109,4 +111,18 @@ CDoor* CManufactureManager::CreateObstacleDoor()
 {
 	obstacleBuilder->SetManufactureDoor();
 	return dynamic_cast<CDoor*>(obstacleBuilder->GetProduct());
+}
+	
+CChinesePoints* CManufactureManager::CreateChinesePoints()
+{
+	obstacleBuilder->SetManufactureChinesePoints();
+	return dynamic_cast<CChinesePoints*>(obstacleBuilder->GetProduct());
+
+}
+	
+CMalayPoints* CManufactureManager::CreateMalayPoints()
+{
+	obstacleBuilder->SetManufactureMalayPoints();
+	return dynamic_cast<CMalayPoints*>(obstacleBuilder->GetProduct());
+	
 }
