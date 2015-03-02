@@ -32,23 +32,18 @@ bool CMalayPoints::Init(Vector3 pos,Vector3 size)
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("HalalSign.tga");
 
-	
 	phys.Init(pos, Vector3(theSprite->GetImageSizeX(), theSprite->GetImageSizeY()));
-
 
 	return true;
 }
 
 bool CMalayPoints::Update()
 {
-	/*	std::cout << "Chinese Hp: " << CM->hp.GetHealth() << std::endl;
-	std::cout << "Malay Hp: " << MF->hp.GetHealth() << std::endl;
-*/
 
 	return true;
 }
 
-bool CMalayPoints::OnCollision(CBaseObject* a_obj)
+bool CMalayPoints::OnCollision2(CBaseObject* a_obj)
 {
 	
 	CMalayFemale* tempMF = (CMalayFemale*)a_obj;

@@ -361,9 +361,8 @@ bool myApplication::Update()
 						leverRefList.push_back(leverRef);
 						doorList.push_back(temp);
 					}
-					else
+					else 
 					{
-						
 					}
 				}
 				vector<int>::iterator it2=doorRefList.begin();
