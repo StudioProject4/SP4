@@ -14,7 +14,7 @@ public:
 	bool Render();
 	bool Init(Vector3 pos,Vector3 size);
 	bool Update();
-	bool OnCollision(CBaseObject* a_obj);
+	bool OnCollision2(CBaseObject* a_obj);
 
 	CMalayFemale* MF;
 	CChineseMale* CM;

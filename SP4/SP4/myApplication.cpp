@@ -458,6 +458,7 @@ bool myApplication::Update()
 					}
 
 					float x,y,z;
+					
 					bs.Read(x);
 					bs.Read(y);
 					lever->curAngle=x;
@@ -474,6 +475,7 @@ bool myApplication::Update()
 					other->phys.vel.Set(x,y,z);
 				}
 			}
+			break;
 		case ID_COLLISION:
 			{
 				unsigned short id,id2;
