@@ -2,6 +2,7 @@
 #include <stack>
 #include <deque>
 #include <vector>
+//#include "AllGameStateIncludes.h"
 class CGameState;
 
 class CGameStateManager

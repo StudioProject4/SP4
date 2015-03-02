@@ -1,4 +1,4 @@
-#include "MenuState.h"
+#include "OnlinePlayState.h"
 
 #include "ObjectManager.h"
 #include "Mouse.h"
@@ -12,36 +12,27 @@
 
 #include "UIButtonCircle.h"
 #include "UIButtonRectangle.h"
-//system manager include
-
-//gamestate include
 #include "myApplication.h"
-#include "CreditState.h"
-#include "OptionState.h"
-#include "OnlinePlayState.h"
-///////////////////
+COnlinePlayState* COnlinePlayState::instance = 0;
 
-
-CMenuState* CMenuState::instance = 0;
-
-CMenuState::CMenuState(void)
+COnlinePlayState::COnlinePlayState(void)
 {
 }
 
-CMenuState::~CMenuState(void)
+COnlinePlayState::~COnlinePlayState(void)
 {
 }
 
-CMenuState* CMenuState::GetInstance()
+COnlinePlayState* COnlinePlayState::GetInstance()
 {
 	if(instance == 0)
 	{
-		instance = new CMenuState();
+		instance = new COnlinePlayState();
 	}
 	return instance;
 }
 
-void CMenuState::InputKey(int key, int x, int y)
+void COnlinePlayState::InputKey(int key, int x, int y)
 {
 	switch (key) {
 		case GLUT_KEY_LEFT : 
@@ -58,7 +49,7 @@ void CMenuState::InputKey(int key, int x, int y)
 	}
 }
 
-void CMenuState::InputUpKey(int key, int x, int y)
+void COnlinePlayState::InputUpKey(int key, int x, int y)
 {
 	switch (key) {
 		case GLUT_KEY_LEFT : 
@@ -75,7 +66,7 @@ void CMenuState::InputUpKey(int key, int x, int y)
 	}
 }
 
-void CMenuState::KeyboardDown(unsigned char key, int x, int y)
+void COnlinePlayState::KeyboardDown(unsigned char key, int x, int y)
 {
 	keyboard->myKeys[key] = true;
 	switch(key)
@@ -101,12 +92,12 @@ void CMenuState::KeyboardDown(unsigned char key, int x, int y)
 	}
 }
 
-void CMenuState::KeyboardUp(unsigned char key, int x, int y)
+void COnlinePlayState::KeyboardUp(unsigned char key, int x, int y)
 {
 	keyboard->myKeys[key] = false;
 }
 
-void CMenuState::MouseMove (int x, int y)
+void COnlinePlayState::MouseMove (int x, int y)
 {
 	int diffX = x - mouse->lastX;
 	int diffY = y - mouse->lastY;
@@ -115,7 +106,7 @@ void CMenuState::MouseMove (int x, int y)
 	mouse->lastY = y;
 }
 
-void CMenuState::MouseClick(int button, int state, int x, int y)
+void COnlinePlayState::MouseClick(int button, int state, int x, int y)
 {
 
 	switch (button) {
@@ -165,11 +156,11 @@ void CMenuState::MouseClick(int button, int state, int x, int y)
 	}
 }
 
-void CMenuState::MouseWheel(int button, int dir, int x, int y)
+void COnlinePlayState::MouseWheel(int button, int dir, int x, int y)
 {
 }
 
-void CMenuState::changeSize (int w, int h)
+void COnlinePlayState::changeSize (int w, int h)
 {
 	// Prevent a divide by zero, when window is too short
 	// (you cant make a window of zero width).
@@ -194,7 +185,7 @@ void CMenuState::changeSize (int w, int h)
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void CMenuState::SetHUD(bool m_bHUDmode)
+void COnlinePlayState::SetHUD(bool m_bHUDmode)
 {	
 	if (m_bHUDmode == true)
 	{
@@ -222,7 +213,7 @@ void CMenuState::SetHUD(bool m_bHUDmode)
 	}
 }
 
-void CMenuState::Render2D()
+void COnlinePlayState::Render2D()
 {
 	RenderBackground();
 
@@ -234,11 +225,11 @@ void CMenuState::Render2D()
 	FRM->drawFPS();
 }
 
-void CMenuState::Render3D()
+void COnlinePlayState::Render3D()
 {
 }
 
-void CMenuState::RenderScene(void)
+void COnlinePlayState::RenderScene(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
@@ -260,7 +251,7 @@ void CMenuState::RenderScene(void)
 	glutPostRedisplay();
 }
 
-bool CMenuState::Update()
+bool COnlinePlayState::Update()
 {
 	for(unsigned short i = 0 ; i< buttonList.size();++i)
 	{
@@ -287,12 +278,12 @@ bool CMenuState::Update()
 	return true;
 }
 
-bool CMenuState::Init()
+bool COnlinePlayState::Init()
 {
 	inited = true;
 	
-	name = "menu";
-	tag = "CMenuState";
+	name = "onlineplay";
+	tag = "COnlinePlayState";
 	genericTag = "CGameState";
 
 	IM = CImageManager::GetInstance();
@@ -310,7 +301,7 @@ bool CMenuState::Init()
 
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
-	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
 
 	CUIButton* a_button = 0;
 
@@ -359,12 +350,12 @@ bool CMenuState::Init()
 	return true;
 }
 
-bool CMenuState::Reset()
+bool COnlinePlayState::Reset()
 {
 	return Init();
 }
 
-bool CMenuState::CleanUp()
+bool COnlinePlayState::CleanUp()
 {
 	for(TButtonList::iterator it = buttonList.begin(); it != buttonList.end(); ++it)
 	{
@@ -385,7 +376,7 @@ bool CMenuState::CleanUp()
 	return true;
 }
 
-void CMenuState::RenderBackground()
+void COnlinePlayState::RenderBackground()
 {
 	//glEnable(GL_TEXTURE_2D);
 
@@ -413,7 +404,7 @@ void CMenuState::RenderBackground()
 	backgroundImage[0].Render();
 	glPopMatrix();
 }
- void CMenuState::PageTransitionTrigger(std::string buttonName)
+ void COnlinePlayState::PageTransitionTrigger(std::string buttonName)
  {
 	 if(mouse->CheckLeftButtonReleased())
 	 {
@@ -428,21 +419,21 @@ void CMenuState::RenderBackground()
 			 {
 				 // if(mouse->CheckLeftButtonReleased())
 				 // {
-				 GSM->ChangeState(COnlinePlayState::GetInstance());
+				 GSM->ChangeState(myApplication::GetInstance());
 				 //}
 			 }else
 				 if(buttonName == "OptionButton")
 				 {
 					 // if(mouse->CheckLeftButtonReleased())
 					 // {
-					 GSM->ChangeState(COptionState::GetInstance());
+					 GSM->ChangeState(myApplication::GetInstance());
 					 // }
 				 }else
 					 if(buttonName == "CreditButton")
 					 {
 						 // if(mouse->CheckLeftButtonReleased())
 						 // {
-						 GSM->ChangeState(CCreditState::GetInstance());
+						 GSM->ChangeState(myApplication::GetInstance());
 						 // }
 					 }else
 						 if(buttonName == "ExitButton")

@@ -38,7 +38,8 @@ bool CMouse::Update()
 bool CMouse::Init() 
 {
 	tag = "mouse";
-	middleButtonUp = mRButtonUp = mLButtonUp = false;
+	middleButtonUp = mLButtonUp =  mRButtonUp = false;
+	lastLButtonState = lastRButtonState = lastMiddleButtonState = false;
 	lastY = lastX = 0;
 	sensitivity = 0.5f;
 	return true;

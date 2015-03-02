@@ -89,6 +89,7 @@
     <ClCompile Include="ChineseMale.cpp" />
     <ClCompile Include="ChineseMob.cpp" />
     <ClCompile Include="ChinesePoints.cpp" />
+    <ClCompile Include="CreditState.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="FrameRateManager.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -119,6 +120,8 @@
     <ClCompile Include="ObstacleBase.cpp" />
     <ClCompile Include="ObstacleBuilder.cpp" />
     <ClCompile Include="ObstacleFactory.cpp" />
+    <ClCompile Include="OnlinePlayState.cpp" />
+    <ClCompile Include="OptionState.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PointsAddPU.cpp" />
     <ClCompile Include="PowerUp.cpp" />
@@ -129,6 +132,7 @@
     <ClCompile Include="RenderUntility.cpp" />
     <ClCompile Include="SpatialPartion.cpp" />
     <ClCompile Include="SpeedPU.cpp" />
+    <ClCompile Include="SplashState.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TestBallObject.cpp" />
     <ClCompile Include="TestObject.cpp" />
@@ -144,6 +148,8 @@
     <ClInclude Include="AI.h" />
     <ClInclude Include="AIMobBuilder.h" />
     <ClInclude Include="AIMobFactory.h" />
+    <ClInclude Include="AllGameStateIncludes.h" />
+    <ClInclude Include="AllSystemManagerIncludes.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterBuilder.h" />
@@ -152,6 +158,7 @@
     <ClInclude Include="ChineseMob.h" />
     <ClInclude Include="ChinesePoints.h" />
     <ClInclude Include="CodeDefination.h" />
+    <ClInclude Include="CreditState.h" />
     <ClInclude Include="DatabaseLibrary.h" />
     <ClInclude Include="DatatypeDefination.h" />
     <ClInclude Include="Door.h" />
@@ -186,6 +193,8 @@
     <ClInclude Include="ObstacleBase.h" />
     <ClInclude Include="ObstacleBuilder.h" />
     <ClInclude Include="ObstacleFactory.h" />
+    <ClInclude Include="OnlinePlayState.h" />
+    <ClInclude Include="OptionState.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PointsAddPU.h" />
     <ClInclude Include="PowerUp.h" />
@@ -198,6 +207,7 @@
     <ClInclude Include="SContainer2D.h" />
     <ClInclude Include="SpatialPartion.h" />
     <ClInclude Include="SpeedPU.h" />
+    <ClInclude Include="SplashState.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SystemDefination.h" />
     <ClInclude Include="TestBallObject.h" />

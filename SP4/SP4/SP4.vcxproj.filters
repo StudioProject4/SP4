@@ -306,6 +306,18 @@
     <ClCompile Include="UIButtonRectangle.cpp">
       <Filter>UiObjects</Filter>
     </ClCompile>
+    <ClCompile Include="CreditState.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="OnlinePlayState.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionState.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="SplashState.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myApplication.h">
@@ -520,6 +532,24 @@
     </ClInclude>
     <ClInclude Include="UIButtonRectangle.h">
       <Filter>UiObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditState.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="OnlinePlayState.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionState.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="SplashState.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="AllGameStateIncludes.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="AllSystemManagerIncludes.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
