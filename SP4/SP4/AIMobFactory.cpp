@@ -1,5 +1,5 @@
-#include "AIMobFactory.h"
 #include "ChineseMob.h"
+#include "AIMobFactory.h"
 #include "MalayMob.h"
 
 CAIMobFactory::CAIMobFactory(void)

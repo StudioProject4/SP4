@@ -9,6 +9,10 @@ class CHealthSystem
 		void TakeDMG();
 		void RecoverHealth();
 		int GetHealth();
+		void SetHealth(int hp)
+		{
+			health=hp;
+		}
 	private:
 		int health;
 };

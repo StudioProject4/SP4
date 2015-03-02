@@ -1,3 +1,12 @@
+#include "CodeDefination.h"
+
+#ifdef NETWORK_CODE
+#include "RakNet\WindowsIncludes.h"
+#include "RakNet\RakPeerInterface.h"
+#include "RakNet\BitStream.h"
+#include "MyMsgIDs.h"
+#endif
+
 #include "ChineseMob.h"
 #include "Character.h"
 
@@ -17,8 +26,8 @@ bool CChineseMob :: Update()
 {	
 	dir = AI.GetDir();
 	//pos.x = 
-	AI.Update(pos,phys).x;
-	pos = phys.Update(pos);
+	pos = AI.Update(pos,phys);
+	//pos = phys.Update(pos);
 	return true;
 }
 bool CChineseMob :: Init()
@@ -54,16 +63,26 @@ bool CChineseMob :: Render()
 	return true;
 }
 
-bool CChineseMob :: OnCollision(CBaseObject* a_obj)
+bool CChineseMob :: OnCollision2(CBaseObject* a_obj)
 {
+#ifdef NETWORK_CODE
 	if(a_obj->genericTag = "Character")
 	{
 		if(a_obj->tag = "MalayFemale")
 		{
 			CCharacter* temp=(CCharacter*)a_obj;
 			temp->hp.TakeDMG();
+			unsigned char msgID=ID_OBJ_UPDATE;
+			RakNet::BitStream bs;
+			bs.Write(msgID);
+			bs.Write(this->id);
+			bs.Write(this->tag);
+			bs.Write(a_obj->id);
+			bs.Write(temp->hp.GetHealth());
+			RakNet::RakPeerInterface::GetInstance()->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,RakNet::UNASSIGNED_SYSTEM_ADDRESS,true);
 		}
 	}
+#endif
 	return true;
 }
 

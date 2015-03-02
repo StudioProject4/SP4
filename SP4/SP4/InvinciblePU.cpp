@@ -42,7 +42,7 @@ bool CInvinciblePU::Init()
 	return true;
 }
 
-bool CInvinciblePU::OnCollision(CBaseObject* a_obj)
+bool CInvinciblePU::OnCollision2(CBaseObject* a_obj)
 {
 
 	if(a_obj->genericTag = "Character")

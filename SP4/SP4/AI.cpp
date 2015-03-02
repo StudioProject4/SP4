@@ -50,7 +50,11 @@ void CAILogic :: DetectionCheck ()
 void CAILogic :: FindPath ()
 {
 	pathFinding.SetUpPath(pos,targetPosition);
-	pathFinding.FindPath();
+	if(pathFinding.start.index != pathFinding.end.index)
+	{
+		pathFinding.FindPath();
+		foundPath = true;
+	}
 }
 
 void CAILogic :: IdleWanderRandomizer ()
@@ -79,17 +83,50 @@ Vector3 CAILogic :: Update(Vector3 pos,CPhysics & thePhysics)
 
 	std :: vector<node> ::iterator it;
 
-	for(it = pathFinding.closeList.begin(); it < pathFinding.closeList.end(); ++it)
-	{
-		cout << it->index << endl;
-	}
-
 	if(state == AI_PURSUE)
 	{
 		if(foundPath == false)
 		{
-			//FindPath();
-			foundPath = true;
+			pathFinding.closeList.clear();
+			pathFinding.openList.clear();
+			pathFinding.notCorrectPath.clear();
+			FindPath();
+			for(it = pathFinding.closeList.begin(); it < pathFinding.closeList.end(); ++it)
+			{
+				cout << it->index << endl;
+			}
+		}
+		else if(foundPath == true)
+		{
+			//pathMovementCounter = pathFinding.closeList.size();
+			//pathFinding.closeList.at(pathMovementCounter);
+			if(pos.x < pathFinding.closeList.at(pathMovementCounter).x)
+			{
+				//thePhysics.MoveSide(true);
+				this->pos.x += 1;
+			}
+			if(pos.x > pathFinding.closeList.at(pathMovementCounter).x)
+			{
+				//thePhysics.MoveSide(false);
+				this->pos.x -= 1;
+			}
+			if(pos.y < pathFinding.closeList.at(pathMovementCounter).y)
+			{
+				this->pos.y += 1;
+			}
+			if(pos.y > pathFinding.closeList.at(pathMovementCounter).y)
+			{
+				this->pos.y -= 1;
+			}
+			if(pos == Vector3(pathFinding.closeList.at(pathMovementCounter).x,pathFinding.closeList.at(pathMovementCounter).y,0))
+			{
+				pathMovementCounter++;
+				if(pathMovementCounter >= pathFinding.closeList.size())
+				{
+					foundPath = false;
+					pathMovementCounter = 0;
+				}
+			}
 		}
 		/*if(targetPosition.x > pos.x)
 		{
@@ -139,6 +176,7 @@ bool CAILogic :: Init()
 	//FindPath();
 
 	foundPath = false;
+	pathMovementCounter = 0;
 
 	pos = Vector3(0,-28.008003,0);
 	dir = Vector3(0,0,0);

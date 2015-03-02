@@ -5,6 +5,9 @@
 #include "Sprite.h"
 #include "TestBallObject.h"
 #include "GameStateManager.h"
+#include "Character.h"
+#include "LeverDoor.h"
+#include "Door.h"
 
 //CObjectManager* CObjectManager::instance = 0;
 
@@ -35,10 +38,15 @@ void CObjectManager::AddObject(CBaseObject* a_obj)
 #ifdef SP_V2
 	SP->AddObjectNeo(a_obj);
 #endif
-	
-	++numOfUniqueId;
-	a_obj->id = numOfUniqueId;
-
+	if(numOfUniqueId>a_obj->id||a_obj->id==0)
+	{
+		++numOfUniqueId;
+		a_obj->id = numOfUniqueId;
+	}
+	else
+	{
+		numOfUniqueId=a_obj->id;
+	}
 }
 bool CObjectManager::Render()
 {
@@ -163,6 +171,11 @@ void CObjectManager::UpdateCollision()
 
 bool CObjectManager::Update()
 {
+	return Update(3);
+}
+
+bool CObjectManager::Update(int multiplayerMode)
+{
 	//for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
 	//{
 	//	if( (*it)->active == true)
@@ -179,7 +192,8 @@ bool CObjectManager::Update()
 	//		objectList.pop_back();
 	//	}
 	//}
-	UpdateCollision();
+	if(multiplayerMode==1||multiplayerMode==3)//either controls first player or all players
+		UpdateCollision();
 
 	for(unsigned short it = 0; it < objectList.size(); ++it)
 	{
@@ -190,11 +204,10 @@ bool CObjectManager::Update()
 #ifdef SP_V1
 			SP->UpdateObjectOwnerCell(objectList[it]);
 #endif
-
 #ifdef SP_V2
 			objectList[it]->UpdateObjectTopLeftAndBottomRightPoint(false);
 			SP->UpdateObjectTopLeftAndBottomRightCell(objectList[it]);
-			SP->UpdateObjectStretchedCells(objectList[it]);
+			SP->UpdateObjectMultipleCells(objectList[it]);
 #endif	
 
 			//(*it)->Render();
@@ -277,11 +290,11 @@ bool CObjectManager::CleanUp()
 
 CBaseObject* CObjectManager::FindObjectWithName(std::string objectName)
 {
-	const char* compare = objectName.c_str();
+	//const char* compare = objectName.c_str();
 
 	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
 	{
-		if( (*it)->name == compare )
+		if( (*it)->name == objectName )
 		{
 			return (*it);
 		}
@@ -291,11 +304,11 @@ CBaseObject* CObjectManager::FindObjectWithName(std::string objectName)
 
 CBaseObject* CObjectManager::FindObjectWithTag(std::string objectTag)
 {
-	const char* compare = objectTag.c_str();
+	//const char* compare = objectTag.c_str();
 
 	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
 	{
-		if( (*it)->tag == compare )
+		if( (*it)->tag == objectTag )
 		{
 			return (*it);
 		}
@@ -305,11 +318,11 @@ CBaseObject* CObjectManager::FindObjectWithTag(std::string objectTag)
 
 CBaseObject* CObjectManager::FindObjectWithGenericTag(std::string objectTag)
 {
-	const char* compare = objectTag.c_str();
+	//const char* compare = objectTag.c_str();
 
 	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
 	{
-		if( (*it)->genericTag == compare )
+		if( (*it)->genericTag == objectTag )
 		{
 			return (*it);
 		}
@@ -320,12 +333,12 @@ CBaseObject* CObjectManager::FindObjectWithGenericTag(std::string objectTag)
 
 CObjectManager::TObjectListVector CObjectManager::FindObjectsWithTag(std::string objectTag)
 {
-	const char* compare = objectTag.c_str();
+	//const char* compare = objectTag.c_str();
 	TObjectListVector resultlist;
 
 	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
 	{
-		if( (*it)->genericTag == compare )
+		if( (*it)->genericTag == objectTag )
 		{
 			resultlist.push_back((*it));
 		}
@@ -335,12 +348,12 @@ CObjectManager::TObjectListVector CObjectManager::FindObjectsWithTag(std::string
 
 CObjectManager::TObjectListVector CObjectManager::FindObjectsWithGenericTag(std::string objectTag)
 {
-	const char* compare = objectTag.c_str();
+	//const char* compare = objectTag.c_str();
 	TObjectListVector resultlist;
 
 	for(TObjectListVector::iterator it = objectList.begin(); it!=objectList.end(); ++it)
 	{
-		if( (*it)->genericTag == compare )
+		if( (*it)->genericTag == objectTag )
 		{
 			resultlist.push_back((*it));
 		}
@@ -348,22 +361,23 @@ CObjectManager::TObjectListVector CObjectManager::FindObjectsWithGenericTag(std:
 	return resultlist;
 }
 
-CBaseObject* CObjectManager::FetchObject()
-{
-	CBaseObject* a_obj = NULL;
-
-	if(!inactiveObjectList.empty())
-	{
-		a_obj =  inactiveObjectList.front();
-		//inactiveObjectList.erase(inactiveObjectList.begin());//pop front
-		inactiveObjectList.front() = inactiveObjectList.back();//swap to the front and pop back.
-		inactiveObjectList.pop_back();
-	}else
-	{
-		std::cout<<"<FATAL ERROR> Cannot Find inactive gameobject to recycle"<<std::endl;
-	}
-	return a_obj;
-}
+//CBaseObject* CObjectManager::FetchObject()
+//{
+//	CBaseObject* a_obj = NULL;
+//
+//	if(!inactiveObjectList.empty())
+//	{
+//		a_obj =  inactiveObjectList.front();
+//		//inactiveObjectList.erase(inactiveObjectList.begin());//pop front
+//		inactiveObjectList.front() = inactiveObjectList.back();//swap to the front and pop back.
+//		inactiveObjectList.pop_back();
+//		AddToActiveList(a_obj);
+//	}else
+//	{
+//		std::cout<<"<FATAL ERROR> Cannot Find inactive gameobject to recycle"<<std::endl;
+//	}
+//	return a_obj;
+//}
 
 CBaseObject* CObjectManager::FetchObjectWithName(std::string objectName)
 {
@@ -371,26 +385,20 @@ CBaseObject* CObjectManager::FetchObjectWithName(std::string objectName)
 
 	if(!inactiveObjectList.empty())
 	{
-		const char* compare = objectName.c_str();
+		//const char* compare = objectName.c_str();
 
 		for(unsigned short i = 0 ; i<inactiveObjectList.size();++i)
 		{		
-			if( inactiveObjectList[i]->name == compare )
+			if( inactiveObjectList[i]->name == objectName )
 			{
 				a_obj = inactiveObjectList[i];
 				inactiveObjectList[i] = inactiveObjectList.back();
 				inactiveObjectList.pop_back();
+				AddToActiveList(a_obj);
+				break;
 			}
 		}
-		//for(TObjectListVector::iterator it = inactiveObjectList.begin(); it!=inactiveObjectList.end(); ++it)
-		//{
-		//	if( (*it)->name == compare )
-		//	{
-		//		a_obj = (*it);
-		//		//inactiveObjectList.pop_front();
-		//		
-		//	}
-		//}
+
 	}else
 	{
 		std::cout<<"<FATAL ERROR> Cannot Find inactive gameobject to recycle"<<std::endl;
@@ -400,31 +408,26 @@ CBaseObject* CObjectManager::FetchObjectWithName(std::string objectName)
 
 CBaseObject* CObjectManager::FetchObjectWithTag(std::string objectTag)
 {
+	//std::cout<<"trying to recycle something"<<std::endl;
 	CBaseObject* a_obj = NULL;
-
-
 	if(!inactiveObjectList.empty())
 	{
-		const char* compare = objectTag.c_str();
-
+		//const char* compare = objectTag.c_str();
+		
 		for(unsigned short i = 0 ; i<inactiveObjectList.size();++i)
-		{		
-			if( inactiveObjectList[i]->tag == compare )
+		{		//std::cout<<"loopinh"<<std::endl;
+
+			if( inactiveObjectList[i]->tag == objectTag )
 			{
+				//std::cout<<"found something"<<std::endl;
 				a_obj = inactiveObjectList[i];
 				inactiveObjectList[i] = inactiveObjectList.back();
 				inactiveObjectList.pop_back();
+				AddToActiveList(a_obj);
+				
+				break;
 			}
 		}
-
-		//for(TObjectListQueue::iterator it = inactiveObjectList.begin(); it!=inactiveObjectList.end(); ++it)
-		//{
-		//	if( (*it)->tag == compare )
-		//	{
-		//		a_obj = (*it);
-		//		inactiveObjectList.pop_front();
-		//	}
-		//}
 	}else
 	{
 		std::cout<<"<FATAL ERROR> Cannot Find inactive gameobject to recycle"<<std::endl;
@@ -438,26 +441,21 @@ CBaseObject* CObjectManager::FetchObjectWithGenericTag(std::string objectTag)
 
 	if(!inactiveObjectList.empty())
 	{
-		const char* compare = objectTag.c_str();
+		//const char* compare = objectTag.c_str();
 
 			for(unsigned short i = 0 ; i<inactiveObjectList.size();++i)
 		{		
-			if( inactiveObjectList[i]->genericTag == compare )
+			if( inactiveObjectList[i]->genericTag == objectTag )
 			{
 				a_obj = inactiveObjectList[i];
 				inactiveObjectList[i] = inactiveObjectList.back();
 				inactiveObjectList.pop_back();
+				AddToActiveList(a_obj);
+				//std::cout<<"recycling something"<<std::endl;
+				break;
 			}
 		}
 
-		//for(TObjectListQueue::iterator it = inactiveObjectList.begin(); it!=inactiveObjectList.end(); ++it)
-		//{
-		//	if( (*it)->genericTag == compare )//change to generic tag later
-		//	{
-		//		a_obj = (*it);
-		//		inactiveObjectList.pop_front();
-		//	}
-		//}
 	}else
 	{
 		std::cout<<"<FATAL ERROR> Cannot Find inactive gameobject to recycle"<<std::endl;
@@ -487,6 +485,54 @@ void CObjectManager::PrintDebugInformation()
 	std::cout<<"InActive object List size"<<inactiveObjectList.size()<<std::endl;
 	SP->PrintDebugInformation();
 }
+#ifdef NETWORK_CODE
+void CObjectManager::WriteAllObjects(RakNet::BitStream &bs)
+{
+	bs.Write(objectList.size());
+	for(TObjectListVector::iterator it=objectList.begin();it!=objectList.end();++it)
+	{
+		CBaseObject* temp=*it;
+		//basic info
+		bs.Write(temp->genericTag);
+		bs.Write(temp->tag);
+		bs.Write(temp->id);
+		bs.Write(temp->pos.x);
+		bs.Write(temp->pos.y);
+		bs.Write(temp->pos.z);
+
+		//more specific info
+		if(temp->genericTag=="Character")
+		{
+			CCharacter* temp2=(CCharacter*)temp;
+			bs.Write(temp2->hp.GetHealth());
+		}
+		else if(temp->genericTag=="PowerUp")
+		{
+
+		}
+		else if(temp->tag=="CLeverDoor")
+		{
+			CLeverDoor* temp2=(CLeverDoor*)temp;
+			bs.Write(temp2->curAngle);
+			bs.Write(temp2->GetDoorID());
+		}
+		else if(temp->tag=="CDoor")
+		{
+			CDoor* temp2=(CDoor*)temp;
+			vector<int> temp3=temp2->GetTriggerID();
+			bs.Write(temp3.size());
+			for(vector<int>::iterator it=temp3.begin();it!=temp3.end();++it)
+			{
+				bs.Write(*it);
+			}
+		}
+		else if(temp->genericTag=="Enemy")
+		{
+
+		}
+	}
+}
+#endif
 #ifdef SP_V2
 void CObjectManager::UpdateGridCheckCall()
 {
@@ -496,7 +542,7 @@ void CObjectManager::UpdateGridCheckCall()
 
 	for(int i = 0 ; i < SP->cellList.size(); ++i )//loop through all cells
 	{
-		if(SP->cellList[i].objectListNeo.empty())//skip empty cell
+		if(SP->cellList[i].objectList.empty())//skip empty cell
 			continue;
 		
 		
@@ -506,10 +552,10 @@ void CObjectManager::UpdateGridCheckCall()
 		//currx = i % SP->numCellX;
 		//curry = i / SP->numCellX;
 		//std::cout<<"currx "<<currx<<" curry" <<curry<<std::endl;
-		for(int j = 0 ; j< a_cell.objectListNeo.size();++j)//loop through all object inside objectlist of non empty cell
+		for(int j = 0 ; j< a_cell.objectList.size();++j)//loop through all object inside objectlist of non empty cell
 		{
 			
-			a_obj = a_cell.objectListNeo[j];
+			a_obj = a_cell.objectList[j];
 
 			
 			//int lasttimecalled = a_ball->timecalled;
@@ -543,8 +589,8 @@ void CObjectManager::UpdateGridCheckCall()
 				{
 					for(int ownX = a_obj->TopLeftCellIndex.x; ownX <=a_obj->BottomRightCellIndex.x;++ownX)
 					{
-						//a_ball->UpdateCollision(SP->GetCell(ownX,ownY)->objectListNeo,0);
-						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(ownX,ownY)->objectListNeo,0);
+						//a_ball->UpdateCollision(SP->GetCell(ownX,ownY)->objectList,0);
+						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(ownX,ownY)->objectList,0);
 					}
 				}
 				//int nexttimecalled = a_ball->timecalled;
@@ -555,15 +601,15 @@ void CObjectManager::UpdateGridCheckCall()
 					for(int topX = a_obj->TopLeftCellIndex.x; topX<=a_obj->BottomRightCellIndex.x;++topX )//loop through all top celling cells
 					{	
 						//std::cout<<"testing top cells"<<std::endl;
-						//a_ball->UpdateCollision( SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
-						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
+						//a_ball->UpdateCollision( SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectList,0);
+						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectList,0);
 					}
 
 					if(a_obj->TopLeftCellIndex.x-1 >= 0 )//celling,top left cell check
 					{
 						//std::cout<<"testing top left cells"<<std::endl;
-						//a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
-						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
+						//a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->TopLeftCellIndex.y-1))->objectList,0);
+						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->TopLeftCellIndex.y-1))->objectList,0);
 					}
 				}
 
@@ -572,16 +618,16 @@ void CObjectManager::UpdateGridCheckCall()
 					for(int leftY = a_obj->TopLeftCellIndex.y; leftY <= a_obj->BottomRightCellIndex.y; ++leftY)///loop through all left border cells
 					{
 						//std::cout<<"testing left cells"<<std::endl;
-						//a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),leftY)->objectListNeo,0);
-						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),leftY)->objectListNeo,0);
+						//a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),leftY)->objectList,0);
+						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),leftY)->objectList,0);
 					
 					}
 
 					if(a_obj->BottomRightCellIndex.y+1 < SP->numCellY )//check bottom left cell
 					{
 						//std::cout<<"testing bottom left cells"<<std::endl;
-						//a_ball->UpdateCollision(SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->BottomRightCellIndex.y+1))->objectListNeo,0);
-						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->BottomRightCellIndex.y+1))->objectListNeo,0);
+						//a_ball->UpdateCollision(SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->BottomRightCellIndex.y+1))->objectList,0);
+						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->BottomRightCellIndex.y+1))->objectList,0);
 					}
 
 				}
@@ -602,7 +648,7 @@ void CObjectManager::UpdateGridTestBallCheckCall()
 	CTestBallObject* a_ball = nullptr;
 	for(int i = 0 ; i < SP->cellList.size(); ++i )//loop through all cells
 	{
-		if(SP->cellList[i].objectListNeo.empty())//skip empty cell
+		if(SP->cellList[i].objectList.empty())//skip empty cell
 			continue;
 
 
@@ -612,10 +658,10 @@ void CObjectManager::UpdateGridTestBallCheckCall()
 		//x = i % SP->numCellX;
 		//y = i / SP->numCellX;
 
-		for(int j = 0 ; j< a_cell.objectListNeo.size();++j)//loop through all object inside objectlist of non empty cell
+		for(int j = 0 ; j< a_cell.objectList.size();++j)//loop through all object inside objectlist of non empty cell
 		{
 			
-			a_obj = a_cell.objectListNeo[j];
+			a_obj = a_cell.objectList[j];
 
 			a_ball = dynamic_cast<CTestBallObject*>(a_obj);
 			//int lasttimecalled = a_ball->timecalled;
@@ -649,7 +695,7 @@ void CObjectManager::UpdateGridTestBallCheckCall()
 				{
 					for(int ownX = a_obj->TopLeftCellIndex.x; ownX <=a_obj->BottomRightCellIndex.x;++ownX)
 					{
-						a_ball->UpdateCollision(SP->GetCell(ownX,ownY)->objectListNeo,0);
+						a_ball->UpdateCollision(SP->GetCell(ownX,ownY)->objectList,0);
 					}
 				}
 				//int nexttimecalled = a_ball->timecalled;
@@ -660,13 +706,13 @@ void CObjectManager::UpdateGridTestBallCheckCall()
 					for(int topX = a_obj->TopLeftCellIndex.x; topX<=a_obj->BottomRightCellIndex.x;++topX )//loop through all top celling cells
 					{	
 						//std::cout<<"testing top cells"<<std::endl;
-						a_ball->UpdateCollision( SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
+						a_ball->UpdateCollision( SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectList,0);
 					}
 
 					if(a_obj->TopLeftCellIndex.x-1 >= 0 )//celling,top left cell check
 					{
 						//std::cout<<"testing top left cells"<<std::endl;
-						a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->TopLeftCellIndex.y-1))->objectListNeo,0);
+						a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->TopLeftCellIndex.y-1))->objectList,0);
 					}
 				}
 
@@ -675,13 +721,13 @@ void CObjectManager::UpdateGridTestBallCheckCall()
 					for(int leftY = a_obj->TopLeftCellIndex.y; leftY <= a_obj->BottomRightCellIndex.y; ++leftY)///loop through all left border cells
 					{
 						//std::cout<<"testing left cells"<<std::endl;
-						a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),leftY)->objectListNeo,0);
+						a_ball->UpdateCollision( SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),leftY)->objectList,0);
 					}
 
 					if(a_obj->BottomRightCellIndex.y+1 < SP->numCellY )//check bottom left cell
 					{
 						//std::cout<<"testing bottom left cells"<<std::endl;
-						a_ball->UpdateCollision(SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->BottomRightCellIndex.y+1))->objectListNeo,0);
+						a_ball->UpdateCollision(SP->GetCell(((int)a_obj->TopLeftCellIndex.x-1),((int)a_obj->BottomRightCellIndex.y+1))->objectList,0);
 					}
 
 				}

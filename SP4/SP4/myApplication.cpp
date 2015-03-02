@@ -1,18 +1,27 @@
+#include "CodeDefination.h"
+
+#ifdef NETWORK_CODE
 #include "RakNet\WindowsIncludes.h"
 #include "RakNet\RakPeerInterface.h"
 #include "RakNet\BitStream.h"
+#include "MyMsgIDs.h"
+using namespace RakNet;
+#endif
 
 #include "myApplication.h"
+#include "ManufactureManager.h"
 #include "LeverDoor.h"
 #include "Door.h"
 #include "PowerUpFactory.h"
 #include <mmsystem.h>
-using namespace RakNet;
+
 myApplication* myApplication::instance = NULL;
 
 myApplication::myApplication(void)
 	: Map(NULL)
+#ifdef NETWORK_CODE
 	,rakpeer_(RakPeerInterface::GetInstance())
+#endif
 {
 	//Init();
 }
@@ -27,49 +36,42 @@ myApplication* myApplication::GetInstance()
 
 myApplication::~myApplication(void)
 {
+#ifdef NETWORK_CODE
 	rakpeer_->Shutdown(100);
 	RakPeerInterface::DestroyInstance(rakpeer_);
+#endif
 }
 
 char** myApplication::argv=NULL;
 
 bool myApplication::CleanUp()
 {
-	MS->Exit();
 
 	if(Map != NULL)
 	{
 		delete Map;
 		Map = NULL;
-	}
-
-	if(instance != NULL)
-	{
-		Release();
-		instance = NULL;
-	}
-	return true;
-	if(playerOne != NULL)
-	{
-		delete playerOne;
-		playerOne = NULL;
-	}
-	if(playerTwo != NULL)
-	{
-		delete playerTwo;
-		playerTwo - NULL;
-	}
-	if(theAIOne != NULL)
-	{
-		delete theAIOne;
-		theAIOne = NULL;
-	}
-	if(theAITwo != NULL)
-	{
-		delete theAITwo;
-		theAITwo = NULL;
-	}
-	CMusicSystem::GetInstance()->Exit();
+	}	
+	//if(playerOne != NULL)
+	//{
+	//	delete playerOne;
+	//	playerOne = NULL;
+	//}
+	//if(playerTwo != NULL)
+	//{
+	//	delete playerTwo;
+	//	playerTwo - NULL;
+	//}
+	//if(theAIOne != NULL)
+	//{
+	//	delete theAIOne;
+	//	theAIOne = NULL;
+	//}
+	//if(theAITwo != NULL)
+	//{
+	//	delete theAITwo;
+	//	theAITwo = NULL;
+	//}
 	if(instance != NULL)
 	{
 		Release();
@@ -87,11 +89,8 @@ bool myApplication::Reset()
 bool myApplication::Init()
 {
 	inited = true;
-	//for(unsigned short i = 0; i<255; ++i)
-	//{
-	//	myKeys[i] = false;
-	//}
-	
+
+#ifdef NETWORK_CODE
 	std::ifstream inData;	
 	std::string serverip;
 
@@ -99,6 +98,8 @@ bool myApplication::Init()
 
 	inData >> serverip;
 	
+	//startupServer("server.exe");
+
 	//*
 	if (RAKNET_STARTED == rakpeer_->Startup(1,&SocketDescriptor(), 1))
 	{
@@ -106,27 +107,14 @@ bool myApplication::Init()
 		if (!RAKNET_STARTED == rakpeer_->Connect(serverip.c_str(), 1691, 0, 0))
 		{
 			cout<<"failed";
-			return false;
+			//return false;
 		}
 	}
-	//*/
+#endif
 	tag = "application";
 	name = "myApplication";
 	
 	glEnable(GL_TEXTURE_2D);
-
-	//frameCount = 0;
-	//fps = 0;
-	//currentTime = 0;
-	//previousTime = 0;
-	//font_style = GLUT_BITMAP_TIMES_ROMAN_24;
-	//timelastcall=timeGetTime();
-	//frequency = 30.0f;
-
-	//startupServer("server.exe");
-
-	//loading texture
-	//LoadTGA(&testimage,"sonia2.tga");
 
 
 	//background
@@ -197,19 +185,19 @@ bool myApplication::Init()
 	ballList.push_back(newball);
 	OM->AddObject(newball);
 
-	newball = new ball;
-	newball->SetPosition(300,400);
-	newball->SetColour(0,1,0);
-	newball->radius = 100.f;
-	ballList.push_back(newball);
-	OM->AddObject(newball);
+	//newball = new ball;
+	//newball->SetPosition(300,400);
+	//newball->SetColour(0,1,0);
+	//newball->radius = 100.f;
+	//ballList.push_back(newball);
+	//OM->AddObject(newball);
 
-	newball = new ball;
-	newball->SetPosition(100,100);
-	newball->SetColour(0,0,1);
-	newball->radius = 20.f;
-	ballList.push_back(newball);
-	OM->AddObject(newball);
+	//newball = new ball;
+	//newball->SetPosition(100,100);
+	//newball->SetColour(0,0,1);
+	//newball->radius = 20.f;
+	//ballList.push_back(newball);
+	//OM->AddObject(newball);
 #endif
 	 mapOffset_x =  mapOffset_y=
 	 tileOffset_x =tileOffset_y=
@@ -232,10 +220,11 @@ bool myApplication::Init()
 	theAIOne->phys.map=Map;
 	theAITwo->phys.map=Map;
 
-
+#ifdef NETWORK_CODE
 	isMultiplayer = false;
-	
+		charControl=3;
 
+#endif
 
 	//Map->RunMap();
 
@@ -244,6 +233,7 @@ bool myApplication::Init()
 
 	return true;
 }
+
 
 bool myApplication::Update()
 {
@@ -278,120 +268,291 @@ bool myApplication::Update()
 		ballList[0]->SetVelocity(0,0);
 	}
 #endif
-	if(!isMultiplayer)
+
+#ifdef NETWORK_CODE
+	if (Packet* packet = rakpeer_->Receive())
 	{
-		if(keyboard->myKeys['a'])
-		{
-			playerOne->MoveLeft();
-		}
-		if(keyboard->myKeys['d'])
-		{
-			playerOne->MoveRight();
-		}
-		if(keyboard->myKeys['w'])
-		{
-			playerOne->Jump();
-		}
-		if(!keyboard->myKeys['a']&&!keyboard->myKeys['d'])
-		{
-			playerOne->phys.vel.x=0;
-			keyboard->myKeysUp['a']=false;
-			keyboard->myKeysUp['d']=false;
-		}
-		else if(keyboard->myKeys['s'])
-		{
-			//playerOne->OnCollision(&Hpadd);
-			//playerOne->OnCollision(&ptsAdd);
-			//ptsAdd.OnCollision(playerOne);
-			//InvinOn.OnCollision(playerOne);
-			//Hpadd.OnCollision(playerOne);
-			//ptsAdd.OnCollision(&Hpadd);
-		}
+		RakNet::BitStream bs(packet->data, packet->length, false);
 		
-		if(keyboard->leftArrow == true)
+		unsigned char msgid = 0;
+		RakNet::Time timestamp = 0;
+
+		bs.Read(msgid);
+
+		if (msgid == ID_TIMESTAMP)
 		{
-			playerTwo->MoveLeft();
-		}
-		if(keyboard->rightArrow == true)
-		{
-			playerTwo->MoveRight();
-		}
-		if(keyboard->upArrow == true)
-		{
-			playerTwo->Jump();
+			bs.Read(timestamp);
+			bs.Read(msgid);
 		}
 
-		if(!keyboard->rightArrow && !keyboard->leftArrow)
+		switch(msgid)
 		{
-			playerTwo->phys.vel.x=0;
-			keyboard->rightArrow = false;
-			keyboard->leftArrow = false;
+		case ID_GAME_PACKAGE:
+			{
+				int objNum=0;
+				int mapNum;
+
+				bs.Read(mapNum);
+				bs.Read(objNum);
+
+				vector<CLeverDoor*> leverList;
+				vector<CDoor*> doorList;
+				vector<int> doorRefList;
+				vector<vector<int>>leverRefList;
+
+				charControl=2;//if you recieve this u are for sure player 2
+
+				for(int i=0;i<objNum;++i)
+				{
+					char genTag[256];
+					char tag[256];
+					float x,y,z;
+					unsigned short id;
+					bs.Read(genTag);
+					bs.Read(tag);
+					bs.Read(id);
+					bs.Read(x);
+					bs.Read(y);
+					bs.Read(z);
+					if(genTag=="Character")
+					{
+						int currentHp;
+						bs.Read(currentHp);
+						if(tag=="ChineseMale")
+						{
+							playerOne->pos.Set(x,y,z);
+							playerOne->hp.SetHealth(currentHp);
+						}
+						else if(tag=="MalayFemale")
+						{
+							playerTwo->pos.Set(x,y,z);
+							playerTwo->hp.SetHealth(currentHp);
+						}
+					}
+					else if(tag=="CLeverDoor")
+					{
+						float angle;
+						int doorID;
+						bs.Read(angle);
+						bs.Read(doorID);
+						CLeverDoor* temp=CManufactureManager::GetInstance()->CreateObstacleLeverDoor();
+						temp->Init(Vector3(x,y,z),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+						temp->curAngle=angle;
+						temp->id=id;
+						OM->AddObject(temp);
+						leverList.push_back(temp);
+						doorRefList.push_back(doorID);												
+					}
+					else if(tag=="CDoor")
+					{
+						int num=0;
+						bs.Read(num);
+						CDoor* temp=CManufactureManager::GetInstance()->CreateObstacleDoor();
+						vector<int>leverRef;
+						for(int i=0;i<num;i++)
+						{
+							int temp;
+							bs.Read(temp);
+							leverRef.push_back(temp);
+						}
+						temp->Init(Vector3(x,y,z),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+						temp->id=id;
+						OM->AddObject(temp);
+						leverRefList.push_back(leverRef);
+						doorList.push_back(temp);
+					}
+					else
+					{
+						
+					}
+				}
+				vector<int>::iterator it2=doorRefList.begin();
+				for(vector<CLeverDoor*>::iterator it=leverList.begin();it!=leverList.end()&&it2!=doorRefList.end();++it2,++it)
+				{
+					for(vector<CDoor*>::iterator it3=doorList.begin();it3!=doorList.end();++it3)
+					{
+						if((*it3)->id==(*it2))
+						{
+							(*it3)->AddTrigger((*it));
+							(*it)->SetDoorLink((*it3));
+							break;
+						}
+					}
+				}
+			}
+			break;
+		case ID_VEL_CHANGED:
+			{
+				short charControl;
+				float x,y,z;
+				bs.Read(charControl);
+				if(charControl==3)
+					break;
+				bs.Read(x);
+				bs.Read(y);
+				bs.Read(z);
+				switch(charControl)
+				{
+				case 1:
+					playerOne->phys.vel.Set(x,y,z);
+					
+					break;
+				case 2:
+					playerTwo->phys.vel.Set(x,y,z);
+
+					break;
+				}
+			}
+			break;
+		case ID_CLIENT_DISCONNECT:
+			{
+				charControl=3;//if the other guy disconnect u now control both
+			}
+			break;
+		case ID_WELCOME:
+			{
+
+			}
+			break;
+		case ID_NEW_PLAYER:
+			{
+				charControl=1;//if you recieve this you are for sure player 1
+
+				BitStream bs2;
+				unsigned char msgID=ID_GAME_PACKAGE;
+				bs.Write(msgID);
+				bs.Write(Map->Level);
+				OM->WriteAllObjects(bs2);
+				rakpeer_->Send(&bs2,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+			}
+			break;
 		}
-		
+
 	}
-	else if(isMultiplayer)
 	{
 		if(keyboard->myKeys['a'])
 		{
-			//ifplayeroOne
-			playerOne->MoveLeft();
-			//ifplayerTwo
-			playerTwo->MoveLeft();
+			if(charControl==1||charControl==3)
+			{
+				if(playerOne->phys.vel.x<=0)
+					velChanged=true;		
+				playerOne->MoveLeft();
+			}
+			else if(charControl==2)
+			{
+				if(playerTwo->phys.vel.x<=0)
+					velChanged=true;	
+				playerTwo->MoveLeft();
+			}
 		}
 		if(keyboard->myKeys['d'])
 		{
-			//ifplayeroOne
-			playerOne->MoveRight();
-			//ifplayerTwo
-			playerTwo->MoveRight();
+			if(charControl==1||charControl==3)
+			{
+				if(playerOne->phys.vel.x>=0)
+				{
+					velChanged=true;
+				}
+				playerOne->MoveRight();
+			}
+			else if(charControl==2)
+			{
+				if(playerTwo->phys.vel.y>=0)
+				{
+					velChanged=false;
+				}
+				playerTwo->MoveRight();
+			}
 		}
 		if(keyboard->myKeys['w'])
 		{
-			//ifplayeroOne
-			playerOne->Jump();
-			//ifplayerTwo
-			playerTwo->Jump();
+			if(charControl==1||charControl==3)
+			{
+				if(!playerOne->phys.inAir)
+					velChanged=true;
+				playerOne->Jump();
+			}
+			else if(charControl==2)
+			{
+				if(!playerTwo->phys.inAir)
+					velChanged=true;
+				playerTwo->Jump();
+			}
 		}
 		if(keyboard->myKeys['s'])
 		{
 		
 		}
+		if(charControl==3)
+		{
+			if(keyboard->myKeys['j'] == true)
+			{
+				if(playerTwo->phys.vel.x<=0)
+					velChanged=true;	
+				playerTwo->MoveLeft();
+			}
+			if(keyboard->myKeys['l'] == true)
+			{
+				if(playerTwo->phys.vel.x>=0)
+					velChanged=true;	
+				playerTwo->MoveRight();
+			}
+			if(keyboard->myKeys['i'] == true)
+			{
+				if(!playerTwo->phys.inAir)
+					velChanged=true;
+				playerTwo->Jump();
+			}
+			if(keyboard->myKeys['k'] == true)
+			{
+		
+			}
+
+		}
+		if(velChanged==true)
+		{
+			//send vel message
+			BitStream bs;
+			unsigned char msgID=ID_VEL_CHANGED;
+			bs.Write(msgID);
+			bs.Write(charControl);
+			switch(charControl)
+			{
+			case 1:
+				bs.Write(playerOne->phys.vel.x);
+				bs.Write(playerOne->phys.vel.y);
+				bs.Write(playerOne->phys.vel.z);
+				break;
+			case 2:
+				bs.Write(playerTwo->phys.vel.x);
+				bs.Write(playerTwo->phys.vel.y);
+				bs.Write(playerTwo->phys.vel.z);
+				break;
+			}
+			rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+			velChanged=false;
+		}
 	}
+#endif
+
 		if(keyboard->myKeys[VK_ESCAPE] == true)
 		{
-			exit(0);
-		}
-		if(keyboard->myKeys['j'] == true)
-		{
-			playerTwo->MoveLeft();
-		}
-		if(keyboard->myKeys['l'] == true)
-		{
-			playerTwo->MoveRight();
-		}
-		if(keyboard->myKeys['i'] == true)
-		{
-			playerTwo->Jump();
-		}
-		if(keyboard->myKeys[VK_ESCAPE] == true)
-		{
-			exit(0);
-			//GSM->PopAndCleanLastState();
-		}
-		if(keyboard->myKeys['k'] == true)
-		{
-		
+			GSM->ExitApplication();
 		}
 		
-	if(FRM->UpdateAndCheckTimeThreehold())
-	{
-		theAIOne->AI.SetEnemyPos(playerOne->pos);
-		//theAIOne->Update();
-		theAITwo->AI.SetEnemyPos(playerTwo->pos);
-		//theAITwo->Update();
+		if(FRM->UpdateAndCheckTimeThreehold())
+		{
+			theAIOne->AI.SetEnemyPos(playerOne->pos);
+			//theAIOne->Update();
+			theAITwo->AI.SetEnemyPos(playerTwo->pos);
+			//theAITwo->Update();
+			OM->Update();
 		
-	}
-	OM->Update();
+		}
+
+#ifdef NETWORK_CODE
+	OM->Update(charControl);
+#endif
 
 	Map->RunMap();
 		
@@ -463,9 +624,13 @@ void myApplication::Render2D()
 	RenderBackground();
 	RenderTileMap();
 
+#ifdef DEBUG_CODE
 	//uncomment this to render the spatial partition grid
-	//this->OM->SP->RenderGrid();
-	
+
+	this->OM->SP->RenderGrid();
+#endif
+
+
 	OM->Render();
 	FRM->drawFPS();
 }
@@ -540,6 +705,7 @@ void myApplication::InputKey(int key, int x, int y)
 void myApplication::KeyboardDown(unsigned char key, int x, int y)
 {
 	keyboard->myKeys[key] = true;
+	CBaseObject* temp = nullptr;
 
 	switch(key)
 	{
@@ -551,8 +717,18 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//std::cout<<MS->currentSoundTrack<<std::endl;
 			//MS->FetchSound()->PrintDebugInformation();
 			//MS->PlaySoundPoolTrack2D("sound1.mp3");
-			std::cout<<WM->GetWindowRatioDifferenceX()<<std::endl;
-			std::cout<<WM->GetWindowRatioDifferenceY()<<std::endl;
+			//std::cout<<WM->GetWindowRatioDifferenceX()<<std::endl;
+			//std::cout<<WM->GetWindowRatioDifferenceY()<<std::endl;
+			
+			temp = OM->FetchObjectWithName("ball");
+			std::cout<<temp<<std::endl;
+			if(temp)
+			{
+				temp->phys.size.Set(100,100);
+			}else
+			{
+				std::cout<<"nothing came out"<<std::endl;
+			}
 		break;
 
 		case '2':
@@ -561,8 +737,10 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//MS->PlayBgmTrack("bgm2.mp3");
 			//MS->PlaySoundTrack(1);
 			//std::cout<<MS->currentSoundTrack<<std::endl;
-			MS->PlaySoundPoolTrack2D("sound2.mp3");
-			
+			//MS->PlaySoundPoolTrack2D("sound2.mp3");
+			//ballList[0]->active = false;
+			temp = OM->FindObjectWithName("ball");
+			temp->active = false;
 		break;
 		
 		case '3':
@@ -586,14 +764,18 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//std::cout<< testmale<<std::endl;
 			//testmale->PrintDebugInformation();
 			//OM->PrintDebugAllActiveObjects();
-			OM->objectList[0]->UpdateObjectTopLeftAndBottomRightPoint(false);
+			//OM->objectList[0]->UpdateObjectTopLeftAndBottomRightPoint(false);
+			OM->PrintDebugAllInActiveObjects();
 			break;
 		case '8':
 			//OM->PrintDebugInformation();
-			OM->objectList[0]->PrintDebugInformation();
+			OM->PrintDebugAllActiveObjects();
 			break;
 		case '9':
-			MS->Exit();
+			//GSM->GoBackToPreviousState();
+			break;
+		case 'c':
+			system("cls");
 			break;
 	}
 }
@@ -690,6 +872,7 @@ void myApplication::SetHUD(bool m_bHUDmode)
 	}
 };
 
+#ifdef NETWORK_CODE
 void myApplication::startupServer(LPCTSTR lpApplicationName)
 {
 	// additional information
@@ -718,3 +901,4 @@ void myApplication::closeServer()
 	CloseHandle( pi.hProcess );
 	CloseHandle( pi.hThread );
 }
+#endif

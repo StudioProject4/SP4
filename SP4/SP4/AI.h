@@ -35,16 +35,16 @@ class CAStarPathFinding
 	int maxVerticalTile;
 
 	void SetUpGraph(CMap themap); // instantiate the map for pathfinding
-	void SetUpPath(Vector3 startPosition,Vector3 endPosition);
+	void SetUpPath(Vector3 startPosition,Vector3 endPosition);// set start and end
 	void SearchForPath(); // Find neighbouring nodes
-	void ChooseAPath();
+	void ChooseAPath();// checking whether nodee exits in close list or wrong path list
 	float DistanceToEnd(node checkingNode); //heuristic
 	void FindPath(); // find the best path, the "main"
-	void AddInPath(int index);
-	int CheckForPath();
+	void AddInPath(int index);// add into the close list
+	int CheckForPath();// find for the best neightbouring nodes
 
 	typedef std :: vector<node> TNodeVector;
-	std :: vector<node> closeList; // tile to not consider
+	std :: vector<node> closeList; // tile to not consider / supposed correct path
 	std :: vector<node> openList; // tile to consider
 	std :: vector<node> notCorrectPath; // wrong path
 };
@@ -84,4 +84,5 @@ class CAILogic
 		float movementSpeed;
 		clock_t idleWanderTimer;
 		clock_t wanderTimer;
+		int pathMovementCounter;
 };

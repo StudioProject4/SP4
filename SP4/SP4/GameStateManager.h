@@ -1,6 +1,7 @@
 #pragma once
 #include <stack>
-
+#include <deque>
+#include <vector>
 class CGameState;
 
 class CGameStateManager
@@ -17,8 +18,15 @@ public:
 
 	static CGameStateManager* instance;
 private:
-	std::stack<CGameState*> gamestatestack;
+	typedef std::vector<CGameState*> TGameStateVector;
+	typedef std::stack<CGameState*> TGameStateStack;
+	typedef std::deque<CGameState*> TGameStateDeque;
+
+	typedef TGameStateDeque TGameStateList;
+	TGameStateList gamestatestack;
+
 	CGameStateManager(void);
+	CGameState* lastState;
 public:
 
 	static CGameStateManager* GetInstance();
@@ -43,5 +51,14 @@ public:
 	 void RenderScene(void);
 	 void Update(void);
 	 void CleanUpUponExit(void);
+	
+	 void GoBackLastState();
+	 void GoToPreviousState();
+	 void RecordLastState();
+
+	 bool CleanUp();
+	 void ExitApplication();
+
+	 void PrintDebugInformation();
 };
 

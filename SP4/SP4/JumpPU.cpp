@@ -40,7 +40,7 @@ bool CJumpPU::Init()
 	return true;
 }
 
-bool CJumpPU::OnCollision(CBaseObject* a_obj)
+bool CJumpPU::OnCollision2(CBaseObject* a_obj)
 {
 	if(a_obj->genericTag = "Character")
 	{

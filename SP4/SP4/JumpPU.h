@@ -14,6 +14,6 @@ public:
 
 	bool Init();
 	
-	bool OnCollision(CBaseObject* a_obj);
+	bool OnCollision2(CBaseObject* a_obj);
 };
 

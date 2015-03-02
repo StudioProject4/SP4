@@ -81,7 +81,7 @@ bool CDoor::Update()
 	return true;
 }
 
-bool CDoor::OnCollision(CBaseObject* obj)
+bool CDoor::OnCollision2(CBaseObject* obj)
 {
 	if(active&&!triggered)
 		obj->phys.vel.x=0;

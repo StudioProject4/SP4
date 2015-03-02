@@ -1,7 +1,9 @@
 #pragma once
-#include "Physics.h"
 #include "baseobject.h"
+
 #include "Sprite.h"
+#include "Physics.h"
+
 class CObstacleBase :
 	public CBaseObject
 {
@@ -15,7 +17,7 @@ public:
 	virtual bool Init(Vector3 pos,Vector3 size)=0;
 	virtual bool Update()=0;
 	virtual bool Render()=0;
-	virtual bool OnCollision(CBaseObject*) = 0;
+	virtual bool OnCollision2(CBaseObject*) = 0;
 	bool Reset()
 	{
 		return true;
