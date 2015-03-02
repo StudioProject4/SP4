@@ -83,7 +83,7 @@ Vector3 CPhysics::Update(Vector3 pos)
 	//}
 	//get the pos of where it will get to
 	vel.y+=gravity*delta;
-	maptilex=maptiley = getTile(pos+size*0.5+vel*delta);//middle
+	//maptilex=maptiley = getTile(pos+size*0.5+vel*delta);//middle
 	if(vel.x>0)
 	{
 		if(TestColMap(pos,false,false,false,true,map))

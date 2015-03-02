@@ -15,10 +15,10 @@ private:
 	Vector3 colPoint;
 	float length;
 	float width;
-	float angleVel;
 	bool applyGrav;
 	bool trigger;
 public:
+	float angleVel;
 	float curAngle;
 	CLeverDoor(void);
 	~CLeverDoor(void);

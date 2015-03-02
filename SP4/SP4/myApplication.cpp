@@ -14,6 +14,10 @@ using namespace RakNet;
 #include "Door.h"
 #include "PowerUpFactory.h"
 #include <mmsystem.h>
+#include <string>
+
+RakNet::RakPeerInterface* rakPeerGlobal;
+
 
 myApplication* myApplication::instance = NULL;
 
@@ -110,6 +114,7 @@ bool myApplication::Init()
 			//return false;
 		}
 	}
+	rakPeerGlobal=rakpeer_;
 #endif
 	tag = "application";
 	name = "myApplication";
@@ -292,18 +297,18 @@ bool myApplication::Update()
 
 				bs.Read(mapNum);
 				bs.Read(objNum);
-
+				Map->Level=mapNum;
+				OM->LoadingSetup();
 				vector<CLeverDoor*> leverList;
 				vector<CDoor*> doorList;
 				vector<int> doorRefList;
-				vector<vector<int>>leverRefList;
 
 				charControl=2;//if you recieve this u are for sure player 2
 
+				char* genTag=new char[256];
+				char* tag=new char[256];
 				for(int i=0;i<objNum;++i)
 				{
-					char genTag[256];
-					char tag[256];
 					float x,y,z;
 					unsigned short id;
 					bs.Read(genTag);
@@ -312,22 +317,26 @@ bool myApplication::Update()
 					bs.Read(x);
 					bs.Read(y);
 					bs.Read(z);
-					if(genTag=="Character")
+					string thing;
+					string thing2;
+					thing=genTag;
+					thing2=tag;
+					if(thing=="Character")
 					{
 						int currentHp;
 						bs.Read(currentHp);
-						if(tag=="ChineseMale")
+						if(thing2=="ChineseMale")
 						{
 							playerOne->pos.Set(x,y,z);
 							playerOne->hp.SetHealth(currentHp);
 						}
-						else if(tag=="MalayFemale")
+						else if(thing2=="MalayFemale")
 						{
 							playerTwo->pos.Set(x,y,z);
 							playerTwo->hp.SetHealth(currentHp);
 						}
 					}
-					else if(tag=="CLeverDoor")
+					else if(thing2=="CLeverDoor")
 					{
 						float angle;
 						int doorID;
@@ -341,29 +350,20 @@ bool myApplication::Update()
 						leverList.push_back(temp);
 						doorRefList.push_back(doorID);												
 					}
-					else if(tag=="CDoor")
+					else if(thing2=="CDoor")
 					{
-						int num=0;
-						bs.Read(num);
 						CDoor* temp=CManufactureManager::GetInstance()->CreateObstacleDoor();
-						vector<int>leverRef;
-						for(int i=0;i<num;i++)
-						{
-							int temp;
-							bs.Read(temp);
-							leverRef.push_back(temp);
-						}
 						temp->Init(Vector3(x,y,z),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
 						temp->id=id;
 						OM->AddObject(temp);
-						leverRefList.push_back(leverRef);
 						doorList.push_back(temp);
 					}
 					else
 					{
-						
 					}
 				}
+				delete[256] tag;
+				delete[256] genTag; 
 				vector<int>::iterator it2=doorRefList.begin();
 				for(vector<CLeverDoor*>::iterator it=leverList.begin();it!=leverList.end()&&it2!=doorRefList.end();++it2,++it)
 				{
@@ -382,22 +382,25 @@ bool myApplication::Update()
 		case ID_VEL_CHANGED:
 			{
 				short charControl;
-				float x,y,z;
+				float x,y,z,x1,y1,z1;
 				bs.Read(charControl);
 				if(charControl==3)
 					break;
 				bs.Read(x);
 				bs.Read(y);
 				bs.Read(z);
+				bs.Read(x1);
+				bs.Read(y1);
+				bs.Read(z1);
 				switch(charControl)
 				{
 				case 1:
 					playerOne->phys.vel.Set(x,y,z);
-					
+					playerOne->pos.Set(x1,y1,z1);
 					break;
 				case 2:
 					playerTwo->phys.vel.Set(x,y,z);
-
+					playerTwo->pos.Set(x1,y1,z1);
 					break;
 				}
 			}
@@ -418,10 +421,88 @@ bool myApplication::Update()
 
 				BitStream bs2;
 				unsigned char msgID=ID_GAME_PACKAGE;
-				bs.Write(msgID);
-				bs.Write(Map->Level);
+				bs2.Write(msgID);
+				bs2.Write(Map->Level);
 				OM->WriteAllObjects(bs2);
 				rakpeer_->Send(&bs2,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+			}
+			break;
+		case ID_OBJ_UPDATE:
+			{
+				char* temp=new char[256];
+				bs.Read(temp);
+				string temp2=temp;
+				if(temp2=="CLeverDoor")
+				{
+					unsigned short id1,id2;
+					bs.Read(id1);
+					bs.Read(id2);
+					CLeverDoor* lever=NULL;
+					CBaseObject* other=NULL;
+					for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
+					{
+						if(id1==(*it)->id)
+						{
+							lever=(CLeverDoor*)(*it);
+						}
+						else if(id2==(*it)->id)
+						{
+							other=(*it);
+						}
+						if(lever!=NULL&&other!=NULL)
+						{
+							break;
+						}
+					}
+
+					float x,y,z;
+					bs.Read(x);
+					bs.Read(y);
+					lever->curAngle=x;
+					lever->angleVel=y;
+
+					bs.Read(x);
+					bs.Read(y);
+					bs.Read(z);
+					other->pos.Set(x,y,z);
+
+					bs.Read(x);
+					bs.Read(y);
+					bs.Read(z);
+					other->phys.vel.Set(x,y,z);
+				}
+			}
+		case ID_COLLISION:
+			{
+				unsigned short id,id2;
+				bs.Read(id);
+				bs.Read(id2);
+				CBaseObject* temp1=NULL;
+				CBaseObject* temp2=NULL;
+				for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
+				{
+					if(id==(*it)->id)
+					{
+						temp1=(*it);
+					}
+					else if(id2==(*it)->id)
+					{
+						temp2=(*it);
+					}
+					if(temp1!=NULL&&temp2!=NULL)
+					{
+						break;
+					}
+				}
+				if(temp1!=NULL&&temp2!=NULL)
+				{
+					temp1->OnCollision2(temp2);
+				}
+				else
+				{
+					assert(true);
+					int i=0;
+				}
 			}
 			break;
 		}
@@ -432,13 +513,13 @@ bool myApplication::Update()
 		{
 			if(charControl==1||charControl==3)
 			{
-				if(playerOne->phys.vel.x<=0)
+				if(playerOne->phys.vel.x>=0)
 					velChanged=true;		
 				playerOne->MoveLeft();
 			}
 			else if(charControl==2)
 			{
-				if(playerTwo->phys.vel.x<=0)
+				if(playerTwo->phys.vel.x>=0)
 					velChanged=true;	
 				playerTwo->MoveLeft();
 			}
@@ -447,7 +528,7 @@ bool myApplication::Update()
 		{
 			if(charControl==1||charControl==3)
 			{
-				if(playerOne->phys.vel.x>=0)
+				//if(playerOne->phys.vel.x<=0)
 				{
 					velChanged=true;
 				}
@@ -455,9 +536,9 @@ bool myApplication::Update()
 			}
 			else if(charControl==2)
 			{
-				if(playerTwo->phys.vel.y>=0)
+				//if(playerTwo->phys.vel.x<=0)
 				{
-					velChanged=false;
+					velChanged=true;
 				}
 				playerTwo->MoveRight();
 			}
@@ -485,13 +566,13 @@ bool myApplication::Update()
 		{
 			if(keyboard->myKeys['j'] == true)
 			{
-				if(playerTwo->phys.vel.x<=0)
+				//if(playerTwo->phys.vel.x<=0)
 					velChanged=true;	
 				playerTwo->MoveLeft();
 			}
 			if(keyboard->myKeys['l'] == true)
 			{
-				if(playerTwo->phys.vel.x>=0)
+				//if(playerTwo->phys.vel.x>=0)
 					velChanged=true;	
 				playerTwo->MoveRight();
 			}
@@ -520,11 +601,17 @@ bool myApplication::Update()
 				bs.Write(playerOne->phys.vel.x);
 				bs.Write(playerOne->phys.vel.y);
 				bs.Write(playerOne->phys.vel.z);
+				bs.Write(playerOne->pos.x);
+				bs.Write(playerOne->pos.y);
+				bs.Write(playerOne->pos.z);
 				break;
 			case 2:
 				bs.Write(playerTwo->phys.vel.x);
 				bs.Write(playerTwo->phys.vel.y);
 				bs.Write(playerTwo->phys.vel.z);
+				bs.Write(playerTwo->pos.x);
+				bs.Write(playerTwo->pos.y);
+				bs.Write(playerTwo->pos.z);
 				break;
 			}
 			rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
@@ -544,12 +631,16 @@ bool myApplication::Update()
 			//theAIOne->Update();
 			theAITwo->AI.SetEnemyPos(playerTwo->pos);
 			//theAITwo->Update();
-			OM->Update();
 		
 		}
+		
+
+		OM->Update(charControl);
+
+
 
 #ifdef NETWORK_CODE
-	OM->Update(charControl);
+	//OM->Update(charControl);
 #endif
 
 	Map->RunMap();
