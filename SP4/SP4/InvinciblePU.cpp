@@ -47,40 +47,40 @@ bool CInvinciblePU::OnCollision(CBaseObject* a_obj)
 
 	if(a_obj->genericTag = "Character")
 	{
-		if(a_obj->name = "GenericChineseKid")
-		{
-			if(this->active == true)
-			{
-				CCharacter* Invintemp = (CCharacter*)a_obj;
-				Invintemp->SetIsInvulnerable(true);
-				Invintemp->invulTimer->SetActive(true, Invintemp->refTime);
-				this->active = false;
-				//Invintemp->invulTimer->SetActive(false, Invintemp->refTime);
-				std::cout << "INvulneravblee true " << std::endl;
-			}else
-			if(this->active == false)
-			{
-				//std::cout << "Invulnerable TAKEN" << std::endl;
-			}
-		}
-		else
-		if(a_obj->name = "GenericMalayKid")
-		{
-			if(this->active == true)
-			{
-				CCharacter* Invintemp = (CCharacter*)a_obj;
-				Invintemp->SetIsInvulnerable(true);
-				Invintemp->invulTimer->SetActive(true, Invintemp->refTime);
+		//if(a_obj->name = "GenericChineseKid")
+		//{
+		//	if(this->active == true)
+		//	{
+		//		//CCharacter* Invintemp = (CCharacter*)a_obj;
+		//		//Invintemp->SetIsInvulnerable(true);
+		//	//	Invintemp->invulTimer->SetActive(true, Invintemp->refTime);
+		//		this->active = false;
+		//		//Invintemp->invulTimer->SetActive(false, Invintemp->refTime);
+		//		std::cout << "INvulneravblee true " << std::endl;
+		//	}else
+		//	if(this->active == false)
+		//	{
+		//		//std::cout << "Invulnerable TAKEN" << std::endl;
+		//	}
+		//}
+		//else
+		//if(a_obj->name = "GenericMalayKid")
+		//{
+		//	if(this->active == true)
+		//	{
+		//		//CCharacter* Invintemp = (CCharacter*)a_obj;
+		//		//Invintemp->SetIsInvulnerable(true);
+		//		//Invintemp->invulTimer->SetActive(true, Invintemp->refTime);
 
-				this->active = false;
-				std::cout << "INvulneravblee true " << std::endl;
-			}else
-			if(this->active == false)
-			{
-				//std::cout << "Invulnerable TAKEN" << std::endl;
-			}
-			
-		}
+		//		this->active = false;
+		//		std::cout << "INvulneravblee true " << std::endl;
+		//	}else
+		//	if(this->active == false)
+		//	{
+		//		//std::cout << "Invulnerable TAKEN" << std::endl;
+		//	}
+		//	
+		//}
 	}
 
 	return true;

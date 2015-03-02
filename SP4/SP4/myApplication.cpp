@@ -141,6 +141,8 @@ bool myApplication::Init()
 	LoadTGA( &TileMapTexture[5], "Invincible.tga");
 	LoadTGA( &TileMapTexture[6], "PointsAdd.tga");
 	LoadTGA( &TileMapTexture[7], "Jump.tga");
+	LoadTGA( &TileMapTexture[8], "ChineseSign.tga");
+	LoadTGA( &TileMapTexture[9], "HalalSign.tga");
 	//LoadTGA( &TileMapTexture[0], "tile0_blank");
 
 
@@ -462,7 +464,7 @@ void myApplication::Render2D()
 	RenderTileMap();
 
 	//uncomment this to render the spatial partition grid
-	this->OM->SP->RenderGrid();
+	//this->OM->SP->RenderGrid();
 	
 	OM->Render();
 	FRM->drawFPS();

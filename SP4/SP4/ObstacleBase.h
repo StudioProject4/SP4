@@ -1,6 +1,7 @@
 #pragma once
 #include "Physics.h"
 #include "baseobject.h"
+#include "Sprite.h"
 class CObstacleBase :
 	public CBaseObject
 {
