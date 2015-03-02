@@ -360,7 +360,7 @@ bool myApplication::Update()
 						OM->AddObject(temp);
 						doorList.push_back(temp);
 					}
-					else
+					else 
 					{
 					}
 				}
