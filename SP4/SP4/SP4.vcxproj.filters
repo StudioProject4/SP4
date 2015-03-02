@@ -267,6 +267,12 @@
     <ClCompile Include="WindowManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ChinesePoints.cpp">
+      <Filter>Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="MalayPoints.cpp">
+      <Filter>Obstacle</Filter>
+    </ClCompile>
     <ClCompile Include="BaseObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -463,6 +469,12 @@
     </ClInclude>
     <ClInclude Include="CodeDefination.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MalayPoints.h">
+      <Filter>Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="ChinesePoints.h">
+      <Filter>Obstacle</Filter>
     </ClInclude>
     <ClInclude Include="LeverDoor.h">
       <Filter>Obstacle</Filter>

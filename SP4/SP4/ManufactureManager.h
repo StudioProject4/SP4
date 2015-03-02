@@ -17,6 +17,8 @@ class CInvinciblePU;
 class CObstacleBase;
 class CLeverDoor;
 class CDoor;
+class CChinesePoints;
+class CMalayPoints;
 
 class CManufactureManager
 {
@@ -45,5 +47,7 @@ public:
 	CSpeedPU* CreatePowerUpSpeedUp();
 	CLeverDoor* CreateObstacleLeverDoor();
 	CDoor* CreateObstacleDoor();
+	CChinesePoints* CreateChinesePoints();
+	CMalayPoints* CreateMalayPoints();
 };
 

@@ -19,6 +19,16 @@ void CObstacleBuilder::SetManufactureLeverDoor()
 
 	factory->SetManufactureLeverDoor();
 }
+
+void CObstacleBuilder::SetManufactureChinesePoints()
+{
+	factory->SetManufactureChinesePoints();
+}
+	
+void CObstacleBuilder::SetManufactureMalayPoints()
+{
+	factory->SetManufactureMalayPoints();
+}
 	
 CObstacleFactory* CObstacleBuilder::GetFactory()
 {

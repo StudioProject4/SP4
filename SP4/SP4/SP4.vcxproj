@@ -88,6 +88,7 @@
     <ClCompile Include="CharacterFactory.cpp" />
     <ClCompile Include="ChineseMale.cpp" />
     <ClCompile Include="ChineseMob.cpp" />
+    <ClCompile Include="ChinesePoints.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="FrameRateManager.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -104,6 +105,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MalayFemale.cpp" />
     <ClCompile Include="MalayMob.cpp" />
+    <ClCompile Include="MalayPoints.cpp" />
     <ClCompile Include="ManufactureManager.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
@@ -144,6 +146,7 @@
     <ClInclude Include="CharacterFactory.h" />
     <ClInclude Include="ChineseMale.h" />
     <ClInclude Include="ChineseMob.h" />
+    <ClInclude Include="ChinesePoints.h" />
     <ClInclude Include="CodeDefination.h" />
     <ClInclude Include="DatabaseLibrary.h" />
     <ClInclude Include="DatatypeDefination.h" />
@@ -163,6 +166,7 @@
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="MalayFemale.h" />
     <ClInclude Include="MalayMob.h" />
+    <ClInclude Include="MalayPoints.h" />
     <ClInclude Include="ManufactureManager.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Matrix4x4.h" />
