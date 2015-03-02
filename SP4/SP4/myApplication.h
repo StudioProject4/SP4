@@ -39,6 +39,9 @@
 #include "SpeedPU.h"
 #include "Map.h"
 
+#include "ChinesePoints.h"
+#include "MalayPoints.h"
+
 #include "Physics.h"
 
 #include "MusicSystem\MusicSystem.h"

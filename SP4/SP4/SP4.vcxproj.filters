@@ -492,7 +492,7 @@
       <Filter>GameStates</Filter>
     </ClInclude>
     <ClInclude Include="InvinciblePU.h">
-      <Filter>Obstacle</Filter>
+      <Filter>PowerUp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

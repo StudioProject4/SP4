@@ -304,6 +304,13 @@ bool myApplication::Update()
 				vector<CLeverDoor*> leverList;
 				vector<CDoor*> doorList;
 				vector<int> doorRefList;
+				vector<CHealthPU* > healthList;
+				vector<CPointsAddPU* > pointsaddList;
+				vector<CInvinciblePU* > invincibleList;
+				vector<CJumpPU* > jumpList;
+				vector<CSpeedPU* > speedList;
+				vector<CChinesePoints* > chinaptsList;
+				vector<CMalayPoints* > malayptsList;
 
 				charControl=2;//if you recieve this u are for sure player 2
 
@@ -359,9 +366,65 @@ bool myApplication::Update()
 						temp->id=id;
 						OM->AddObject(temp);
 						doorList.push_back(temp);
-					}
-					else 
+
+					}else if(thing2 == "CHINAS")
 					{
+						CChinesePoints* temp = CManufactureManager::GetInstance()->CreateChinesePoints();
+						temp->Init(Vector3(x,y,z),Vector3(temp->phys.size));
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						chinaptsList.push_back(temp);
+
+					}else if(thing2 == "MALAYS")
+					{
+						CMalayPoints* temp = CManufactureManager::GetInstance()->CreateMalayPoints();
+						temp->Init(Vector3(x,y,z), Vector3(temp->phys.size));
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						malayptsList.push_back(temp);
+					}
+					else if(thing2 == "HpAdd")
+					{
+						CHealthPU* temp = CManufactureManager::GetInstance()->CreatePowerUpRecovery();
+						temp->Init();
+						temp->pos.Set(x,y,z);
+						temp->id = id;					
+						OM->AddObject(temp);
+						healthList.push_back(temp);
+					}else if(thing2 == "PtAdd")
+					{
+						CPointsAddPU* temp = CManufactureManager::GetInstance()->CreatePowerUpPoints();
+						temp->Init();
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						pointsaddList.push_back(temp);
+					}else if(thing2 == "Invin")
+					{
+						CInvinciblePU* temp = CManufactureManager::GetInstance()->CreatePowerUpInvincible();
+						temp->Init();
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						invincibleList.push_back(temp);
+					}else if(thing2 == "JpUp")
+					{
+						CJumpPU* temp = CManufactureManager::GetInstance()->CreatePowerUpJumpHigh();
+						temp->Init();
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						jumpList.push_back(temp);
+					}else if(thing2 == "SpdUp")
+					{
+						CSpeedPU* temp = CManufactureManager::GetInstance()->CreatePowerUpSpeedUp();
+						temp->Init();
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						speedList.push_back(temp);
 					}
 				}
 				delete[256] tag;

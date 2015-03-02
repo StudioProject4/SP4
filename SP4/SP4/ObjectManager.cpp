@@ -528,7 +528,7 @@ void CObjectManager::WriteAllObjects(RakNet::BitStream &bs)
 		}
 		else if(temp->genericTag=="PowerUp")
 		{
-
+			int i =0;
 		}
 		else if(temp->tag=="CLeverDoor")
 		{
@@ -540,11 +540,6 @@ void CObjectManager::WriteAllObjects(RakNet::BitStream &bs)
 		{
 			CDoor* temp2=(CDoor*)temp;
 			vector<int> temp3=temp2->GetTriggerID();
-			bs.Write(temp3.size());
-			for(vector<int>::iterator it=temp3.begin();it!=temp3.end();++it)
-			{
-				bs.Write(*it);
-			}
 		}
 		else if(temp->genericTag=="Enemy")
 		{
