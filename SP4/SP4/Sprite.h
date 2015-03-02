@@ -27,10 +27,11 @@ protected:
 	bool lateralinvert;
 
 public:
+	CSprite();
 	CSprite(ushort maxframe, ushort numberoflayer = 1,ushort currentlayer = 0);
 	~CSprite(void);
 
-	
+	bool Init(ushort maxframe, ushort numberoflayer = 1,ushort currentlayer = 0);
 	bool LoadTGA(char *filename);
 	virtual void Render(void);
 
@@ -49,6 +50,10 @@ public:
 
 	void SetVitalInformation(ushort maxframe,ushort numberoflayer);
 
+	inline void OverrideTGATexture(TextureImage* newTexture)
+	{
+		this->owntexture = *newTexture;
+	}
 	inline short GetCurrentFrameIndex()
 	{
 		return currentframe;

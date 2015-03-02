@@ -3,6 +3,22 @@
 #include <stdio.h>
 #include <iostream>
 
+CSprite::CSprite()
+	: maxframe(1)
+	,numberoflayer(1)
+	,currentframe(0)
+	,pause(false)
+	,frameinterval(20)
+	,framespeed(1)
+	,size(32.f,32.f)//the size need to be inline with tilesize
+	,currentlayer(currentlayer)
+	,currenttimecounter(0)
+	,lateralinvert(false)
+{
+
+	framesize.x = 1.0f/maxframe;
+	framesize.y = 1.0f/numberoflayer;
+}
 CSprite::CSprite(ushort maxframe,ushort numberoflayer,ushort currentlayer)
 	: maxframe(maxframe)
 	,numberoflayer(numberoflayer)
@@ -20,6 +36,16 @@ CSprite::CSprite(ushort maxframe,ushort numberoflayer,ushort currentlayer)
 	framesize.y = 1.0f/numberoflayer;
 }
 
+bool CSprite::Init(ushort maxframe, ushort numberoflayer,ushort currentlayer)
+{
+	this->maxframe = maxframe;
+	this->numberoflayer = numberoflayer;
+	this->currentlayer = currentlayer;
+	framesize.x = 1.0f/maxframe;
+	framesize.y = 1.0f/numberoflayer;
+
+	return true;
+}
 
 CSprite::~CSprite(void)
 {

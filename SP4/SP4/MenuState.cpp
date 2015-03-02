@@ -219,8 +219,6 @@ bool CMenuState::Update()
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
 		OM->Update();
-		backgroundImage[0].LiveOn();
-
 	}
 	return true;
 }
@@ -245,13 +243,20 @@ bool CMenuState::Init()
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
-	backgroundImage[0].SetVitalInformation(5,1);
-	//backgroundImage[0].SetAnimationLayer(10);
-	//backgroundImage[0].TranverseAnimationFrame(true,true);
 
+	backgroundImage[0].Init(1,1,0);
+	backgroundImage[0].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
-	backgroundImage[0].SetImageSize(800,600);
-	//backgroundImage[0].LoadTGA("sonia2.tga");
+
+
+	buttonImage[0].Init(1,1,0);
+	buttonImage[0].SetImageSize(backgroundImage[0].GetImageSizeX()*0.3,backgroundImage[0].GetImageSizeX()*0.5);
+	buttonImage[0].OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
+
+	buttonImage[0].Init(1,1,0);
+	buttonImage[0].SetImageSize(buttonImage[0].GetImageSizeX(),buttonImage[0].GetImageSizeX());
+	buttonImage[0].OverrideTGATexture(IM->GetTGAImage("kaede.tga"));
+	
 
 	return true;
 }
