@@ -2,6 +2,7 @@
 
 
 CUIButton::CUIButton(void)
+	:active(true)
 {
 }
 

@@ -10,6 +10,9 @@
 #include "ImageManager.h"
 #include "MusicSystem\MusicSystem.h"
 
+#include "UIButtonCircle.h"
+#include "UIButtonRectangle.h"
+
 CMenuState* CMenuState::instance = 0;
 
 CMenuState::CMenuState(void)
@@ -69,10 +72,12 @@ void CMenuState::KeyboardDown(unsigned char key, int x, int y)
 	switch(key)
 	{
 		case 't':
-			backgroundImage[0].CheckUp();
+			//backgroundImage[0].CheckUp();
+			buttonList.front()->PrintDebugInformation();
 			break;
 		case '2':
-			GSM->PrintDebugInformation();
+			mouse->PrintDebugInformation();
+			//GSM->PrintDebugInformation();
 			break;
 		case 'n':
 			//SP->GetCell(0,1)->PrintDebugInformation();
@@ -101,21 +106,44 @@ void CMenuState::MouseMove (int x, int y)
 
 void CMenuState::MouseClick(int button, int state, int x, int y)
 {
-	mouse->lastX = x;
-	mouse->lastY = y;
 
 	switch (button) {
-
 		case GLUT_LEFT_BUTTON:
-			mouse->mLButtonUp = state;		
+			switch(state)
+			{
+				case GLUT_DOWN:
+					mouse->mLButtonUp = true;	
+					break;
+				case GLUT_UP:
+					mouse->mLButtonUp = false;	
+					break;
+			}
 			break;
 
 		case GLUT_RIGHT_BUTTON:
-			mouse->mRButtonUp = state;		
+
+			switch(state)
+			{
+				case GLUT_DOWN:
+					mouse->mRButtonUp = true;	
+					break;
+				case GLUT_UP:
+					mouse->mRButtonUp = false;	
+					break;
+			}
 			break;
 
 		case GLUT_MIDDLE_BUTTON:
-			mouse->middleButtonUp = state;
+		
+			switch(state)
+			{
+				case GLUT_DOWN:
+					mouse->middleButtonUp = true;	
+					break;
+				case GLUT_UP:
+					mouse->middleButtonUp = false;	
+					break;
+			}
 			break;
 	}
 }
@@ -180,6 +208,12 @@ void CMenuState::SetHUD(bool m_bHUDmode)
 void CMenuState::Render2D()
 {
 	RenderBackground();
+
+	for(TButtonList::iterator it = buttonList.begin(); it != buttonList.end(); ++it)
+	{
+		(*it)->Render();
+	}
+
 	FRM->drawFPS();
 }
 
@@ -211,6 +245,18 @@ void CMenuState::RenderScene(void)
 
 bool CMenuState::Update()
 {
+	for(unsigned short i = 0 ; i< buttonList.size();++i)
+	{
+		buttonList[i]->Update();
+		if(buttonList[i]->ColisionCheck(mouse))
+		{
+			std::cout<<"Button COllided"<<std::endl;
+		}else
+		{
+			std::cout<<"=D "<<std::endl;
+		}
+	}
+
 	if(keyboard->myKeys[VK_ESCAPE] == true)
 	{
 		GSM->ExitApplication();
@@ -248,14 +294,21 @@ bool CMenuState::Init()
 	backgroundImage[0].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
 
+	CUIButton* a_button = 0;
 
-	buttonImage[0].Init(1,1,0);
-	buttonImage[0].SetImageSize(backgroundImage[0].GetImageSizeX()*0.3,backgroundImage[0].GetImageSizeX()*0.5);
-	buttonImage[0].OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
+	a_button = new CUIButtonCircle();
+	a_button->ownTexture.Init(1);
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("kaede.tga"));
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.5);
+	a_button->SetSize(100,100);
+	buttonList.push_back(a_button);
+	//buttonImage[0].Init(1,1,0);
+	//buttonImage[0].SetImageSize(backgroundImage[0].GetImageSizeX()*0.3,backgroundImage[0].GetImageSizeX()*0.5);
+	//buttonImage[0].OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
 
-	buttonImage[0].Init(1,1,0);
-	buttonImage[0].SetImageSize(buttonImage[0].GetImageSizeX(),buttonImage[0].GetImageSizeX());
-	buttonImage[0].OverrideTGATexture(IM->GetTGAImage("kaede.tga"));
+	//buttonImage[0].Init(1,1,0);
+	//buttonImage[0].SetImageSize(buttonImage[0].GetImageSizeX(),buttonImage[0].GetImageSizeX());
+	//buttonImage[0].OverrideTGATexture(IM->GetTGAImage("kaede.tga"));
 	
 
 	return true;
@@ -268,11 +321,22 @@ bool CMenuState::Reset()
 
 bool CMenuState::CleanUp()
 {
+	for(TButtonList::iterator it = buttonList.begin(); it != buttonList.end(); ++it)
+	{
+		if((*it) != 0)
+		{
+			delete (*it);
+			(*it) = 0;
+		}
+	}
+
 	if(OM != 0)
 	{
 		delete OM;
 		OM = 0;
 	}
+
+
 	return true;
 }
 

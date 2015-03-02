@@ -159,7 +159,7 @@ void CSprite::Render(void)
 {
 	glPushMatrix();
 	////glTranslatef(position.x,position.y,position.z);//uncomment this if sprite class has a position.
-	glScalef(size.x,size.y,1);
+		glScalef(size.x,size.y,1);
 	
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
@@ -179,12 +179,18 @@ void CSprite::Render(void)
 				glTexCoord2f( currentframe	  * framesize.x	,  currentlayer * framesize.y - framesize.y ); glVertex2f(-0.5f,0.5f);//top left
 				glTexCoord2f((currentframe+1) * framesize.x ,  currentlayer * framesize.y				); glVertex2f(0.5f,-0.5f);//bottom right
 				glTexCoord2f((currentframe+1) * framesize.x ,  currentlayer * framesize.y - framesize.y ); glVertex2f(0.5f,0.5f);//top right
+
+				//glTexCoord2f( currentframe	  * framesize.x	,  currentlayer * framesize.y				); glVertex2f(-1.0f,-1.0f);//bottom left
+				//glTexCoord2f( currentframe	  * framesize.x	,  currentlayer * framesize.y - framesize.y ); glVertex2f(-1.0f,1.0f);//top left
+				//glTexCoord2f((currentframe+1) * framesize.x ,  currentlayer * framesize.y				); glVertex2f(1.0f,-1.0f);//bottom right
+				//glTexCoord2f((currentframe+1) * framesize.x ,  currentlayer * framesize.y - framesize.y ); glVertex2f(1.0f,1.0f);//top right
 				glEnd();
 			glPopMatrix();
 		}else
 		{
 			////simple forward animation of laterally inverted
 			glPushMatrix();
+		
 				glBegin(GL_TRIANGLE_STRIP);
 				glTexCoord2f((currentframe+1) * framesize.x ,  currentlayer * framesize.y				); glVertex2f(-0.5f,-0.5f);//bottom left
 				glTexCoord2f((currentframe+1) * framesize.x ,  currentlayer * framesize.y - framesize.y ); glVertex2f(-0.5f,0.5f);//top left

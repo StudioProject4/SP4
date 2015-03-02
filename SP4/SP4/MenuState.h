@@ -2,6 +2,7 @@
 #include "gamestate.h"
 
 #include "Sprite.h"
+#include <vector>
 
 class CMenuState :
 	public CGameState
@@ -10,7 +11,9 @@ public:
 	static CMenuState* instance;
 private:
 	CSprite backgroundImage[1];
-	CSprite buttonImage[4];
+	typedef std::vector<CUIButton*> TButtonList;
+	TButtonList buttonList;
+
 private:
 	CMenuState(void);
 public:
@@ -26,7 +29,7 @@ public:
 	 void MouseClick(int button, int state, int x, int y);
 	 void MouseWheel(int button, int dir, int x, int y);
 	 void changeSize (int w, int h);
-
+//
 	 void SetHUD(bool m_bHUDmode);
 	 void Render2D();
 	 void Render3D();

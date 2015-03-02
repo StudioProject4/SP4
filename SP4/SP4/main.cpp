@@ -97,7 +97,7 @@ int main(int argc, char **argv )
 		//GSM->ChangeState(KennardTestState::GetInstance());
 		//GSM->ChangeState(CKeeYangTestState::GetInstance());
 
-		GSM->ChangeState(myApplication::GetInstance());
+		//GSM->ChangeState(myApplication::GetInstance());
 
 		//glutInitWindowPosition(LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"));
 		//glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
