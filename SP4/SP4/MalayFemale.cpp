@@ -1,4 +1,5 @@
 #include "MalayFemale.h"
+#include "ImageManager.h"
 
 CMalayFemale :: CMalayFemale()
 {
@@ -36,7 +37,8 @@ bool CMalayFemale :: Init()
 	genericTag = "Character";
 
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("sonia2.tga");
+	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("sonia2.tga"));
+	//theSprite->LoadTGA("sonia2.tga");
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);

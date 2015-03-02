@@ -56,7 +56,21 @@ bool CFrameRateManager::Reset()
 {
 	return Init();
 }
+bool CFrameRateManager::Exit()
+{
+	if(instance != 0)
+	{
+		CleanUp();
+		delete instance;
+		instance = 0;
+		return true;
+	}else
+	{
+		return true;
+	}
 
+	return false;
+}
 bool CFrameRateManager::CleanUp()
 {
 	return true;
@@ -105,6 +119,8 @@ void CFrameRateManager::drawFPS(float xpos,float ypos)
 	else 
 		glColor3f( 1.0f, 0.0f, 0.0f);
 	printw (xpos, ypos, 0, "FPS: %4.2f", fps);
+
+	glColor3f(1.0f,1.0f,1.0f);
 }
 //void CFrameRateManager::printw (float x, float y, float z, char* format, ...)
 //{

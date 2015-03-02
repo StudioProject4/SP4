@@ -143,6 +143,7 @@ bool myApplication::Init()
 	WM = CWindowManager::GetInstance();
 	MS = CMusicSystem::GetInstance();
 	GSM = CGameStateManager::GetInstance();
+	IM = CImageManager::GetInstance();
 	OM = new CObjectManager();
 	
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
@@ -600,7 +601,9 @@ void myApplication::RenderBackground()
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glBindTexture(GL_TEXTURE_2D, BackgroundTexture[0].texID );
+		
+		glBindTexture(GL_TEXTURE_2D, BackgroundTexture[0].texID);
+		//glBindTexture(GL_TEXTURE_2D, IM->GetTGAImage("sonia2.tga")->texID);
 		glPushMatrix();
 			glBegin(GL_QUADS);
 				int height = 100 * 1.333/1.5;
@@ -702,7 +705,7 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 {
 	keyboard->myKeys[key] = true;
 	CBaseObject* temp = nullptr;
-
+	TextureImage* tempimage = nullptr;
 	switch(key)
 	{
 		case '1':
@@ -716,15 +719,16 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//std::cout<<WM->GetWindowRatioDifferenceX()<<std::endl;
 			//std::cout<<WM->GetWindowRatioDifferenceY()<<std::endl;
 			
-			temp = OM->FetchObjectWithName("ball");
-			std::cout<<temp<<std::endl;
-			if(temp)
-			{
-				temp->phys.size.Set(100,100);
-			}else
-			{
-				std::cout<<"nothing came out"<<std::endl;
-			}
+			//temp = OM->FetchObjectWithName("ball");
+			//std::cout<<temp<<std::endl;
+			//if(temp)
+			//{
+			//	temp->phys.size.Set(100,100);
+			//}else
+			//{
+			//	std::cout<<"nothing came out"<<std::endl;
+			//}
+			GSM->ExitApplication();
 		break;
 
 		case '2':

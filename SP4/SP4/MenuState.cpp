@@ -7,6 +7,7 @@
 #include "WindowManager.h"
 #include "FrameRateManager.h"
 #include "GameStateManager.h"
+#include "ImageManager.h"
 #include "MusicSystem\MusicSystem.h"
 
 CMenuState* CMenuState::instance = 0;
@@ -67,6 +68,9 @@ void CMenuState::KeyboardDown(unsigned char key, int x, int y)
 	keyboard->myKeys[key] = true;
 	switch(key)
 	{
+		case 't':
+			backgroundImage[0].CheckUp();
+			break;
 		case '2':
 			GSM->PrintDebugInformation();
 			break;
@@ -175,6 +179,7 @@ void CMenuState::SetHUD(bool m_bHUDmode)
 
 void CMenuState::Render2D()
 {
+	RenderBackground();
 	FRM->drawFPS();
 }
 
@@ -214,6 +219,7 @@ bool CMenuState::Update()
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
 		OM->Update();
+		backgroundImage[0].LiveOn();
 
 	}
 	return true;
@@ -227,6 +233,7 @@ bool CMenuState::Init()
 	genericTag = "CGameState";
 	tag = "application";
 
+	IM = CImageManager::GetInstance();
 	FRM = CFrameRateManager::GetInstance();
 	LM = CLuaManager::GetInstance();
 	mouse = CMouse::GetInstance();
@@ -237,6 +244,14 @@ bool CMenuState::Init()
 	GSM = CGameStateManager::GetInstance();
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
+
+	backgroundImage[0].SetVitalInformation(5,1);
+	//backgroundImage[0].SetAnimationLayer(10);
+	//backgroundImage[0].TranverseAnimationFrame(true,true);
+
+	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	backgroundImage[0].SetImageSize(800,600);
+	//backgroundImage[0].LoadTGA("sonia2.tga");
 
 	return true;
 }
@@ -254,4 +269,33 @@ bool CMenuState::CleanUp()
 		OM = 0;
 	}
 	return true;
+}
+
+void CMenuState::RenderBackground()
+{
+	//glEnable(GL_TEXTURE_2D);
+
+	//// Draw Background image
+	//glPushMatrix();
+	//	glEnable(GL_BLEND);
+	//	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//	
+	//	glBindTexture(GL_TEXTURE_2D, backgroundImage[0].owntexture.texID);
+	//	//glBindTexture(GL_TEXTURE_2D, IM->GetTGAImage("sonia2.tga")->texID);
+	//	glPushMatrix();
+	//		glBegin(GL_QUADS);
+	//			int height = 100 * 1.333/1.5;
+	//			glTexCoord2f(0,0); glVertex2f(0,800);
+	//			glTexCoord2f(1,0); glVertex2f(1024,800);
+	//			glTexCoord2f(1,1); glVertex2f(1024,0);
+	//			glTexCoord2f(0,1); glVertex2f(0,0);				
+	//		glEnd();
+	//	glPopMatrix();
+	//	glDisable(GL_BLEND);
+	//glPopMatrix();
+	//glDisable(GL_TEXTURE_2D);
+	glPushMatrix();
+	glTranslatef(400,300,0);
+	backgroundImage[0].Render();
+	glPopMatrix();
 }

@@ -94,6 +94,7 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="HealthPU.cpp" />
     <ClCompile Include="HealthSystem.cpp" />
+    <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="InvinciblePU.cpp" />
     <ClCompile Include="JumpPU.cpp" />
     <ClCompile Include="KeeYangTestState.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="HealthPU.h" />
     <ClInclude Include="HealthSystem.h" />
+    <ClInclude Include="ImageManager.h" />
     <ClInclude Include="InvinciblePU.h" />
     <ClInclude Include="JumpPU.h" />
     <ClInclude Include="KeeYangTestState.h" />
