@@ -17,6 +17,7 @@ private:
 	float width;
 	bool applyGrav;
 	bool trigger;
+	long lastTime;
 public:
 	float angleVel;
 	float curAngle;
