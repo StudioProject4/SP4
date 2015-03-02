@@ -38,7 +38,7 @@ public:
 	{};
 	virtual ~CBaseObject(){};
 	
-	virtual bool OnCollision(CBaseObject* a_obj);
+	bool OnCollision(CBaseObject* a_obj);
 	virtual bool OnCollision2(CBaseObject* a_obj)=0;
 	virtual bool Render() = 0;
 

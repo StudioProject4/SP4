@@ -3,6 +3,7 @@
 #include "CodeDefination.h"
 
 #ifdef NETWORK_CODE
+#include "RakNet\WindowsIncludes.h"
 #include "RakNet\BitStream.h"
 #endif
 

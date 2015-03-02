@@ -1,5 +1,5 @@
-#include "SpatialPartion.h"
 #include "BaseObject.h"
+#include "SpatialPartion.h"
 #include <iostream>
 //using namespace std;
 #include <GL\glut.h>

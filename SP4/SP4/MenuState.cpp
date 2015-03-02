@@ -1,5 +1,6 @@
 #include "MenuState.h"
 
+#include "ObjectManager.h"
 #include "Mouse.h"
 #include "Keyboard.h"
 #include "LuaManager.h"
@@ -7,7 +8,6 @@
 #include "FrameRateManager.h"
 #include "GameStateManager.h"
 #include "MusicSystem\MusicSystem.h"
-#include "ObjectManager.h"
 
 CMenuState* CMenuState::instance = 0;
 

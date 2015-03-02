@@ -8,4 +8,4 @@
 #define SP_V1
 #endif
 
-//#define NETWORK_CODE
+#define NETWORK_CODE

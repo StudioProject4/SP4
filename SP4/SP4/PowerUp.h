@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Map.h"
 #include "BaseObject.h"
+#include "Map.h"
 #include "Character.h"
 #include "Sprite.h"
 

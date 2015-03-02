@@ -1,16 +1,17 @@
-#include "KennardTestState.h"
+#include "ObjectManager.h"
 
-#include <GL/glut.h>
-#include <GL/freeglut.h>
-#include <GL/glext.h>
+#include "KennardTestState.h"
 
 #include "WindowManager.h"
 #include "Keyboard.h"
 #include "LuaManager.h"
 #include "Mouse.h"
 #include "FrameRateManager.h"
-#include "ObjectManager.h"
 #include "GameStateManager.h"
+
+#include <GL/glut.h>
+#include <GL/freeglut.h>
+#include <GL/glext.h>
 
 KennardTestState::KennardTestState(void):
 map(new CObjectManager())

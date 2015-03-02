@@ -3,8 +3,8 @@
 #include "Physics.h"
 #include "HealthSystem.h"
 #include "PointSystem.h"
-#include <time.h>
 #include "MVCtime.h"
+#include <time.h>
 
 class CCharacter : public CBaseObject
 {

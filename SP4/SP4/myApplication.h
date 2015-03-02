@@ -9,18 +9,15 @@
 #pragma once
 
 
-#include <stdio.h>
-#include <GL/glut.h>
-#include <GL/freeglut.h>
-#include <GL/glext.h>
-#include <stdlib.h>
-#include <iostream>
+#include "MenuState.h"
+#include "ChineseMob.h"
+#include "ObjectManager.h"
+
 #include "FrameRateManager.h"
 #include "RenderUntilty.h"
 #include "Mouse.h"
 #include "Keyboard.h"
 #include "LuaManager.h"
-#include "ObjectManager.h"
 
 #include "KeeYangTestState.h"
 #include "KennardTestState.h"
@@ -28,10 +25,8 @@
 #include "DatatypeDefination.h"
 #include "GameStateManager.h"
 
-#include "MenuState.h"
 #include "MalayFemale.h"
 #include "ChineseMale.h"
-#include "ChineseMob.h"
 #include "MalayMob.h"
 #include "WindowManager.h"
 
@@ -49,6 +44,13 @@
 #include "MusicSystem\MusicSystem.h"
 
 #include "SpatialPartion.h"
+
+#include <stdio.h>
+#include <GL/glut.h>
+#include <GL/freeglut.h>
+#include <GL/glext.h>
+#include <stdlib.h>
+#include <iostream>
 
 class myApplication:public CGameState
 {

@@ -1,4 +1,5 @@
 #include "myApplication.h"
+#include "ObjectManager.h"
 #include "KeeYangTestState.h"
 
 #include "Mouse.h"
@@ -7,7 +8,6 @@
 #include "FrameRateManager.h"
 #include "GameStateManager.h"
 #include "MusicSystem\MusicSystem.h"
-#include "ObjectManager.h"
 
 
 CKeeYangTestState* CKeeYangTestState::instance = 0;
