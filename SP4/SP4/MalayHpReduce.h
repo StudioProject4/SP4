@@ -14,6 +14,6 @@ public:
 	bool Init(Vector3 pos, Vector3 size);
 	bool Render();
 	bool Update();
-	bool OnCollision2(CBaseObject* a_obj);
+	bool OnCollision2(CBaseObject* a_obj,bool again=false);
 };
 

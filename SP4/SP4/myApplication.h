@@ -12,6 +12,7 @@
 #include "MenuState.h"
 #include "ChineseMob.h"
 #include "ObjectManager.h"
+#include "WinCondition.h"
 
 #include "FrameRateManager.h"
 #include "RenderUntilty.h"
@@ -47,9 +48,6 @@
 #include "MalayPoints.h"
 #include "ChineseHpReduce.h"
 #include "MalayHpReduce.h"
-
-#include "WinCondition.h"
-#include "LoseCondition.h"
 
 #include "Physics.h"
 
@@ -97,6 +95,7 @@ public:
 	bool Init();
 	bool CleanUp();
 	bool Reset();
+	bool ResetLevel(short level);
 
 	void Render2D();
 	void Render3D();
@@ -132,7 +131,7 @@ private:
 	CInvinciblePU InvinOn;
 	CPointSystem* points;
 	CWinCondition* win;
-	CLoseCondition* lose;
+	
 
 	int timeRef;
 

@@ -3,6 +3,8 @@
 #include "Character.h"
 #include "Sprite.h"
 #include "Map.h"
+#include "ChineseMale.h"
+#include "MalayFemale.h"
 
 class CWinCondition: public CBaseObject
 {
@@ -13,10 +15,14 @@ public:
 	bool Render();
 	bool Update();
 	bool Init();
-	bool OnCollision2(CBaseObject* a_obj);
+	bool OnCollision(CBaseObject* a_obj, bool frame2=false);
 	void LevelChange();
+	void LoseGame();
 
 	CMap lvC;		//level change
+
+	CMalayFemale* MF;
+	CChineseMale* CM;
 
 private:
 

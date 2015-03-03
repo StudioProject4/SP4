@@ -100,7 +100,69 @@ bool myApplication::Reset()
 {
 	return Init();
 }
+bool myApplication::ResetLevel(short level)
+{
+	if(OM  != 0)
+	{
+		delete OM;
+		OM = new CObjectManager();
+	}
+	//delete playerOne;
+	//delete playerOne;
+	//delete theAIOne;
+	//delete theAITwo;
+	playerOne = OM->manufacturer->CreateChineseMale();
+	playerTwo = OM->manufacturer->CreateMalayFemale();
+	theAIOne = OM->manufacturer->CreateMalayMob();
+	theAITwo = OM->manufacturer->CreateChineseMob();
+	
+	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
+	playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
+	theAIOne->SetPos(Vector3(624,80,0));
+	theAITwo->SetPos(Vector3(304,80,0));
 
+
+	CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
+	lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+	CDoor* door= OM->manufacturer->CreateObstacleDoor();
+	door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X"),LM->GetWithCheckNumber<float>("DOOR_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+
+	lever->SetDoorLink(door);
+	door->AddTrigger(lever);
+
+	 mapOffset_x =  mapOffset_y=
+	 tileOffset_x =tileOffset_y=
+	 mapFineOffset_x= mapFineOffset_y=
+	 theNumOfTiles_Height
+	= theNumOfTiles_Width
+	= rearWallOffset_x=rearWallOffset_y
+	 =rearWalltileOffset_x= rearWalltileOffset_y
+	= rearWallFineOffset_x= rearWallFineOffset_y = 0;
+
+	 Map->Level = level;
+	 Map->RunMap();
+
+	playerTwo->phys.map=Map;
+	playerOne->phys.map=Map;
+	theAIOne->SetUpMap(*Map);
+	theAITwo->SetUpMap(*Map);
+	theAIOne->phys.map=Map;
+	theAITwo->phys.map=Map;
+
+#ifdef NETWORK_CODE
+	isMultiplayer = false;
+		charControl=3;
+
+#endif
+
+	//Map->RunMap();
+
+	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
+	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
+
+	return true;
+
+}
 //bool myApplication::Init(bool setMultiplayer)
 bool myApplication::Init()
 {
@@ -797,7 +859,7 @@ bool myApplication::Update()
 #endif
 
 	Map->RunMap();
-	win->LevelChange();
+//	win->
 		
 	return true;
 }

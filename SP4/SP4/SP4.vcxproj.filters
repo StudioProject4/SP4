@@ -306,18 +306,14 @@
     <ClCompile Include="UIButtonRectangle.cpp">
       <Filter>UiObjects</Filter>
     </ClCompile>
-
     <ClCompile Include="MalayHpReduce.cpp">
       <Filter>Obstacle</Filter>
     </ClCompile>
     <ClCompile Include="ChineseHpReduce.cpp">
       <Filter>Obstacle</Filter>
     </ClCompile>
-    <ClCompile Include="LoseCondition.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="WinCondition.cpp">
-	<Filter>Source Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CreditState.cpp">
       <Filter>GameStates</Filter>
@@ -554,9 +550,6 @@
     </ClInclude>
     <ClInclude Include="ChineseHpReduce.h">
       <Filter>Obstacle</Filter>
-    </ClInclude>
-    <ClInclude Include="LoseCondition.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WinCondition.h">
       <Filter>Header Files</Filter>

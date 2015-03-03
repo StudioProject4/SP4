@@ -104,7 +104,6 @@
     <ClCompile Include="KennardTestState.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="LeverDoor.cpp" />
-    <ClCompile Include="LoseCondition.cpp" />
     <ClCompile Include="LuaManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MalayFemale.cpp" />
@@ -181,7 +180,6 @@
     <ClInclude Include="KennardTestState.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="LeverDoor.h" />
-    <ClInclude Include="LoseCondition.h" />
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="MalayFemale.h" />
     <ClInclude Include="MalayHpReduce.h" />

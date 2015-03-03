@@ -44,7 +44,7 @@ bool CChineseHpReduce::Update()
 	return true;
 }
 	
-bool CChineseHpReduce::OnCollision2(CBaseObject* a_obj)
+bool CChineseHpReduce::OnCollision2(CBaseObject* a_obj,bool again)
 {
 
 	CChineseMale* tempCM = (CChineseMale*)a_obj;

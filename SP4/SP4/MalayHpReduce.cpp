@@ -44,7 +44,7 @@ bool CMalayHpReduce::Update()
 	return true;
 }
 	
-bool CMalayHpReduce::OnCollision2(CBaseObject* a_obj)
+bool CMalayHpReduce::OnCollision2(CBaseObject* a_obj,bool again)
 {
 	CChineseMale* tempCM = (CChineseMale*)a_obj;
 	CMalayFemale* tempMF = (CMalayFemale*)a_obj;
