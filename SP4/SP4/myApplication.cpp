@@ -136,6 +136,7 @@ bool myApplication::ResetLevel(short level)
 	{
 	case 1:
 		{
+		
 			theAIOne = OM->manufacturer->CreateMalayMob();
 			theAITwo = OM->manufacturer->CreateChineseMob();
 			playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
@@ -250,6 +251,21 @@ bool myApplication::Init()
 	IM->RegisterTGA("background.tga");
 	tempimage = IM->GetTGAImage("background.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
+
+	if(MS->StopCurrentBGM())
+	{
+		MS->PlayBgmTrack("bgm6.mp3");
+		std::cout<<"finding"<<MS->FindBgm("bgm6.mp3")<<std::endl;
+		if(MS->FindBgm("bgm6.mp3")->EnableAudioEffectControl())
+		{
+			MS->FindBgm("bgm6.mp3")->EnableChorusEffect();
+			cout<<"hello"<<std::endl;
+		}else
+		{
+			cout<<"huh"<<std::endl;
+		}
+
+	}
 
 	IM->RegisterTGA("health.tga");
 	HeartShape.Init(1);
@@ -747,6 +763,7 @@ bool myApplication::Update()
 	{
 		if(keyboard->myKeys['a'])
 		{
+			
 			if(charControl==1||charControl==3)
 			{
 				//if(playerOne->phys.vel.x>=0)
@@ -1149,10 +1166,12 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//ballList[0]->active = false;
 			//temp = OM->FindObjectWithName("ball");
 			//temp->active = false;
+			MS->StopCurrentBGM();
+			
 		break;
 		
 		case '3':
-			MS->PrintSoundPoolList();
+			MS->PlayBgmTrack(MS->GetCurrentBgmTrackIndex());
 			//MS->TranverseSoundTrack();
 			
 			break;

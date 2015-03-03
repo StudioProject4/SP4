@@ -173,10 +173,10 @@ void CObjectManager::UpdateCollision()
 		this->UpdateGridCheckCall();
 		
 	}
-	if(CGameStateManager::GetInstance()->currentState == CGameStateManager::STATE_MENU)
-	{
-		this->UpdateGridTestBallCheckCall();
-	}
+	//if(CGameStateManager::GetInstance()->currentState == CGameStateManager::STATE_MENU)
+	//{
+	//	this->UpdateGridTestBallCheckCall();
+	//}
 #endif
 	frame=!frame;
 }

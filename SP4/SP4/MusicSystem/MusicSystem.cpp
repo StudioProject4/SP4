@@ -366,6 +366,7 @@ bool CMusicSystem::PlaySoundPoolTrack2D(std::string trackname,bool setLoop,bool 
 			//{
 				a_audio->Init(this->CreateSampleAudio2D(a_audio->GetFileName().c_str(),setLoop,audioEffect),a_audio->GetFileName().c_str(),a_audio->GetAudioName());
 			//}
+			
 			a_audio->ResetPlayPosition();
 			a_audio->SetIsPaused(false);
 			a_audio->active = true;
@@ -376,6 +377,7 @@ bool CMusicSystem::PlaySoundPoolTrack2D(std::string trackname,bool setLoop,bool 
 	}
 	return false;
 }
+
 bool CMusicSystem::PlaySoundPoolTrack3D(std::string trackname,irrklang::vec3df pos,bool setLoop,bool audioEffect)
 {
 	CAudio* a_audio = FetchSound();
@@ -749,7 +751,16 @@ bool CMusicSystem::TranverseSoundTrack(bool forward,bool warp)
 	}
 	return false;
 }
-
+bool CMusicSystem::StopCurrentBGM()
+{
+	if(engine)
+	{
+		this->PauseBgmTrack(currentBgmTrack);
+		this->ResetBgmTrackPlayPosition(currentBgmTrack);
+		return true;
+	}
+	return false;
+}
 bool CMusicSystem::CheckAudioIsPlaying(std::string audioname)
 {
 	if(engine)
@@ -902,7 +913,7 @@ irrklang::ISound* CMusicSystem::CreateIrrklangISound3D(const char* filename,irrk
 short CMusicSystem::GetCurrentBgmTrackIndex()
 {
 	return this->currentBgmTrack;
-}
+};
 
 short CMusicSystem::GetCurrentSoundTrackIndex()
 {

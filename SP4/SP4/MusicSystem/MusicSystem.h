@@ -89,6 +89,8 @@ public:
 	bool ResetSoundTrackPlayPosition(std::string trackname);
 	bool ResetSoundTrackPlayPosition(unsigned short trackindex);
 
+	bool StopCurrentBGM();
+
 	//mute all audio
 	bool Mute();
 
@@ -130,13 +132,13 @@ public:
 	bool CheckAudioIsPlaying(const char* audioname);
 
 	//Get Current Bgm Object
-	inline CAudio* GetCurrentBgm();
+	 CAudio* GetCurrentBgm();
 
 	//Get Current Sound Object
-	inline CAudio* GetCurrentSound();
+	 CAudio* GetCurrentSound();
 
 	// Check Current Bgm track index
-	inline short GetCurrentBgmTrackIndex();
+	short GetCurrentBgmTrackIndex();
 
 	// Check Current sound track index
 	short GetCurrentSoundTrackIndex();
