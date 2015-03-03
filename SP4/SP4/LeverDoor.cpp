@@ -145,7 +145,7 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj,bool again)
 		}
 	}
 	long now=timeGetTime();
-	if(now-lastTime>50&&modded&&!again)
+	if(modded&&!again)
 	{
 		BitStream bs;
 		unsigned char msgid=ID_OBJ_UPDATE;
