@@ -257,6 +257,8 @@ void CGameStateManager::GoToPreviousState()
 {
 	if(!gamestatestack.empty())
 	{
+		CMouse::GetInstance()->Reset();
+
 		lastState = gamestatestack.back();
 		gamestatestack.pop_back();
 

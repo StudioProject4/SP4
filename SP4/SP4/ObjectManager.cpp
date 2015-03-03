@@ -243,8 +243,8 @@ bool CObjectManager::Update(int multiplayerMode)
 			inactiveObjectList.push_back(objectList[it]);
 			//objectList.erase(it);
 			//using swapping method to delete element.
-			swap(objectList[it],objectList.back());
-			//objectList[it] = objectList.back();
+			//swap(objectList[it],objectList.back());
+			objectList[it] = objectList.back();
 			objectList.pop_back();
 		}
 	}

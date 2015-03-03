@@ -562,5 +562,62 @@
     <None Include="RandomGeneratorSystem\Note.txt">
       <Filter>Helper\RandomGenerator</Filter>
     </None>
+    <None Include="..\Debug\CreateGameButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\CreditButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\ExitButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\HalalSign.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\HealthCross.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\Invincible.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\JoinGameButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\Jump.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\kaede.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\kanon.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\LavaGround.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\luvdisc.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\rockyground.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\SettingButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\SinglePlayerButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\sonia2.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\SpeedUp.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\tenri.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\tile0_blank.tga">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

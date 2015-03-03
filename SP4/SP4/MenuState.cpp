@@ -313,6 +313,15 @@ bool CMenuState::Init()
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
+	IM->RegisterTGA("MultiPlayerButton.tga");
+	IM->RegisterTGA("OptionButton.tga");
+	IM->RegisterTGA("SettingButton.tga");
+	IM->RegisterTGA("SinglePlayerButton.tga");
+	IM->RegisterTGA("ExitButton.tga");
+	IM->RegisterTGA("ExitButton.tga");
+	IM->RegisterTGA("CreditButton.tga");
+	IM->RegisterTGA("BackButton.tga");
+
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
@@ -325,7 +334,7 @@ bool CMenuState::Init()
 
 	a_button = new CUIButtonRectangle();
 	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("kaede.tga"));
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("SinglePlayerButton.tga"));
 	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.35);
 	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
 	a_button->name ="SinglePlayerButton";
@@ -333,15 +342,15 @@ bool CMenuState::Init()
 
 	a_button = new CUIButtonRectangle();
 	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("MultiPlayerButton.tga"));
 	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.6);
 	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
-	a_button->name ="OnlinePlayButton";
+	a_button->name ="MultiPlayerButton";
 	buttonList.push_back(a_button);
 
 	a_button = new CUIButtonRectangle();
 	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("OptionButton.tga"));
 	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.85);
 	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
 	a_button->name ="OptionButton";
@@ -350,7 +359,7 @@ bool CMenuState::Init()
 
 	a_button = new CUIButtonCircle();
 	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("CreditButton.tga"));
 	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1,WM->GetOriginalWindowHeight()*0.9);
 	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
 	a_button->name ="CreditButton";
@@ -358,12 +367,13 @@ bool CMenuState::Init()
 
 	a_button = new CUIButtonCircle();
 	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("ExitButton.tga"));
 	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.9,WM->GetOriginalWindowHeight()*0.9);
 	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
 	a_button->name ="ExitButton";
 	buttonList.push_back(a_button);
 	
+
 
 	return true;
 }
@@ -427,6 +437,7 @@ void CMenuState::RenderBackground()
  {
 	 if(mouse->CheckLeftButtonReleased())
 	 {
+		 MS->PlaySoundPoolTrack2D("sound1.mp3");
 		 if(buttonName == "SinglePlayerButton")
 		 {
 			 //if(mouse->CheckLeftButtonReleased())
@@ -434,7 +445,7 @@ void CMenuState::RenderBackground()
 			 GSM->ChangeState(myApplication::GetInstance());
 			 // }
 		 }else
-			 if(buttonName == "OnlinePlayButton")
+			 if(buttonName == "MultiPlayerButton")
 			 {
 				 // if(mouse->CheckLeftButtonReleased())
 				 // {
