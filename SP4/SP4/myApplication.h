@@ -127,6 +127,8 @@ private:
 	CInvinciblePU InvinOn;
 	CPointSystem* points;
 
+	int timeRef;
+
 	int x, y;
 	
 	int Scr;

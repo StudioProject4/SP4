@@ -16,6 +16,7 @@ ServerApp::ServerApp() :
 	//newProjectileID(0),
 	,maxPlayers(2)
 	,playerNum(0)
+	,proc(0)
 {
 	rakpeer_->Startup(100, &SocketDescriptor(1691, 0), 1);
 	rakpeer_->SetMaximumIncomingConnections(100);
@@ -40,7 +41,7 @@ void ServerApp::Loop()
 		RakNet::Time timestamp = 0;
 
 		bs.Read(msgid);
-
+		cout<<"handling msg "<<(int)(msgid)<<" num "<<proc++<<endl;
 		if (msgid == ID_TIMESTAMP)
 		{
 			bs.Read(timestamp);

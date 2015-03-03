@@ -5,8 +5,6 @@
 
 CChineseMale :: CChineseMale()
 {
-	Init();
-	
 }
 
 CChineseMale :: ~CChineseMale()
@@ -23,7 +21,7 @@ bool CChineseMale :: Init(Vector3 newPos,Vector3 newDir,int entityID)
 	pos = newPos;
 	dir = newDir;
 	id = entityID;
-	//Init();
+	Init();
 	return true;
 }
 

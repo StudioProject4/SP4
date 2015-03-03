@@ -3,7 +3,6 @@
 
 CMalayFemale :: CMalayFemale()
 {
-	Init();
 }
 
 CMalayFemale :: ~CMalayFemale()

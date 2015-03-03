@@ -18,6 +18,7 @@ using namespace RakNet;
 
 RakNet::RakPeerInterface* rakPeerGlobal;
 
+bool sendPos=true;
 
 myApplication* myApplication::instance = NULL;
 
@@ -25,6 +26,7 @@ myApplication::myApplication(void)
 	: Map(NULL)
 #ifdef NETWORK_CODE
 	,rakpeer_(RakPeerInterface::GetInstance())
+	,timeRef(-1)
 #endif
 {
 	//Init();
@@ -115,6 +117,10 @@ bool myApplication::Init()
 		}
 	}
 	rakPeerGlobal=rakpeer_;
+	if(timeRef==-1)
+	{
+		timeRef=MVCTime::GetInstance()->PushNewTime(50);
+	}
 #endif
 	tag = "application";
 	name = "myApplication";
@@ -538,6 +544,33 @@ bool myApplication::Update()
 					bs.Read(z);
 					other->phys.vel.Set(x,y,z);
 				}
+				else if(temp2=="ChineseMob")
+				{
+					unsigned short id1,id2;
+					int hp;
+					bs.Read(id1);
+					bs.Read(id2);
+					bs.Read(hp);
+					
+					CChineseMob* mob=NULL;
+					CCharacter* character=NULL;
+					for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
+					{
+						if(id1==(*it)->id)
+						{
+							mob=(CChineseMob*)(*it);
+						}
+						else if(id2==(*it)->id)
+						{
+							character=(CCharacter*)(*it);
+						}
+						if(mob!=NULL&&character!=NULL)
+						{
+							break;
+						}
+					}
+					character->hp.SetHealth(hp);
+				}
 			}
 			break;
 		case ID_COLLISION:
@@ -632,7 +665,13 @@ bool myApplication::Update()
 		}
 		if(keyboard->myKeys['a'] == false && keyboard->myKeys['d'] == false)
 			{
-				playerOne->phys.vel.x = 0;
+				if(charControl==1||charControl==3)
+					playerOne->phys.vel.x = 0;
+				else if(charControl==2)
+				{
+					playerTwo->phys.vel.x=0;
+				}
+
 				keyboard->myKeys['a'] = false;
 				keyboard->myKeys['d'] = false;
 			}
@@ -668,35 +707,43 @@ bool myApplication::Update()
 			}
 
 		}
-		if(velChanged==true)
+		if(sendPos)
 		{
-			//send vel message
-			BitStream bs;
-			unsigned char msgID=ID_VEL_CHANGED;
-			bs.Write(msgID);
-			bs.Write(charControl);
-			switch(charControl)
+			if(MVCTime::GetInstance()->TestTime(timeRef))
 			{
-			case 1:
-				bs.Write(playerOne->phys.vel.x);
-				bs.Write(playerOne->phys.vel.y);
-				bs.Write(playerOne->phys.vel.z);
-				bs.Write(playerOne->pos.x);
-				bs.Write(playerOne->pos.y);
-				bs.Write(playerOne->pos.z);
-				break;
-			case 2:
-				bs.Write(playerTwo->phys.vel.x);
-				bs.Write(playerTwo->phys.vel.y);
-				bs.Write(playerTwo->phys.vel.z);
-				bs.Write(playerTwo->pos.x);
-				bs.Write(playerTwo->pos.y);
-				bs.Write(playerTwo->pos.z);
-				break;
+				//send vel message
+				BitStream bs;
+				unsigned char msgID=ID_VEL_CHANGED;
+				bs.Write(msgID);
+				bs.Write(charControl);
+				switch(charControl)
+				{
+				case 1:
+					bs.Write(playerOne->phys.vel.x);
+					bs.Write(playerOne->phys.vel.y);
+					bs.Write(playerOne->phys.vel.z);
+					bs.Write(playerOne->pos.x);
+					bs.Write(playerOne->pos.y);
+					bs.Write(playerOne->pos.z);
+					break;
+				case 2:
+					bs.Write(playerTwo->phys.vel.x);
+					bs.Write(playerTwo->phys.vel.y);
+					bs.Write(playerTwo->phys.vel.z);
+					bs.Write(playerTwo->pos.x);
+					bs.Write(playerTwo->pos.y);
+					bs.Write(playerTwo->pos.z);
+					break;
+				}
+				rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+				velChanged=false;
 			}
-			rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
-			velChanged=false;
 		}
+		else
+		{
+			MVCTime::GetInstance()->ResetTime(timeRef);
+		}
+		sendPos=true;
 	}
 #endif
 

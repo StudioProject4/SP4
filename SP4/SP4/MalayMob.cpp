@@ -60,13 +60,7 @@ bool CMalayMob :: Render()
 
 bool CMalayMob :: OnCollision2(CBaseObject* a_obj,bool again)
 {
-	if(a_obj->genericTag = "Character")
-	{
-		if(a_obj->tag = "ChineseMale")
-		{
-			a_obj->OnCollision(this);
-		}
-	}
+
 	return true;
 }
 

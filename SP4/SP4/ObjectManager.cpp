@@ -14,6 +14,7 @@
 CObjectManager::CObjectManager(void)
 	:SP(0)
 	,numOfUniqueId(-1)
+	,frame(false)
 {
 	Init();
 }
@@ -86,7 +87,7 @@ void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObje
 					if(a_obj->phys.TestCol(otherObject->pos,OtherSize))
 					{
 						//std::cout<<"COLLISION RESPONE ACTIVATED "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
-						a_obj->OnCollision(otherObject);
+						a_obj->OnCollision(otherObject,frame);
 					}
 				}
 			}
@@ -108,7 +109,7 @@ void CObjectManager::CheckObjectCollision(CBaseObject* a_obj, TObjectListVector&
 			if(a_obj->phys.TestCol(otherObject->pos,OtherSize))
 			{
 				//std::cout<<"collided "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
-				a_obj->OnCollision(otherObject);
+				a_obj->OnCollision(otherObject,frame);
 			}
 		}
 	}
@@ -174,7 +175,7 @@ void CObjectManager::UpdateCollision()
 		this->UpdateGridTestBallCheckCall();
 	}
 #endif
-
+	frame=!frame;
 }
 
 bool CObjectManager::LoadingSetup()

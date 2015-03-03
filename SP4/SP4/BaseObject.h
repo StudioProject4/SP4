@@ -36,10 +36,11 @@ public:
 		:active(true)
 		,cellvectorindex(-1)
 		,lastCall(0)
+		,frame(false)
 	{};
 	virtual ~CBaseObject(){};
 	
-	bool OnCollision(CBaseObject* a_obj);
+	bool OnCollision(CBaseObject* a_obj,bool frame);
 	virtual bool OnCollision2(CBaseObject* a_obj,bool again=false)=0;
 	virtual bool Render() = 0;
 
@@ -61,6 +62,7 @@ public:
 	};
 protected:
 	long lastCall;
+	bool frame;
 };
 
 
