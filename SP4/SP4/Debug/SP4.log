@@ -1,33 +1,37 @@
-﻿Build started 3/3/2015 6:30:23 PM.
+﻿Build started 3/3/2015 8:19:39 PM.
      1>Project "C:\Users\m308\Documents\GitHub\SP4\SP4\SP4\SP4.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SP4.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\m308\Documents\GitHub\SP4\SP4\includes /IC:\Users\m308\Documents\GitHub\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ChineseMob.cpp HealthPU.cpp
-         HealthPU.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\m308\Documents\GitHub\SP4\SP4\includes /IC:\Users\m308\Documents\GitHub\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ObjectManager.cpp
+         ObjectManager.cpp
      1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\baseobject.h(58): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\baseobject.h(58): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\m308\documents\github\sp4\sp4\sp4\baseobject.h(59): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\m308\documents\github\sp4\sp4\sp4\baseobject.h(59): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\baseobject.h(60): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\baseobject.h(60): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(15): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(16): warning C4553: '==' : operator has no effect; did you intend '='?
-         ChineseMob.cpp
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\matrix4x4.h(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\baseobject.h(58): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\baseobject.h(58): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\baseobject.h(59): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\baseobject.h(59): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(14): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(15): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\m308\documents\github\sp4\sp4\sp4\character.h(16): warning C4553: '==' : operator has no effect; did you intend '='?
-         Generating Code...
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(69): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(104): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(569): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(581): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(614): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(616): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(627): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(644): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(675): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(687): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(720): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(722): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(732): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\objectmanager.cpp(747): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
          All outputs are up-to-date.
        ManifestResourceCompile:
          All outputs are up-to-date.
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\m308\Documents\GitHub\SP4\SP4\lib freeglut.lib winmm.lib irrklang.lib lua5.1.lib Timer.lib ws2_32.lib RakNet_VS2008_DLL_Debug_Win32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libc.lib /MANIFEST /ManifestFile:"Debug\SP4.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.lib" /MACHINE:X86 Debug\SP4.exe.embed.manifest.res
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\m308\Documents\GitHub\SP4\SP4\lib freeglut.lib winmm.lib irrklang.lib lua5.1.lib Timer.lib ws2_32.lib RakNet_VS2008_DLL_Debug_Win32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libc.lib /MANIFEST /ManifestFile:"Debug\SP4.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.lib" /MACHINE:X86 Debug\SP4.exe.embed.manifest.res
          Debug\AI.obj
          Debug\AIMobBuilder.obj
          Debug\AIMobFactory.obj
@@ -36,6 +40,7 @@
          Debug\Character.obj
          Debug\CharacterBuilder.obj
          Debug\CharacterFactory.obj
+         Debug\ChineseHpReduce.obj
          Debug\ChineseMale.obj
          Debug\ChineseMob.obj
          Debug\ChinesePoints.obj
@@ -56,6 +61,7 @@
          Debug\LuaManager.obj
          Debug\main.obj
          Debug\MalayFemale.obj
+         Debug\MalayHpReduce.obj
          Debug\MalayMob.obj
          Debug\MalayPoints.obj
          Debug\ManufactureManager.obj
@@ -93,6 +99,7 @@
          Debug\UIButtonCircle.obj
          Debug\UIButtonRectangle.obj
          Debug\Vector3.obj
+         Debug\WinCondition.obj
          Debug\WindowManager.obj
        Manifest:
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\SP4.exe.embed.manifest" /manifest Debug\SP4.exe.intermediate.manifest
@@ -107,4 +114,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.92
+Time Elapsed 00:00:01.89

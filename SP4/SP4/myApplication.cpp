@@ -113,23 +113,10 @@ bool myApplication::ResetLevel(short level)
 	//delete theAITwo;
 	playerOne = OM->manufacturer->CreateChineseMale();
 	playerTwo = OM->manufacturer->CreateMalayFemale();
-	theAIOne = OM->manufacturer->CreateMalayMob();
-	theAITwo = OM->manufacturer->CreateChineseMob();
+
+	playerTwo->phys.map=Map;
+	playerOne->phys.map=Map;
 	
-	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
-	playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
-	theAIOne->SetPos(Vector3(624,80,0));
-	theAITwo->SetPos(Vector3(304,80,0));
-
-
-	CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
-	lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
-	CDoor* door= OM->manufacturer->CreateObstacleDoor();
-	door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X"),LM->GetWithCheckNumber<float>("DOOR_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
-
-	lever->SetDoorLink(door);
-	door->AddTrigger(lever);
-
 	 mapOffset_x =  mapOffset_y=
 	 tileOffset_x =tileOffset_y=
 	 mapFineOffset_x= mapFineOffset_y=
@@ -142,16 +129,42 @@ bool myApplication::ResetLevel(short level)
 	 Map->Level = level;
 	 Map->RunMap();
 
-	playerTwo->phys.map=Map;
-	playerOne->phys.map=Map;
-	theAIOne->SetUpMap(*Map);
-	theAITwo->SetUpMap(*Map);
-	theAIOne->phys.map=Map;
-	theAITwo->phys.map=Map;
+	switch(level)
+	{
+	case 1:
+		{
+			theAIOne = OM->manufacturer->CreateMalayMob();
+			theAITwo = OM->manufacturer->CreateChineseMob();
+			playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
+			playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
+			theAIOne->SetPos(Vector3(624,80,0));
+			theAITwo->SetPos(Vector3(304,80,0));
+			theAIOne->SetUpMap(*Map);
+			theAITwo->SetUpMap(*Map);
+			theAIOne->phys.map=Map;
+			theAITwo->phys.map=Map;
+
+			CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
+			lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+			CDoor* door= OM->manufacturer->CreateObstacleDoor();
+			door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X"),LM->GetWithCheckNumber<float>("DOOR_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+
+			lever->SetDoorLink(door);
+			door->AddTrigger(lever);
+			
+			OM->AddObject(theAIOne);
+			OM->AddObject(theAITwo);
+		}
+
+		break;
+	}
+	OM->AddObject(playerOne);
+	OM->AddObject(playerTwo);
+
 
 #ifdef NETWORK_CODE
 	isMultiplayer = false;
-		charControl=3;
+		//charControl=3;
 
 #endif
 
@@ -361,7 +374,6 @@ bool myApplication::Update()
 	}
 #endif
 
-#ifdef NETWORK_CODE
 	if (Packet* packet = rakpeer_->Receive())
 	{
 		RakNet::BitStream bs(packet->data, packet->length, false);
@@ -663,7 +675,7 @@ bool myApplication::Update()
 				{
 					//read pos
 					//set pos
-
+				}
 				else if(temp2=="ChineseMob")
 				{
 					unsigned short id1,id2;
@@ -866,7 +878,7 @@ bool myApplication::Update()
 		}
 		sendPos=true;
 	}
-#endif
+
 
 		if(keyboard->myKeys[VK_ESCAPE] == true)
 		{

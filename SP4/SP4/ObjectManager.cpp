@@ -88,10 +88,9 @@ void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObje
 					{
 						//std::cout<<"COLLISION RESPONE ACTIVATED "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
 						if(gen1=="Character")
-							otherObject->OnCollision(a_obj);
+							otherObject->OnCollision(a_obj,false);
 						else 
-							a_obj->OnCollision(otherObject);
-
+							a_obj->OnCollision(otherObject,false);
 					}
 				}
 			}
@@ -225,7 +224,7 @@ bool CObjectManager::Update(int multiplayerMode)
 	//	}
 	//}
 	this->charControl=multiplayerMode;
-		UpdateCollision();
+	UpdateCollision();
 
 	for(unsigned short it = 0; it < objectList.size(); ++it)
 	{
