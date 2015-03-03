@@ -16,6 +16,7 @@ public:
 	bool CollisionCheckColliderBox(Vector3& pos);
 	//bool CollisionCheckColliderSphere();
 
+
 	void CalculateTopLeftAndBottomRightPoint();
 
 	void SetSize(Vector3& Size);

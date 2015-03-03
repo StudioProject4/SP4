@@ -172,9 +172,15 @@ private:
 	int rearWalltileOffset_x, rearWalltileOffset_y;
 	int rearWallFineOffset_x, rearWallFineOffset_y;
 	
+	CSprite* playerOneHud;
+	CSprite* playerTwoHud;
+	CSprite HeartShape;
+
 	void RenderTileMap();
 	void RenderBackground();
-	
+	void RenderPlayerOneHUD();
+	void RenderPlayerTwoHUD();
+	void RenderCharacterHealthHud(CCharacter* a_character,float startingPosX,float startingPosY,float paddingX,bool buildToRight = true);
 
 	//void printw (float x, float y, float z, char* format, ...);
 	//void calculateFPS();

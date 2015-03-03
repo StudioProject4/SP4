@@ -58,6 +58,16 @@ bool myApplication::CleanUp()
 		delete Map;
 		Map = NULL;
 	}	
+	if(playerOneHud != 0)
+	{
+		delete playerOneHud;
+		playerOneHud = 0;
+	}
+	if(playerTwoHud != 0)
+	{
+		delete playerTwoHud;
+		playerTwoHud = 0;
+	}
 	//if(playerOne != NULL)
 	//{
 	//	delete playerOne;
@@ -163,6 +173,10 @@ bool myApplication::Init()
 	tempimage = IM->GetTGAImage("back.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
 
+	IM->RegisterTGA("health.tga");
+	HeartShape.Init(1);
+	HeartShape.OverrideTGATexture(IM->GetTGAImage("health.tga"));
+
 	playerOne = OM->manufacturer->CreateChineseMale();
 	playerTwo = OM->manufacturer->CreateMalayFemale();
 	theAIOne = OM->manufacturer->CreateMalayMob();
@@ -173,6 +187,8 @@ bool myApplication::Init()
 	theAIOne->SetPos(Vector3(624,80,0));
 	theAITwo->SetPos(Vector3(304,80,0));
 
+	playerOneHud = new CSprite(*playerOne->theSprite);
+	playerTwoHud = new CSprite(*playerTwo->theSprite);
 
 	CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
 	lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
@@ -849,11 +865,67 @@ void myApplication::RenderBackground()
 	
 }
 
+void myApplication::RenderCharacterHealthHud(CCharacter* a_character,float startingPosX,float startingPosY,float paddingX,bool buildToRight)
+{
+	if(buildToRight)
+	{
+		glPushMatrix();
+		glTranslatef(startingPosX,startingPosY,0);
+			for(unsigned short i = 0; i < a_character->hp.GetHealth();++i)
+			{
+				glTranslatef(paddingX,0,0);
+				HeartShape.Render();
+			}
+		
+		glPopMatrix();
+	}else
+	{
+		glPushMatrix();
+		glTranslatef(startingPosX,startingPosY,0);
+			for(unsigned short i = 0; i < a_character->hp.GetHealth();++i)
+			{
+				glTranslatef(-paddingX,0,0);
+				HeartShape.Render();
+			}
+		
+		glPopMatrix();
+	}
+}
+
+void myApplication::RenderPlayerOneHUD()
+{
+	glPushMatrix();
+
+			glPushMatrix();
+				playerOneHud->SetImageSize(TILE_SIZE*1.5,TILE_SIZE*1.5);
+				glTranslatef(WM->GetOriginalWindowWidth()*0.1,playerOneHud->GetImageSizeY()*0.5,0);
+				playerOneHud->Render();
+			glPopMatrix();
+
+			RenderCharacterHealthHud(playerOne,WM->GetOriginalWindowWidth()*0.1 +playerOneHud->GetImageSizeX()*0.5,playerOneHud->GetImageSizeY()*0.5,playerOne->theSprite->GetImageSizeX(),true);
+	glPopMatrix();
+}
+void myApplication::RenderPlayerTwoHUD()
+{
+	glPushMatrix();
+
+			glPushMatrix();
+				playerTwoHud->SetImageSize(TILE_SIZE*1.5,TILE_SIZE*1.5);
+				glTranslatef(WM->GetOriginalWindowWidth()*0.9,playerTwoHud->GetImageSizeY()*0.5,0);
+				playerTwoHud->Render();
+			glPopMatrix();
+
+			RenderCharacterHealthHud( playerTwo, WM->GetOriginalWindowWidth()*0.9 - playerTwoHud->GetImageSizeX()*0.5, playerTwoHud->GetImageSizeY()*0.5,playerTwo->theSprite->GetImageSizeX(),false);
+	glPopMatrix();
+}
 void myApplication::Render2D()
 {	
 	
 	RenderBackground();
 	RenderTileMap();
+	
+	RenderPlayerOneHUD();
+	RenderPlayerTwoHUD();
 
 #ifdef DEBUG_CODE
 	//uncomment this to render the spatial partition grid

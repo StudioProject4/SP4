@@ -40,7 +40,7 @@ bool CMouse::Init()
 	tag = "mouse";
 	middleButtonUp = mLButtonUp =  mRButtonUp = false;
 	lastLButtonState = lastRButtonState = lastMiddleButtonState = false;
-	lastY = lastX = 0;
+	gameX = gameY = lastY = lastX = 0;
 	sensitivity = 0.5f;
 	return true;
 }
@@ -141,6 +141,11 @@ bool CMouse::Reset()
 {
 	return Init();
 }
+//void CMouse::UpdateMousePosition(int x,int y)
+//{
+//	this->lastX = x;
+//	this->lastY = y;
+//}
 void CMouse::PrintDebugInformation()
 {
 	CEntity::PrintDebugInformation();
