@@ -5,8 +5,6 @@
 
 CChineseMale :: CChineseMale()
 {
-	Init();
-	
 }
 
 CChineseMale :: ~CChineseMale()
@@ -23,7 +21,7 @@ bool CChineseMale :: Init(Vector3 newPos,Vector3 newDir,int entityID)
 	pos = newPos;
 	dir = newDir;
 	id = entityID;
-	//Init();
+	Init();
 	return true;
 }
 
@@ -53,8 +51,6 @@ bool CChineseMale :: Init()
 	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("sonia2.tga"));
 	//theSprite->LoadTGA("sonia2.tga");
 	
-
-
 	SetIsInvulnerable(false);
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));

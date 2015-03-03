@@ -244,55 +244,55 @@ Vector3 CAILogic :: Update(Vector3 pos,CPhysics & thePhysics)
 		if(tempint == 1)
 		{
 			//node tempNode = pathFinding.GetCurrentNode(this->pos,0);
-			//this->dir.x = 1;
-			//if(pathFinding.GetCurrentNode(this->pos,0).isNotWall == true)
-			//{
-			//	this->pos.x += 1;
-			//	if(pos == tempVec)
-			//	{
-			//		reachDest = true;
-			//	}
-			//}
+			/*this->dir.x = 1;
+			if(pathFinding.GetCurrentNode(this->pos,0).isNotWall == true)
+			{
+				this->pos.x += 1;
+				if(pos == tempVec)
+				{
+					reachDest = true;
+				}
+			}*/
 
 			//thePhysics.MoveSide(false);
 		}
 		else if(tempint == 2)
 		{
-			this->dir.x = -1;
-			//if(pathFinding.GetCurrentNode(this->pos,1).isNotWall == true)
-			//{
-			//	this->pos.x -= 1;
-			//	if(pos == tempVec)
-			//	{
-			//		reachDest = true;
-			//	}
-			//}
+			/*this->dir.x = -1;
+			if(pathFinding.GetCurrentNode(this->pos,1).isNotWall == true)
+			{
+				this->pos.x -= 1;
+				if(pos == tempVec)
+				{
+					reachDest = true;
+				}
+			}*/
 
 			//thePhysics.MoveSide(true);
 		}
 		else if(tempint == 3)
 		{
-			//if(pathFinding.GetCurrentNode(this->pos,2).isNotWall == true)
-			//{
-			//	this->pos.y -= 1;
-			//	if(pos == tempVec)
-			//	{
-			//		reachDest = true;
-			//	}
-			//}
+			/*if(pathFinding.GetCurrentNode(this->pos,2).isNotWall == true)
+			{
+				this->pos.y -= 1;
+				if(pos == tempVec)
+				{
+					reachDest = true;
+				}
+			}*/
 
 			//thePhysics.Jump();
 		}
 		else if(tempint == 4)
 		{
-			//if(pathFinding.GetCurrentNode(this->pos,3).isNotWall == true)
-			//{
-			//	this->pos.y += 1;
-			//	if(pos == tempVec)
-			//	{
-			//		reachDest = true;
-			//	}
-			//}
+			/*if(pathFinding.GetCurrentNode(this->pos,3).isNotWall == true)
+			{
+				this->pos.y += 1;
+				if(pos == tempVec)
+				{
+					reachDest = true;
+				}
+			}*/
 		}
 		else
 		{
