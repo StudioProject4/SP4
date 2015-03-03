@@ -123,8 +123,8 @@ bool myApplication::Init()
 
 
 	//background
-	LoadTGA( &BackgroundTexture[0], "back.tga");
-
+	//LoadTGA( &BackgroundTexture[0], "back.tga");
+	
 	LoadTGA( &TileMapTexture[0], "BlackWalls.tga");
 	LoadTGA( &TileMapTexture[1], "tile0_blank.tga");
 	//LoadTGA( &TileMapTexture[1], "LavaGround.tga");
@@ -136,6 +136,7 @@ bool myApplication::Init()
 	LoadTGA( &TileMapTexture[7], "Jump.tga");
 	LoadTGA( &TileMapTexture[8], "ChineseSign.tga");
 	LoadTGA( &TileMapTexture[9], "HalalSign.tga");
+	LoadTGA( &TileMapTexture[10], "MalayVillage.tga");
 	//LoadTGA( &TileMapTexture[0], "tile0_blank");
 
 
@@ -152,7 +153,8 @@ bool myApplication::Init()
 	GSM = CGameStateManager::GetInstance();
 	IM = CImageManager::GetInstance();
 	OM = new CObjectManager();
-	
+	IM->RegisterTGA("back.tga");
+	tempimage = IM->GetTGAImage("back.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
 
 	playerOne = OM->manufacturer->CreateChineseMale();
@@ -385,6 +387,14 @@ bool myApplication::Update()
 						temp->id = id;
 						OM->AddObject(temp);
 						malayptsList.push_back(temp);
+					}
+					else if(thing2 == "CHp")
+					{
+						//CChineseHpReduce* temp = CManufactureManager::GetInstance()->cre
+					}
+					else if(thing2 == "MHp")
+					{
+
 					}
 					else if(thing2 == "HpAdd")
 					{
@@ -712,6 +722,7 @@ bool myApplication::Update()
 #endif
 
 	Map->RunMap();
+	win->LevelChange();
 		
 	return true;
 }
@@ -760,8 +771,10 @@ void myApplication::RenderBackground()
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
-		glBindTexture(GL_TEXTURE_2D, BackgroundTexture[0].texID);
-		//glBindTexture(GL_TEXTURE_2D, IM->GetTGAImage("sonia2.tga")->texID);
+		//glBindTexture(GL_TEXTURE_2D, BackgroundTexture[0].texID);
+		glBindTexture(GL_TEXTURE_2D, IM->GetTGAImage("back.tga")->texID);
+		
+		//glBindTexture(GL_TEXTURE_2D, tempimage->texID);
 		glPushMatrix();
 			glBegin(GL_QUADS);
 				int height = 100 * 1.333/1.5;

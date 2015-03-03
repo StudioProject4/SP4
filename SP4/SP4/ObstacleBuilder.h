@@ -13,6 +13,8 @@ public:
 	void SetManufactureDoor();
 	void SetManufactureChinesePoints();
 	void SetManufactureMalayPoints();
+	void SetManufactureChineseHp();
+	void SetManufactureMalayHp();
 	CObstacleFactory* GetFactory();
 	CObstacleBase* GetProduct();
 

@@ -26,6 +26,7 @@ class CCharacter : public CBaseObject
 		int refTime;
 
 		CHealthSystem hp;
+		CPointSystem* pts;
 
 		string al;			//alpha;
 		//clock_t invultimer;

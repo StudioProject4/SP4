@@ -29,7 +29,16 @@ void CObstacleBuilder::SetManufactureMalayPoints()
 {
 	factory->SetManufactureMalayPoints();
 }
+
+void CObstacleBuilder::SetManufactureChineseHp()
+{
+	factory->SetManufactureChineseHp();
+}
 	
+void CObstacleBuilder::SetManufactureMalayHp()
+{
+	factory->SetManufactureMalayHp();
+}
 CObstacleFactory* CObstacleBuilder::GetFactory()
 {
 	return factory;

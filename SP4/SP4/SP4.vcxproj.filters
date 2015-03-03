@@ -46,9 +46,6 @@
     <Filter Include="ObjectManagement">
       <UniqueIdentifier>{8eb06bad-621a-4719-942e-f5e4e708318a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ObjectManagement\SpatialPartition">
-      <UniqueIdentifier>{02a9a800-d3e6-49eb-8f2f-6922f298f3e1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ObjectManagement\Factories">
       <UniqueIdentifier>{fbceb475-70b2-4a03-aa10-9472d303564b}</UniqueIdentifier>
     </Filter>
@@ -75,6 +72,9 @@
     </Filter>
     <Filter Include="UiObjects">
       <UniqueIdentifier>{66bb5c55-6e97-46e7-9f3d-6ecf4eb8f709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectManagement\Interface\SpatialPartition">
+      <UniqueIdentifier>{02a9a800-d3e6-49eb-8f2f-6922f298f3e1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -133,10 +133,10 @@
       <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="TestBallObject.cpp">
-      <Filter>ObjectManagement\SpatialPartition</Filter>
+      <Filter>ObjectManagement\Interface\SpatialPartition</Filter>
     </ClCompile>
     <ClCompile Include="SpatialPartion.cpp">
-      <Filter>ObjectManagement\SpatialPartition</Filter>
+      <Filter>ObjectManagement\Interface\SpatialPartition</Filter>
     </ClCompile>
     <ClCompile Include="AIMobBuilder.cpp">
       <Filter>ObjectManagement\Factories</Filter>
@@ -306,6 +306,18 @@
     <ClCompile Include="UIButtonRectangle.cpp">
       <Filter>UiObjects</Filter>
     </ClCompile>
+    <ClCompile Include="MalayHpReduce.cpp">
+      <Filter>Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="ChineseHpReduce.cpp">
+      <Filter>Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="LoseCondition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WinCondition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myApplication.h">
@@ -396,10 +408,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TestBallObject.h">
-      <Filter>ObjectManagement\SpatialPartition</Filter>
+      <Filter>ObjectManagement\Interface\SpatialPartition</Filter>
     </ClInclude>
     <ClInclude Include="SpatialPartion.h">
-      <Filter>ObjectManagement\SpatialPartition</Filter>
+      <Filter>ObjectManagement\Interface\SpatialPartition</Filter>
     </ClInclude>
     <ClInclude Include="PowerUpFactory.h">
       <Filter>ObjectManagement\Factories</Filter>
@@ -520,6 +532,18 @@
     </ClInclude>
     <ClInclude Include="UIButtonRectangle.h">
       <Filter>UiObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MalayHpReduce.h">
+      <Filter>Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="ChineseHpReduce.h">
+      <Filter>Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="LoseCondition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WinCondition.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

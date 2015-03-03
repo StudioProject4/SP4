@@ -16,8 +16,6 @@ public:
 	bool Update();
 	bool OnCollision2(CBaseObject* a_obj);
 
-	CMalayFemale* MF;
-	CChineseMale* CM;
 
 };
 

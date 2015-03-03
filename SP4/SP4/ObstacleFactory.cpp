@@ -5,6 +5,8 @@
 #include "Door.h"
 #include "ChinesePoints.h"
 #include "MalayPoints.h"
+#include "ChineseHpReduce.h"
+#include "MalayHpReduce.h"
 
 CObstacleFactory::CObstacleFactory(void)
 	: currentManufactureType(OBSTACLE_NONE)
@@ -48,6 +50,12 @@ void CObstacleFactory::CreateProduct()
 		case OBSTACLE_MALAYPTS:
 			product = new CMalayPoints();
 			break;
+		case OBSTACLE_CHINAHP:
+			product = new CChineseHpReduce();
+			break;
+		case OBSTACLE_MALAYHP:
+			product = new CMalayHpReduce();
+			break;
 	}
 }
 	
@@ -83,4 +91,14 @@ void CObstacleFactory::SetManufactureChinesePoints()
 void CObstacleFactory::SetManufactureMalayPoints()
 {
 	currentManufactureType = this->OBSTACLE_MALAYPTS;
+}
+
+void CObstacleFactory::SetManufactureChineseHp()
+{
+	currentManufactureType = this->OBSTACLE_CHINAHP;
+}
+	
+void CObstacleFactory::SetManufactureMalayHp()
+{
+	currentManufactureType = this->OBSTACLE_MALAYHP;
 }

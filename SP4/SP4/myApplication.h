@@ -43,6 +43,11 @@
 
 #include "ChinesePoints.h"
 #include "MalayPoints.h"
+#include "ChineseHpReduce.h"
+#include "MalayHpReduce.h"
+
+#include "WinCondition.h"
+#include "LoseCondition.h"
 
 #include "Physics.h"
 
@@ -124,6 +129,8 @@ private:
 	CPointsAddPU* pts;
 	CInvinciblePU InvinOn;
 	CPointSystem* points;
+	CWinCondition* win;
+	CLoseCondition* lose;
 
 	int x, y;
 	
@@ -151,6 +158,7 @@ private:
 	//Imagee
 	TextureImage BackgroundTexture[2];
 	TextureImage TileMapTexture[50];
+	TextureImage* tempimage;
 	int mapOffset_x, mapOffset_y;
 	int tileOffset_x, tileOffset_y;
 	int mapFineOffset_x, mapFineOffset_y;
