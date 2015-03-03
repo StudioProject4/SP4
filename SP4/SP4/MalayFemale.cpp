@@ -42,6 +42,10 @@ bool CMalayFemale :: Init()
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 	SetPlayerID(2);
+
+	invulTimer = MVCTime :: GetInstance();
+	refTime = invulTimer->PushNewTime(1000);
+	invulTimer->SetActive(false,refTime);
 	
 	return true;
 }

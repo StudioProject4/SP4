@@ -408,6 +408,8 @@ void COptionState::RenderBackground()
  {
 	 if(mouse->CheckLeftButtonReleased())
 	 {
+		 MS->PlaySoundPoolTrack2D("sound1.mp3");
+
 		 if(buttonName == "SinglePlayerButton")
 		 {
 			 //if(mouse->CheckLeftButtonReleased())
@@ -436,6 +438,10 @@ void COptionState::RenderBackground()
 						 GSM->ChangeState(myApplication::GetInstance());
 						 // }
 					 }else
+						 if(buttonName == "BackButton")
+						 {
+							 GSM->GoToPreviousState();
+						 }else
 						 if(buttonName == "ExitButton")
 						 {
 							 // if(mouse->CheckLeftButtonReleased())

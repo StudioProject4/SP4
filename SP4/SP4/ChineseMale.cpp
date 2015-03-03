@@ -51,8 +51,6 @@ bool CChineseMale :: Init()
 	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("sonia2.tga"));
 	//theSprite->LoadTGA("sonia2.tga");
 	
-
-
 	SetIsInvulnerable(false);
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
