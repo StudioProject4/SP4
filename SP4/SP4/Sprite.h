@@ -23,14 +23,19 @@ protected:
 	ushort currentlayer;//current layer that it is rendering
 	float currenttimecounter;
 	SContainer2D framesize; // the size of one frame in an animation strip
+	float RED;
+	float BLUE;
+	float GREEN;
+	float ALPHA;
 
 	bool lateralinvert;
 
 public:
+	CSprite();
 	CSprite(ushort maxframe, ushort numberoflayer = 1,ushort currentlayer = 0);
 	~CSprite(void);
 
-	
+	bool Init(ushort maxframe, ushort numberoflayer = 1,ushort currentlayer = 0);
 	bool LoadTGA(char *filename);
 	virtual void Render(void);
 
@@ -43,24 +48,18 @@ public:
 	void SetFrameSpeed(float newframespeed);
 	void SetFrameInterval(float newframeinterval);
 	void SetImageSize(float x,float y);
+	void SetColour4f(float red= 1.f,float green= 1.f,float blue= 1.f,float alpha = 1.f);
+	void SetVitalInformation(ushort maxframe,ushort numberoflayer);
+	float GetAlpha();
+	void SetAlpha(float newAlpha = 1.f);
+	void OverrideTGATexture(TextureImage* newTexture);
+	short GetCurrentFrameIndex();
+	float GetImageSizeX();
+	float GetImageSizeY();
 
 	void TranverseAnimationLayer(bool forward,bool warp = true);
 	void TranverseAnimationFrame(bool forward,bool warp = true);
 
-	void SetVitalInformation(ushort maxframe,ushort numberoflayer);
 
-	inline short GetCurrentFrameIndex()
-	{
-		return currentframe;
-	}
-
-	inline float GetImageSizeX()
-	{
-		return size.x;
-	}
-	inline float GetImageSizeY()
-	{
-		return size.y;
-	}
 };
 

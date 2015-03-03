@@ -15,7 +15,7 @@ public:
 
 	bool Init();
 
-	bool OnCollision2(CBaseObject* a_obj);
+	bool OnCollision2(CBaseObject* a_obj,bool again=false);
 
 	CPointSystem* pts;
 };

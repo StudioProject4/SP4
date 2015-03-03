@@ -22,7 +22,7 @@ class CChineseMale : public CCharacter
 		bool CleanUp();
 		bool Render();
 
-		bool OnCollision2(CBaseObject* a_obj);
+		bool OnCollision2(CBaseObject* a_obj,bool again=false);
 	private:
 		//CSprite * theSprite;
 		//CPowerUp* thePowerUp;

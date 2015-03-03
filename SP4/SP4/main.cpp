@@ -64,6 +64,10 @@ int main(int argc, char **argv )
 		CGameStateManager* GSM = CGameStateManager::GetInstance();
 		CLuaManager* LM = CLuaManager::GetInstance();
 		CMusicSystem* MS = CMusicSystem::GetInstance();
+		CImageManager* IM = CImageManager::GetInstance();
+
+
+
 		MS->RegisterSound2D("sound1.mp3");
 		MS->RegisterSound2D("sound2.mp3");
 		MS->RegisterBgm2D("bgm1.mp3");
@@ -73,8 +77,7 @@ int main(int argc, char **argv )
 		MS->RegisterBgm2D("bgm5.mp3");
 		MS->RegisterBgm2D("bgm6.mp3");
 		MS->RegisterBgm2D("bgm7.mp3");
-		MS->RegisterBgm2D("bgm8.mp3");
-		MS->RegisterBgm2D("bgm9.mp3");
+		MS->RegisterBgm2D("underthemoon.mp3");
 		LM->Init("mylua.lua");
 		
 
@@ -84,12 +87,15 @@ int main(int argc, char **argv )
 		
 		myApplication::argv=argv;
 		
-
-		
+		IM->RegisterTGA("sonia2.tga");
+		IM->RegisterTGA("kanon.tga");
+		IM->RegisterTGA("kaede.tga");
+		IM->RegisterTGA("tenri.tga");
+		IM->RegisterTGA("rockyground.tga");
+		GSM->ChangeState(CSplashState::GetInstance());
 		//GSM->ChangeState(CMenuState::GetInstance());
-		//GSM->ChangeState(KennardTestState::GetInstance());
-		//GSM->ChangeState(CKeeYangTestState::GetInstance());
-		GSM->ChangeState(myApplication::GetInstance());
+
+		//GSM->ChangeState(myApplication::GetInstance());
 
 		//glutInitWindowPosition(LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"));
 		//glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);

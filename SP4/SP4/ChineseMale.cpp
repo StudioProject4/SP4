@@ -1,6 +1,8 @@
 #include "ChineseMale.h"
 #include "Physics.h"
 
+#include "ImageManager.h"
+
 CChineseMale :: CChineseMale()
 {
 	Init();
@@ -47,7 +49,11 @@ bool CChineseMale :: Init()
 	genericTag = "Character";
 
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("sonia2.tga");
+	
+	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("sonia2.tga"));
+	//theSprite->LoadTGA("sonia2.tga");
+	
+
 
 	SetIsInvulnerable(false);
 
@@ -71,7 +77,7 @@ bool CChineseMale :: CleanUp()
 {
 	return true;
 }
-bool CChineseMale :: OnCollision2(CBaseObject* a_obj)
+bool CChineseMale :: OnCollision2(CBaseObject* a_obj,bool again)
 {
 	//if(a_obj->genericTag = "Character")
 	//{

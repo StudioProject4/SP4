@@ -9,7 +9,7 @@
 
 #include "ChineseMob.h"
 #include "Character.h"
-
+#include "ImageManager.h"
 CChineseMob::CChineseMob()
 {
 	Init();
@@ -40,7 +40,8 @@ bool CChineseMob :: Init()
 	genericTag = "Enemy";
 
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("tenri.tga");
+	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("tenri.tga"));
+	//theSprite->LoadTGA("tenri.tga");
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
@@ -66,7 +67,7 @@ bool CChineseMob :: Render()
 	return true;
 }
 
-bool CChineseMob :: OnCollision2(CBaseObject* a_obj)
+bool CChineseMob :: OnCollision2(CBaseObject* a_obj,bool again)
 {
 #ifdef NETWORK_CODE
 	if(a_obj->genericTag = "Character")

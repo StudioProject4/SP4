@@ -30,6 +30,7 @@ public:
 	CSpatialPartion* SP;
 	int numOfUniqueId;
 	//CObjectManager(void);
+	int charControl;
 
 public:
 	//static CObjectManager* instance;

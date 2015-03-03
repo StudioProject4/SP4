@@ -150,6 +150,7 @@ bool myApplication::Init()
 	WM = CWindowManager::GetInstance();
 	MS = CMusicSystem::GetInstance();
 	GSM = CGameStateManager::GetInstance();
+	IM = CImageManager::GetInstance();
 	OM = new CObjectManager();
 	
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
@@ -304,6 +305,13 @@ bool myApplication::Update()
 				vector<CLeverDoor*> leverList;
 				vector<CDoor*> doorList;
 				vector<int> doorRefList;
+				vector<CHealthPU* > healthList;
+				vector<CPointsAddPU* > pointsaddList;
+				vector<CInvinciblePU* > invincibleList;
+				vector<CJumpPU* > jumpList;
+				vector<CSpeedPU* > speedList;
+				vector<CChinesePoints* > chinaptsList;
+				vector<CMalayPoints* > malayptsList;
 
 				charControl=2;//if you recieve this u are for sure player 2
 
@@ -359,9 +367,65 @@ bool myApplication::Update()
 						temp->id=id;
 						OM->AddObject(temp);
 						doorList.push_back(temp);
-					}
-					else 
+
+					}else if(thing2 == "CHINAS")
 					{
+						CChinesePoints* temp = CManufactureManager::GetInstance()->CreateChinesePoints();
+						temp->Init(Vector3(x,y,z),Vector3(temp->phys.size));
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						chinaptsList.push_back(temp);
+
+					}else if(thing2 == "MALAYS")
+					{
+						CMalayPoints* temp = CManufactureManager::GetInstance()->CreateMalayPoints();
+						temp->Init(Vector3(x,y,z), Vector3(temp->phys.size));
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						malayptsList.push_back(temp);
+					}
+					else if(thing2 == "HpAdd")
+					{
+						CHealthPU* temp = CManufactureManager::GetInstance()->CreatePowerUpRecovery();
+						temp->Init();
+						temp->pos.Set(x,y,z);
+						temp->id = id;					
+						OM->AddObject(temp);
+						healthList.push_back(temp);
+					}else if(thing2 == "PtAdd")
+					{
+						CPointsAddPU* temp = CManufactureManager::GetInstance()->CreatePowerUpPoints();
+						temp->Init();
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						pointsaddList.push_back(temp);
+					}else if(thing2 == "Invin")
+					{
+						CInvinciblePU* temp = CManufactureManager::GetInstance()->CreatePowerUpInvincible();
+						temp->Init();
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						invincibleList.push_back(temp);
+					}else if(thing2 == "JpUp")
+					{
+						CJumpPU* temp = CManufactureManager::GetInstance()->CreatePowerUpJumpHigh();
+						temp->Init();
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						jumpList.push_back(temp);
+					}else if(thing2 == "SpdUp")
+					{
+						CSpeedPU* temp = CManufactureManager::GetInstance()->CreatePowerUpSpeedUp();
+						temp->Init();
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						speedList.push_back(temp);
 					}
 				}
 				delete[256] tag;
@@ -383,9 +447,9 @@ bool myApplication::Update()
 			break;
 		case ID_VEL_CHANGED:
 			{
-				short charControl;
+				short charControl1;
 				float x,y,z,x1,y1,z1;
-				bs.Read(charControl);
+				bs.Read(charControl1);
 				if(charControl==3)
 					break;
 				bs.Read(x);
@@ -394,7 +458,7 @@ bool myApplication::Update()
 				bs.Read(x1);
 				bs.Read(y1);
 				bs.Read(z1);
-				switch(charControl)
+				switch(charControl1)
 				{
 				case 1:
 					playerOne->phys.vel.Set(x,y,z);
@@ -500,7 +564,7 @@ bool myApplication::Update()
 				}
 				if(temp1!=NULL&&temp2!=NULL)
 				{
-					temp1->OnCollision2(temp2);
+					temp1->OnCollision2(temp2,true);
 				}
 				else
 				{
@@ -650,7 +714,7 @@ bool myApplication::Update()
 		
 		}
 		
-
+		MVCTime::GetInstance()->UpdateTime();
 		OM->Update(charControl);
 
 
@@ -707,7 +771,9 @@ void myApplication::RenderBackground()
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glBindTexture(GL_TEXTURE_2D, BackgroundTexture[0].texID );
+		
+		glBindTexture(GL_TEXTURE_2D, BackgroundTexture[0].texID);
+		//glBindTexture(GL_TEXTURE_2D, IM->GetTGAImage("sonia2.tga")->texID);
 		glPushMatrix();
 			glBegin(GL_QUADS);
 				int height = 100 * 1.333/1.5;
@@ -811,7 +877,7 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 {
 	keyboard->myKeys[key] = true;
 	CBaseObject* temp = nullptr;
-
+	TextureImage* tempimage = nullptr;
 	switch(key)
 	{
 		case '1':
@@ -825,15 +891,16 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//std::cout<<WM->GetWindowRatioDifferenceX()<<std::endl;
 			//std::cout<<WM->GetWindowRatioDifferenceY()<<std::endl;
 			
-			temp = OM->FetchObjectWithName("ball");
-			std::cout<<temp<<std::endl;
-			if(temp)
-			{
-				temp->phys.size.Set(100,100);
-			}else
-			{
-				std::cout<<"nothing came out"<<std::endl;
-			}
+			//temp = OM->FetchObjectWithName("ball");
+			//std::cout<<temp<<std::endl;
+			//if(temp)
+			//{
+			//	temp->phys.size.Set(100,100);
+			//}else
+			//{
+			//	std::cout<<"nothing came out"<<std::endl;
+			//}
+			GSM->ExitApplication();
 		break;
 
 		case '2':
@@ -844,8 +911,8 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//std::cout<<MS->currentSoundTrack<<std::endl;
 			//MS->PlaySoundPoolTrack2D("sound2.mp3");
 			//ballList[0]->active = false;
-			temp = OM->FindObjectWithName("ball");
-			temp->active = false;
+			//temp = OM->FindObjectWithName("ball");
+			//temp->active = false;
 		break;
 		
 		case '3':
@@ -904,21 +971,50 @@ void myApplication::MouseWheel(int button, int dir, int x, int y)
 }
 void myApplication::MouseClick(int button, int state, int x, int y)
 {
-	mouse->lastX = x;
-	mouse->lastY = y;
 
 	switch (button) {
-
 		case GLUT_LEFT_BUTTON:
-			mouse->mLButtonUp = state;		
+			switch(state)
+			{
+				case GLUT_DOWN:
+					//mouse->mLButtonUp = true;	
+					mouse->SetLeftButton(true);
+					break;
+				case GLUT_UP:
+					//mouse->mLButtonUp = false;	
+					mouse->SetLeftButton(false);
+					break;
+			}
 			break;
 
 		case GLUT_RIGHT_BUTTON:
-			mouse->mRButtonUp = state;		
+
+			switch(state)
+			{
+				case GLUT_DOWN:
+					//mouse->mRButtonUp = true;	
+					mouse->SetRightButton(true);
+					break;
+				case GLUT_UP:
+					//mouse->mRButtonUp = false;
+					mouse->SetRightButton(false);
+					break;
+			}
 			break;
 
 		case GLUT_MIDDLE_BUTTON:
-			mouse->middleButtonUp = state;
+		
+			switch(state)
+			{
+				case GLUT_DOWN:
+					//mouse->middleButtonUp = true;	
+					mouse->SetMiddleButton(true);
+					break;
+				case GLUT_UP:
+					//mouse->middleButtonUp = false;	
+					mouse->SetMiddleButton(false);
+					break;
+			}
 			break;
 	}
 }

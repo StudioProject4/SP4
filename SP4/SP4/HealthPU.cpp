@@ -45,7 +45,7 @@ bool CHealthPU::Update()
 	return true;
 }
 
-bool CHealthPU::OnCollision2(CBaseObject* a_obj)
+bool CHealthPU::OnCollision2(CBaseObject* a_obj,bool again)
 {
 
 	if(a_obj->genericTag = "Character")

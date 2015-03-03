@@ -20,7 +20,7 @@ public:
 	bool Init(Vector3 pos,Vector3 size);
 	bool Update();
 	bool Render();
-	bool OnCollision2(CBaseObject*);
+	bool OnCollision2(CBaseObject*,bool again=false);
 	void AddTrigger(CTriggerBase*);//add a trigger
 	void Trigger();//attempt to trigger it
 	std::vector<int> GetTriggerID()

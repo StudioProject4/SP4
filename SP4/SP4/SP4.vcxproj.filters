@@ -73,6 +73,9 @@
     <Filter Include="MusicSystem">
       <UniqueIdentifier>{aec95703-e1d5-4055-864c-dfeef01700c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UiObjects">
+      <UniqueIdentifier>{66bb5c55-6e97-46e7-9f3d-6ecf4eb8f709}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -291,6 +294,33 @@
     <ClCompile Include="MenuState.cpp">
       <Filter>GameStates</Filter>
     </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>UiObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButtonCircle.cpp">
+      <Filter>UiObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButtonRectangle.cpp">
+      <Filter>UiObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditState.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="OnlinePlayState.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionState.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="SplashState.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteFadeExtend.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myApplication.h">
@@ -491,8 +521,41 @@
     <ClInclude Include="MenuState.h">
       <Filter>GameStates</Filter>
     </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="InvinciblePU.h">
-      <Filter>Obstacle</Filter>
+      <Filter>PowerUp</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
+      <Filter>UiObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButtonCircle.h">
+      <Filter>UiObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButtonRectangle.h">
+      <Filter>UiObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditState.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="OnlinePlayState.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionState.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="SplashState.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="AllGameStateIncludes.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="AllSystemManagerIncludes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteFadeExtend.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

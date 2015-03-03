@@ -19,7 +19,7 @@ CLeverDoor::~CLeverDoor(void)
 {
 }
 
-bool CLeverDoor::OnCollision2(CBaseObject* obj)
+bool CLeverDoor::OnCollision2(CBaseObject* obj,bool again)
 {
 	//std::cout<<"lever door collieded"<<std::endl;
 	//finding the normal to this object based on the length
@@ -145,7 +145,7 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj)
 		}
 	}
 	long now=timeGetTime();
-	if(now-lastTime>10&&modded)
+	if(now-lastTime>50&&modded&&!again)
 	{
 		BitStream bs;
 		unsigned char msgid=ID_OBJ_UPDATE;
@@ -162,7 +162,7 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj)
 		bs.Write(obj->phys.vel.x);
 		bs.Write(obj->phys.vel.y);
 		bs.Write(obj->phys.vel.z);
-		rakPeerGlobal->Send(&bs,HIGH_PRIORITY,UNRELIABLE_SEQUENCED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+		rakPeerGlobal->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
 	}
 	//move the object back so that its not colliding anymore
 

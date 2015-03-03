@@ -44,7 +44,7 @@ bool CChinesePoints::Update()
 	return true;
 }
 	
-bool CChinesePoints::OnCollision2(CBaseObject* a_obj)
+bool CChinesePoints::OnCollision2(CBaseObject* a_obj,bool again)
 {
 
 	CChineseMale* tempCM = (CChineseMale*)a_obj;

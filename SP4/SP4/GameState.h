@@ -9,6 +9,15 @@ class CKeyboard;
 class CWindowManager;
 class CMusicSystem;
 class CObjectManager;
+class CImageManager;
+
+//not sure why when i include the header files for the following class,the raknet give me redefination error
+class CUIButton;
+class CUIButtonCircle;
+class CUIButtonRectangle;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 class CGameState:public CEntity
 {
@@ -24,6 +33,7 @@ protected:
 	CWindowManager* WM;
 	CObjectManager* OM;
 	CMusicSystem* MS;
+	CImageManager* IM;
 	bool inited;
 public:
 	CGameState(void);
