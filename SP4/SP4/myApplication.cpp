@@ -581,13 +581,13 @@ bool myApplication::Update()
 		{
 			if(charControl==1||charControl==3)
 			{
-				if(playerOne->phys.vel.x>=0)
+				//if(playerOne->phys.vel.x>=0)
 					velChanged=true;		
 				playerOne->MoveLeft();
 			}
 			else if(charControl==2)
 			{
-				if(playerTwo->phys.vel.x>=0)
+				//if(playerTwo->phys.vel.x>=0)
 					velChanged=true;	
 				playerTwo->MoveLeft();
 			}

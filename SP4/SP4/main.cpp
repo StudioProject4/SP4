@@ -96,6 +96,9 @@ int main(int argc, char **argv )
 		//GSM->ChangeState(CSplashState::GetInstance());
 		GSM->ChangeState(CMenuState::GetInstance());
 
+		//GSM->ChangeState(CSplashState::GetInstance());
+		//GSM->ChangeState(CMenuState::GetInstance());
+
 		//GSM->ChangeState(myApplication::GetInstance());
 
 		//glutInitWindowPosition(LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"));
