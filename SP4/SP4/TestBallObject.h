@@ -57,11 +57,11 @@ public:
 		std::cout<<"Collision checking "<<this->name<<" "<<this->id<<" with"<<a_obj->name<<" "<<a_obj->id<<" time called"<<timecalled<<std::endl;
 		if( (this->pos - a_obj->pos).Length() < (this->radius + a_obj->radius))
 		{
-			return OnCollision(a_obj);
+			return OnCollision(a_obj,false);
 		}
 		return false;
 	}
-	bool OnCollision2(CBaseObject* a_obj)
+	bool OnCollision2(CBaseObject* a_obj,bool again=false)
 	{
 		std::cout<<"Collided with"<<a_obj->name<<" "<<a_obj->id<<std::endl;
 		return true;

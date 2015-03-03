@@ -16,6 +16,7 @@ ServerApp::ServerApp() :
 	//newProjectileID(0),
 	,maxPlayers(2)
 	,playerNum(0)
+	,proc(0)
 {
 	rakpeer_->Startup(100, &SocketDescriptor(1691, 0), 1);
 	rakpeer_->SetMaximumIncomingConnections(100);
@@ -40,7 +41,7 @@ void ServerApp::Loop()
 		RakNet::Time timestamp = 0;
 
 		bs.Read(msgid);
-
+		cout<<"handling msg "<<(int)(msgid)<<" num "<<proc++<<endl;
 		if (msgid == ID_TIMESTAMP)
 		{
 			bs.Read(timestamp);
@@ -93,7 +94,7 @@ void ServerApp::Loop()
 		case ID_COLLISION:
 		case ID_SEND_OBJECT_INFO:
 			bs.ResetReadPointer();
-			rakpeer_->Send(&bs,HIGH_PRIORITY,UNRELIABLE_SEQUENCED,0,packet->systemAddress,true);
+			rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,packet->systemAddress,true);
 			break;
 		case ID_START:
 			gameStart=true;//only does this for gameStart

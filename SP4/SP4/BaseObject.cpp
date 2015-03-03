@@ -11,22 +11,28 @@ using namespace RakNet;
 
 extern RakNet::RakPeerInterface* rakPeerGlobal;
 
-bool CBaseObject::OnCollision(CBaseObject* a_obj)
+bool CBaseObject::OnCollision(CBaseObject* a_obj,bool frame2)
 {
-
-#ifdef NETWORK_CODE
-	long now=timeGetTime();
-	if(now-lastCall>50)
+	if(frame2!=frame)
 	{
-		BitStream bs;
-		unsigned char msgID=ID_COLLISION;
-		bs.Write(msgID);
-		bs.Write(this->id);
-		bs.Write(a_obj->id);
-		rakPeerGlobal->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
-		lastCall=now;
+		#ifdef NETWORK_CODE
+			long now=timeGetTime();
+			if(now-lastCall>200)
+			{
+				BitStream bs;
+				unsigned char msgID=ID_COLLISION;
+				bs.Write(msgID);
+				bs.Write(this->id);
+				bs.Write(a_obj->id);
+				rakPeerGlobal->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+				lastCall=now;
+			}
+		#endif
+		frame=frame2;
+		return OnCollision2(a_obj);
 	}
-#endif
-	
-	return OnCollision2(a_obj);
+	else
+	{
+		return false;
+	}
 }

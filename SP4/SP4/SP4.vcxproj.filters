@@ -306,6 +306,7 @@
     <ClCompile Include="UIButtonRectangle.cpp">
       <Filter>UiObjects</Filter>
     </ClCompile>
+
     <ClCompile Include="MalayHpReduce.cpp">
       <Filter>Obstacle</Filter>
     </ClCompile>
@@ -316,6 +317,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WinCondition.cpp">
+	<Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditState.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="OnlinePlayState.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionState.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="SplashState.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteFadeExtend.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -545,10 +561,88 @@
     <ClInclude Include="WinCondition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CreditState.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="OnlinePlayState.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionState.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="SplashState.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="AllGameStateIncludes.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="AllSystemManagerIncludes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteFadeExtend.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="RandomGeneratorSystem\Note.txt">
       <Filter>Helper\RandomGenerator</Filter>
+    </None>
+    <None Include="..\Debug\CreateGameButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\CreditButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\ExitButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\HalalSign.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\HealthCross.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\Invincible.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\JoinGameButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\Jump.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\kaede.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\kanon.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\LavaGround.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\luvdisc.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\rockyground.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\SettingButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\SinglePlayerButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\sonia2.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\SpeedUp.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\tenri.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\tile0_blank.tga">
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
 </Project>

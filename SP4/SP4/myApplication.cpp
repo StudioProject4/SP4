@@ -18,6 +18,7 @@ using namespace RakNet;
 
 RakNet::RakPeerInterface* rakPeerGlobal;
 
+bool sendPos=true;
 
 myApplication* myApplication::instance = NULL;
 
@@ -25,6 +26,7 @@ myApplication::myApplication(void)
 	: Map(NULL)
 #ifdef NETWORK_CODE
 	,rakpeer_(RakPeerInterface::GetInstance())
+	,timeRef(-1)
 #endif
 {
 	//Init();
@@ -115,6 +117,10 @@ bool myApplication::Init()
 		}
 	}
 	rakPeerGlobal=rakpeer_;
+	if(timeRef==-1)
+	{
+		timeRef=MVCTime::GetInstance()->PushNewTime(50);
+	}
 #endif
 	tag = "application";
 	name = "myApplication";
@@ -164,8 +170,8 @@ bool myApplication::Init()
 	
 	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
 	playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
-	theAIOne->SetPos(Vector3(600,200,0));
-	theAITwo->SetPos(Vector3(300,100,0));
+	theAIOne->SetPos(Vector3(624,80,0));
+	theAITwo->SetPos(Vector3(304,80,0));
 
 
 	CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
@@ -457,9 +463,9 @@ bool myApplication::Update()
 			break;
 		case ID_VEL_CHANGED:
 			{
-				short charControl;
+				short charControl1;
 				float x,y,z,x1,y1,z1;
-				bs.Read(charControl);
+				bs.Read(charControl1);
 				if(charControl==3)
 					break;
 				bs.Read(x);
@@ -468,7 +474,7 @@ bool myApplication::Update()
 				bs.Read(x1);
 				bs.Read(y1);
 				bs.Read(z1);
-				switch(charControl)
+				switch(charControl1)
 				{
 				case 1:
 					playerOne->phys.vel.Set(x,y,z);
@@ -548,6 +554,33 @@ bool myApplication::Update()
 					bs.Read(z);
 					other->phys.vel.Set(x,y,z);
 				}
+				else if(temp2=="ChineseMob")
+				{
+					unsigned short id1,id2;
+					int hp;
+					bs.Read(id1);
+					bs.Read(id2);
+					bs.Read(hp);
+					
+					CChineseMob* mob=NULL;
+					CCharacter* character=NULL;
+					for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
+					{
+						if(id1==(*it)->id)
+						{
+							mob=(CChineseMob*)(*it);
+						}
+						else if(id2==(*it)->id)
+						{
+							character=(CCharacter*)(*it);
+						}
+						if(mob!=NULL&&character!=NULL)
+						{
+							break;
+						}
+					}
+					character->hp.SetHealth(hp);
+				}
 			}
 			break;
 		case ID_COLLISION:
@@ -574,7 +607,7 @@ bool myApplication::Update()
 				}
 				if(temp1!=NULL&&temp2!=NULL)
 				{
-					temp1->OnCollision2(temp2);
+					temp1->OnCollision2(temp2,true);
 				}
 				else
 				{
@@ -591,13 +624,13 @@ bool myApplication::Update()
 		{
 			if(charControl==1||charControl==3)
 			{
-				if(playerOne->phys.vel.x>=0)
+				//if(playerOne->phys.vel.x>=0)
 					velChanged=true;		
 				playerOne->MoveLeft();
 			}
 			else if(charControl==2)
 			{
-				if(playerTwo->phys.vel.x>=0)
+				//if(playerTwo->phys.vel.x>=0)
 					velChanged=true;	
 				playerTwo->MoveLeft();
 			}
@@ -640,6 +673,18 @@ bool myApplication::Update()
 		{
 		
 		}
+		if(keyboard->myKeys['a'] == false && keyboard->myKeys['d'] == false)
+			{
+				if(charControl==1||charControl==3)
+					playerOne->phys.vel.x = 0;
+				else if(charControl==2)
+				{
+					playerTwo->phys.vel.x=0;
+				}
+
+				keyboard->myKeys['a'] = false;
+				keyboard->myKeys['d'] = false;
+			}
 		if(charControl==3)
 		{
 			if(keyboard->myKeys['j'] == true)
@@ -664,37 +709,51 @@ bool myApplication::Update()
 			{
 		
 			}
+			if(keyboard->myKeys['j'] == false && keyboard->myKeys['l'] == false)
+			{
+				playerTwo->phys.vel.x = 0;
+				keyboard->myKeys['j'] = false;
+				keyboard->myKeys['l'] = false;
+			}
 
 		}
-		if(velChanged==true)
+		if(sendPos)
 		{
-			//send vel message
-			BitStream bs;
-			unsigned char msgID=ID_VEL_CHANGED;
-			bs.Write(msgID);
-			bs.Write(charControl);
-			switch(charControl)
+			if(MVCTime::GetInstance()->TestTime(timeRef))
 			{
-			case 1:
-				bs.Write(playerOne->phys.vel.x);
-				bs.Write(playerOne->phys.vel.y);
-				bs.Write(playerOne->phys.vel.z);
-				bs.Write(playerOne->pos.x);
-				bs.Write(playerOne->pos.y);
-				bs.Write(playerOne->pos.z);
-				break;
-			case 2:
-				bs.Write(playerTwo->phys.vel.x);
-				bs.Write(playerTwo->phys.vel.y);
-				bs.Write(playerTwo->phys.vel.z);
-				bs.Write(playerTwo->pos.x);
-				bs.Write(playerTwo->pos.y);
-				bs.Write(playerTwo->pos.z);
-				break;
+				//send vel message
+				BitStream bs;
+				unsigned char msgID=ID_VEL_CHANGED;
+				bs.Write(msgID);
+				bs.Write(charControl);
+				switch(charControl)
+				{
+				case 1:
+					bs.Write(playerOne->phys.vel.x);
+					bs.Write(playerOne->phys.vel.y);
+					bs.Write(playerOne->phys.vel.z);
+					bs.Write(playerOne->pos.x);
+					bs.Write(playerOne->pos.y);
+					bs.Write(playerOne->pos.z);
+					break;
+				case 2:
+					bs.Write(playerTwo->phys.vel.x);
+					bs.Write(playerTwo->phys.vel.y);
+					bs.Write(playerTwo->phys.vel.z);
+					bs.Write(playerTwo->pos.x);
+					bs.Write(playerTwo->pos.y);
+					bs.Write(playerTwo->pos.z);
+					break;
+				}
+				rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+				velChanged=false;
 			}
-			rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
-			velChanged=false;
 		}
+		else
+		{
+			MVCTime::GetInstance()->ResetTime(timeRef);
+		}
+		sendPos=true;
 	}
 #endif
 
@@ -712,7 +771,7 @@ bool myApplication::Update()
 		
 		}
 		
-
+		MVCTime::GetInstance()->UpdateTime();
 		OM->Update(charControl);
 
 
@@ -912,8 +971,8 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//std::cout<<MS->currentSoundTrack<<std::endl;
 			//MS->PlaySoundPoolTrack2D("sound2.mp3");
 			//ballList[0]->active = false;
-			temp = OM->FindObjectWithName("ball");
-			temp->active = false;
+			//temp = OM->FindObjectWithName("ball");
+			//temp->active = false;
 		break;
 		
 		case '3':
@@ -972,21 +1031,50 @@ void myApplication::MouseWheel(int button, int dir, int x, int y)
 }
 void myApplication::MouseClick(int button, int state, int x, int y)
 {
-	mouse->lastX = x;
-	mouse->lastY = y;
 
 	switch (button) {
-
 		case GLUT_LEFT_BUTTON:
-			mouse->mLButtonUp = state;		
+			switch(state)
+			{
+				case GLUT_DOWN:
+					//mouse->mLButtonUp = true;	
+					mouse->SetLeftButton(true);
+					break;
+				case GLUT_UP:
+					//mouse->mLButtonUp = false;	
+					mouse->SetLeftButton(false);
+					break;
+			}
 			break;
 
 		case GLUT_RIGHT_BUTTON:
-			mouse->mRButtonUp = state;		
+
+			switch(state)
+			{
+				case GLUT_DOWN:
+					//mouse->mRButtonUp = true;	
+					mouse->SetRightButton(true);
+					break;
+				case GLUT_UP:
+					//mouse->mRButtonUp = false;
+					mouse->SetRightButton(false);
+					break;
+			}
 			break;
 
 		case GLUT_MIDDLE_BUTTON:
-			mouse->middleButtonUp = state;
+		
+			switch(state)
+			{
+				case GLUT_DOWN:
+					//mouse->middleButtonUp = true;	
+					mouse->SetMiddleButton(true);
+					break;
+				case GLUT_UP:
+					//mouse->middleButtonUp = false;	
+					mouse->SetMiddleButton(false);
+					break;
+			}
 			break;
 	}
 }

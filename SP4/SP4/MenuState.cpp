@@ -9,6 +9,18 @@
 #include "GameStateManager.h"
 #include "ImageManager.h"
 #include "MusicSystem\MusicSystem.h"
+#include "MusicSystem\Audio.h"
+#include "UIButtonCircle.h"
+#include "UIButtonRectangle.h"
+//system manager include
+
+//gamestate include
+#include "myApplication.h"
+#include "CreditState.h"
+#include "OptionState.h"
+#include "OnlinePlayState.h"
+///////////////////
+
 
 CMenuState* CMenuState::instance = 0;
 
@@ -69,10 +81,14 @@ void CMenuState::KeyboardDown(unsigned char key, int x, int y)
 	switch(key)
 	{
 		case 't':
-			backgroundImage[0].CheckUp();
+			//backgroundImage[0].CheckUp();
+			//buttonList.front()->PrintDebugInformation();
+			mouse->PrintDebugInformation();
 			break;
 		case '2':
-			GSM->PrintDebugInformation();
+			//mouse->PrintDebugInformation();
+			//GSM->PrintDebugInformation();
+			GSM->ChangeState(myApplication::GetInstance());
 			break;
 		case 'n':
 			//SP->GetCell(0,1)->PrintDebugInformation();
@@ -101,21 +117,50 @@ void CMenuState::MouseMove (int x, int y)
 
 void CMenuState::MouseClick(int button, int state, int x, int y)
 {
-	mouse->lastX = x;
-	mouse->lastY = y;
 
 	switch (button) {
-
 		case GLUT_LEFT_BUTTON:
-			mouse->mLButtonUp = state;		
+			switch(state)
+			{
+				case GLUT_DOWN:
+					//mouse->mLButtonUp = true;	
+					mouse->SetLeftButton(true);
+					break;
+				case GLUT_UP:
+					//mouse->mLButtonUp = false;	
+					mouse->SetLeftButton(false);
+					break;
+			}
 			break;
 
 		case GLUT_RIGHT_BUTTON:
-			mouse->mRButtonUp = state;		
+
+			switch(state)
+			{
+				case GLUT_DOWN:
+					//mouse->mRButtonUp = true;	
+					mouse->SetRightButton(true);
+					break;
+				case GLUT_UP:
+					//mouse->mRButtonUp = false;
+					mouse->SetRightButton(false);
+					break;
+			}
 			break;
 
 		case GLUT_MIDDLE_BUTTON:
-			mouse->middleButtonUp = state;
+		
+			switch(state)
+			{
+				case GLUT_DOWN:
+					//mouse->middleButtonUp = true;	
+					mouse->SetMiddleButton(true);
+					break;
+				case GLUT_UP:
+					//mouse->middleButtonUp = false;	
+					mouse->SetMiddleButton(false);
+					break;
+			}
 			break;
 	}
 }
@@ -180,6 +225,12 @@ void CMenuState::SetHUD(bool m_bHUDmode)
 void CMenuState::Render2D()
 {
 	RenderBackground();
+
+	for(TButtonList::iterator it = buttonList.begin(); it != buttonList.end(); ++it)
+	{
+		(*it)->Render();
+	}
+
 	FRM->drawFPS();
 }
 
@@ -211,6 +262,20 @@ void CMenuState::RenderScene(void)
 
 bool CMenuState::Update()
 {
+
+	for(unsigned short i = 0 ; i< buttonList.size();++i)
+	{
+		buttonList[i]->Update();
+		if(buttonList[i]->ColisionCheck(mouse))
+		{
+			//std::cout<<"Button COllided"<<std::endl;
+			PageTransitionTrigger(buttonList[i]->name);
+		}else
+		{
+			//std::cout<<"=D "<<std::endl;
+		}
+	}
+	backgroundImage[0].LiveOn(FRM->deltaTime*0.01);
 	if(keyboard->myKeys[VK_ESCAPE] == true)
 	{
 		GSM->ExitApplication();
@@ -228,8 +293,13 @@ bool CMenuState::Init()
 	inited = true;
 	
 	name = "menu";
+	tag = "CMenuState";
 	genericTag = "CGameState";
-	tag = "application";
+
+	MS = CMusicSystem::GetInstance();
+	//MS->ResetBgmTrackPlayPosition(MS->currentBgmTrack);
+	//MS->PauseBgmTrack(MS->currentBgmTrack);
+	MS->PlayBgmTrack("underthemoon.mp3");
 
 	IM = CImageManager::GetInstance();
 	FRM = CFrameRateManager::GetInstance();
@@ -237,26 +307,73 @@ bool CMenuState::Init()
 	mouse = CMouse::GetInstance();
 	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
-	MS = CMusicSystem::GetInstance();
+
 	OM = new CObjectManager();
 	GSM = CGameStateManager::GetInstance();
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
+	IM->RegisterTGA("MultiPlayerButton.tga");
+	IM->RegisterTGA("OptionButton.tga");
+	IM->RegisterTGA("SettingButton.tga");
+	IM->RegisterTGA("SinglePlayerButton.tga");
+	IM->RegisterTGA("ExitButton.tga");
+	IM->RegisterTGA("ExitButton.tga");
+	IM->RegisterTGA("CreditButton.tga");
+	IM->RegisterTGA("BackButton.tga");
 
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	//testdecorator = &backgroundImage[0];
+	testdecorator = new CSpriteFadeExtend(&backgroundImage[0]);
+	//testdecorator->SetFrameSpeed(100);
+	//testdecorator->SetFadingSpeed(0.01f);
+	//testdecorator->SetFadeInMode();
+	CUIButton* a_button = 0;
+
+	a_button = new CUIButtonRectangle();
+	a_button->ownTexture.Init(1);
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("SinglePlayerButton.tga"));
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.35);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	a_button->name ="SinglePlayerButton";
+	buttonList.push_back(a_button);
+
+	a_button = new CUIButtonRectangle();
+	a_button->ownTexture.Init(1);
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("MultiPlayerButton.tga"));
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.6);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	a_button->name ="MultiPlayerButton";
+	buttonList.push_back(a_button);
+
+	a_button = new CUIButtonRectangle();
+	a_button->ownTexture.Init(1);
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("OptionButton.tga"));
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.85);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	a_button->name ="OptionButton";
+	buttonList.push_back(a_button);
 
 
-	buttonImage[0].Init(1,1,0);
-	buttonImage[0].SetImageSize(backgroundImage[0].GetImageSizeX()*0.3,backgroundImage[0].GetImageSizeX()*0.5);
-	buttonImage[0].OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
+	a_button = new CUIButtonCircle();
+	a_button->ownTexture.Init(1);
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("CreditButton.tga"));
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1,WM->GetOriginalWindowHeight()*0.9);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
+	a_button->name ="CreditButton";
+	buttonList.push_back(a_button);
 
-	buttonImage[0].Init(1,1,0);
-	buttonImage[0].SetImageSize(buttonImage[0].GetImageSizeX(),buttonImage[0].GetImageSizeX());
-	buttonImage[0].OverrideTGATexture(IM->GetTGAImage("kaede.tga"));
+	a_button = new CUIButtonCircle();
+	a_button->ownTexture.Init(1);
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("ExitButton.tga"));
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.9,WM->GetOriginalWindowHeight()*0.9);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
+	a_button->name ="ExitButton";
+	buttonList.push_back(a_button);
 	
+
 
 	return true;
 }
@@ -268,11 +385,22 @@ bool CMenuState::Reset()
 
 bool CMenuState::CleanUp()
 {
+	for(TButtonList::iterator it = buttonList.begin(); it != buttonList.end(); ++it)
+	{
+		if((*it) != 0)
+		{
+			delete (*it);
+			(*it) = 0;
+		}
+	}
+
 	if(OM != 0)
 	{
 		delete OM;
 		OM = 0;
 	}
+
+
 	return true;
 }
 
@@ -301,6 +429,49 @@ void CMenuState::RenderBackground()
 	//glDisable(GL_TEXTURE_2D);
 	glPushMatrix();
 	glTranslatef(400,300,0);
-	backgroundImage[0].Render();
+	testdecorator->Render(FRM->deltaTime);
+	//backgroundImage[0].Render();
 	glPopMatrix();
 }
+ void CMenuState::PageTransitionTrigger(std::string buttonName)
+ {
+	 if(mouse->CheckLeftButtonReleased())
+	 {
+		 MS->PlaySoundPoolTrack2D("sound1.mp3");
+		 if(buttonName == "SinglePlayerButton")
+		 {
+			 //if(mouse->CheckLeftButtonReleased())
+			 // {
+			 GSM->ChangeState(myApplication::GetInstance());
+			 // }
+		 }else
+			 if(buttonName == "MultiPlayerButton")
+			 {
+				 // if(mouse->CheckLeftButtonReleased())
+				 // {
+				 GSM->ChangeState(COnlinePlayState::GetInstance());
+				 //}
+			 }else
+				 if(buttonName == "OptionButton")
+				 {
+					 // if(mouse->CheckLeftButtonReleased())
+					 // {
+					 GSM->ChangeState(COptionState::GetInstance());
+					 // }
+				 }else
+					 if(buttonName == "CreditButton")
+					 {
+						 // if(mouse->CheckLeftButtonReleased())
+						 // {
+						 GSM->ChangeState(CCreditState::GetInstance());
+						 // }
+					 }else
+						 if(buttonName == "ExitButton")
+						 {
+							 // if(mouse->CheckLeftButtonReleased())
+							 // {
+							 GSM->ExitApplication();
+							 // }
+						 }
+	 }
+ }

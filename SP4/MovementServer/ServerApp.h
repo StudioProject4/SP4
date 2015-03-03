@@ -15,7 +15,6 @@ struct GameObject
 	{
 		id = newid;
 	}
-
 	unsigned int id;
 	std::string username;
 	float x_;
@@ -41,6 +40,7 @@ class ServerApp
 	RakPeerInterface* rakpeer_;
 	std::vector<ClientInfo*> clients_;
 	unsigned int newID;
+	int proc;
 	int clientNum;
 	void SendGamePackage(SystemAddress& addr,std::string name,int ClientID);//client id is suppsed to be the database id
 	void SendLobbyInfo(SystemAddress& addr,std::string name,int ClientID);

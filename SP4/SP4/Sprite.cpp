@@ -8,12 +8,16 @@ CSprite::CSprite()
 	,numberoflayer(1)
 	,currentframe(0)
 	,pause(false)
-	,frameinterval(20)
+	,frameinterval(10)
 	,framespeed(1)
 	,size(32.f,32.f)//the size need to be inline with tilesize
 	,currentlayer(currentlayer)
 	,currenttimecounter(0)
 	,lateralinvert(false)
+	,RED(1.f)
+	,BLUE(1.f)
+	,GREEN(1.f)
+	,ALPHA(1.f)
 {
 
 	framesize.x = 1.0f/maxframe;
@@ -30,6 +34,10 @@ CSprite::CSprite(ushort maxframe,ushort numberoflayer,ushort currentlayer)
 	,currentlayer(currentlayer)
 	,currenttimecounter(0)
 	,lateralinvert(false)
+	,RED(1.f)
+	,BLUE(1.f)
+	,GREEN(1.f)
+	,ALPHA(1.f)
 {
 
 	framesize.x = 1.0f/maxframe;
@@ -141,8 +149,9 @@ void CSprite::LiveOn(float dt)
 {
 	if(!pause)
 	{
-		currenttimecounter += framespeed * dt ;
+		currenttimecounter += (framespeed * dt);
 		//std::cout<<"Current time counter"<<currenttimecounter<<std::endl;
+		//std::cout<<"frameinterval "<<this->frameinterval<<std::endl;
 		//std::cout<<"currentframe: "<<currentframe<<std::endl;
 
 		if(currenttimecounter > frameinterval)
@@ -159,12 +168,12 @@ void CSprite::Render(void)
 {
 	glPushMatrix();
 	////glTranslatef(position.x,position.y,position.z);//uncomment this if sprite class has a position.
-	glScalef(size.x,size.y,1);
+		glScalef(size.x,size.y,1);
 	
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glColor4f(RED, GREEN,BLUE,ALPHA);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBindTexture(GL_TEXTURE_2D, owntexture.texID);
 
@@ -179,12 +188,18 @@ void CSprite::Render(void)
 				glTexCoord2f( currentframe	  * framesize.x	,  currentlayer * framesize.y - framesize.y ); glVertex2f(-0.5f,0.5f);//top left
 				glTexCoord2f((currentframe+1) * framesize.x ,  currentlayer * framesize.y				); glVertex2f(0.5f,-0.5f);//bottom right
 				glTexCoord2f((currentframe+1) * framesize.x ,  currentlayer * framesize.y - framesize.y ); glVertex2f(0.5f,0.5f);//top right
+
+				//glTexCoord2f( currentframe	  * framesize.x	,  currentlayer * framesize.y				); glVertex2f(-1.0f,-1.0f);//bottom left
+				//glTexCoord2f( currentframe	  * framesize.x	,  currentlayer * framesize.y - framesize.y ); glVertex2f(-1.0f,1.0f);//top left
+				//glTexCoord2f((currentframe+1) * framesize.x ,  currentlayer * framesize.y				); glVertex2f(1.0f,-1.0f);//bottom right
+				//glTexCoord2f((currentframe+1) * framesize.x ,  currentlayer * framesize.y - framesize.y ); glVertex2f(1.0f,1.0f);//top right
 				glEnd();
 			glPopMatrix();
 		}else
 		{
 			////simple forward animation of laterally inverted
 			glPushMatrix();
+		
 				glBegin(GL_TRIANGLE_STRIP);
 				glTexCoord2f((currentframe+1) * framesize.x ,  currentlayer * framesize.y				); glVertex2f(-0.5f,-0.5f);//bottom left
 				glTexCoord2f((currentframe+1) * framesize.x ,  currentlayer * framesize.y - framesize.y ); glVertex2f(-0.5f,0.5f);//top left
@@ -193,7 +208,7 @@ void CSprite::Render(void)
 				glEnd();
 			glPopMatrix();
 		}
-		
+	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glPopMatrix();
 }
 void CSprite::SetAnimationLayer(ushort newlayer)
@@ -207,6 +222,7 @@ void CSprite::SetFrameSpeed(float newframespeed)
 void CSprite::SetFrameInterval(float newframeinterval)
 {
 	this->frameinterval = newframeinterval;
+	
 }
 void CSprite::SetImageSize(float x,float y)
 {
@@ -219,6 +235,47 @@ void CSprite::SetVitalInformation(ushort maxframe,ushort numberoflayer)
 	this->numberoflayer = numberoflayer;
 	framesize.x = 1.0f/this->maxframe;
 	framesize.y = 1.0f/this->numberoflayer;
+}
+
+void CSprite::SetColour4f(float red,float green,float blue,float alpha)
+{
+	this->RED = red;
+	this->GREEN = green;
+	this->BLUE = blue;
+	this->ALPHA = alpha;
+}
+float CSprite::GetAlpha()
+{
+	return ALPHA;
+}
+void CSprite::SetAlpha(float newAlpha)
+{
+	if(newAlpha >1.0f)
+	{
+		newAlpha = 1.0f;
+	}
+	if(newAlpha <0.0f)
+	{
+		newAlpha = 0.0f;
+	}
+	ALPHA = newAlpha;
+}
+void CSprite::OverrideTGATexture(TextureImage* newTexture)
+{
+	this->owntexture = *newTexture;
+}
+short CSprite::GetCurrentFrameIndex()
+{
+	return currentframe;
+}
+
+float CSprite::GetImageSizeX()
+{
+	return size.x;
+}
+float CSprite::GetImageSizeY()
+{
+	return size.y;
 }
 void CSprite::TranverseAnimationFrame(bool forward,bool warp )
 {
@@ -286,6 +343,7 @@ void  CSprite::TranverseAnimationLayer(bool forward,bool warp)
 		}
 	}
 }
+
 void CSprite::CheckUp(void)
 {
 	std::cout<<"Current frame index: "<<currentframe<<std::endl;

@@ -6,7 +6,7 @@
 #include "FrameRateManager.h"
 #include "LuaManager.h"
 #include "WindowManager.h"
-
+#include "Mouse.h"
 //#define DEFENSIVE_CODE
 
 CGameStateManager* CGameStateManager::instance = 0;
@@ -36,7 +36,7 @@ bool CGameStateManager::ChangeState(CGameState* newstate)
 	//{
 	//	gamestatestack.pop_back();
 	//}
-
+	CMouse::GetInstance()->Reset();
 	
 	if(newstate->CheckInitedBefore() == false)
 	{
@@ -257,6 +257,8 @@ void CGameStateManager::GoToPreviousState()
 {
 	if(!gamestatestack.empty())
 	{
+		CMouse::GetInstance()->Reset();
+
 		lastState = gamestatestack.back();
 		gamestatestack.pop_back();
 

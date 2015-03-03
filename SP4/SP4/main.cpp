@@ -77,8 +77,7 @@ int main(int argc, char **argv )
 		MS->RegisterBgm2D("bgm5.mp3");
 		MS->RegisterBgm2D("bgm6.mp3");
 		MS->RegisterBgm2D("bgm7.mp3");
-		MS->RegisterBgm2D("bgm8.mp3");
-		MS->RegisterBgm2D("bgm9.mp3");
+		MS->RegisterBgm2D("underthemoon.mp3");
 		LM->Init("mylua.lua");
 		
 
@@ -93,11 +92,14 @@ int main(int argc, char **argv )
 		IM->RegisterTGA("kaede.tga");
 		IM->RegisterTGA("tenri.tga");
 		IM->RegisterTGA("rockyground.tga");
-		GSM->ChangeState(CMenuState::GetInstance());
-		//GSM->ChangeState(KennardTestState::GetInstance());
-		//GSM->ChangeState(CKeeYangTestState::GetInstance());
 
-		GSM->ChangeState(myApplication::GetInstance());
+		//GSM->ChangeState(CSplashState::GetInstance());
+		GSM->ChangeState(CMenuState::GetInstance());
+
+		//GSM->ChangeState(CSplashState::GetInstance());
+		//GSM->ChangeState(CMenuState::GetInstance());
+
+		//GSM->ChangeState(myApplication::GetInstance());
 
 		//glutInitWindowPosition(LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"));
 		//glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);

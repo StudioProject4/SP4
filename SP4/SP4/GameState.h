@@ -1,7 +1,6 @@
 #pragma once
 #include "Entity.h"
 
-
 class CGameStateManager;
 class CFrameRateManager;
 class CLuaManager;
@@ -11,6 +10,14 @@ class CWindowManager;
 class CMusicSystem;
 class CObjectManager;
 class CImageManager;
+
+//not sure why when i include the header files for the following class,the raknet give me redefination error
+class CUIButton;
+class CUIButtonCircle;
+class CUIButtonRectangle;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 class CGameState:public CEntity
 {

@@ -17,8 +17,11 @@ bool CMalayMob :: Update()
 {
 	dir = AI.GetDir();
 	//pos.x = 
-	AI.Update(pos,phys).x;
-	pos = phys.Update(pos);
+	pos = AI.Update(pos,phys);
+	/*if(AI.state == AI_WANDER)
+	{
+		pos.x = phys.Update(pos).x;
+	}*/
 	return true;
 }
 bool CMalayMob :: Init()
@@ -33,6 +36,7 @@ bool CMalayMob :: Init()
 	
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
+
 	return true;
 }	
 bool CMalayMob :: Reset()
@@ -48,22 +52,15 @@ bool CMalayMob :: Render()
 {
 	glPushMatrix();
 	glTranslatef(pos.x,pos.y,pos.z);
-	//glScalef(10,10,1);
 	theSprite->Render();
 	glPopMatrix();
 
 	return true;
 }
 
-bool CMalayMob :: OnCollision2(CBaseObject* a_obj)
+bool CMalayMob :: OnCollision2(CBaseObject* a_obj,bool again)
 {
-	if(a_obj->genericTag = "Character")
-	{
-		if(a_obj->tag = "ChineseMale")
-		{
-			a_obj->OnCollision(this);
-		}
-	}
+
 	return true;
 }
 

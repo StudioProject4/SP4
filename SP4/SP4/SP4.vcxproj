@@ -90,6 +90,7 @@
     <ClCompile Include="ChineseMale.cpp" />
     <ClCompile Include="ChineseMob.cpp" />
     <ClCompile Include="ChinesePoints.cpp" />
+    <ClCompile Include="CreditState.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="FrameRateManager.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -122,6 +123,8 @@
     <ClCompile Include="ObstacleBase.cpp" />
     <ClCompile Include="ObstacleBuilder.cpp" />
     <ClCompile Include="ObstacleFactory.cpp" />
+    <ClCompile Include="OnlinePlayState.cpp" />
+    <ClCompile Include="OptionState.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PointsAddPU.cpp" />
     <ClCompile Include="PowerUp.cpp" />
@@ -132,7 +135,9 @@
     <ClCompile Include="RenderUntility.cpp" />
     <ClCompile Include="SpatialPartion.cpp" />
     <ClCompile Include="SpeedPU.cpp" />
+    <ClCompile Include="SplashState.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteFadeExtend.cpp" />
     <ClCompile Include="TestBallObject.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="tgaLoader.c" />
@@ -148,6 +153,8 @@
     <ClInclude Include="AI.h" />
     <ClInclude Include="AIMobBuilder.h" />
     <ClInclude Include="AIMobFactory.h" />
+    <ClInclude Include="AllGameStateIncludes.h" />
+    <ClInclude Include="AllSystemManagerIncludes.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterBuilder.h" />
@@ -157,6 +164,7 @@
     <ClInclude Include="ChineseMob.h" />
     <ClInclude Include="ChinesePoints.h" />
     <ClInclude Include="CodeDefination.h" />
+    <ClInclude Include="CreditState.h" />
     <ClInclude Include="DatabaseLibrary.h" />
     <ClInclude Include="DatatypeDefination.h" />
     <ClInclude Include="Door.h" />
@@ -193,6 +201,8 @@
     <ClInclude Include="ObstacleBase.h" />
     <ClInclude Include="ObstacleBuilder.h" />
     <ClInclude Include="ObstacleFactory.h" />
+    <ClInclude Include="OnlinePlayState.h" />
+    <ClInclude Include="OptionState.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PointsAddPU.h" />
     <ClInclude Include="PowerUp.h" />
@@ -205,7 +215,9 @@
     <ClInclude Include="SContainer2D.h" />
     <ClInclude Include="SpatialPartion.h" />
     <ClInclude Include="SpeedPU.h" />
+    <ClInclude Include="SplashState.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteFadeExtend.h" />
     <ClInclude Include="SystemDefination.h" />
     <ClInclude Include="TestBallObject.h" />
     <ClInclude Include="TextureImage.h" />
@@ -220,6 +232,25 @@
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Debug\CreateGameButton.tga" />
+    <None Include="..\Debug\CreditButton.tga" />
+    <None Include="..\Debug\ExitButton.tga" />
+    <None Include="..\Debug\HalalSign.tga" />
+    <None Include="..\Debug\HealthCross.tga" />
+    <None Include="..\Debug\Invincible.tga" />
+    <None Include="..\Debug\JoinGameButton.tga" />
+    <None Include="..\Debug\Jump.tga" />
+    <None Include="..\Debug\kaede.tga" />
+    <None Include="..\Debug\kanon.tga" />
+    <None Include="..\Debug\LavaGround.tga" />
+    <None Include="..\Debug\luvdisc.tga" />
+    <None Include="..\Debug\rockyground.tga" />
+    <None Include="..\Debug\SettingButton.tga" />
+    <None Include="..\Debug\SinglePlayerButton.tga" />
+    <None Include="..\Debug\sonia2.tga" />
+    <None Include="..\Debug\SpeedUp.tga" />
+    <None Include="..\Debug\tenri.tga" />
+    <None Include="..\Debug\tile0_blank.tga" />
     <None Include="RandomGeneratorSystem\Note.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

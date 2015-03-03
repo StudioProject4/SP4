@@ -3,7 +3,6 @@
 
 CMalayFemale :: CMalayFemale()
 {
-	Init();
 }
 
 CMalayFemale :: ~CMalayFemale()
@@ -43,6 +42,10 @@ bool CMalayFemale :: Init()
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 	SetPlayerID(2);
+
+	invulTimer = MVCTime :: GetInstance();
+	refTime = invulTimer->PushNewTime(1000);
+	invulTimer->SetActive(false,refTime);
 	
 	return true;
 }
@@ -57,7 +60,7 @@ bool CMalayFemale :: CleanUp()
 	return true;
 }
 
-bool CMalayFemale :: OnCollision2(CBaseObject* a_obj)
+bool CMalayFemale :: OnCollision2(CBaseObject* a_obj,bool again)
 {
 	//if(a_obj->genericTag = "Character")
 	//{

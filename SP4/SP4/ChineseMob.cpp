@@ -27,7 +27,10 @@ bool CChineseMob :: Update()
 	dir = AI.GetDir();
 	//pos.x = 
 	pos = AI.Update(pos,phys);
-	//pos = phys.Update(pos);
+	/*if(AI.state == AI_WANDER)
+	{
+		pos.x = phys.Update(pos).x;
+	}*/
 	return true;
 }
 bool CChineseMob :: Init()
@@ -64,7 +67,7 @@ bool CChineseMob :: Render()
 	return true;
 }
 
-bool CChineseMob :: OnCollision2(CBaseObject* a_obj)
+bool CChineseMob :: OnCollision2(CBaseObject* a_obj,bool again)
 {
 #ifdef NETWORK_CODE
 	if(a_obj->genericTag = "Character")
@@ -76,8 +79,8 @@ bool CChineseMob :: OnCollision2(CBaseObject* a_obj)
 			unsigned char msgID=ID_OBJ_UPDATE;
 			RakNet::BitStream bs;
 			bs.Write(msgID);
-			bs.Write(this->id);
 			bs.Write(this->tag);
+			bs.Write(this->id);
 			bs.Write(a_obj->id);
 			bs.Write(temp->hp.GetHealth());
 			RakNet::RakPeerInterface::GetInstance()->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,RakNet::UNASSIGNED_SYSTEM_ADDRESS,true);

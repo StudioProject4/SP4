@@ -9,7 +9,12 @@ class CUIButton
 public:
 	bool active;
 	Vector3 position;
+	//Vector3 size;
 	CSprite ownTexture;
+	char* name;
+
+	bool onHover;
+	bool down;
 public:
 	CUIButton(void);
 	~CUIButton(void);
@@ -26,7 +31,27 @@ public:
 	{
 		ownTexture.OverrideTGATexture(newTexture);
 	};
-	//bool CollisionCheckColliderBox();
-	//bool CollisionCheckColliderSphere();
+	virtual void SetSize(Vector3& Size)
+	{
+		this->ownTexture.SetImageSize(Size.x,Size.y);
+	};
+
+	virtual void SetSize(float x = 0.f,float y = 0.f)
+	{
+		this->ownTexture.SetImageSize(x,y);
+	};
+	virtual void SetPosition(Vector3& Position)
+	{
+		this->position = Position;
+	};
+	virtual void SetPosition(float x = 0.f,float y = 0.f)
+	{
+		this->position.Set(x,y);
+	};
+	virtual void PrintDebugInformation()
+	{
+		std::cout<<"Active: "<<active<<std::endl;
+		std::cout<<"Position: "<<position<<std::endl;
+	};
 };
 

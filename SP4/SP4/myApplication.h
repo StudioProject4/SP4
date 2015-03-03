@@ -22,6 +22,8 @@
 #include "KeeYangTestState.h"
 #include "KennardTestState.h"
 
+#include "SplashState.h"
+
 #include "DatatypeDefination.h"
 
 #include "GameStateManager.h"
@@ -131,6 +133,8 @@ private:
 	CPointSystem* points;
 	CWinCondition* win;
 	CLoseCondition* lose;
+
+	int timeRef;
 
 	int x, y;
 	
