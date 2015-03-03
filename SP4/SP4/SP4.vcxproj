@@ -86,6 +86,7 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CharacterBuilder.cpp" />
     <ClCompile Include="CharacterFactory.cpp" />
+    <ClCompile Include="ChineseHpReduce.cpp" />
     <ClCompile Include="ChineseMale.cpp" />
     <ClCompile Include="ChineseMob.cpp" />
     <ClCompile Include="ChinesePoints.cpp" />
@@ -106,6 +107,7 @@
     <ClCompile Include="LuaManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MalayFemale.cpp" />
+    <ClCompile Include="MalayHpReduce.cpp" />
     <ClCompile Include="MalayMob.cpp" />
     <ClCompile Include="MalayPoints.cpp" />
     <ClCompile Include="ManufactureManager.cpp" />
@@ -143,6 +145,7 @@
     <ClCompile Include="UIButtonCircle.cpp" />
     <ClCompile Include="UIButtonRectangle.cpp" />
     <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="WinCondition.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +158,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterBuilder.h" />
     <ClInclude Include="CharacterFactory.h" />
+    <ClInclude Include="ChineseHpReduce.h" />
     <ClInclude Include="ChineseMale.h" />
     <ClInclude Include="ChineseMob.h" />
     <ClInclude Include="ChinesePoints.h" />
@@ -178,6 +182,7 @@
     <ClInclude Include="LeverDoor.h" />
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="MalayFemale.h" />
+    <ClInclude Include="MalayHpReduce.h" />
     <ClInclude Include="MalayMob.h" />
     <ClInclude Include="MalayPoints.h" />
     <ClInclude Include="ManufactureManager.h" />
@@ -221,9 +226,29 @@
     <ClInclude Include="UIButtonCircle.h" />
     <ClInclude Include="UIButtonRectangle.h" />
     <ClInclude Include="Vector3.h" />
+    <ClInclude Include="WinCondition.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Debug\CreateGameButton.tga" />
+    <None Include="..\Debug\CreditButton.tga" />
+    <None Include="..\Debug\ExitButton.tga" />
+    <None Include="..\Debug\HalalSign.tga" />
+    <None Include="..\Debug\HealthCross.tga" />
+    <None Include="..\Debug\Invincible.tga" />
+    <None Include="..\Debug\JoinGameButton.tga" />
+    <None Include="..\Debug\Jump.tga" />
+    <None Include="..\Debug\kaede.tga" />
+    <None Include="..\Debug\kanon.tga" />
+    <None Include="..\Debug\LavaGround.tga" />
+    <None Include="..\Debug\luvdisc.tga" />
+    <None Include="..\Debug\rockyground.tga" />
+    <None Include="..\Debug\SettingButton.tga" />
+    <None Include="..\Debug\SinglePlayerButton.tga" />
+    <None Include="..\Debug\sonia2.tga" />
+    <None Include="..\Debug\SpeedUp.tga" />
+    <None Include="..\Debug\tenri.tga" />
+    <None Include="..\Debug\tile0_blank.tga" />
     <None Include="RandomGeneratorSystem\Note.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

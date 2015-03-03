@@ -292,7 +292,7 @@ bool KennardTestState::Update()
 	
 	if(test.phys.TestCol(theLever.pos,theLever.phys.size))
 	{
-		theLever.OnCollision(&test);
+		theLever.OnCollision(&test,false);
 	}
 
 	return true;

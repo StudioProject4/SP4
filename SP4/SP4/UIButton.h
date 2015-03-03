@@ -6,6 +6,8 @@ class CMouse;
 
 class CUIButton
 {
+protected:
+	float ratio;
 public:
 	bool active;
 	Vector3 position;
@@ -35,6 +37,8 @@ public:
 	{
 		this->ownTexture.SetImageSize(Size.x,Size.y);
 	};
+	
+	void rescale(float ratio);
 
 	virtual void SetSize(float x = 0.f,float y = 0.f)
 	{

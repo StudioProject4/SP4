@@ -61,7 +61,7 @@ bool CUIButtonCircle::Render()
 
 bool CUIButtonCircle::ColisionCheck(CMouse* theMouse)
 {
-	bool result =  CollisionCheckColliderSphere(Vector3(theMouse->lastX,theMouse->lastY));
+	bool result =  CollisionCheckColliderSphere(Vector3(theMouse->gameX,theMouse->gameY));
 	if(result == true && theMouse->CheckLeftButtonDown())
 	{
 		down = true;

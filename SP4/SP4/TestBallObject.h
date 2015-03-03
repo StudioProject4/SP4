@@ -57,7 +57,7 @@ public:
 		std::cout<<"Collision checking "<<this->name<<" "<<this->id<<" with"<<a_obj->name<<" "<<a_obj->id<<" time called"<<timecalled<<std::endl;
 		if( (this->pos - a_obj->pos).Length() < (this->radius + a_obj->radius))
 		{
-			return OnCollision(a_obj);
+			return OnCollision(a_obj,false);
 		}
 		return false;
 	}

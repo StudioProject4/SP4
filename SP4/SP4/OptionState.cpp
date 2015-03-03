@@ -104,6 +104,8 @@ void COptionState::MouseMove (int x, int y)
 
 	mouse->lastX = x;
 	mouse->lastY = y;
+	mouse->gameX=mouse->lastX/WM->GetWindowRatioDifferenceX();
+	mouse->gameY=mouse->lastY/WM->GetWindowRatioDifferenceY();
 }
 
 void COptionState::MouseClick(int button, int state, int x, int y)
@@ -408,6 +410,8 @@ void COptionState::RenderBackground()
  {
 	 if(mouse->CheckLeftButtonReleased())
 	 {
+		 MS->PlaySoundPoolTrack2D("sound1.mp3");
+
 		 if(buttonName == "SinglePlayerButton")
 		 {
 			 //if(mouse->CheckLeftButtonReleased())
@@ -436,6 +440,10 @@ void COptionState::RenderBackground()
 						 GSM->ChangeState(myApplication::GetInstance());
 						 // }
 					 }else
+						 if(buttonName == "BackButton")
+						 {
+							 GSM->GoToPreviousState();
+						 }else
 						 if(buttonName == "ExitButton")
 						 {
 							 // if(mouse->CheckLeftButtonReleased())

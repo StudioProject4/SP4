@@ -12,6 +12,7 @@
 #include "MenuState.h"
 #include "ChineseMob.h"
 #include "ObjectManager.h"
+#include "WinCondition.h"
 
 #include "FrameRateManager.h"
 #include "RenderUntilty.h"
@@ -45,6 +46,8 @@
 
 #include "ChinesePoints.h"
 #include "MalayPoints.h"
+#include "ChineseHpReduce.h"
+#include "MalayHpReduce.h"
 
 #include "Physics.h"
 
@@ -92,6 +95,7 @@ public:
 	bool Init();
 	bool CleanUp();
 	bool Reset();
+	bool ResetLevel(short level);
 
 	void Render2D();
 	void Render3D();
@@ -126,6 +130,10 @@ private:
 	CPointsAddPU* pts;
 	CInvinciblePU InvinOn;
 	CPointSystem* points;
+	CWinCondition* win;
+	
+
+	int timeRef;
 
 #ifdef NETWORK_CODE
 	STARTUPINFO si;     
@@ -149,6 +157,7 @@ private:
 	//Imagee
 	TextureImage BackgroundTexture[2];
 	TextureImage TileMapTexture[50];
+	TextureImage* tempimage;
 	int mapOffset_x, mapOffset_y;
 	int tileOffset_x, tileOffset_y;
 	int mapFineOffset_x, mapFineOffset_y;
@@ -158,9 +167,15 @@ private:
 	int rearWalltileOffset_x, rearWalltileOffset_y;
 	int rearWallFineOffset_x, rearWallFineOffset_y;
 	
+	CSprite* playerOneHud;
+	CSprite* playerTwoHud;
+	CSprite HeartShape;
+
 	void RenderTileMap();
 	void RenderBackground();
-	
+	void RenderPlayerOneHUD();
+	void RenderPlayerTwoHUD();
+	void RenderCharacterHealthHud(CCharacter* a_character,float startingPosX,float startingPosY,float paddingX,bool buildToRight = true);
 
 	//void printw (float x, float y, float z, char* format, ...);
 	//void calculateFPS();

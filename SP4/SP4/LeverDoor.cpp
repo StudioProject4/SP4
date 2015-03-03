@@ -8,6 +8,7 @@
 using namespace RakNet;
 
 extern RakPeerInterface* rakPeerGlobal;
+extern bool sendPos;
 
 CLeverDoor::CLeverDoor(void):
 lastTime(0)
@@ -145,8 +146,10 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj,bool again)
 		}
 	}
 	long now=timeGetTime();
-	if(modded&&!again)
+	if(now-lastTime>50&&modded&&!again)
 	{
+		static int count=0;
+		cout<<count++<<" "<<now-lastTime<<endl;
 		BitStream bs;
 		unsigned char msgid=ID_OBJ_UPDATE;
 		bs.Write(msgid);
@@ -163,6 +166,8 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj,bool again)
 		bs.Write(obj->phys.vel.y);
 		bs.Write(obj->phys.vel.z);
 		rakPeerGlobal->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+		lastTime=now;
+		sendPos=false;
 	}
 	//move the object back so that its not colliding anymore
 

@@ -14,6 +14,8 @@ public:
 		OBSTACLE_DOOR,
 		OBSTACLE_CHINAPTS,
 		OBSTACLE_MALAYPTS,
+		OBSTACLE_CHINAHP,
+		OBSTACLE_MALAYHP,
 		OBSTACLE_TOTAL
 	};
 
@@ -33,6 +35,8 @@ public:
 	void SetManufactureDoor();
 	void SetManufactureChinesePoints();
 	void SetManufactureMalayPoints();
+	void SetManufactureChineseHp();
+	void SetManufactureMalayHp();
 
 	//CChinesePoints* CChinesePoints;
 };

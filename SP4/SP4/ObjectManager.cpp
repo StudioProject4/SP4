@@ -14,6 +14,7 @@
 CObjectManager::CObjectManager(void)
 	:SP(0)
 	,numOfUniqueId(-1)
+	,frame(false)
 {
 	Init();
 }
@@ -90,6 +91,7 @@ void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObje
 							otherObject->OnCollision(a_obj);
 						else 
 							a_obj->OnCollision(otherObject);
+
 					}
 				}
 			}
@@ -111,7 +113,7 @@ void CObjectManager::CheckObjectCollision(CBaseObject* a_obj, TObjectListVector&
 			if(a_obj->phys.TestCol(otherObject->pos,OtherSize))
 			{
 				//std::cout<<"collided "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
-				a_obj->OnCollision(otherObject);
+				a_obj->OnCollision(otherObject,frame);
 			}
 		}
 	}
@@ -177,7 +179,7 @@ void CObjectManager::UpdateCollision()
 		this->UpdateGridTestBallCheckCall();
 	}
 #endif
-
+	frame=!frame;
 }
 
 bool CObjectManager::LoadingSetup()
@@ -246,8 +248,8 @@ bool CObjectManager::Update(int multiplayerMode)
 			inactiveObjectList.push_back(objectList[it]);
 			//objectList.erase(it);
 			//using swapping method to delete element.
-			swap(objectList[it],objectList.back());
-			//objectList[it] = objectList.back();
+			//swap(objectList[it],objectList.back());
+			objectList[it] = objectList.back();
 			objectList.pop_back();
 		}
 	}

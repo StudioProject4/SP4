@@ -8,6 +8,7 @@ public:
 	bool mRButtonUp;
 	bool middleButtonUp;
 	int  lastX, lastY;
+	int gameX,gameY;
 	float sensitivity;
 	bool lastLButtonState;
 	bool lastRButtonState;
@@ -22,6 +23,7 @@ public:
 	bool Update();
 	bool Init() ;
 	bool CleanUp();
+	//void UpdateMousePosition(int x,int y);
 	void SetLeftButton(bool down);
 	void SetMiddleButton(bool down);
 	void SetRightButton(bool down);

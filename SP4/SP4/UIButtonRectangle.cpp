@@ -43,7 +43,7 @@ bool CUIButtonRectangle::Render()
 
 bool CUIButtonRectangle::ColisionCheck(CMouse* theMouse)
 {
-	bool result = CollisionCheckColliderBox(Vector3(theMouse->lastX,theMouse->lastY));
+	bool result = CollisionCheckColliderBox(Vector3(theMouse->gameX,theMouse->gameY));
 	if(result == true && theMouse->CheckLeftButtonDown())
 	{
 		down = true;

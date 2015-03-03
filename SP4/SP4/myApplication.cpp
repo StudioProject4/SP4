@@ -18,6 +18,7 @@ using namespace RakNet;
 
 RakNet::RakPeerInterface* rakPeerGlobal;
 
+bool sendPos=true;
 
 myApplication* myApplication::instance = NULL;
 
@@ -25,6 +26,7 @@ myApplication::myApplication(void)
 	: Map(NULL)
 #ifdef NETWORK_CODE
 	,rakpeer_(RakPeerInterface::GetInstance())
+	,timeRef(-1)
 #endif
 {
 	//Init();
@@ -56,6 +58,16 @@ bool myApplication::CleanUp()
 		delete Map;
 		Map = NULL;
 	}	
+	if(playerOneHud != 0)
+	{
+		delete playerOneHud;
+		playerOneHud = 0;
+	}
+	if(playerTwoHud != 0)
+	{
+		delete playerTwoHud;
+		playerTwoHud = 0;
+	}
 	//if(playerOne != NULL)
 	//{
 	//	delete playerOne;
@@ -88,7 +100,69 @@ bool myApplication::Reset()
 {
 	return Init();
 }
+bool myApplication::ResetLevel(short level)
+{
+	if(OM  != 0)
+	{
+		delete OM;
+		OM = new CObjectManager();
+	}
+	//delete playerOne;
+	//delete playerOne;
+	//delete theAIOne;
+	//delete theAITwo;
+	playerOne = OM->manufacturer->CreateChineseMale();
+	playerTwo = OM->manufacturer->CreateMalayFemale();
+	theAIOne = OM->manufacturer->CreateMalayMob();
+	theAITwo = OM->manufacturer->CreateChineseMob();
+	
+	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
+	playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
+	theAIOne->SetPos(Vector3(624,80,0));
+	theAITwo->SetPos(Vector3(304,80,0));
 
+
+	CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
+	lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+	CDoor* door= OM->manufacturer->CreateObstacleDoor();
+	door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X"),LM->GetWithCheckNumber<float>("DOOR_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+
+	lever->SetDoorLink(door);
+	door->AddTrigger(lever);
+
+	 mapOffset_x =  mapOffset_y=
+	 tileOffset_x =tileOffset_y=
+	 mapFineOffset_x= mapFineOffset_y=
+	 theNumOfTiles_Height
+	= theNumOfTiles_Width
+	= rearWallOffset_x=rearWallOffset_y
+	 =rearWalltileOffset_x= rearWalltileOffset_y
+	= rearWallFineOffset_x= rearWallFineOffset_y = 0;
+
+	 Map->Level = level;
+	 Map->RunMap();
+
+	playerTwo->phys.map=Map;
+	playerOne->phys.map=Map;
+	theAIOne->SetUpMap(*Map);
+	theAITwo->SetUpMap(*Map);
+	theAIOne->phys.map=Map;
+	theAITwo->phys.map=Map;
+
+#ifdef NETWORK_CODE
+	isMultiplayer = false;
+		charControl=3;
+
+#endif
+
+	//Map->RunMap();
+
+	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
+	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
+
+	return true;
+
+}
 //bool myApplication::Init(bool setMultiplayer)
 bool myApplication::Init()
 {
@@ -115,6 +189,10 @@ bool myApplication::Init()
 		}
 	}
 	rakPeerGlobal=rakpeer_;
+	if(timeRef==-1)
+	{
+		timeRef=MVCTime::GetInstance()->PushNewTime(50);
+	}
 #endif
 	tag = "application";
 	name = "myApplication";
@@ -123,8 +201,8 @@ bool myApplication::Init()
 
 
 	//background
-	LoadTGA( &BackgroundTexture[0], "back.tga");
-
+	//LoadTGA( &BackgroundTexture[0], "back.tga");
+	
 	LoadTGA( &TileMapTexture[0], "BlackWalls.tga");
 	LoadTGA( &TileMapTexture[1], "tile0_blank.tga");
 	//LoadTGA( &TileMapTexture[1], "LavaGround.tga");
@@ -136,6 +214,7 @@ bool myApplication::Init()
 	LoadTGA( &TileMapTexture[7], "Jump.tga");
 	LoadTGA( &TileMapTexture[8], "ChineseSign.tga");
 	LoadTGA( &TileMapTexture[9], "HalalSign.tga");
+	LoadTGA( &TileMapTexture[10], "MalayVillage.tga");
 	//LoadTGA( &TileMapTexture[0], "tile0_blank");
 
 
@@ -152,8 +231,13 @@ bool myApplication::Init()
 	GSM = CGameStateManager::GetInstance();
 	IM = CImageManager::GetInstance();
 	OM = new CObjectManager();
-	
+	IM->RegisterTGA("back.tga");
+	tempimage = IM->GetTGAImage("back.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
+
+	IM->RegisterTGA("health.tga");
+	HeartShape.Init(1);
+	HeartShape.OverrideTGATexture(IM->GetTGAImage("health.tga"));
 
 	playerOne = OM->manufacturer->CreateChineseMale();
 	playerTwo = OM->manufacturer->CreateMalayFemale();
@@ -165,6 +249,8 @@ bool myApplication::Init()
 	theAIOne->SetPos(Vector3(624,80,0));
 	theAITwo->SetPos(Vector3(304,80,0));
 
+	playerOneHud = new CSprite(*playerOne->theSprite);
+	playerTwoHud = new CSprite(*playerTwo->theSprite);
 
 	CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
 	lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
@@ -386,6 +472,14 @@ bool myApplication::Update()
 						OM->AddObject(temp);
 						malayptsList.push_back(temp);
 					}
+					else if(thing2 == "CHp")
+					{
+						//CChineseHpReduce* temp = CManufactureManager::GetInstance()->cre
+					}
+					else if(thing2 == "MHp")
+					{
+
+					}
 					else if(thing2 == "HpAdd")
 					{
 						CHealthPU* temp = CManufactureManager::GetInstance()->CreatePowerUpRecovery();
@@ -564,10 +658,39 @@ bool myApplication::Update()
 					bs.Read(z);
 					other->phys.vel.Set(x,y,z);
 				}
+
 				else if(temp2=="ENEMY")
 				{
 					//read pos
 					//set pos
+
+				else if(temp2=="ChineseMob")
+				{
+					unsigned short id1,id2;
+					int hp;
+					bs.Read(id1);
+					bs.Read(id2);
+					bs.Read(hp);
+					
+					CChineseMob* mob=NULL;
+					CCharacter* character=NULL;
+					for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
+					{
+						if(id1==(*it)->id)
+						{
+							mob=(CChineseMob*)(*it);
+						}
+						else if(id2==(*it)->id)
+						{
+							character=(CCharacter*)(*it);
+						}
+						if(mob!=NULL&&character!=NULL)
+						{
+							break;
+						}
+					}
+					character->hp.SetHealth(hp);
+
 				}
 			}
 			break;
@@ -663,7 +786,13 @@ bool myApplication::Update()
 		}
 		if(keyboard->myKeys['a'] == false && keyboard->myKeys['d'] == false)
 			{
-				playerOne->phys.vel.x = 0;
+				if(charControl==1||charControl==3)
+					playerOne->phys.vel.x = 0;
+				else if(charControl==2)
+				{
+					playerTwo->phys.vel.x=0;
+				}
+
 				keyboard->myKeys['a'] = false;
 				keyboard->myKeys['d'] = false;
 			}
@@ -699,35 +828,43 @@ bool myApplication::Update()
 			}
 
 		}
-		if(velChanged==true)
+		if(sendPos)
 		{
-			//send vel message
-			BitStream bs;
-			unsigned char msgID=ID_VEL_CHANGED;
-			bs.Write(msgID);
-			bs.Write(charControl);
-			switch(charControl)
+			if(MVCTime::GetInstance()->TestTime(timeRef))
 			{
-			case 1:
-				bs.Write(playerOne->phys.vel.x);
-				bs.Write(playerOne->phys.vel.y);
-				bs.Write(playerOne->phys.vel.z);
-				bs.Write(playerOne->pos.x);
-				bs.Write(playerOne->pos.y);
-				bs.Write(playerOne->pos.z);
-				break;
-			case 2:
-				bs.Write(playerTwo->phys.vel.x);
-				bs.Write(playerTwo->phys.vel.y);
-				bs.Write(playerTwo->phys.vel.z);
-				bs.Write(playerTwo->pos.x);
-				bs.Write(playerTwo->pos.y);
-				bs.Write(playerTwo->pos.z);
-				break;
+				//send vel message
+				BitStream bs;
+				unsigned char msgID=ID_VEL_CHANGED;
+				bs.Write(msgID);
+				bs.Write(charControl);
+				switch(charControl)
+				{
+				case 1:
+					bs.Write(playerOne->phys.vel.x);
+					bs.Write(playerOne->phys.vel.y);
+					bs.Write(playerOne->phys.vel.z);
+					bs.Write(playerOne->pos.x);
+					bs.Write(playerOne->pos.y);
+					bs.Write(playerOne->pos.z);
+					break;
+				case 2:
+					bs.Write(playerTwo->phys.vel.x);
+					bs.Write(playerTwo->phys.vel.y);
+					bs.Write(playerTwo->phys.vel.z);
+					bs.Write(playerTwo->pos.x);
+					bs.Write(playerTwo->pos.y);
+					bs.Write(playerTwo->pos.z);
+					break;
+				}
+				rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+				velChanged=false;
 			}
-			rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
-			velChanged=false;
 		}
+		else
+		{
+			MVCTime::GetInstance()->ResetTime(timeRef);
+		}
+		sendPos=true;
 	}
 #endif
 
@@ -755,6 +892,7 @@ bool myApplication::Update()
 #endif
 
 	Map->RunMap();
+//	win->
 		
 	return true;
 }
@@ -803,8 +941,10 @@ void myApplication::RenderBackground()
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
-		glBindTexture(GL_TEXTURE_2D, BackgroundTexture[0].texID);
-		//glBindTexture(GL_TEXTURE_2D, IM->GetTGAImage("sonia2.tga")->texID);
+		//glBindTexture(GL_TEXTURE_2D, BackgroundTexture[0].texID);
+		glBindTexture(GL_TEXTURE_2D, IM->GetTGAImage("back.tga")->texID);
+		
+		//glBindTexture(GL_TEXTURE_2D, tempimage->texID);
 		glPushMatrix();
 			glBegin(GL_QUADS);
 				int height = 100 * 1.333/1.5;
@@ -820,11 +960,67 @@ void myApplication::RenderBackground()
 	
 }
 
+void myApplication::RenderCharacterHealthHud(CCharacter* a_character,float startingPosX,float startingPosY,float paddingX,bool buildToRight)
+{
+	if(buildToRight)
+	{
+		glPushMatrix();
+		glTranslatef(startingPosX,startingPosY,0);
+			for(unsigned short i = 0; i < a_character->hp.GetHealth();++i)
+			{
+				glTranslatef(paddingX,0,0);
+				HeartShape.Render();
+			}
+		
+		glPopMatrix();
+	}else
+	{
+		glPushMatrix();
+		glTranslatef(startingPosX,startingPosY,0);
+			for(unsigned short i = 0; i < a_character->hp.GetHealth();++i)
+			{
+				glTranslatef(-paddingX,0,0);
+				HeartShape.Render();
+			}
+		
+		glPopMatrix();
+	}
+}
+
+void myApplication::RenderPlayerOneHUD()
+{
+	glPushMatrix();
+
+			glPushMatrix();
+				playerOneHud->SetImageSize(TILE_SIZE*1.5,TILE_SIZE*1.5);
+				glTranslatef(WM->GetOriginalWindowWidth()*0.1,playerOneHud->GetImageSizeY()*0.5,0);
+				playerOneHud->Render();
+			glPopMatrix();
+
+			RenderCharacterHealthHud(playerOne,WM->GetOriginalWindowWidth()*0.1 +playerOneHud->GetImageSizeX()*0.5,playerOneHud->GetImageSizeY()*0.5,playerOne->theSprite->GetImageSizeX(),true);
+	glPopMatrix();
+}
+void myApplication::RenderPlayerTwoHUD()
+{
+	glPushMatrix();
+
+			glPushMatrix();
+				playerTwoHud->SetImageSize(TILE_SIZE*1.5,TILE_SIZE*1.5);
+				glTranslatef(WM->GetOriginalWindowWidth()*0.9,playerTwoHud->GetImageSizeY()*0.5,0);
+				playerTwoHud->Render();
+			glPopMatrix();
+
+			RenderCharacterHealthHud( playerTwo, WM->GetOriginalWindowWidth()*0.9 - playerTwoHud->GetImageSizeX()*0.5, playerTwoHud->GetImageSizeY()*0.5,playerTwo->theSprite->GetImageSizeX(),false);
+	glPopMatrix();
+}
 void myApplication::Render2D()
 {	
 	
 	RenderBackground();
 	RenderTileMap();
+	
+	RenderPlayerOneHUD();
+	RenderPlayerTwoHUD();
 
 #ifdef DEBUG_CODE
 	//uncomment this to render the spatial partition grid

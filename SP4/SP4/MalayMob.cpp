@@ -72,6 +72,7 @@ bool CMalayMob :: Render()
 
 bool CMalayMob :: OnCollision2(CBaseObject* a_obj,bool again)
 {
+
 	if(clock() - timer > 5000)
 	{
 #ifdef NETWORK_CODE
@@ -95,6 +96,7 @@ bool CMalayMob :: OnCollision2(CBaseObject* a_obj,bool again)
 #endif
 	timer = clock();
 	}
+
 	return true;
 }
 

@@ -104,6 +104,8 @@ void CSplashState::MouseMove (int x, int y)
 
 	mouse->lastX = x;
 	mouse->lastY = y;
+	mouse->gameX=mouse->lastX/WM->GetWindowRatioDifferenceX();
+	mouse->gameY=mouse->lastY/WM->GetWindowRatioDifferenceY();
 }
 
 void CSplashState::MouseClick(int button, int state, int x, int y)

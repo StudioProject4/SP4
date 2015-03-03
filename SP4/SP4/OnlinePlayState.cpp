@@ -104,6 +104,8 @@ void COnlinePlayState::MouseMove (int x, int y)
 
 	mouse->lastX = x;
 	mouse->lastY = y;
+	mouse->gameX=mouse->lastX/WM->GetWindowRatioDifferenceX();
+	mouse->gameY=mouse->lastY/WM->GetWindowRatioDifferenceY();
 }
 
 void COnlinePlayState::MouseClick(int button, int state, int x, int y)
@@ -298,6 +300,9 @@ bool COnlinePlayState::Init()
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
+	IM->RegisterTGA("BackButton.tga");
+	IM->RegisterTGA("CreateGameButton.tga");
+	IM->RegisterTGA("JoinGameButton.tga");
 
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
@@ -307,44 +312,44 @@ bool COnlinePlayState::Init()
 
 	a_button = new CUIButtonRectangle();
 	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("kaede.tga"));
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("CreateGameButton.tga"));
 	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.35);
 	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
-	a_button->name ="SinglePlayerButton";
+	a_button->name ="CreateGameButton";
 	buttonList.push_back(a_button);
 
 	a_button = new CUIButtonRectangle();
 	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("JoinGameButton.tga"));
 	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.6);
 	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
-	a_button->name ="OnlinePlayButton";
+	a_button->name ="JoinGameButton";
 	buttonList.push_back(a_button);
 
-	a_button = new CUIButtonRectangle();
-	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.85);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
-	a_button->name ="OptionButton";
-	buttonList.push_back(a_button);
+	//a_button = new CUIButtonRectangle();
+	//a_button->ownTexture.Init(1);
+	//a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
+	//a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.85);
+	//a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	//a_button->name ="OptionButton";
+	//buttonList.push_back(a_button);
 
 
 	a_button = new CUIButtonCircle();
 	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("BackButton.tga"));
 	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1,WM->GetOriginalWindowHeight()*0.9);
 	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
-	a_button->name ="CreditButton";
+	a_button->name ="BackButton";
 	buttonList.push_back(a_button);
 
-	a_button = new CUIButtonCircle();
-	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.9,WM->GetOriginalWindowHeight()*0.9);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
-	a_button->name ="ExitButton";
-	buttonList.push_back(a_button);
+	//a_button = new CUIButtonCircle();
+	//a_button->ownTexture.Init(1);
+	//a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	//a_button->SetPosition(WM->GetOriginalWindowWidth()*0.9,WM->GetOriginalWindowHeight()*0.9);
+	//a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
+	//a_button->name ="ExitButton";
+	//buttonList.push_back(a_button);
 	
 
 	return true;
@@ -408,40 +413,25 @@ void COnlinePlayState::RenderBackground()
  {
 	 if(mouse->CheckLeftButtonReleased())
 	 {
-		 if(buttonName == "SinglePlayerButton")
+		 MS->PlaySoundPoolTrack2D("sound1.mp3");
+		 if(buttonName == "CreateGameButton")
 		 {
 			 //if(mouse->CheckLeftButtonReleased())
 			 // {
-			 GSM->ChangeState(myApplication::GetInstance());
+			 // GSM->ChangeState(myApplication::GetInstance());
 			 // }
 		 }else
-			 if(buttonName == "OnlinePlayButton")
+			 if(buttonName == "JoinGameButton")
 			 {
 				 // if(mouse->CheckLeftButtonReleased())
 				 // {
-				 GSM->ChangeState(myApplication::GetInstance());
+				 //GSM->ChangeState(myApplication::GetInstance());
 				 //}
 			 }else
-				 if(buttonName == "OptionButton")
+				 if(buttonName == "BackButton")
 				 {
-					 // if(mouse->CheckLeftButtonReleased())
-					 // {
-					 GSM->ChangeState(myApplication::GetInstance());
-					 // }
-				 }else
-					 if(buttonName == "CreditButton")
-					 {
-						 // if(mouse->CheckLeftButtonReleased())
-						 // {
-						 GSM->ChangeState(myApplication::GetInstance());
-						 // }
-					 }else
-						 if(buttonName == "ExitButton")
-						 {
-							 // if(mouse->CheckLeftButtonReleased())
-							 // {
-							 GSM->ExitApplication();
-							 // }
-						 }
+					 GSM->GoToPreviousState();
+				 }
+
 	 }
  }

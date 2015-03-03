@@ -93,8 +93,8 @@ bool CChineseMob :: OnCollision2(CBaseObject* a_obj,bool again)
 			unsigned char msgID=ID_OBJ_UPDATE;
 			RakNet::BitStream bs;
 			bs.Write(msgID);
-			bs.Write(this->id);
 			bs.Write(this->tag);
+			bs.Write(this->id);
 			bs.Write(a_obj->id);
 			bs.Write(temp->hp.GetHealth());
 			RakNet::RakPeerInterface::GetInstance()->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,RakNet::UNASSIGNED_SYSTEM_ADDRESS,true);
