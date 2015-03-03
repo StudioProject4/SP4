@@ -7,7 +7,7 @@
 
 static float myRoundFunc(float toRound)
 {
-  return std::ceil(toRound - 0.5);
+  return std::ceil(toRound - 0.5f);
 }
 
 CSpatialPartion::CSpatialPartion(short gridWidth,short gridHeight,short cellSizeX,short cellSizeY)
@@ -19,8 +19,8 @@ CSpatialPartion::CSpatialPartion(short gridWidth,short gridHeight,short cellSize
 		,numCellY(0)
 		,objectAllDeletedOutside(false)
 {
-	numCellX = ceil((float) gridWidth/cellSizeX);
-	numCellY = ceil((float) gridHeight/cellSizeY);
+	numCellX =  ((short)ceil(((float) gridWidth/cellSizeX)));
+	numCellY =  ((short)ceil(((float) gridHeight/cellSizeY)));
 
 	//allocate the cell list.
 	cellList.resize(numCellX*numCellY);
@@ -119,10 +119,10 @@ std::vector<Cell*> CSpatialPartion::GetObjectMultipleCells(CBaseObject* a_obj)
 {
 	std::vector<Cell*> CellMultipleAcrossed;
 
-	for(int y = a_obj->TopLeftCellIndex.y; y <=a_obj->BottomRightCellIndex.y;   ++y)//because the screen is flipped so it is revesed/
+	for(int y = (int)a_obj->TopLeftCellIndex.y; y <=(int)a_obj->BottomRightCellIndex.y;   ++y)//because the screen is flipped so it is revesed/
 	{
 		//cout<<"Looping through"<<y<<std::endl;
-		for(int x = a_obj->TopLeftCellIndex.x; x <=a_obj->BottomRightCellIndex.x;++x)
+		for(int x = (int)a_obj->TopLeftCellIndex.x; x <=(int)a_obj->BottomRightCellIndex.x;++x)
 		{
 			//std::cout<<"Index X:"<<x<<" Index Y: "<<y<<std::endl;
 			CellMultipleAcrossed.push_back(GetCell(x,y));
@@ -259,19 +259,19 @@ void CSpatialPartion::RenderSquare(float posX,float posY, float sizeX,float size
 	//glVertex2f(right,bottom);//bottom right
 	//glVertex2f(left,bottom); //bottom left
 
-	glVertex2f((posX - (sizeX * 0.5)),(posY + (sizeY*0.5)));//top left
-	glVertex2f((posX + (sizeX * 0.5)),(posY + (sizeY*0.5)));//top right
-	glVertex2f((posX + (sizeX * 0.5)),(posY - (sizeY*0.5)));//bottom right
-	glVertex2f((posX - (sizeX * 0.5)),(posY - (sizeY*0.5))); //bottom left
+	glVertex2f((posX - (sizeX * 0.5f)),(posY + (sizeY*0.5f)));//top left
+	glVertex2f((posX + (sizeX * 0.5f)),(posY + (sizeY*0.5f)));//top right
+	glVertex2f((posX + (sizeX * 0.5f)),(posY - (sizeY*0.5f)));//bottom right
+	glVertex2f((posX - (sizeX * 0.5f)),(posY - (sizeY*0.5f))); //bottom left
 	glEnd();
 
 	glColor3f(1,1,1);
 	glBegin(GL_LINE_STRIP);
-	glVertex2f((posX - (sizeX * 0.5)),(posY + (sizeY*0.5)));//top left
-	glVertex2f((posX + (sizeX * 0.5)),(posY + (sizeY*0.5)));//top right
-	glVertex2f((posX + (sizeX * 0.5)),(posY - (sizeY*0.5)));//bottom right
-	glVertex2f((posX - (sizeX * 0.5)),(posY - (sizeY*0.5))); //bottom left
-	glVertex2f((posX - (sizeX * 0.5)),(posY + (sizeY*0.5)));//top left
+	glVertex2f((posX - (sizeX * 0.5f)),(posY + (sizeY*0.5f)));//top left
+	glVertex2f((posX + (sizeX * 0.5f)),(posY + (sizeY*0.5f)));//top right
+	glVertex2f((posX + (sizeX * 0.5f)),(posY - (sizeY*0.5f)));//bottom right
+	glVertex2f((posX - (sizeX * 0.5f)),(posY - (sizeY*0.5f))); //bottom left
+	glVertex2f((posX - (sizeX * 0.5f)),(posY + (sizeY*0.5f)));//top left
 	glEnd();
 
 	glPopMatrix();
@@ -297,7 +297,7 @@ void CSpatialPartion::RenderGrid()
 		//subPosY = ((y+1)*cellSizeY - (cellSizeY*0.5));
 		//std::cout<<subPosY<<std::endl;
 
-		RenderSquare( ((x+1)*cellSizeX - (cellSizeX*0.5)),((y+1)*cellSizeY - (cellSizeY*0.5)),cellSizeX,cellSizeY);
+		RenderSquare( ((x+1)*cellSizeX - (cellSizeX*0.5f)),((y+1)*cellSizeY - (cellSizeY*0.5f)),cellSizeX,cellSizeY);
 	
 		//RenderSquare( (( (x+1) *gridWidth) - (gridWidth*0.5)) *0.5,(( (y+1) *gridHeight) + (gridHeight*0.5)) *0.5,cellSizeX,cellSizeY);
 	}

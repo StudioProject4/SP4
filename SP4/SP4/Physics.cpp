@@ -74,7 +74,7 @@ void CPhysics::Jump()
 
 Vector3 CPhysics::Update(Vector3 pos)
 {
-	float delta=0.06;
+	float delta=0.06f;
 	int maptilex=0;
 	int maptiley=0;
 	//if (vel.y>0)//if moving upwards check on top not below
@@ -99,17 +99,17 @@ Vector3 CPhysics::Update(Vector3 pos)
 		if(TestColMap(pos,false,false,true,false,map))
 		{
 			vel.x=0;
-			//pos.x=(float)(((int)(pos.x/TILE_SIZE))*TILE_SIZE)+TILE_SIZE*0.495;//casted to int to remove the remainder then back to float
+			//pos.x=(float)(((int)(pos.x/TILE_SIZE))*TILE_SIZE)+TILE_SIZE*0.495f;//casted to int to remove the remainder then back to float
 		}
 	}
 	if(vel.y>0)
 	{
 		if(TestColMap(pos,false,true,false,false,map))
 		{
-			int temp=getTile(pos+Vector3(0,size.y*0.5,0)+vel*delta);
+			int temp=getTile(pos+Vector3(0,size.y*0.5f,0)+vel*delta);
 			vel.y=0;
 			inAir=false;
-			pos.y=(float)(((int)(pos.y/TILE_SIZE))*TILE_SIZE)+TILE_SIZE*0.495;//casted to int to remove the remainder then back to float
+			pos.y=(float)(((int)(pos.y/TILE_SIZE))*TILE_SIZE)+TILE_SIZE*0.495f;//casted to int to remove the remainder then back to float
 		}
 		else
 		{
@@ -121,7 +121,7 @@ Vector3 CPhysics::Update(Vector3 pos)
 	{
 		if(TestColMap(pos,true,false,false,false,map))
 		{
-			int temp=getTile(pos+Vector3(0,-size.y*0.5,0)+vel*delta);
+			int temp=getTile(pos+Vector3(0,-size.y*0.5f,0)+vel*delta);
 			vel.y=0;
 			//pos.y=(float)(((int)(pos.y/TILE_SIZE))*TILE_SIZE)+TILE_SIZE*0.4;//casted to int to remove the remainder then back to float
 
@@ -156,10 +156,10 @@ bool CPhysics::TestColMap(Vector3 pos,
 								   bool m_bCheckUpwards, bool m_bCheckDownwards, 
 								   bool m_bCheckLeft, bool m_bCheckRight, CMap* map,int x_offset,int y_offset)
 {
-	float delta=0.0166;
+	float delta=0.0166f;
 	//The pos.x and pos.y are the top left corner of the hero, so we find the tile which this position occupies.
-	int tile_topleft_x = (int)floor((float)(x_offset+pos.x+vel.x*delta-TILE_SIZE*0.5) / TILE_SIZE);
-	int tile_topleft_y = (int)floor((float)(y_offset+pos.y+vel.y*delta-TILE_SIZE*0.5)/ TILE_SIZE);
+	int tile_topleft_x = (int)floor((float)(x_offset+pos.x+vel.x*delta-TILE_SIZE*0.5f) / TILE_SIZE);
+	int tile_topleft_y = (int)floor((float)(y_offset+pos.y+vel.y*delta-TILE_SIZE*0.5f)/ TILE_SIZE);
 	int proceed=false;
 	Vector3 reference[9];
 	int j=0;
@@ -177,14 +177,14 @@ bool CPhysics::TestColMap(Vector3 pos,
 			if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x] == 0)
 			{
 				proceed=true;
-				reference[j].Set((tile_topleft_x)*TILE_SIZE,(tile_topleft_y+1)*TILE_SIZE);
+				reference[j].Set((float)(tile_topleft_x)*TILE_SIZE,(float)(tile_topleft_y+1)*TILE_SIZE);
 				j++;
 			}
 		if((int)(pos.y-TILE_SIZE/2)%32<30)
 			if (map->theScreenMap[tile_topleft_y][tile_topleft_x] == 0)
 			{
 				proceed=true;
-				reference[j].Set((tile_topleft_x)*TILE_SIZE,(tile_topleft_y)*TILE_SIZE);
+				reference[j].Set((float)(tile_topleft_x)*TILE_SIZE,(float)(tile_topleft_y)*TILE_SIZE);
 				j++;
 			
 			}
@@ -196,14 +196,14 @@ bool CPhysics::TestColMap(Vector3 pos,
 			if (map->theScreenMap[tile_topleft_y][tile_topleft_x+1] == 0)
 			{
 				proceed=true;
-				reference[j].Set((tile_topleft_x+1)*TILE_SIZE,(tile_topleft_y)*TILE_SIZE);
+				reference[j].Set((float)(tile_topleft_x+1)*TILE_SIZE,(float)(tile_topleft_y)*TILE_SIZE);
 				j++;
 			}
 		
 		if((int)(pos.y-TILE_SIZE/2)%32>2)
 			if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x+1] == 0)
 			{
-				reference[j].Set((tile_topleft_x+1)*TILE_SIZE,(tile_topleft_y+1)*TILE_SIZE);
+				reference[j].Set((float)(tile_topleft_x+1)*TILE_SIZE,(float)(tile_topleft_y+1)*TILE_SIZE);
 				proceed=true;
 				j++;
 			}
@@ -215,7 +215,7 @@ bool CPhysics::TestColMap(Vector3 pos,
 			if (map->theScreenMap[tile_topleft_y][tile_topleft_x] == 0)
 			{
 				proceed=true;
-				reference[j].Set((tile_topleft_x)*TILE_SIZE,(tile_topleft_y)*TILE_SIZE);
+				reference[j].Set((float)(tile_topleft_x)*TILE_SIZE,(float)(tile_topleft_y)*TILE_SIZE);
 				j++;
 			}
 			
@@ -223,7 +223,7 @@ bool CPhysics::TestColMap(Vector3 pos,
 			if (map->theScreenMap[tile_topleft_y][tile_topleft_x+1] == 0)
 			{
 				proceed=true;
-				reference[j].Set((tile_topleft_x+1)*TILE_SIZE,(tile_topleft_y)*TILE_SIZE);
+				reference[j].Set((float)(tile_topleft_x+1)*TILE_SIZE,(float)(tile_topleft_y)*TILE_SIZE);
 				j++;
 			}
 	}
@@ -234,14 +234,14 @@ bool CPhysics::TestColMap(Vector3 pos,
 		if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x] == 0)
 		{
 			proceed=true;
-			reference[j].Set((tile_topleft_x)*TILE_SIZE,(tile_topleft_y+1)*TILE_SIZE);
+			reference[j].Set((float)(tile_topleft_x)*TILE_SIZE,(float)(tile_topleft_y+1)*TILE_SIZE);
 			j++;
 		}
 		if((int)(pos.x-TILE_SIZE/2)%32>2)
 		if (map->theScreenMap[tile_topleft_y+1][tile_topleft_x+1] == 0)
 		{
 			proceed=true;
-			reference[j].Set((tile_topleft_x+1)*TILE_SIZE,(tile_topleft_y+1)*TILE_SIZE);
+			reference[j].Set((float)(tile_topleft_x+1)*TILE_SIZE,(float)(tile_topleft_y+1)*TILE_SIZE);
 			j++;
 		}
 	}

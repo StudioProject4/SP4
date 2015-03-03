@@ -40,7 +40,8 @@ bool CMouse::Init()
 	tag = "mouse";
 	middleButtonUp = mLButtonUp =  mRButtonUp = false;
 	lastLButtonState = lastRButtonState = lastMiddleButtonState = false;
-	gameX = gameY = lastY = lastX = 0;
+	gameX = gameY = 0.f;
+	lastY = lastX = 0;
 	sensitivity = 0.5f;
 	return true;
 }

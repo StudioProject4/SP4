@@ -956,7 +956,7 @@ void myApplication::RenderBackground()
 		//glBindTexture(GL_TEXTURE_2D, tempimage->texID);
 		glPushMatrix();
 			glBegin(GL_QUADS);
-				int height = 100 * 1.333/1.5;
+				//int height = 100 * 1.333f/1.5f;
 				glTexCoord2f(0,0); glVertex2f(0,800);
 				glTexCoord2f(1,0); glVertex2f(1024,800);
 				glTexCoord2f(1,1); glVertex2f(1024,0);
@@ -1001,12 +1001,12 @@ void myApplication::RenderPlayerOneHUD()
 	glPushMatrix();
 
 			glPushMatrix();
-				playerOneHud->SetImageSize(TILE_SIZE*1.5,TILE_SIZE*1.5);
-				glTranslatef(WM->GetOriginalWindowWidth()*0.1,playerOneHud->GetImageSizeY()*0.5,0);
+				playerOneHud->SetImageSize(TILE_SIZE*1.5f,TILE_SIZE*1.5f);
+				glTranslatef(WM->GetOriginalWindowWidth()*0.1f,playerOneHud->GetImageSizeY()*0.5f,0);
 				playerOneHud->Render();
 			glPopMatrix();
 
-			RenderCharacterHealthHud(playerOne,WM->GetOriginalWindowWidth()*0.1 +playerOneHud->GetImageSizeX()*0.5,playerOneHud->GetImageSizeY()*0.5,playerOne->theSprite->GetImageSizeX(),true);
+			RenderCharacterHealthHud(playerOne,WM->GetOriginalWindowWidth()*0.1f +playerOneHud->GetImageSizeX()*0.5f,playerOneHud->GetImageSizeY()*0.5f,playerOne->theSprite->GetImageSizeX(),true);
 	glPopMatrix();
 }
 void myApplication::RenderPlayerTwoHUD()
@@ -1014,12 +1014,12 @@ void myApplication::RenderPlayerTwoHUD()
 	glPushMatrix();
 
 			glPushMatrix();
-				playerTwoHud->SetImageSize(TILE_SIZE*1.5,TILE_SIZE*1.5);
-				glTranslatef(WM->GetOriginalWindowWidth()*0.9,playerTwoHud->GetImageSizeY()*0.5,0);
+				playerTwoHud->SetImageSize(TILE_SIZE*1.5f,TILE_SIZE*1.5f);
+				glTranslatef(WM->GetOriginalWindowWidth()*0.9f,playerTwoHud->GetImageSizeY()*0.5f,0);
 				playerTwoHud->Render();
 			glPopMatrix();
 
-			RenderCharacterHealthHud( playerTwo, WM->GetOriginalWindowWidth()*0.9 - playerTwoHud->GetImageSizeX()*0.5, playerTwoHud->GetImageSizeY()*0.5,playerTwo->theSprite->GetImageSizeX(),false);
+			RenderCharacterHealthHud( playerTwo, WM->GetOriginalWindowWidth()*0.9f - playerTwoHud->GetImageSizeX()*0.5f, playerTwoHud->GetImageSizeY()*0.5f,playerTwo->theSprite->GetImageSizeX(),false);
 	glPopMatrix();
 }
 void myApplication::Render2D()

@@ -303,7 +303,7 @@ bool CCreditState::Init()
 	IM->RegisterTGA("BackButton.tga");
 
 	backgroundImage[0].Init(1,1,0);
-	backgroundImage[0].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
+	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("kaede.tga"));
 
 	CUIButton* a_button = 0;
@@ -336,8 +336,8 @@ bool CCreditState::Init()
 	a_button = new CUIButtonCircle();
 	a_button->ownTexture.Init(1);
 	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("BackButton.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1,WM->GetOriginalWindowHeight()*0.9);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1f,WM->GetOriginalWindowHeight()*0.9f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08f,WM->GetOriginalWindowHeight()*0.08f);
 	a_button->name ="BackButton";
 	buttonList.push_back(a_button);
 

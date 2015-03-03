@@ -331,7 +331,7 @@ bool COnlinePlayState::Init()
 	IM->RegisterTGA("JoinGameButton.tga");
 
 	backgroundImage[0].Init(1,1,0);
-	backgroundImage[0].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
+	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
 
 	CUIButton* a_button = 0;
@@ -339,16 +339,16 @@ bool COnlinePlayState::Init()
 	a_button = new CUIButtonRectangle();
 	a_button->ownTexture.Init(1);
 	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("CreateGameButton.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.35);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.35f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45f,WM->GetOriginalWindowHeight()*0.2f);
 	a_button->name ="CreateGameButton";
 	buttonList.push_back(a_button);
 
 	a_button = new CUIButtonRectangle();
 	a_button->ownTexture.Init(1);
 	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("JoinGameButton.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.6);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.6f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45f,WM->GetOriginalWindowHeight()*0.2f);
 	a_button->name ="JoinGameButton";
 	buttonList.push_back(a_button);
 
@@ -364,8 +364,8 @@ bool COnlinePlayState::Init()
 	a_button = new CUIButtonCircle();
 	a_button->ownTexture.Init(1);
 	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("BackButton.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1,WM->GetOriginalWindowHeight()*0.9);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1f,WM->GetOriginalWindowHeight()*0.9f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08f,WM->GetOriginalWindowHeight()*0.08f);
 	a_button->name ="BackButton";
 	buttonList.push_back(a_button);
 

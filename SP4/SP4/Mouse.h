@@ -8,7 +8,7 @@ public:
 	bool mRButtonUp;
 	bool middleButtonUp;
 	int  lastX, lastY;
-	int gameX,gameY;
+	float gameX,gameY;
 	float sensitivity;
 	bool lastLButtonState;
 	bool lastRButtonState;

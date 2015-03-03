@@ -204,7 +204,7 @@ void CKeeYangTestState::KeyboardDown(unsigned char key, int x, int y)
 			system("cls");
 			break;
 		case 'p':
-			for(short i = 0 ; i<ballList[0]->ownerCellList.size();++i)
+			for(unsigned short i = 0 ; i<ballList[0]->ownerCellList.size();++i)
 			{
 				std::cout<<ballList[0]->ownerCellList[i]<<std::endl;
 			}
@@ -416,7 +416,7 @@ bool CKeeYangTestState::Init()
 
 	SP = new CSpatialPartion((short)WM->GetWindowWidth(),(short)WM->GetWindowHeight(),32,32);
 	OM->ChangeSpatialParition(SP);
-	for(short i2 = 0; i2<ballList.size();++i2)
+	for(unsigned short i2 = 0; i2<ballList.size();++i2)
 	{
 		OM->AddObject(ballList[i2]);
 		

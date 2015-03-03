@@ -322,16 +322,16 @@ bool CSplashState::Init()
 
 	IM->RegisterTGA("flare.tga");
 	backgroundImage[0].Init(5,1,0);
-	backgroundImage[0].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
+	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("flare.tga"));
 
 	backgroundImage[1].Init(1,1,0);
-	backgroundImage[1].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
+	backgroundImage[1].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
 	backgroundImage[1].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
 
 
 	backgroundFade = new CSpriteFadeExtend(&backgroundImage[0]);
-	backgroundFade->SetFrameInterval(160);
+	backgroundFade->SetFrameInterval(160.f);
 	backgroundFade->SetFadingSpeed(0.01f);
 	backgroundFade->SetFadeInMode(0.1f);
 

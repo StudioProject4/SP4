@@ -148,8 +148,8 @@ searchResult CMap::lookupPosition(Vector3 currentPosition,bool strict)
 	bool xfound = false;
 	bool yfound = false;
 	searchResult result;
-	short minX = (currentPosition.x / TILE_SIZE) -1;
-	short minY = (currentPosition.y / TILE_SIZE) -1;
+	short minX = (short)(currentPosition.x / TILE_SIZE) -1;
+	short minY = (short)(currentPosition.y / TILE_SIZE) -1;
 	short maxX = minX + 2;
 	short maxY = minY + 2;
 	//cout <<"minX: "<< minX << endl;
@@ -177,11 +177,13 @@ searchResult CMap::lookupPosition(Vector3 currentPosition,bool strict)
 		}
 		if (xfound == false)//safety net,in case the object is not centered in the cell
 		{
-			result.xIndex = result.xFloat = currentPosition.x / TILE_SIZE;
+			result.xFloat = currentPosition.x / TILE_SIZE;
+			result.xIndex = (short)result.xFloat;
 		}
 		if (yfound == false)
 		{
-			result.yIndex = result.yFloat = currentPosition.y / TILE_SIZE;
+			result.yFloat = currentPosition.y / TILE_SIZE;
+			result.yIndex = (short)result.yFloat;
 		}
 	}
 	else
@@ -208,8 +210,8 @@ searchResult CMap::lookPositionText(Vector3 currentPosition, bool strict)
 	bool xfound = false;
 	bool yfound = false;
 	searchResult result;
-	short minX = (currentPosition.x / TILE_SIZE) -1;
-	short minY = (currentPosition.y / TILE_SIZE) -1;
+	short minX =  (short)(currentPosition.x / TILE_SIZE) -1;
+	short minY =  (short)(currentPosition.y / TILE_SIZE) -1;
 	short maxX = minX + 2;
 	short maxY = minY + 2;
 	//cout <<"minX: "<< minX << endl;
@@ -237,11 +239,13 @@ searchResult CMap::lookPositionText(Vector3 currentPosition, bool strict)
 		}
 		if (xfound == false)//safety net,in case the object is not centered in the cell
 		{
-			result.xIndex = result.xFloat = currentPosition.x / TILE_SIZE;
+			result.xFloat = currentPosition.x / TILE_SIZE;
+			result.xIndex = (short)result.xFloat;
 		}
 		if (yfound == false)
 		{
-			result.yIndex = result.yFloat = currentPosition.y / TILE_SIZE;
+			result.yFloat = currentPosition.y / TILE_SIZE;
+			result.yIndex = (short)result.yFloat;
 		}
 	}
 	else
@@ -284,8 +288,8 @@ searchResult CMap::lookupPosition(float x, float y, float z,bool strict)
 	bool xfound = false;
 	bool yfound = false;
 	searchResult result;
-	short minX = (x / TILE_SIZE) - 1;
-	short minY = (y / TILE_SIZE) - 1;
+	short minX =  (short)(x / TILE_SIZE) - 1;
+	short minY =  (short)(y / TILE_SIZE) - 1;
 	short maxX = minX + 2;
 	short maxY = minY + 2;
 	//cout <<"minX: "<< minX << endl;
@@ -313,11 +317,13 @@ searchResult CMap::lookupPosition(float x, float y, float z,bool strict)
 		}
 		if (xfound == false)//safety net,in case the object is not centered in the cell
 		{
-			result.xIndex = result.xFloat = x / TILE_SIZE;
+			result.xFloat = x / TILE_SIZE;
+			result.xIndex = (short)result.xFloat;
 		}
 		if (yfound == false)
 		{
-			result.yIndex = result.yFloat = y / TILE_SIZE;
+			result.yFloat = y / TILE_SIZE;
+			result.yIndex = (short)result.yFloat;
 		}
 	}
 	else
@@ -493,10 +499,10 @@ std::vector<SContainer2D> CMap::FindValidNearbyGrid(SContainer2D centre)
 {
 	std::vector<SContainer2D> neighbour;
 	SContainer2D tempcontainer;
-	short left = centre.x - 1;
-	short right = centre.x + 1;
-	short up = centre.y - 1;
-	short down = centre.y + 1;
+	short left = (short)centre.x - 1;
+	short right = (short)centre.x + 1;
+	short up = (short)centre.y - 1;
+	short down = (short)centre.y + 1;
 
 	if(left >=0 && left <MAP_WIDTH)
 	{
@@ -544,10 +550,10 @@ std::vector<SContainer2D> CMap::FindValidNearbyGrid(Vector3 centreposition)
 	searchResult centretemp = lookupPosition(centreposition);
 	SContainer2D centre(centretemp.xIndex,centretemp.yIndex);
 	SContainer2D tempcontainer;
-	short left = centre.x - 1;
-	short right = centre.x + 1;
-	short up = centre.y - 1;
-	short down = centre.y + 1;
+	short left =  (short)centre.x - 1;
+	short right =  (short)centre.x + 1;
+	short up =  (short)centre.y - 1;
+	short down =  (short)centre.y + 1;
 
 	if(left >=0 && left <MAP_WIDTH)
 	{

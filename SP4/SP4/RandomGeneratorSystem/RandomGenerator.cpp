@@ -29,7 +29,7 @@ void CRandomGenerator::Init(RNG_MODE mode,RNG_TYPE type)
 		srand (static_cast<unsigned> (time(NULL)));
 	}
 }
-double CRandomGenerator::getImmediateResult(double min,double max)
+int CRandomGenerator::getImmediateResult(int min,int max)
 {
 	if( (randommode == RNG_NON_DETERMINISTIC || randommode == RNG_DETERMINISTIC)  && randomtype == RNG_RAND)
 	{
@@ -64,12 +64,12 @@ double CRandomGenerator::getImmediateResult(double min,double max)
 	}
 	return immediateresult;
 }
-void CRandomGenerator::PopulateResult(double size, double min, double max, RNG_MODE mode, RNG_TYPE type)
+void CRandomGenerator::PopulateResult(int size, int min, int max, RNG_MODE mode, RNG_TYPE type)
 {
-	double result = 0;
+	int result = 0;
 	if( (mode == RNG_NON_DETERMINISTIC || mode == RNG_DETERMINISTIC)  && type == RNG_RAND)
 	{
-		for(double i = 0; i<size;++i)
+		for(int i = 0; i<size;++i)
 		{
 			result = RandIntMinMax(min,max);
 			ResultList.push_back(result);
@@ -83,7 +83,7 @@ void CRandomGenerator::PopulateResult(double size, double min, double max, RNG_M
 
 		uniform_int_distribution<int> dist(min, max);
 
-		for(double i = 0; i<size;++i)
+		for(int i = 0; i<size;++i)
 		{
 			result = dist(mt);
 			ResultList.push_back(result);
@@ -102,7 +102,7 @@ void CRandomGenerator::PopulateResult(double size, double min, double max, RNG_M
 		//MT mt(seed);//dunno why got error =P
 		//have to ve MT mt(10); or some other fix intergel
 		uniform_int_distribution<int> dist(min, max);
-		for(double i = 0; i<size;++i)
+		for(int i = 0; i<size;++i)
 		{
 			result = dist(mt);
 			ResultList.push_back(result);
@@ -113,7 +113,7 @@ void CRandomGenerator::PopulateResult(double size, double min, double max, RNG_M
 	{
 		RD rd;
 		uniform_int_distribution<int> dist(min, max);
-		for(double i = 0; i<size;++i)
+		for(int i = 0; i<size;++i)
 			{
 				result = dist(rd);
 				ResultList.push_back(result);
@@ -121,12 +121,12 @@ void CRandomGenerator::PopulateResult(double size, double min, double max, RNG_M
 	}
 
 }
-void CRandomGenerator::PopulateResult(double size, double min, double max)
+void CRandomGenerator::PopulateResult(int size, int min, int max)
 {
-	double result = 0;
+	int result = 0;
 	if ((randommode == RNG_NON_DETERMINISTIC || randommode == RNG_DETERMINISTIC) && randomtype == RNG_RAND)
 	{
-		for (double i = 0; i<size; ++i)
+		for (int i = 0; i<size; ++i)
 		{
 			result = RandIntMinMax(min, max);
 			ResultList.push_back(result);
@@ -140,7 +140,7 @@ void CRandomGenerator::PopulateResult(double size, double min, double max)
 
 		uniform_int_distribution<int> dist(min, max);
 
-		for (double i = 0; i<size; ++i)
+		for (int i = 0; i<size; ++i)
 		{
 			result = dist(mt);
 			ResultList.push_back(result);
@@ -159,7 +159,7 @@ void CRandomGenerator::PopulateResult(double size, double min, double max)
 		//MT mt(seed);//dunno why got error =P
 		//have to ve MT mt(10); or some other fix intergel
 		uniform_int_distribution<int> dist(min, max);
-		for (double i = 0; i<size; ++i)
+		for (int i = 0; i<size; ++i)
 		{
 			result = dist(mt);
 			ResultList.push_back(result);
@@ -170,7 +170,7 @@ void CRandomGenerator::PopulateResult(double size, double min, double max)
 	{
 		RD rd;
 		uniform_int_distribution<int> dist(min, max);
-		for (double i = 0; i<size; ++i)
+		for (int i = 0; i<size; ++i)
 		{
 			result = dist(rd);
 			ResultList.push_back(result);
@@ -182,7 +182,7 @@ void CRandomGenerator::RecordResult()
 {
 	ResultList.push_back(immediateresult);
 }
-void CRandomGenerator::RecordResult(double result)
+void CRandomGenerator::RecordResult(int result)
 {
 	ResultList.push_back(result);
 }
@@ -213,22 +213,22 @@ string CRandomGenerator::PrintModeText()
 {
 	switch (randommode)
 	{
-		case RNG_MODE::RNG_NONEMODE://not suppose to happen
+		case RNG_NONEMODE://not suppose to happen
 		{
 			return "RNG_NONEMODE";
 		}break;
 
-		case RNG_MODE::RNG_DETERMINISTIC:
+		case RNG_DETERMINISTIC:
 		{
 			return "RNG_DETERMINISTIC";
 		}break;
 
-		case RNG_MODE::RNG_NON_DETERMINISTIC:
+		case RNG_NON_DETERMINISTIC:
 		{
 			return "RNG_NON_DETERMINISTIC";
 		}break;
 
-		case RNG_MODE::RNG_TOTALMODE://not suppose to happen
+		case RNG_TOTALMODE://not suppose to happen
 		{
 			return "RNG_TOTALMODE";
 		}break;
@@ -242,31 +242,31 @@ string CRandomGenerator::PrintTypeText()
 {
 	switch (randomtype)
 	{
-	case RNG_TYPE::RNG_NONETYPE://not suppose to happen
+	case RNG_NONETYPE://not suppose to happen
 	{
 		return "RNG_NONETYPE";
 	}break;
 
-	case RNG_TYPE::RNG_RAND:
+	case RNG_RAND:
 	{
 		return "RNG_RAND";
 	}break;
 
-	case RNG_TYPE::RNG_RANDOM_DEVICE:
+	case RNG_RANDOM_DEVICE:
 	{
 		return "RNG_RANDOM_DEVICE";
 	}break;
 
-	case RNG_TYPE::RNG_RANDOM_TWISTER:
+	case RNG_RANDOM_TWISTER:
 	{
 		return "RNG_RANDOM_TWISTER";
 	}break;
 
-	case RNG_TYPE::RNG_TWISTER:
+	case RNG_TWISTER:
 		return "RNG_TWISTER";
 		break;
 
-	case RNG_TYPE::RNG_TOTAL://not suppose to happen
+	case RNG_TOTAL://not suppose to happen
 		return "RNG_TOTAL";
 		break;
 
