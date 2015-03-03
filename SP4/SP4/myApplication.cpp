@@ -427,6 +427,32 @@ bool myApplication::Update()
 						OM->AddObject(temp);
 						speedList.push_back(temp);
 					}
+					else if(thing == "Enemy")
+					{
+						if(thing2 == "MalayMob")
+						{
+							CMalayMob * temp =  CManufactureManager::GetInstance()->CreateMalayMob(); 
+							temp->Init();
+							temp->SetUpMap(*Map);
+							//temp->AI.SetEnemyPos(Vector3(x,y,z));
+							//temp->pos.Set(x,y,z);
+							temp->SetPos(Vector3(x,y,z));
+							temp->id = id;
+							OM->AddObject(temp);
+						}
+						else if(thing2 == "ChineseMob")
+						{
+							CChineseMob * temp = CManufactureManager::GetInstance()->CreateChineseMob();
+							temp->Init();
+							temp->SetUpMap(*Map);
+							//temp->AI.SetEnemyPos(Vector3(x,y,z));
+							//temp->pos.Set(x,y,z);
+							temp->SetPos(Vector3(x,y,z));
+							temp->id = id;
+							OM->AddObject(temp);
+						}
+					}
+
 				}
 				delete[256] tag;
 				delete[256] genTag; 
@@ -537,6 +563,11 @@ bool myApplication::Update()
 					bs.Read(y);
 					bs.Read(z);
 					other->phys.vel.Set(x,y,z);
+				}
+				else if(temp2=="ENEMY")
+				{
+					//read pos
+					//set pos
 				}
 			}
 			break;

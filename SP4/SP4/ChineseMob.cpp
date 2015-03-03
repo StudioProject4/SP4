@@ -1,5 +1,6 @@
 #include "CodeDefination.h"
 
+
 #ifdef NETWORK_CODE
 #include "RakNet\WindowsIncludes.h"
 #include "RakNet\RakPeerInterface.h"
@@ -26,7 +27,7 @@ bool CChineseMob :: Update()
 {	
 	dir = AI.GetDir();
 	//pos.x = 
-	pos = AI.Update(pos,phys);
+	pos = AI.Update(pos);//,phys);
 	/*if(AI.state == AI_WANDER)
 	{
 		pos.x = phys.Update(pos).x;
@@ -45,6 +46,14 @@ bool CChineseMob :: Init()
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
+
+	timer = clock();
+	Timer = MVCTime :: GetInstance();
+	refTime = Timer->PushNewTime(5000);
+	
+	//if i want reset timer
+	//Timer->SetActive(false,refTime);
+	//Timer->ResetTime(refTime);
 
 	return true;
 }
@@ -69,13 +78,18 @@ bool CChineseMob :: Render()
 
 bool CChineseMob :: OnCollision2(CBaseObject* a_obj,bool again)
 {
-#ifdef NETWORK_CODE
-	if(a_obj->genericTag = "Character")
+	if(Timer->TestTime(refTime))
+	//if(clock() - timer > 5000)
 	{
-		if(a_obj->tag = "MalayFemale")
+
+#ifdef NETWORK_CODE
+	if(a_obj->genericTag == "Character")
+	{
+		if(a_obj->tag == "MalayFemale")
 		{
 			CCharacter* temp=(CCharacter*)a_obj;
-			temp->hp.TakeDMG();
+				temp->hp.TakeDMG();		
+			cout << temp->hp.GetHealth() << endl;
 			unsigned char msgID=ID_OBJ_UPDATE;
 			RakNet::BitStream bs;
 			bs.Write(msgID);
@@ -87,12 +101,15 @@ bool CChineseMob :: OnCollision2(CBaseObject* a_obj,bool again)
 		}
 	}
 #endif
+	timer = clock();
+	}
 	return true;
 }
 
 void CChineseMob :: SetPos(Vector3 newPos)
 {
 	this->pos = newPos;
+	AI.SetOriPos(newPos);
 }
 
 void CChineseMob :: SetUpMap(CMap theMap)

@@ -2,6 +2,8 @@
 #include "BaseObject.h"
 #include "AI.h"
 #include "Sprite.h"
+#include "MVCtime.h"
+#include <time.h>
 
 class CChineseMob : public CBaseObject
 {
@@ -22,6 +24,11 @@ class CChineseMob : public CBaseObject
 
 		CAILogic AI;
 		//CSprite * theSprite;
+
+		MVCTime * Timer ;
+		int refTime;
+
+		clock_t timer;
 	private:
 		
 };

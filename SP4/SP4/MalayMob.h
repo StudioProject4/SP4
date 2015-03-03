@@ -2,6 +2,7 @@
 #include "BaseObject.h"
 #include "AI.h"
 #include "Sprite.h"
+#include <time.h>
 
 class CMalayMob : public CBaseObject
 {
@@ -22,6 +23,8 @@ class CMalayMob : public CBaseObject
 
 		CAILogic AI;
 		//CSprite * theSprite;
+
+		clock_t timer;
 	private:
 		
 };

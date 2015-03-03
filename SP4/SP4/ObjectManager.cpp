@@ -86,7 +86,10 @@ void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObje
 					if(a_obj->phys.TestCol(otherObject->pos,OtherSize))
 					{
 						//std::cout<<"COLLISION RESPONE ACTIVATED "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
-						a_obj->OnCollision(otherObject);
+						if(gen1=="Character")
+							otherObject->OnCollision(a_obj);
+						else 
+							a_obj->OnCollision(otherObject);
 					}
 				}
 			}
@@ -536,7 +539,6 @@ void CObjectManager::WriteAllObjects(RakNet::BitStream &bs)
 		}
 		else if(temp->genericTag=="PowerUp")
 		{
-			int i =0;
 		}
 		else if(temp->tag=="CLeverDoor")
 		{

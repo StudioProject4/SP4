@@ -127,10 +127,6 @@ private:
 	CInvinciblePU InvinOn;
 	CPointSystem* points;
 
-	int x, y;
-	
-	int Scr;
-
 #ifdef NETWORK_CODE
 	STARTUPINFO si;     
 	PROCESS_INFORMATION pi;
