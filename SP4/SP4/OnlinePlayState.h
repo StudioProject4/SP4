@@ -13,9 +13,16 @@ private:
 	CSprite backgroundImage[1];
 	typedef std::vector<CUIButton*> TButtonList;
 	TButtonList buttonList;
-
+	int internalState;
+	std::string ip;
 private:
 	COnlinePlayState(void);
+
+	STARTUPINFO si;     
+	PROCESS_INFORMATION pi;
+	
+	void startupServer(LPCTSTR lpApplicationName);
+	void closeServer(void);
 public:
 	static COnlinePlayState* GetInstance();
 	

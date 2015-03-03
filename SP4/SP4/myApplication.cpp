@@ -31,12 +31,15 @@ myApplication::myApplication(void)
 {
 	//Init();
 }
-myApplication* myApplication::GetInstance()
+myApplication* myApplication::GetInstance(bool multiplayer,string ip)
 {
 	if(instance==NULL)
 	{
 		instance = new myApplication();
+		
 	}
+	instance->isMultiplayer=multiplayer;
+	instance->serverip=ip;
 	return instance;
 }
 
@@ -157,16 +160,15 @@ bool myApplication::ResetLevel(short level)
 		}
 
 		break;
+	case 2:
+
+
+		break;
 	}
 	OM->AddObject(playerOne);
 	OM->AddObject(playerTwo);
 
 
-#ifdef NETWORK_CODE
-	isMultiplayer = false;
-		//charControl=3;
-
-#endif
 
 	//Map->RunMap();
 
@@ -182,29 +184,30 @@ bool myApplication::Init()
 	inited = true;
 
 #ifdef NETWORK_CODE
-	std::ifstream inData;	
-	std::string serverip;
-
-	inData.open("serverip.txt");
-
-	inData >> serverip;
 	
 	//startupServer("server.exe");
 
 	//*
-	if (RAKNET_STARTED == rakpeer_->Startup(1,&SocketDescriptor(), 1))
+	if(isMultiplayer)
 	{
-		rakpeer_->SetOccasionalPing(true);
-		if (!RAKNET_STARTED == rakpeer_->Connect(serverip.c_str(), 1691, 0, 0))
+		if (RAKNET_STARTED == rakpeer_->Startup(1,&SocketDescriptor(), 1))
 		{
-			cout<<"failed";
-			//return false;
+			rakpeer_->SetOccasionalPing(true);
+			if (!RAKNET_STARTED == rakpeer_->Connect(serverip.c_str(), 1691, 0, 0))
+			{
+				cout<<"failed";
+				//return false;
+			}
 		}
+	}
+	else
+	{
+		rakpeer_->Shutdown(100);
 	}
 	rakPeerGlobal=rakpeer_;
 	if(timeRef==-1)
 	{
-		timeRef=MVCTime::GetInstance()->PushNewTime(50);
+		timeRef=MVCTime::GetInstance()->PushNewTime(80);
 	}
 #endif
 	tag = "application";
@@ -244,8 +247,8 @@ bool myApplication::Init()
 	GSM = CGameStateManager::GetInstance();
 	IM = CImageManager::GetInstance();
 	OM = new CObjectManager();
-	IM->RegisterTGA("back.tga");
-	tempimage = IM->GetTGAImage("back.tga");
+	IM->RegisterTGA("background.tga");
+	tempimage = IM->GetTGAImage("background.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
 
 	IM->RegisterTGA("health.tga");
@@ -326,7 +329,6 @@ bool myApplication::Init()
 	theAITwo->phys.map=Map;
 
 #ifdef NETWORK_CODE
-	isMultiplayer = false;
 		charControl=3;
 
 #endif
@@ -898,11 +900,6 @@ bool myApplication::Update()
 		OM->Update(charControl);
 
 
-
-#ifdef NETWORK_CODE
-	//OM->Update(charControl);
-#endif
-
 	Map->RunMap();
 //	win->
 		
@@ -954,7 +951,7 @@ void myApplication::RenderBackground()
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 		//glBindTexture(GL_TEXTURE_2D, BackgroundTexture[0].texID);
-		glBindTexture(GL_TEXTURE_2D, IM->GetTGAImage("back.tga")->texID);
+		glBindTexture(GL_TEXTURE_2D, IM->GetTGAImage("background.tga")->texID);
 		
 		//glBindTexture(GL_TEXTURE_2D, tempimage->texID);
 		glPushMatrix();
@@ -1312,33 +1309,3 @@ void myApplication::SetHUD(bool m_bHUDmode)
 	}
 };
 
-#ifdef NETWORK_CODE
-void myApplication::startupServer(LPCTSTR lpApplicationName)
-{
-	// additional information
-	
-	// set the size of the structures
-	ZeroMemory( &si, sizeof(si) );
-	si.cb = sizeof(si);
-	ZeroMemory( &pi, sizeof(pi) );
-
-	// start the program up
-	CreateProcess( lpApplicationName,   // the path
-		NULL,			// Command line
-		NULL,           // Process handle not inheritable
-		NULL,           // Thread handle not inheritable
-		FALSE,          // Set handle inheritance to FALSE
-		0,              // No creation flags
-		NULL,           // Use parent's environment block
-		NULL,           // Use parent's starting directory 
-		&si,            // Pointer to STARTUPINFO structure
-		&pi );          // Pointer to PROCESS_INFORMATION structure
-}
-
-void myApplication::closeServer()
-{
-	// Close process and thread handles. 
-	CloseHandle( pi.hProcess );
-	CloseHandle( pi.hThread );
-}
-#endif
