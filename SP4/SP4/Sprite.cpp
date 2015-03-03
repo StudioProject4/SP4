@@ -34,6 +34,10 @@ CSprite::CSprite(ushort maxframe,ushort numberoflayer,ushort currentlayer)
 	,currentlayer(currentlayer)
 	,currenttimecounter(0)
 	,lateralinvert(false)
+	,RED(1.f)
+	,BLUE(1.f)
+	,GREEN(1.f)
+	,ALPHA(1.f)
 {
 
 	framesize.x = 1.0f/maxframe;
