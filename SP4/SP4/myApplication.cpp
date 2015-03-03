@@ -161,8 +161,8 @@ bool myApplication::Init()
 	
 	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
 	playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
-	theAIOne->SetPos(Vector3(600,200,0));
-	theAITwo->SetPos(Vector3(300,100,0));
+	theAIOne->SetPos(Vector3(624,80,0));
+	theAITwo->SetPos(Vector3(304,80,0));
 
 
 	CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
@@ -566,6 +566,12 @@ bool myApplication::Update()
 		{
 		
 		}
+		if(keyboard->myKeys['a'] == false && keyboard->myKeys['d'] == false)
+			{
+				playerOne->phys.vel.x = 0;
+				keyboard->myKeys['a'] = false;
+				keyboard->myKeys['d'] = false;
+			}
 		if(charControl==3)
 		{
 			if(keyboard->myKeys['j'] == true)
@@ -589,6 +595,12 @@ bool myApplication::Update()
 			if(keyboard->myKeys['k'] == true)
 			{
 		
+			}
+			if(keyboard->myKeys['j'] == false && keyboard->myKeys['l'] == false)
+			{
+				playerTwo->phys.vel.x = 0;
+				keyboard->myKeys['j'] = false;
+				keyboard->myKeys['l'] = false;
 			}
 
 		}

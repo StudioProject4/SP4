@@ -43,7 +43,7 @@ void CAStarPathFinding ::SetUpGraph(CMap theMap)
 		for(int j = 0 ; j < this->maxHorizontalTile ; j++)
 		{
 			//setup graph
-
+			
 			//temp setup till i get the map
 			tempMap[i][j].x = ((j * TILE_SIZE) + TILE_SIZE/2);
 			tempMap[i][j].y = ((i * TILE_SIZE) + TILE_SIZE/2);
@@ -76,6 +76,57 @@ void CAStarPathFinding :: SetUpPath(Vector3 startPosition,Vector3 endPosition)
 				{
 					end = tempMap[i][j];
 				}
+				//if(tempMap[i-1][j-1].isNotWall == false) //look topleft
+					//{
+					//	if(tempMap[i-2][j-1].isNotWall == true) //look above topleft
+					//	{
+					//		if(tempMap[i-1][j].isNotWall == true) //look top
+					//		{
+					//			if(tempMap[i-2][j].isNotWall == true) //look above top
+					//			{
+					//				//can jump topleft
+					//				//set can jump?
+					//				tempNode = tempMap[i-2][j-1];
+					//				openList.push_back(tempNode);
+					//			}
+					//		}
+					//	}
+					//}
+					//if(tempMap[i-1][j+1].isNotWall == false) //look topright
+					//{
+					//	if(tempMap[i-2][j+1].isNotWall == true) //look above topright
+					//	{
+					//	
+					//		if(tempMap[i-1][j].isNotWall == true) //look top
+					//		{
+					//			if(tempMap[i-2][j].isNotWall == true) //look above top
+					//			{
+					//				//can jump topright
+					//				tempNode = tempMap[i-2][j+1];
+					//				openList.push_back(tempNode);
+					//			}
+					//		}
+					//			
+					//	}
+					//}
+					//if(tempMap[i+1][j+1].isNotWall == true) //look bottomright
+					//{
+					//	if(tempMap[i][j+1].isNotWall == true) //look right
+					//	{
+					//		//can drop bottomright
+					//		tempNode = tempMap[i+2][j+1];
+					//		openList.push_back(tempNode);
+					//	}
+					//}
+					//if(tempMap[i+1][j-1].isNotWall == true)//look bottomleft
+					//{
+					//	if(tempMap[i][j-1].isNotWall == true) //look left
+					//	{
+					//		//can drop bottomleft
+					//		tempNode = tempMap[i+2][j-1];
+					//		openList.push_back(tempNode);
+					//	}
+					//}
 			}
 		}
 		//if(start.isNotWall == false)
@@ -133,63 +184,65 @@ void CAStarPathFinding :: SearchForPath()
 						tempNode = tempMap[i+1][j];
 						openList.push_back(tempNode);
 					}
-					if(tempMap[i-1][j-1].isNotWall == false) //look topleft
-					{
-						if(tempMap[i-2][j-1].isNotWall == true) //look above topleft
-						{
-							if(tempMap[i-1][j].isNotWall == true) //look top
-							{
-								if(tempMap[i-2][j].isNotWall == true) //look above top
-								{
-									//can jump topleft
-									//set can jump?
-									//tempNode = tempMap[i+2][j-1];
-									//openList.push_back(tempNode);
-								}
-							}
-						}
-					}
-					if(tempMap[i-1][j+1].isNotWall == false) //look topright
-					{
-						if(tempMap[i-2][j+1].isNotWall == true) //look above topright
-						{
-						
-							if(tempMap[i-1][j].isNotWall == true) //look top
-							{
-								if(tempMap[i-2][j].isNotWall == true) //look above top
-								{
-									//can jump topright
-									//tempNode = tempMap[i+2][j+1];
-									//openList.push_back(tempNode);
-								}
-							}
-								
-						}
-					}
-					if(tempMap[i+1][j+1].isNotWall == true) //look bottomright
-					{
-						if(tempMap[i][j+1].isNotWall == true) //look right
-						{
-							//can drop bottomright
-							//tempNode = tempMap[i+2][j-1];
-							//openList.push_back(tempNode);
-						}
-					}
-					if(tempMap[i+1][j-1].isNotWall == true)//look bottomleft
-					{
-						if(tempMap[i][j-1].isNotWall == true) //look left
-						{
-							//can drop bottomleft
-						}
-					}
-					//start = currentNode;
-					//closeList.push_back(start);
-					//ChooseAPath();
-					//if(start.x != end.x && start.y != end.y)
+					//if(tempMap[i-1][j-1].isNotWall == false) //look topleft
 					//{
-						//add in when completed to prevent infinite loop
-						//SearchForPath(start);
+					//	if(tempMap[i-2][j-1].isNotWall == true) //look above topleft
+					//	{
+					//		if(tempMap[i-1][j].isNotWall == true) //look top
+					//		{
+					//			if(tempMap[i-2][j].isNotWall == true) //look above top
+					//			{
+					//				//can jump topleft
+					//				//set can jump?
+					//				tempNode = tempMap[i-2][j-1];
+					//				openList.push_back(tempNode);
+					//			}
+					//		}
+					//	}
 					//}
+					//if(tempMap[i-1][j+1].isNotWall == false) //look topright
+					//{
+					//	if(tempMap[i-2][j+1].isNotWall == true) //look above topright
+					//	{
+					//	
+					//		if(tempMap[i-1][j].isNotWall == true) //look top
+					//		{
+					//			if(tempMap[i-2][j].isNotWall == true) //look above top
+					//			{
+					//				//can jump topright
+					//				tempNode = tempMap[i-2][j+1];
+					//				openList.push_back(tempNode);
+					//			}
+					//		}
+					//			
+					//	}
+					//}
+					//if(tempMap[i+1][j+1].isNotWall == true) //look bottomright
+					//{
+					//	if(tempMap[i][j+1].isNotWall == true) //look right
+					//	{
+					//		//can drop bottomright
+					//		tempNode = tempMap[i+2][j+1];
+					//		openList.push_back(tempNode);
+					//	}
+					//}
+					//if(tempMap[i+1][j-1].isNotWall == true)//look bottomleft
+					//{
+					//	if(tempMap[i][j-1].isNotWall == true) //look left
+					//	{
+					//		//can drop bottomleft
+					//		tempNode = tempMap[i+2][j-1];
+					//		openList.push_back(tempNode);
+					//	}
+					//}
+					/*start = currentNode;
+					closeList.push_back(start);
+					ChooseAPath();
+					if(start.x != end.x && start.y != end.y)
+					{
+						add in when completed to prevent infinite loop
+						SearchForPath(start);
+					}*/
 				}
 			}
 		}
@@ -292,7 +345,8 @@ void CAStarPathFinding :: AddInPath(int index)
 		{
 			closeList.push_back(*it);
 			currentNode = *it;
-			it=openList.erase(it);
+			openList.clear();
+			//it=openList.erase(it);
 			break;
 		}
 	}
@@ -315,4 +369,33 @@ int CAStarPathFinding :: CheckForPath()
 	}
 
 	return nodeIndex;
+}
+
+node CAStarPathFinding :: GetCurrentNode (Vector3 myPosition,int choice)
+{
+	for(int i = 0 ; i < this->maxVerticalTile ; i++)
+	{
+		for(int j = 0 ; j < this->maxHorizontalTile ; j++)
+		{
+			if((myPosition.x > (tempMap[i][j].x - TILE_SIZE/2)) && (myPosition.x < (tempMap[i][j].x + TILE_SIZE/2)) && (myPosition.y > (tempMap[i][j].y - TILE_SIZE/2)) && (myPosition.y < (tempMap[i][j].y + TILE_SIZE/2)))
+			{
+				if(choice == 0) //look left
+					{
+						return tempMap[i][j-1];//.isNotWall;
+					}
+					if(choice == 1) //look right
+					{
+						return tempMap[i][j+1];//.isNotWall;
+					}
+					if(choice == 2) //look top
+					{
+						return tempMap[i-1][j];//.isNotWall;
+					}
+					if(choice == 3) //look bottom
+					{
+						return tempMap[i+1][j];//.isNotWall;
+					}
+			}
+		}
+	}
 }

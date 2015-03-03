@@ -28,18 +28,18 @@ void CAILogic :: DetectionCheck ()
 	//check for walls
 	if((enemyPos.x <= (pos.x + detectionRange)) && (enemyPos.x >= (pos.x - detectionRange)))
 	{
-		//if(enemyPos.y == pos.y)
+		if((enemyPos.y <= (pos.y + detectionRange)) && (enemyPos.y >= (pos.y - detectionRange)))
 		{
 			targetPosition = enemyPos;
 			ChangeState(AI_PURSUE);
-			//foundPath = false;
-			
+			//foundPath = false;		
 		}
 	}
 	else if(pos.x == targetPosition.x && state == AI_PURSUE)
 	{
 		ChangeState(AI_IDLE);
 		foundPath = false;
+		reachDest = true;
 	}
 	//else
 	//{
@@ -100,21 +100,84 @@ Vector3 CAILogic :: Update(Vector3 pos,CPhysics & thePhysics)
 		}
 		else if(foundPath == true)
 		{
-			//pathMovementCounter = pathFinding.closeList.size();
-			//pathFinding.closeList.at(pathMovementCounter);
+			//if(pos.x < pathFinding.closeList.at(pathMovementCounter).x)
+			//{
+			//	thePhysics.MoveSide(true);
+			//	//this->pos.x += 1;
+			//}
+			//else
+			//{
+			//	if(pos.y < pathFinding.closeList.at(pathMovementCounter).y)
+			//	{
+			//		this->pos.y += 1;
+			//	}
+			//	if(pos.y > pathFinding.closeList.at(pathMovementCounter).y)
+			//	{
+			//		this->pos.y -= 1;
+			//	}
+			//	if(pos.y == pathFinding.closeList.at(pathMovementCounter).y)
+			//	{
+			//		pathMovementCounter++;
+			//		if(pathMovementCounter >= pathFinding.closeList.size())
+			//		{
+			//			foundPath = false;
+			//			pathMovementCounter = 1;
+			//		}
+			//	}
+
+			//	//pathMovementCounter++;
+			//	//if(pathMovementCounter >= pathFinding.closeList.size())
+			//	//{
+			//	//	foundPath = false;
+			//	//	pathMovementCounter = 1;
+			//	//}
+			//}
+
+			//if(pos.x > pathFinding.closeList.at(pathMovementCounter).x)
+			//{
+			//	thePhysics.MoveSide(false);
+			//	//this->pos.x -= 1;
+			//}
+			//else
+			//{
+			//	if(pos.y < pathFinding.closeList.at(pathMovementCounter).y)
+			//	{
+			//		this->pos.y += 1;
+			//	}
+			//	if(pos.y > pathFinding.closeList.at(pathMovementCounter).y)
+			//	{
+			//		this->pos.y -= 1;
+			//	}
+			//	if(pos.y == pathFinding.closeList.at(pathMovementCounter).y)
+			//	{
+			//		pathMovementCounter++;
+			//		if(pathMovementCounter >= pathFinding.closeList.size())
+			//		{
+			//			foundPath = false;
+			//			pathMovementCounter = 1;
+			//		}
+			//	}
+
+			//	/*pathMovementCounter++;
+			//	if(pathMovementCounter >= pathFinding.closeList.size())
+			//	{
+			//		foundPath = false;
+			//		pathMovementCounter = 1;
+			//	}*/
+			//}
+
 			if(pos.x < pathFinding.closeList.at(pathMovementCounter).x)
 			{
-				//thePhysics.MoveSide(true);
 				this->pos.x += 1;
 			}
 			if(pos.x > pathFinding.closeList.at(pathMovementCounter).x)
 			{
-				//thePhysics.MoveSide(false);
 				this->pos.x -= 1;
 			}
 			if(pos.y < pathFinding.closeList.at(pathMovementCounter).y)
 			{
 				this->pos.y += 1;
+				//thePhysics.Jump();
 			}
 			if(pos.y > pathFinding.closeList.at(pathMovementCounter).y)
 			{
@@ -126,9 +189,28 @@ Vector3 CAILogic :: Update(Vector3 pos,CPhysics & thePhysics)
 				if(pathMovementCounter >= pathFinding.closeList.size())
 				{
 					foundPath = false;
-					pathMovementCounter = 0;
+					pathMovementCounter = 1;
 				}
 			}
+
+			/*if(pos.y < pathFinding.closeList.at(pathMovementCounter).y)
+			{
+				this->pos.y += 1;
+			}
+			if(pos.y > pathFinding.closeList.at(pathMovementCounter).y)
+			{
+				this->pos.y -= 1;
+			}*/
+
+			/*if(pos == Vector3(pathFinding.closeList.at(pathMovementCounter).x,pathFinding.closeList.at(pathMovementCounter).y,0))
+			{
+				pathMovementCounter++;
+				if(pathMovementCounter >= pathFinding.closeList.size())
+				{
+					foundPath = false;
+					pathMovementCounter = 1;
+				}
+			}*/
 		}
 		/*if(targetPosition.x > pos.x)
 		{
@@ -148,22 +230,69 @@ Vector3 CAILogic :: Update(Vector3 pos,CPhysics & thePhysics)
 	}
 	if(state == AI_WANDER)
 	{
+		//node tempNode = pathFinding.GetCurrentNode(this->pos);
 		static int tempint;
-		if(clock() - wanderTimer > 5000)
+		static Vector3 tempVec(0,0,0);
+		if(clock() - wanderTimer > 5000 && reachDest == true) //&& reachDest == true)
 		{
 			wanderTimer = clock(); 
-			tempint = rand() % 2 + 1;
+			tempint = rand() % 4 + 1;
+			tempVec = Vector3(pathFinding.GetCurrentNode(this->pos,(tempint - 1)).x,pathFinding.GetCurrentNode(this->pos,(tempint - 1)).y,0);
+			reachDest = false;
 		}
 
 		if(tempint == 1)
 		{
-			this->dir.x = 1;
-			thePhysics.MoveSide(false);
+			//node tempNode = pathFinding.GetCurrentNode(this->pos,0);
+			//this->dir.x = 1;
+			//if(pathFinding.GetCurrentNode(this->pos,0).isNotWall == true)
+			//{
+			//	this->pos.x += 1;
+			//	if(pos == tempVec)
+			//	{
+			//		reachDest = true;
+			//	}
+			//}
+
+			//thePhysics.MoveSide(false);
 		}
-		else if (tempint == 2)
+		else if(tempint == 2)
 		{
 			this->dir.x = -1;
-			thePhysics.MoveSide(true);
+			//if(pathFinding.GetCurrentNode(this->pos,1).isNotWall == true)
+			//{
+			//	this->pos.x -= 1;
+			//	if(pos == tempVec)
+			//	{
+			//		reachDest = true;
+			//	}
+			//}
+
+			//thePhysics.MoveSide(true);
+		}
+		else if(tempint == 3)
+		{
+			//if(pathFinding.GetCurrentNode(this->pos,2).isNotWall == true)
+			//{
+			//	this->pos.y -= 1;
+			//	if(pos == tempVec)
+			//	{
+			//		reachDest = true;
+			//	}
+			//}
+
+			//thePhysics.Jump();
+		}
+		else if(tempint == 4)
+		{
+			//if(pathFinding.GetCurrentNode(this->pos,3).isNotWall == true)
+			//{
+			//	this->pos.y += 1;
+			//	if(pos == tempVec)
+			//	{
+			//		reachDest = true;
+			//	}
+			//}
 		}
 		else
 		{
@@ -176,11 +305,12 @@ Vector3 CAILogic :: Update(Vector3 pos,CPhysics & thePhysics)
 bool CAILogic :: Init()
 {
 	//FindPath();
-
+	
+	reachDest = true;
 	foundPath = false;
-	pathMovementCounter = 0;
+	pathMovementCounter = 1;
 
-	pos = Vector3(0,-28.008003,0);
+	pos = Vector3(0,0,0);
 	dir = Vector3(0,0,0);
 
 	wanderTimer = clock();

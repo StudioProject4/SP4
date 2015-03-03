@@ -13,6 +13,8 @@ struct node
 	int tileCost;
 	bool isNotWall;
 	int index;
+	bool canJump;
+	bool canFall;
 };
 
 class CAStarPathFinding
@@ -42,6 +44,7 @@ class CAStarPathFinding
 	void FindPath(); // find the best path, the "main"
 	void AddInPath(int index);// add into the close list
 	int CheckForPath();// find for the best neightbouring nodes
+	node GetCurrentNode(Vector3 myPosition,int choice);//set the current location as a node on the graph
 
 	typedef std :: vector<node> TNodeVector;
 	std :: vector<node> closeList; // tile to not consider / supposed correct path
@@ -85,4 +88,5 @@ class CAILogic
 		clock_t idleWanderTimer;
 		clock_t wanderTimer;
 		int pathMovementCounter;
+		bool reachDest;
 };
