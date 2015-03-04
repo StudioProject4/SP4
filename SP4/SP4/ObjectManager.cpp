@@ -193,13 +193,12 @@ bool CObjectManager::LoadingSetup()
 			(*it)->active=false;
 			
 			inactiveObjectList.push_back(*it);
-			//objectList.erase(it);
-			//using swapping method to delete element.
 			it=objectList.erase(it);
 			continue;
 		}
 	++it;
 	}
+	SP->CleanUpAllObjectExceptCharacter();
 	return true;
 }
 
@@ -263,9 +262,6 @@ bool CObjectManager::Update(int multiplayerMode)
 			}else
 		{
 			inactiveObjectList.push_back(objectList[it]);
-			//objectList.erase(it);
-			//using swapping method to delete element.
-			//swap(objectList[it],objectList.back());
 			objectList[it] = objectList.back();
 			objectList.pop_back();
 		}

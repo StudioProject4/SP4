@@ -33,6 +33,24 @@ public:
 			(*it)->PrintDebugInformation();
 		}
 	};
+	bool CleanUpAllExceptCharacter()
+	{
+		for(unsigned short it = 0; it <objectList.size(); ++it)
+		{
+			//std::cout<< (*it)<<std::endl;
+			if( objectList[it] != nullptr )
+			{
+				if(objectList[it]->genericTag != "Character")
+				{
+					objectList[it] = nullptr;
+					objectList[it] = objectList.back();
+					objectList.pop_back();
+				}
+
+			}
+		}
+		return true;
+	};
 	bool CleanUp()
 	{
 		for(TObjectVector::iterator it = objectList.begin(); it!= objectList.end(); ++it)
@@ -106,7 +124,8 @@ public:
 	void AddObjectNeo(CBaseObject* a_obj);
 	void RemoveObjectNeo(CBaseObject* a_obj,Cell* theCell);
 #endif
-
+	void CleanUpAllObjectExceptCharacter();
+	void CleanUpAllObject();
 	//rendering for debug
 	void RenderGrid();
 	void RenderSquare(float posX,float posY, float sizeX,float sizeY,bool drawBoundery = true);
