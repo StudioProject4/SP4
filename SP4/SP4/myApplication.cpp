@@ -105,98 +105,154 @@ bool myApplication::Reset()
 }
 bool myApplication::ResetLevel(short level)
 {
-	//if(OM  != 0)
-	//{
-	//	//delete OM;
-	//	//OM = new CObjectManager();
-	//}
-	//OM->LoadingSetup();
-	////delete playerOne;
-	////delete playerOne;
-	////delete theAIOne;
-	////delete theAITwo;
-
-	////playerOne = OM->manufacturer->CreateChineseMale();
-	////playerTwo = OM->manufacturer->CreateMalayFemale();
-	//theAIOne = OM->manufacturer->CreateMalayMob();
-	//theAITwo = OM->manufacturer->CreateChineseMob();
-	//
-	//playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
-	//playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
-	//theAIOne->SetPos(Vector3(624,80,0));
-	//theAITwo->SetPos(Vector3(304,80,0));
-
-
-	//CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
-	//lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
-	//CDoor* door= OM->manufacturer->CreateObstacleDoor();
-	//door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X"),LM->GetWithCheckNumber<float>("DOOR_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
-
-	//lever->SetDoorLink(door);
-	//door->AddTrigger(lever);
-
-	//playerOne = OM->manufacturer->CreateChineseMale();
-	//playerTwo = OM->manufacturer->CreateMalayFemale();
-
-	//playerTwo->phys.map=Map;
-	//playerOne->phys.map=Map;
-	//
-	// mapOffset_x =  mapOffset_y=
-	// tileOffset_x =tileOffset_y=
-	// mapFineOffset_x= mapFineOffset_y=
-	// theNumOfTiles_Height
-	//= theNumOfTiles_Width
-	//= rearWallOffset_x=rearWallOffset_y
-	// =rearWalltileOffset_x= rearWalltileOffset_y
-	//= rearWallFineOffset_x= rearWallFineOffset_y = 0;
-
-	// Map->Level = level;
-	// Map->RunMap();
-
 	OM->LoadingSetup();
+	Map->Level=level;
+	Map->RunMap();
 
+	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
+	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
 	switch(level)
 	{
 	case 1:
 		{
+
+			playerOne->Init(Vector3(LM->GetWithCheckNumber<float>("PLAYERONE_POS_X_Lv1"),LM->GetWithCheckNumber<float>("PLAYERONE_POS_Y_Lv1")),Vector3(0,0,0),0);
+			playerTwo->Init(Vector3(LM->GetWithCheckNumber<float>("PLAYERTWO_POS_X_Lv1"),LM->GetWithCheckNumber<float>("PLAYERTWO_POS_Y_Lv1"),0),Vector3(0,0,0),0);
+			
+			//OM->AddObject(theAIOne);
+			//OM->AddObject(theAITwo);
+		}
+
+		break;
+	case 2:
+		{
+
+			playerOne->Init(Vector3(LM->GetWithCheckNumber<float>("PLAYERONE_POS_X_Lv2"),LM->GetWithCheckNumber<float>("PLAYERONE_POS_Y_Lv2")),Vector3(0,0,0),0);
+			playerTwo->Init(Vector3(LM->GetWithCheckNumber<float>("PLAYERTWO_POS_X_Lv2"),LM->GetWithCheckNumber<float>("PLAYERTWO_POS_Y_Lv2"),0),Vector3(0,0,0),0);
+
+			CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
+			lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER1_POS_X_Lv2"),LM->GetWithCheckNumber<float>("LEVER1_POS_Y_Lv2")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+			CLeverDoor* lever2 = OM->manufacturer->CreateObstacleLeverDoor();
+			lever2->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER2_POS_X_Lv2"),LM->GetWithCheckNumber<float>("LEVER2_POS_Y_Lv2")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+	
+			CDoor* door= OM->manufacturer->CreateObstacleDoor();
+			door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR1_POS_X_Lv2"),LM->GetWithCheckNumber<float>("DOOR1_POS_Y_Lv2")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+			CDoor* door2 = OM->manufacturer->CreateObstacleDoor();
+			door2->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR2_POS_X_Lv2"),LM->GetWithCheckNumber<float>("DOOR2_POS_Y_Lv2")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+	
+			lever->SetDoorLink(door);
+			door->AddTrigger(lever);
+			lever2->SetDoorLink(door2);
+			door2->AddTrigger(lever2);
+			OM->AddObject(lever);
+			OM->AddObject(lever2);
+			OM->AddObject(door);
+			OM->AddObject(door2);
+
+
+		}
+
+
+		break;
+	case 3:
+		{
 		
 			theAIOne = OM->manufacturer->CreateMalayMob();
 			theAITwo = OM->manufacturer->CreateChineseMob();
-			playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
-			playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
-			theAIOne->SetPos(Vector3(624,80,0));
-			theAITwo->SetPos(Vector3(304,80,0));
+			playerOne->Init(Vector3(LM->GetWithCheckNumber<float>("PLAYERONE_POS_X_Lv3"),LM->GetWithCheckNumber<float>("PLAYERONE_POS_Y_Lv3")),Vector3(0,0,0),0);
+			playerTwo->Init(Vector3(LM->GetWithCheckNumber<float>("PLAYERTWO_POS_X_Lv3"),LM->GetWithCheckNumber<float>("PLAYERTWO_POS_Y_Lv3"),0),Vector3(0,0,0),0);
+			theAIOne->SetPos(Vector3(LM->GetWithCheckNumber<float>("AIONE_POS_X_Lv3"),LM->GetWithCheckNumber<float>("AIONE_POS_Y_Lv3"),0));
+			theAITwo->SetPos(Vector3(LM->GetWithCheckNumber<float>("AITWO_POS_X_Lv3"),LM->GetWithCheckNumber<float>("AITWO_POS_Y_Lv3"),0));
 			theAIOne->SetUpMap(*Map);
 			theAITwo->SetUpMap(*Map);
 			theAIOne->phys.map=Map;
 			theAITwo->phys.map=Map;
-
-			CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
-			lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
-			CDoor* door= OM->manufacturer->CreateObstacleDoor();
-			door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X"),LM->GetWithCheckNumber<float>("DOOR_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
-
-			lever->SetDoorLink(door);
-			door->AddTrigger(lever);
 			
 			OM->AddObject(theAIOne);
 			OM->AddObject(theAITwo);
 		}
 
 		break;
-	case 2:
+	case 4:
+		{
+			theAIOne = OM->manufacturer->CreateMalayMob();
+			theAITwo = OM->manufacturer->CreateChineseMob();
+			playerOne->Init(Vector3(LM->GetWithCheckNumber<float>("PLAYERONE_POS_X_Lv4"),LM->GetWithCheckNumber<float>("PLAYERONE_POS_Y_Lv4")),Vector3(0,0,0),0);
+			playerTwo->Init(Vector3(LM->GetWithCheckNumber<float>("PLAYERTWO_POS_X_Lv4"),LM->GetWithCheckNumber<float>("PLAYERTWO_POS_Y_Lv4"),0),Vector3(0,0,0),0);
+			theAIOne->SetPos(Vector3(LM->GetWithCheckNumber<float>("AIONE_POS_X_Lv4"),LM->GetWithCheckNumber<float>("AIONE_POS_Y_Lv4"),0));
+			theAITwo->SetPos(Vector3(LM->GetWithCheckNumber<float>("AITWO_POS_X_Lv4"),LM->GetWithCheckNumber<float>("AITWO_POS_Y_Lv4"),0));
+			theAIOne->SetUpMap(*Map);
+			theAITwo->SetUpMap(*Map);
+			theAIOne->phys.map=Map;
+			theAITwo->phys.map=Map;
 
+			CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
+			lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X_Lv4"),LM->GetWithCheckNumber<float>("LEVER_POS_Y_Lv4")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+			CLeverDoor* lever2 = OM->manufacturer->CreateObstacleLeverDoor();
+			lever2->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER2_POS_X_Lv4"),LM->GetWithCheckNumber<float>("LEVER2_POS_Y_Lv4")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+			CDoor* door= OM->manufacturer->CreateObstacleDoor();
+			door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X_Lv4"),LM->GetWithCheckNumber<float>("DOOR_POS_Y_Lv4")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+			CDoor* door2 = OM->manufacturer->CreateObstacleDoor();
+			door2->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR2_POS_X_Lv4"),LM->GetWithCheckNumber<float>("DOOR2_POS_Y_Lv4")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+	
+			lever->SetDoorLink(door);
+			door->AddTrigger(lever);
+			
+			lever2->SetDoorLink(door2);
+			door2->AddTrigger(lever2);
+
+			OM->AddObject(lever);
+			OM->AddObject(lever2);
+			OM->AddObject(door);
+			OM->AddObject(door2);
+			OM->AddObject(theAIOne);
+			OM->AddObject(theAITwo);
+		}
+
+		break;
+	case 5:
+		{
+			theAIOne = OM->manufacturer->CreateMalayMob();
+			theAITwo = OM->manufacturer->CreateChineseMob();
+			playerOne->Init(Vector3(LM->GetWithCheckNumber<float>("PLAYERONE_POS_X_Lv5"),LM->GetWithCheckNumber<float>("PLAYERONE_POS_Y_Lv5")),Vector3(0,0,0),0);
+			playerTwo->Init(Vector3(LM->GetWithCheckNumber<float>("PLAYERTWO_POS_X_Lv5"),LM->GetWithCheckNumber<float>("PLAYERTWO_POS_Y_Lv5"),0),Vector3(0,0,0),0);
+			theAIOne->SetPos(Vector3(LM->GetWithCheckNumber<float>("AIONE_POS_X_Lv5"),LM->GetWithCheckNumber<float>("AIONE_POS_Y_Lv5"),0));
+			theAITwo->SetPos(Vector3(LM->GetWithCheckNumber<float>("AITWO_POS_X_Lv5"),LM->GetWithCheckNumber<float>("AITWO_POS_Y_Lv5"),0));
+			theAIOne->SetUpMap(*Map);
+			theAITwo->SetUpMap(*Map);
+			theAIOne->phys.map=Map;
+			theAITwo->phys.map=Map;
+
+			CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
+			lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X_Lv5"),LM->GetWithCheckNumber<float>("LEVER_POS_Y_Lv5")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+			CLeverDoor* lever2 = OM->manufacturer->CreateObstacleLeverDoor();
+			lever2->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER2_POS_X_Lv5"),LM->GetWithCheckNumber<float>("LEVER2_POS_Y_Lv5")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+			CDoor* door= OM->manufacturer->CreateObstacleDoor();
+			door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X_Lv5"),LM->GetWithCheckNumber<float>("DOOR_POS_Y_Lv5")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+			CDoor* door2 = OM->manufacturer->CreateObstacleDoor();
+			door2->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR2_POS_X_Lv5"),LM->GetWithCheckNumber<float>("DOOR2_POS_Y_Lv5")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+	
+
+			lever->SetDoorLink(door);
+			door->AddTrigger(lever);
+			
+			lever2->SetDoorLink(door2);
+			door2->AddTrigger(lever2);
+
+			OM->AddObject(lever);
+			OM->AddObject(lever2);
+			OM->AddObject(door);
+			OM->AddObject(door2);
+			OM->AddObject(theAIOne);
+			OM->AddObject(theAITwo);
+		}
 
 		break;
 	}
 
 
 
-	Map->RunMap();
-
-	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
-	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
-
+		
 	return true;
 
 }
@@ -235,6 +291,9 @@ bool myApplication::Init()
 	tag = "application";
 	name = "myApplication";
 	
+	theAIOne=0;
+	theAITwo=0;
+
 	glEnable(GL_TEXTURE_2D);
 
 
@@ -291,33 +350,33 @@ bool myApplication::Init()
 
 	playerOne = OM->manufacturer->CreateChineseMale();
 	playerTwo = OM->manufacturer->CreateMalayFemale();
-	theAIOne = OM->manufacturer->CreateMalayMob();
-	theAITwo = OM->manufacturer->CreateChineseMob();
-	
-	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
-	playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
-	theAIOne->SetPos(Vector3(624,80,0));
-	theAITwo->SetPos(Vector3(304,80,0));
+	//theAIOne = OM->manufacturer->CreateMalayMob();
+	//theAITwo = OM->manufacturer->CreateChineseMob();
+
+	playerOne->Init(Vector3(LM->GetWithCheckNumber<float>("PLAYERONE_POS_X_START"),LM->GetWithCheckNumber<float>("PLAYERONE_POS_Y_START")),Vector3(0,0,0),0);
+	playerTwo->Init(Vector3(LM->GetWithCheckNumber<float>("PLAYERTWO_POS_X_START"),LM->GetWithCheckNumber<float>("PLAYERTWO_POS_Y_START"),0),Vector3(0,0,0),0);
+	//theAIOne->SetPos(Vector3(LM->GetWithCheckNumber<float>("AIONE_POS_X_START"),LM->GetWithCheckNumber<float>("AIONE_POS_Y_START"),0));
+	//theAITwo->SetPos(Vector3(LM->GetWithCheckNumber<float>("AITWO_POS_X_START"),LM->GetWithCheckNumber<float>("AITWO_POS_Y_START"),0));
 
 	playerOneHud = new CSprite(*playerOne->theSprite);
 	playerTwoHud = new CSprite(*playerTwo->theSprite);
 
-	CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
-	lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
-	CDoor* door= OM->manufacturer->CreateObstacleDoor();
-	door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X"),LM->GetWithCheckNumber<float>("DOOR_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+	//CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
+	//lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X_START"),LM->GetWithCheckNumber<float>("LEVER_POS_Y_START")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+	//CDoor* door= OM->manufacturer->CreateObstacleDoor();
+	//door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X_START"),LM->GetWithCheckNumber<float>("DOOR_POS_Y_START")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
 
-	lever->SetDoorLink(door);
-	door->AddTrigger(lever);
-
+	//lever->SetDoorLink(door);
+	//door->AddTrigger(lever);
+	//
 	// add all the Game Object into the object manager
 #ifndef DEBUG_MODE
 	OM->AddObject(playerOne);
 	OM->AddObject(playerTwo);
-	OM->AddObject(theAIOne);
-	OM->AddObject(theAITwo);
-	OM->AddObject(lever);
-	OM->AddObject(door);
+	////OM->AddObject(theAIOne);
+	//OM->AddObject(theAITwo);
+	//OM->AddObject(lever);
+	//OM->AddObject(door);
 #endif
 
 #ifdef DEBUG_MODE
@@ -357,10 +416,10 @@ bool myApplication::Init()
 
 	playerTwo->phys.map=Map;
 	playerOne->phys.map=Map;
-	theAIOne->SetUpMap(*Map);
-	theAITwo->SetUpMap(*Map);
-	theAIOne->phys.map=Map;
-	theAITwo->phys.map=Map;
+	//theAIOne->SetUpMap(*Map);
+	//theAITwo->SetUpMap(*Map);
+	//theAIOne->phys.map=Map;
+	//theAITwo->phys.map=Map;
 
 #ifdef NETWORK_CODE
 		charControl=3;
@@ -371,7 +430,7 @@ bool myApplication::Init()
 
 	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
 	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
-
+	this->ResetLevel(Map->Level);
 	return true;
 }
 
@@ -947,9 +1006,11 @@ bool myApplication::Update()
 		
 		if(FRM->UpdateAndCheckTimeThreehold())
 		{
-			theAIOne->AI.SetCharacterPos(playerOne->pos);
+			if(theAIOne!=0)
+				theAIOne->AI.SetCharacterPos(playerOne->pos);
 			//theAIOne->Update();
-			theAITwo->AI.SetCharacterPos(playerTwo->pos);
+			if(theAITwo!=0)
+				theAITwo->AI.SetCharacterPos(playerTwo->pos);
 			//theAITwo->Update();
 		
 		}
@@ -958,7 +1019,7 @@ bool myApplication::Update()
 		OM->Update(charControl);
 
 
-	Map->RunMap();
+	//Map->RunMap();
 	
 //	win->
 		

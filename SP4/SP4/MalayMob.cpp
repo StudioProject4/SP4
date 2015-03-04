@@ -10,6 +10,7 @@
 #include "MalayMob.h"
 #include "Character.h"
 #include "ImageManager.h"
+#include "myApplication.h"
 extern RakNet::RakPeerInterface* rakPeerGlobal;
 
 CMalayMob :: CMalayMob()
@@ -26,6 +27,7 @@ CMalayMob :: ~CMalayMob()
 }
 bool CMalayMob :: Update()
 {
+	AI.SetCharacterPos(myApplication::GetInstance()->playerOne->pos);
 	if(charControl==1||charControl==3)
 	{
 		dir = AI.GetDir();
