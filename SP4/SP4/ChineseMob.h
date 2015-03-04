@@ -16,6 +16,7 @@ class CChineseMob : public CBaseObject
 		bool Reset();
 		bool CleanUp();
 		bool Render();
+		int charControl;
 
 		bool OnCollision2(CBaseObject* a_obj,bool again=false);
 

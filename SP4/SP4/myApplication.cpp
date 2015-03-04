@@ -107,13 +107,34 @@ bool myApplication::ResetLevel(short level)
 {
 	if(OM  != 0)
 	{
-		delete OM;
-		OM = new CObjectManager();
+		//delete OM;
+		//OM = new CObjectManager();
 	}
+	OM->LoadingSetup();
 	//delete playerOne;
 	//delete playerOne;
 	//delete theAIOne;
 	//delete theAITwo;
+
+	//playerOne = OM->manufacturer->CreateChineseMale();
+	//playerTwo = OM->manufacturer->CreateMalayFemale();
+	theAIOne = OM->manufacturer->CreateMalayMob();
+	theAITwo = OM->manufacturer->CreateChineseMob();
+	
+	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
+	playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
+	theAIOne->SetPos(Vector3(624,80,0));
+	theAITwo->SetPos(Vector3(304,80,0));
+
+
+	CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
+	lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+	CDoor* door= OM->manufacturer->CreateObstacleDoor();
+	door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X"),LM->GetWithCheckNumber<float>("DOOR_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+
+	lever->SetDoorLink(door);
+	door->AddTrigger(lever);
+
 	playerOne = OM->manufacturer->CreateChineseMale();
 	playerTwo = OM->manufacturer->CreateMalayFemale();
 
@@ -171,7 +192,7 @@ bool myApplication::ResetLevel(short level)
 
 
 
-	//Map->RunMap();
+	Map->RunMap();
 
 	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
 	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
@@ -558,8 +579,6 @@ bool myApplication::Update()
 							CMalayMob * temp =  CManufactureManager::GetInstance()->CreateMalayMob(); 
 							temp->Init();
 							temp->SetUpMap(*Map);
-							//temp->AI.SetEnemyPos(Vector3(x,y,z));
-							//temp->pos.Set(x,y,z);
 							temp->SetPos(Vector3(x,y,z));
 							temp->id = id;
 							OM->AddObject(temp);
@@ -569,8 +588,6 @@ bool myApplication::Update()
 							CChineseMob * temp = CManufactureManager::GetInstance()->CreateChineseMob();
 							temp->Init();
 							temp->SetUpMap(*Map);
-							//temp->AI.SetEnemyPos(Vector3(x,y,z));
-							//temp->pos.Set(x,y,z);
 							temp->SetPos(Vector3(x,y,z));
 							temp->id = id;
 							OM->AddObject(temp);
@@ -689,37 +706,54 @@ bool myApplication::Update()
 					other->phys.vel.Set(x,y,z);
 				}
 
-				else if(temp2=="ENEMY")
+				else if(temp2=="Enemy")
 				{
-					//read pos
-					//set pos
-				}
-				else if(temp2=="ChineseMob")
-				{
-					unsigned short id1,id2;
-					int hp;
-					bs.Read(id1);
-					bs.Read(id2);
-					bs.Read(hp);
-					
-					CChineseMob* mob=NULL;
-					CCharacter* character=NULL;
-					for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
+					bool mode;
+					bs.Read(mode);
+					if(mode)
 					{
-						if(id1==(*it)->id)
+						float x, y;
+						unsigned short id;
+						bs.Read(id);
+						//read pos
+						bs.Read(x);
+						bs.Read(y);
+
+						CBaseObject* temp;
+						
+						for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
 						{
-							mob=(CChineseMob*)(*it);
+							if(id==(*it)->id)
+							{
+								temp=(CBaseObject*)(*it);
+								break;
+							}
 						}
-						else if(id2==(*it)->id)
-						{
-							character=(CCharacter*)(*it);
-						}
-						if(mob!=NULL&&character!=NULL)
-						{
-							break;
-						}
+						temp->pos.Set(x,y,0);
+						//set pos
+
 					}
-					character->hp.SetHealth(hp);
+					else
+					{
+						unsigned short id1,id2;
+						int hp;
+						bs.Read(temp);//tag
+						temp2=temp;
+						bs.Read(id1);
+						bs.Read(id2);
+						bs.Read(hp);
+
+						CCharacter* character=NULL;
+						for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
+						{
+							if(id2==(*it)->id)
+							{
+								character=(CCharacter*)(*it);
+								break;
+							}
+						}
+						character->hp.SetHealth(hp);
+					}
 
 				}
 			}
@@ -811,9 +845,18 @@ bool myApplication::Update()
 				playerTwo->Jump();
 			}
 		}
-		if(keyboard->myKeys['s'])
+		if(keyboard->myKeys['p'])
 		{
-		
+			if(charControl==1||charControl==3)
+			{
+				
+			}
+			else if(charControl==2)
+			{
+				
+			}
+			//win->OnCollision(playerOne, false);
+			//win->OnCollision(playerOne, true);
 		}
 		if(keyboard->myKeys['a'] == false && keyboard->myKeys['d'] == false)
 			{
@@ -847,9 +890,9 @@ bool myApplication::Update()
 					velChanged=true;
 				playerTwo->Jump();
 			}
-			if(keyboard->myKeys['k'] == true)
+			if(keyboard->myKeys['p'] == true)
 			{
-		
+				
 			}
 			if(keyboard->myKeys['j'] == false && keyboard->myKeys['l'] == false)
 			{
@@ -906,9 +949,9 @@ bool myApplication::Update()
 		
 		if(FRM->UpdateAndCheckTimeThreehold())
 		{
-			theAIOne->AI.SetEnemyPos(playerOne->pos);
+			theAIOne->AI.SetCharacterPos(playerOne->pos);
 			//theAIOne->Update();
-			theAITwo->AI.SetEnemyPos(playerTwo->pos);
+			theAITwo->AI.SetCharacterPos(playerTwo->pos);
 			//theAITwo->Update();
 		
 		}
@@ -918,6 +961,7 @@ bool myApplication::Update()
 
 
 	Map->RunMap();
+	
 //	win->
 		
 	return true;
@@ -1157,6 +1201,7 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 		break;
 
 		case '2':
+			playerOne->hp.SetHealth(0);
 			//CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
 			//this->PrintDebugInformation();
 			//MS->PlayBgmTrack("bgm2.mp3");
@@ -1171,16 +1216,17 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 		break;
 		
 		case '3':
+			//MS->PrintSoundPoolList();
 			MS->PlayBgmTrack(MS->GetCurrentBgmTrackIndex());
 			//MS->TranverseSoundTrack();
 			
 			break;
 		case '4':
-			MS->PrintCurrentSoundTrack();
+		//	MS->PrintCurrentSoundTrack();
 			
 			break;
 		case '5':
-			MS->ResetSoundTrackPlayPosition(MS->currentSoundTrack);
+		//	MS->ResetSoundTrackPlayPosition(MS->currentSoundTrack);
 			break;
 		case '6':
 			//MS->PrintSoundTrackList();
@@ -1192,17 +1238,17 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//testmale->PrintDebugInformation();
 			//OM->PrintDebugAllActiveObjects();
 			//OM->objectList[0]->UpdateObjectTopLeftAndBottomRightPoint(false);
-			OM->PrintDebugAllInActiveObjects();
+			//OM->PrintDebugAllInActiveObjects();
 			break;
 		case '8':
 			//OM->PrintDebugInformation();
-			OM->PrintDebugAllActiveObjects();
+			//OM->PrintDebugAllActiveObjects();
 			break;
 		case '9':
 			//GSM->GoBackToPreviousState();
 			break;
 		case 'c':
-			system("cls");
+			//system("cls");
 			break;
 	}
 }

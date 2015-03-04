@@ -78,6 +78,7 @@ void CMouse::SetRightButton(bool down)
 
 bool CMouse::CheckLeftButtonReleased()
 {
+
 	if(lastLButtonState == true && this->mLButtonUp == false)
 	{
 		return true;

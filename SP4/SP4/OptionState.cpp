@@ -161,7 +161,6 @@ void COptionState::MouseClick(int button, int state, int x, int y)
 void COptionState::MouseWheel(int button, int dir, int x, int y)
 {
 }
-
 void COptionState::changeSize (int w, int h)
 {
 	// Prevent a divide by zero, when window is too short
@@ -255,13 +254,15 @@ void COptionState::RenderScene(void)
 
 bool COptionState::Update()
 {
+	
 	for(unsigned short i = 0 ; i< buttonList.size();++i)
 	{
 		buttonList[i]->Update();
 		if(buttonList[i]->ColisionCheck(mouse))
 		{
 			//std::cout<<"Button COllided"<<std::endl;
-			PageTransitionTrigger(buttonList[i]->name);
+			//ButtonTriggerCall(buttonList[i]->name);
+			ButtonTriggerCall(buttonList[i]);
 		}else
 		{
 			//std::cout<<"=D "<<std::endl;
@@ -300,6 +301,9 @@ bool COptionState::Init()
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
+	IM->RegisterTGA("MuteButton.tga");
+	IM->RegisterTGA("UnMuteButton.tga");
+	IM->RegisterTGA("BackButton.tga");
 
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
@@ -309,45 +313,44 @@ bool COptionState::Init()
 
 	a_button = new CUIButtonRectangle();
 	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("kaede.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.35f);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45f,WM->GetOriginalWindowHeight()*0.2f);
-	a_button->name ="SinglePlayerButton";
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("UnMuteButton.tga"));
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.25f,WM->GetOriginalWindowHeight()*0.20f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.1f,WM->GetOriginalWindowHeight()*0.1f);
+	a_button->name ="MuteButton";
 	buttonList.push_back(a_button);
 
-	a_button = new CUIButtonRectangle();
-	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.6f);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45f,WM->GetOriginalWindowHeight()*0.2f);
-	a_button->name ="OnlinePlayButton";
-	buttonList.push_back(a_button);
+	//a_button = new CUIButtonRectangle();
+	//a_button->ownTexture.Init(1);
+	//a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
+	//a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.6);
+	//a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	//a_button->name ="OnlinePlayButton";
+	//buttonList.push_back(a_button);
 
-	a_button = new CUIButtonRectangle();
-	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.85f);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45f,WM->GetOriginalWindowHeight()*0.2f);
-	a_button->name ="OptionButton";
-	buttonList.push_back(a_button);
+	//a_button = new CUIButtonRectangle();
+	//a_button->ownTexture.Init(1);
+	//a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
+	//a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.85);
+	//a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	//a_button->name ="OptionButton";
+	//buttonList.push_back(a_button);
 
 
 	a_button = new CUIButtonCircle();
 	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("BackButton.tga"));
 	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1f,WM->GetOriginalWindowHeight()*0.9f);
 	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08f,WM->GetOriginalWindowHeight()*0.08f);
-	a_button->name ="CreditButton";
+	a_button->name ="BackButton";
 	buttonList.push_back(a_button);
 
-	a_button = new CUIButtonCircle();
-	a_button->ownTexture.Init(1);
-	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.9f,WM->GetOriginalWindowHeight()*0.9f);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08f,WM->GetOriginalWindowHeight()*0.08f);
-	a_button->name ="ExitButton";
-	buttonList.push_back(a_button);
-	
+	//a_button = new CUIButtonCircle();
+	//a_button->ownTexture.Init(1);
+	//a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	//a_button->SetPosition(WM->GetOriginalWindowWidth()*0.9,WM->GetOriginalWindowHeight()*0.9);
+	//a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
+	//a_button->name ="ExitButton";
+	//buttonList.push_back(a_button);
 
 	return true;
 }
@@ -406,50 +409,52 @@ void COptionState::RenderBackground()
 	backgroundImage[0].Render();
 	glPopMatrix();
 }
- void COptionState::PageTransitionTrigger(std::string buttonName)
+void COptionState::ButtonTriggerCall(CUIButton* theButton)
+{
+
+	if(mouse->CheckLeftButtonReleased())
+	{
+		mouse->PrintDebugInformation();
+		MS->PlaySoundPoolTrack2D("sound1.mp3");
+
+		if(theButton->name == "BackButton")
+		{
+			GSM->GoToPreviousState();
+		}else
+			if(theButton->name == "MuteButton")
+			{
+				switch(theButton->triggermode)
+				{
+				default:
+					std::cout<<"Unknow MuteButton trigger mod requsted"<<std::endl;
+					break;
+
+				case 0:
+					theButton->ownTexture.OverrideTGATexture(IM->GetTGAImage("MuteButton.tga"));
+					theButton->triggermode = 1;
+					mouse->Reset();
+					MS->Mute();
+					break;
+				case 1:
+					theButton->ownTexture.OverrideTGATexture(IM->GetTGAImage("UnMuteButton.tga"));
+					theButton->triggermode = 0;
+					mouse->Reset();
+					MS->UnMute();
+					break;
+
+				}
+			}
+	}
+}
+ void COptionState::ButtonTriggerCall(std::string buttonName)
  {
 	 if(mouse->CheckLeftButtonReleased())
 	 {
 		 MS->PlaySoundPoolTrack2D("sound1.mp3");
 
-		 if(buttonName == "SinglePlayerButton")
-		 {
-			 //if(mouse->CheckLeftButtonReleased())
-			 // {
-			 GSM->ChangeState(myApplication::GetInstance());
-			 // }
-		 }else
-			 if(buttonName == "OnlinePlayButton")
+			 if(buttonName == "BackButton")
 			 {
-				 // if(mouse->CheckLeftButtonReleased())
-				 // {
-				 GSM->ChangeState(myApplication::GetInstance());
-				 //}
-			 }else
-				 if(buttonName == "OptionButton")
-				 {
-					 // if(mouse->CheckLeftButtonReleased())
-					 // {
-					 GSM->ChangeState(myApplication::GetInstance());
-					 // }
-				 }else
-					 if(buttonName == "CreditButton")
-					 {
-						 // if(mouse->CheckLeftButtonReleased())
-						 // {
-						 GSM->ChangeState(myApplication::GetInstance());
-						 // }
-					 }else
-						 if(buttonName == "BackButton")
-						 {
-							 GSM->GoToPreviousState();
-						 }else
-						 if(buttonName == "ExitButton")
-						 {
-							 // if(mouse->CheckLeftButtonReleased())
-							 // {
-							 GSM->ExitApplication();
-							 // }
-						 }
+				 GSM->GoToPreviousState();
+			 }
 	 }
  }

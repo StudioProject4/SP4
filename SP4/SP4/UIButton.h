@@ -11,7 +11,8 @@ protected:
 public:
 	bool active;
 	Vector3 position;
-	//Vector3 size;
+	//one button could have multiple kind of trigger for example is mute and unmute botton.
+	unsigned short triggermode;
 	CSprite ownTexture;
 	char* name;
 
@@ -51,6 +52,10 @@ public:
 	virtual void SetPosition(float x = 0.f,float y = 0.f)
 	{
 		this->position.Set(x,y);
+	};
+	virtual unsigned short CheckTriggerMode()
+	{
+		return this->triggermode;
 	};
 	virtual void PrintDebugInformation()
 	{

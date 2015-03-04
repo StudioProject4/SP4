@@ -45,7 +45,6 @@ bool CMalayFemale :: Init()
 
 	invulTimer = MVCTime :: GetInstance();
 	refTime = invulTimer->PushNewTime(1000);
-	invulTimer->SetActive(true,refTime);
 	
 	return true;
 }
@@ -62,7 +61,10 @@ bool CMalayFemale :: CleanUp()
 
 bool CMalayFemale :: OnCollision2(CBaseObject* a_obj,bool again)
 {
-
+	if(invulTimer->TestTime(refTime))
+	{
+		SetIsInvulnerable(false);
+	}
 	return true;
 }
 

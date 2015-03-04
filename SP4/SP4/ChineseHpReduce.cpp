@@ -2,6 +2,8 @@
 
 
 CChineseHpReduce::CChineseHpReduce(void)
+	: ChHpTaken(false)
+	, MlHpTaken(false)
 {
 }
 
@@ -52,18 +54,42 @@ bool CChineseHpReduce::OnCollision2(CBaseObject* a_obj,bool again)
 
 	if(a_obj->genericTag == "Character")
 	{
-		if(this->active == true)
+		if(a_obj->tag == "ChineseMale")
 		{
-			if(a_obj->tag == "ChineseMale")
+			if(this->active == true)
+			{			
+				if(ChHpTaken == false)
+				{
+					tempCM->hp.RecoverHealth();
+					//this->active = false;
+					std::cout << "Chinese Health: " << tempCM->hp.GetHealth() << std::endl;
+					std::cout << "Chinese HEAlth Added" << std::endl;
+					std::cout << "Chinese Add: " << tempCM->hp.GetHealth() << std::endl;
+					ChHpTaken = true;
+				}else
+				if(ChHpTaken == true)
+				{
+					//
+				}
+			}
+		}else
+		if(a_obj->tag == "MalayFemale")
+		{
+			if(this->active == true)
 			{
-
-			}else
-			if(a_obj->tag == "MalayFemale")
-			{
-
+				//not valid	
+				//tempMF->hp.TakeDMG();
+				//this->active = false;
+				//std::cout << "Malay Health: " << tempMF->hp.GetHealth() << std::endl;
+				//std::cout << "Malay Health Minus" << std::endl;
+				//std::cout << "MalayMinus: " << tempMF->hp.GetHealth() << std::endl;	
+				//MlHpTaken = true;
+		
 			}
 		}
+		
+    	
 	}
-
 	return true;
+
 }

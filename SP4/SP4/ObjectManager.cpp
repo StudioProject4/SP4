@@ -8,6 +8,8 @@
 #include "Character.h"
 #include "LeverDoor.h"
 #include "Door.h"
+#include "MalayMob.h"
+#include "ChineseMob.h"
 
 //CObjectManager* CObjectManager::instance = 0;
 
@@ -231,8 +233,22 @@ bool CObjectManager::Update(int multiplayerMode)
 	{
 		if( objectList[it]->active == true)
 		{
+			if(objectList[it]->genericTag == "Enemy")
+			{
+				if(objectList[it]->tag == "MalayMob")
+				{
+					CMalayMob * temp = (CMalayMob*)objectList[it];
+					temp->charControl = charControl;
+				}
+				else if(objectList[it]->tag == "ChineseMob")
+				{
+					CChineseMob * temp = (CChineseMob*)objectList[it];
+					temp->charControl = charControl;
+				}
+			}
 			objectList[it]->Update();
-
+			if(it<objectList.size())
+			{
 #ifdef SP_V1
 			SP->UpdateObjectOwnerCell(objectList[it]);
 #endif
@@ -241,6 +257,7 @@ bool CObjectManager::Update(int multiplayerMode)
 			SP->UpdateObjectTopLeftAndBottomRightCell(objectList[it]);
 			SP->UpdateObjectMultipleCells(objectList[it]);
 #endif	
+			}
 
 			//(*it)->Render();
 			}else

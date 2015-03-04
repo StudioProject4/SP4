@@ -10,6 +10,7 @@
 #include "InvinciblePU.h"
 #include "ChinesePoints.h"
 #include "MalayPoints.h"
+#include "WinCondition.h"
 
 #include <iostream>
 CMap::CMap(CObjectManager* theObjectManager)
@@ -388,6 +389,7 @@ bool CMap::LoadFile(const string mapName)
 					CJumpPU* tempJp = nullptr;
 					CChinesePoints* tempCpt = nullptr;
 					CMalayPoints* tempMpt = nullptr;
+					CWinCondition* tempWc = nullptr;
 
 					while(getline(iss, token, ','))
 					{
@@ -456,7 +458,15 @@ bool CMap::LoadFile(const string mapName)
 							tempMpt->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
 							tempMpt->Init(tempMpt->pos, tempMpt->phys.size);
 							OM->AddObject(tempMpt);	
-
+							break;
+						case 10:
+							theScreenMap[theLineCounter][theColumnCounter++] = 1;
+							//call factory to create a power up at this pos
+							tempWc = CManufactureManager::GetInstance()->CreateWinCondition();
+							tempWc->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
+							tempWc->Init(tempWc->pos, tempWc->phys.size);
+							tempWc->levelChange=this;
+							OM->AddObject(tempWc);	
 							break;
 						default:
 							theScreenMap[theLineCounter][theColumnCounter++] = atoi(token.c_str());

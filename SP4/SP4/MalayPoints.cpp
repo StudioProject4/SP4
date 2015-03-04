@@ -1,6 +1,8 @@
 #include "MalayPoints.h"
 
 CMalayPoints::CMalayPoints()
+	: ChPtsTaken(false)
+	, MlPtsTaken(false)
 {
 }
 
@@ -56,43 +58,43 @@ bool CMalayPoints::OnCollision2(CBaseObject* a_obj,bool again)
 	if(a_obj->genericTag = "Character")
 	{
 			
-		if(this->active == true)
-		{
+		/*if(this->active == true)
+		{*/
 			if(a_obj->tag == "MalayFemale")
 			{
-				//if(this->active == true)
-				//{
-					
-					tempMF->hp.RecoverHealth();
-					this->active = false;
-					std::cout << "Malay Health: " << tempMF->hp.GetHealth() << std::endl;
-					std::cout << "Malay Health Added" << std::endl;
-					std::cout << "MalayAdd: " << tempMF->hp.GetHealth() << std::endl;
-					
-				//}else
-				//{
-					//taken
-				//}
+				if(this->active == true)
+				{			
+					if(MlPtsTaken == false)
+					{
+						pts->PointsReceive(30);
+						this->active = false;
+						std::cout << "Malay Points: " << pts->GetPoints() << std::endl;
+						std::cout << "Malay Points Added" << std::endl;
+						std::cout << "Malay Addpts: " << pts->GetPoints() << std::endl;
+						MlPtsTaken = true;
+					}else
+					if(MlPtsTaken == true)
+					{
+						//
+					}
+				}
 			}else 
 			if(a_obj->tag == "ChineseMale")
 			{
-				//if(this->active == true)
-				//{
-					tempCM->hp.TakeDMG();
-					this->active = false;
-					std::cout << "Chinese Health: " << tempCM->hp.GetHealth() << std::endl;
-					std::cout << "Chinese Take DMG" << std::endl;
-					std::cout << "ChineseMinus: " << tempCM->hp.GetHealth() << std::endl;
-				
-				//}else
-				//{
+				if(this->active == true)
+				{
+					//tempCM->hp.TakeDMG();
+					//this->active = false;
+					//std::cout << "Chinese Health: " << tempCM->hp.GetHealth() << std::endl;
+					//std::cout << "Chinese Take DMG" << std::endl;
+					//std::cout << "ChineseMinus: " << tempCM->hp.GetHealth() << std::endl;
+					//ChPtsTaken = true;
+				}else
+				{
 					//taken
-				//}
+				}
 			}
-		}else
-		{
-			//taken
-		}
+		
 	}
 
 	return true;

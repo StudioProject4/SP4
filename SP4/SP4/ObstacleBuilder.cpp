@@ -39,6 +39,12 @@ void CObstacleBuilder::SetManufactureMalayHp()
 {
 	factory->SetManufactureMalayHp();
 }
+
+void CObstacleBuilder::SetManufactureWinLoseCondition()
+{
+	factory->SetManufactureWinLoseCondition();
+}
+
 CObstacleFactory* CObstacleBuilder::GetFactory()
 {
 	return factory;

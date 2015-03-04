@@ -15,6 +15,7 @@ public:
 	void SetManufactureMalayPoints();
 	void SetManufactureChineseHp();
 	void SetManufactureMalayHp();
+	void SetManufactureWinLoseCondition();
 	CObstacleFactory* GetFactory();
 	CObstacleBase* GetProduct();
 
