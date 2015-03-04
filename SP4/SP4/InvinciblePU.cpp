@@ -45,39 +45,18 @@ bool CInvinciblePU::OnCollision2(CBaseObject* a_obj,bool again)
 
 	if(a_obj->genericTag = "Character")
 	{
-		if(a_obj->name = "GenericChineseKid")
+		if(this->active == true)
 		{
-			if(this->active == true)
-			{
-				CCharacter* Invintemp = (CCharacter*)a_obj;
-				Invintemp->SetIsInvulnerable(true);
-				Invintemp->invulTimer->SetActive(true, Invintemp->refTime);
-				Invintemp->invulTimer->SetLimit(Invintemp->refTime, 5000);
-				//this->active = false;
-				//std::cout << "INvulneravblee true " << std::endl;
-			}else
-			if(this->active == false)
-			{
-				//std::cout << "Invulnerable TAKEN" << std::endl;
-			}
-		}
-		else
-		if(a_obj->name = "GenericMalayKid")
+			CCharacter* Invintemp = (CCharacter*)a_obj;
+			Invintemp->SetIsInvulnerable(true);
+			Invintemp->invulTimer->SetActive(true, Invintemp->refTime);
+			Invintemp->invulTimer->SetLimit(Invintemp->refTime, 5000);
+			this->active = false;
+			std::cout << "INvulneravblee true " << std::endl;
+		}else
+		if(this->active == false)
 		{
-			if(this->active == true)
-			{
-				CCharacter* Invintemp = (CCharacter*)a_obj;
-				Invintemp->SetIsInvulnerable(true);
-				Invintemp->invulTimer->SetActive(true, Invintemp->refTime);
-				Invintemp->invulTimer->SetLimit(Invintemp->refTime, 5000);
-				this->active = false;
-				std::cout << "INvulneravblee true " << std::endl;
-			}else
-			if(this->active == false)
-			{
-				//std::cout << "Invulnerable TAKEN" << std::endl;
-			}
-			
+			//std::cout << "Invulnerable TAKEN" << std::endl;
 		}
 	}
 

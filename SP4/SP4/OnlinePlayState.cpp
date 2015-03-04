@@ -102,7 +102,10 @@ void COnlinePlayState::KeyboardUp(unsigned char key, int x, int y)
 	if(internalState==1)
 	{
 		if(key==8)
-			ip.pop_back();
+		{
+			if(ip.size()>0)
+				ip.pop_back();
+		}
 		else if(key==13)
 		{
 			if(ip=="")
@@ -388,6 +391,7 @@ bool COnlinePlayState::Reset()
 
 bool COnlinePlayState::CleanUp()
 {
+	closeServer();
 	for(TButtonList::iterator it = buttonList.begin(); it != buttonList.end(); ++it)
 	{
 		if((*it) != 0)

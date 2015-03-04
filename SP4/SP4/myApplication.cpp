@@ -579,8 +579,6 @@ bool myApplication::Update()
 							CMalayMob * temp =  CManufactureManager::GetInstance()->CreateMalayMob(); 
 							temp->Init();
 							temp->SetUpMap(*Map);
-							//temp->AI.SetEnemyPos(Vector3(x,y,z));
-							//temp->pos.Set(x,y,z);
 							temp->SetPos(Vector3(x,y,z));
 							temp->id = id;
 							OM->AddObject(temp);
@@ -590,8 +588,6 @@ bool myApplication::Update()
 							CChineseMob * temp = CManufactureManager::GetInstance()->CreateChineseMob();
 							temp->Init();
 							temp->SetUpMap(*Map);
-							//temp->AI.SetEnemyPos(Vector3(x,y,z));
-							//temp->pos.Set(x,y,z);
 							temp->SetPos(Vector3(x,y,z));
 							temp->id = id;
 							OM->AddObject(temp);
@@ -710,37 +706,54 @@ bool myApplication::Update()
 					other->phys.vel.Set(x,y,z);
 				}
 
-				else if(temp2=="ENEMY")
+				else if(temp2=="Enemy")
 				{
-					//read pos
-					//set pos
-				}
-				else if(temp2=="ChineseMob")
-				{
-					unsigned short id1,id2;
-					int hp;
-					bs.Read(id1);
-					bs.Read(id2);
-					bs.Read(hp);
-					
-					CChineseMob* mob=NULL;
-					CCharacter* character=NULL;
-					for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
+					bool mode;
+					bs.Read(mode);
+					if(mode)
 					{
-						if(id1==(*it)->id)
+						float x, y;
+						unsigned short id;
+						bs.Read(id);
+						//read pos
+						bs.Read(x);
+						bs.Read(y);
+
+						CBaseObject* temp;
+						
+						for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
 						{
-							mob=(CChineseMob*)(*it);
+							if(id==(*it)->id)
+							{
+								temp=(CBaseObject*)(*it);
+								break;
+							}
 						}
-						else if(id2==(*it)->id)
-						{
-							character=(CCharacter*)(*it);
-						}
-						if(mob!=NULL&&character!=NULL)
-						{
-							break;
-						}
+						temp->pos.Set(x,y,0);
+						//set pos
+
 					}
-					character->hp.SetHealth(hp);
+					else
+					{
+						unsigned short id1,id2;
+						int hp;
+						bs.Read(temp);//tag
+						temp2=temp;
+						bs.Read(id1);
+						bs.Read(id2);
+						bs.Read(hp);
+
+						CCharacter* character=NULL;
+						for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
+						{
+							if(id2==(*it)->id)
+							{
+								character=(CCharacter*)(*it);
+								break;
+							}
+						}
+						character->hp.SetHealth(hp);
+					}
 
 				}
 			}
@@ -832,8 +845,16 @@ bool myApplication::Update()
 				playerTwo->Jump();
 			}
 		}
-		if(keyboard->myKeys['s'])
+		if(keyboard->myKeys['p'])
 		{
+			if(charControl==1||charControl==3)
+			{
+				
+			}
+			else if(charControl==2)
+			{
+				
+			}
 			//win->OnCollision(playerOne, false);
 			//win->OnCollision(playerOne, true);
 			playerOne->hp.SetHealth(0);
@@ -870,9 +891,9 @@ bool myApplication::Update()
 					velChanged=true;
 				playerTwo->Jump();
 			}
-			if(keyboard->myKeys['k'] == true)
+			if(keyboard->myKeys['p'] == true)
 			{
-		
+				
 			}
 			if(keyboard->myKeys['j'] == false && keyboard->myKeys['l'] == false)
 			{
@@ -929,9 +950,9 @@ bool myApplication::Update()
 		
 		if(FRM->UpdateAndCheckTimeThreehold())
 		{
-			theAIOne->AI.SetEnemyPos(playerOne->pos);
+			theAIOne->AI.SetCharacterPos(playerOne->pos);
 			//theAIOne->Update();
-			theAITwo->AI.SetEnemyPos(playerTwo->pos);
+			theAITwo->AI.SetCharacterPos(playerTwo->pos);
 			//theAITwo->Update();
 		
 		}

@@ -10,6 +10,7 @@
 #include "MalayMob.h"
 #include "Character.h"
 #include "ImageManager.h"
+extern RakNet::RakPeerInterface* rakPeerGlobal;
 
 CMalayMob :: CMalayMob()
 {
@@ -25,13 +26,31 @@ CMalayMob :: ~CMalayMob()
 }
 bool CMalayMob :: Update()
 {
-	dir = AI.GetDir();
-	//pos.x = 
-	pos = AI.Update(pos);//,phys);
-	/*if(AI.state == AI_WANDER)
+	if(charControl==1||charControl==3)
 	{
-		pos.x = phys.Update(pos).x;
-	}*/
+		dir = AI.GetDir();
+		//pos.x = 
+		pos = AI.Update(pos);//,phys);
+		refTime = MVCTime::GetInstance()->PushNewTime(1000);
+		if(MVCTime::GetInstance()->TestTime(refTime))
+		{
+			RakNet::BitStream bs;
+			unsigned char msgid=ID_OBJ_UPDATE;
+
+			bs.Write(msgid);
+			bs.Write(genericTag);
+			bs.Write(true);//mode;
+			bs.Write(this->id);
+			bs.Write(pos.x);
+			bs.Write(pos.y);
+		
+			rakPeerGlobal->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,RakNet::UNASSIGNED_SYSTEM_ADDRESS,true);
+		}
+		/*if(AI.state == AI_WANDER)
+		{
+			pos.x = phys.Update(pos).x;
+		}*/
+	}
 	return true;
 }
 bool CMalayMob :: Init()
@@ -40,14 +59,14 @@ bool CMalayMob :: Init()
 	tag = "MalayMob";
 	genericTag = "Enemy";
 
+	AI.SetTag(tag);
+
 	theSprite = new CSprite(1,1,0);
 	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("rockyground.tga"));
 	//theSprite->LoadTGA("rockyground.tga");
 	
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
-
-	timer = clock();
 
 	return true;
 }	
@@ -72,29 +91,31 @@ bool CMalayMob :: Render()
 
 bool CMalayMob :: OnCollision2(CBaseObject* a_obj,bool again)
 {
-
-	if(clock() - timer > 5000)
-	{
-#ifdef NETWORK_CODE
 	if(a_obj->genericTag == "Character")
 	{
 		if(a_obj->tag == "ChineseMale")
 		{
 			CCharacter* temp=(CCharacter*)a_obj;
-			temp->hp.TakeDMG();
-			cout << temp->hp.GetHealth() << endl;
-			unsigned char msgID=ID_OBJ_UPDATE;
-			RakNet::BitStream bs;
-			bs.Write(msgID);
-			bs.Write(this->id);
-			bs.Write(this->tag);
-			bs.Write(a_obj->id);
-			bs.Write(temp->hp.GetHealth());
-			RakNet::RakPeerInterface::GetInstance()->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,RakNet::UNASSIGNED_SYSTEM_ADDRESS,true);
+			if(!temp->isInvulnerable)
+			{
+				temp->hp.TakeDMG();
+				temp->SetIsInvulnerable(true);
+				temp->invulTimer->SetActive(true, temp->refTime);
+				temp->invulTimer->SetLimit(temp->refTime, 5000);
+				temp->invulTimer->ResetTime(refTime);
+
+				unsigned char msgID=ID_OBJ_UPDATE;
+				RakNet::BitStream bs;
+				bs.Write(msgID);
+				bs.Write(genericTag);
+				bs.Write(false);//mode
+				bs.Write(this->tag);
+				bs.Write(this->id);
+				bs.Write(a_obj->id);
+				bs.Write(temp->hp.GetHealth());
+				rakPeerGlobal->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,RakNet::UNASSIGNED_SYSTEM_ADDRESS,true);
+			}
 		}
-	}
-#endif
-	timer = clock();
 	}
 
 	return true;
