@@ -48,20 +48,20 @@ bool CHealthPU::Update()
 bool CHealthPU::OnCollision2(CBaseObject* a_obj,bool again)
 {
 
-	if(a_obj->genericTag = "Character")
+	if(a_obj->genericTag == "Character")
 	{
 		if(this->active == true)
 		{
-			if(a_obj->tag = "ChineseMale")
+			if(a_obj->tag == "ChineseMale")
 			{
 				/*if(this->active == true)
 				{*/
 					//CCharacter* temp = (CCharacter*)a_obj;
-					CChineseMale* temp = (CChineseMale*)a_obj;
-					temp->hp.RecoverHealth();
-					this->active = false;
-					std::cout << "HEALTH ADDED" << std::endl;
-					std::cout << temp->hp.GetHealth() << std::endl;
+					//CChineseMale* temp = (CChineseMale*)a_obj;
+					//temp->hp.RecoverHealth();
+					//this->active = false;
+					//std::cout << "HEALTH ADDED" << std::endl;
+					//std::cout << temp->hp.GetHealth() << std::endl;
 				//}else
 				//if(this->active == false)
 				//{
@@ -70,14 +70,14 @@ bool CHealthPU::OnCollision2(CBaseObject* a_obj,bool again)
 
 			}
 			else
-			if(a_obj->tag = "MalayFemale")
+			if(a_obj->tag == "MalayFemale")
 			{
 				/*if(this->active == true)
 				{*/
-					CCharacter* temp=(CCharacter*)a_obj;
-					temp->hp.RecoverHealth();
-					this->active = false;
-					std::cout << "HEALTH ADDED" << std::endl;
+					//CCharacter* temp=(CCharacter*)a_obj;
+					//temp->hp.RecoverHealth();
+					//this->active = false;
+					//std::cout << "HEALTH ADDED" << std::endl;
 				//}else
 				//if(this->active == false)
 				//{

@@ -16,6 +16,7 @@ public:
 		OBSTACLE_MALAYPTS,
 		OBSTACLE_CHINAHP,
 		OBSTACLE_MALAYHP,
+		OBSTACLE_WINLOSE,
 		OBSTACLE_TOTAL
 	};
 
@@ -37,6 +38,8 @@ public:
 	void SetManufactureMalayPoints();
 	void SetManufactureChineseHp();
 	void SetManufactureMalayHp();
+
+	void SetManufactureWinLoseCondition();
 
 	//CChinesePoints* CChinesePoints;
 };

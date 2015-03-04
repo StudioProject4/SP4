@@ -261,7 +261,7 @@ bool CCreditState::Update()
 		if(buttonList[i]->ColisionCheck(mouse))
 		{
 			//std::cout<<"Button COllided"<<std::endl;
-			PageTransitionTrigger(buttonList[i]->name);
+			ButtonTriggerCall(buttonList[i]->name);
 		}else
 		{
 			//std::cout<<"=D "<<std::endl;
@@ -407,7 +407,7 @@ void CCreditState::RenderBackground()
 	backgroundImage[0].Render();
 	glPopMatrix();
 }
- void CCreditState::PageTransitionTrigger(std::string buttonName)
+ void CCreditState::ButtonTriggerCall(std::string buttonName)
  {
 	 if(mouse->CheckLeftButtonReleased())
 	 {

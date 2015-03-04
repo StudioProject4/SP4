@@ -262,7 +262,7 @@ bool CSplashState::Update()
 	//	if(buttonList[i]->ColisionCheck(mouse))
 	//	{
 	//		//std::cout<<"Button COllided"<<std::endl;
-	//		PageTransitionTrigger(buttonList[i]->name);
+	//		ButtonTriggerCall(buttonList[i]->name);
 	//	}else
 	//	{
 	//		//std::cout<<"=D "<<std::endl;
@@ -465,7 +465,7 @@ void CSplashState::RenderBackground()
 
 	glPopMatrix();
 }
- void CSplashState::PageTransitionTrigger(std::string buttonName)
+ void CSplashState::ButtonTriggerCall(std::string buttonName)
  {
 	 if(mouse->CheckLeftButtonReleased())
 	 {

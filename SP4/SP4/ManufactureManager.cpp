@@ -18,6 +18,9 @@
 #include "Door.h"
 #include "ChinesePoints.h"
 #include "MalayPoints.h"
+#include "ChineseHpReduce.h"
+#include "MalayHpReduce.h"
+#include "WinCondition.h"
 
 CManufactureManager* CManufactureManager::instance = 0;
 
@@ -125,4 +128,22 @@ CMalayPoints* CManufactureManager::CreateMalayPoints()
 	obstacleBuilder->SetManufactureMalayPoints();
 	return dynamic_cast<CMalayPoints*>(obstacleBuilder->GetProduct());
 	
+}
+
+CChineseHpReduce* CManufactureManager::CreateChineseHpReduce()
+{
+	obstacleBuilder->SetManufactureChineseHp();
+	return dynamic_cast<CChineseHpReduce*>(obstacleBuilder->GetProduct());
+}
+
+CMalayHpReduce* CManufactureManager::CreateMalayHpReduce()
+{
+	obstacleBuilder->SetManufactureMalayHp();
+	return dynamic_cast<CMalayHpReduce*>(obstacleBuilder->GetProduct());
+}
+
+CWinCondition* CManufactureManager::CreateWinCondition()
+{
+	obstacleBuilder->SetManufactureWinLoseCondition();
+	return dynamic_cast<CWinCondition*>(obstacleBuilder->GetProduct());
 }

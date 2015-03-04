@@ -52,7 +52,7 @@ bool CPointsAddPU::Init()
 bool CPointsAddPU::OnCollision2(CBaseObject* a_obj,bool again)
 {
 	std::cout<<"points collieded"<<std::endl;
-	if(a_obj->genericTag = "Character")
+	if(a_obj->genericTag == "Character")
 	{
 		if(this->active == true)
 		{

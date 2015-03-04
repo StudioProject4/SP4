@@ -105,7 +105,9 @@ public:
 	//CMouse* mouse;
 	//CKeyboard* keyboard;
 	
-
+	
+	CChineseMale * playerOne; 
+	CMalayFemale * playerTwo;
 private:
 	myApplication(void);
 	
@@ -113,8 +115,6 @@ private:
 	void SetHUD(bool m_bHUDmode);
 
 	//temp instance until object manager is done
-	CChineseMale * playerOne; 
-	CMalayFemale * playerTwo;
 	CMalayMob * theAIOne;
 	CChineseMob * theAITwo;
 	CMap* Map;
@@ -126,6 +126,7 @@ private:
 	CInvinciblePU InvinOn;
 	CPointSystem* points;
 	CWinCondition* win;
+//	CWinCondition w;
 	
 
 	int timeRef;

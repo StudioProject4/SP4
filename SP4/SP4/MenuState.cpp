@@ -271,7 +271,7 @@ bool CMenuState::Update()
 		if(buttonList[i]->ColisionCheck(mouse))
 		{
 			//std::cout<<"Button COllided"<<std::endl;
-			PageTransitionTrigger(buttonList[i]->name);
+			ButtonTriggerCall(buttonList[i]->name);
 		}else
 		{
 			//std::cout<<"=D "<<std::endl;
@@ -435,7 +435,7 @@ void CMenuState::RenderBackground()
 	//backgroundImage[0].Render();
 	glPopMatrix();
 }
- void CMenuState::PageTransitionTrigger(std::string buttonName)
+ void CMenuState::ButtonTriggerCall(std::string buttonName)
  {
 	 if(mouse->CheckLeftButtonReleased())
 	 {

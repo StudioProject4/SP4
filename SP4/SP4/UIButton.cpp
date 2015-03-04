@@ -5,6 +5,7 @@ CUIButton::CUIButton(void)
 	:active(true)
 	,onHover(false)
 	,down(false)
+	,triggermode(0)
 {
 }
 

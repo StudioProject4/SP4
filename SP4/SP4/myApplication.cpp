@@ -107,13 +107,34 @@ bool myApplication::ResetLevel(short level)
 {
 	if(OM  != 0)
 	{
-		delete OM;
-		OM = new CObjectManager();
+		//delete OM;
+		//OM = new CObjectManager();
 	}
+	OM->LoadingSetup();
 	//delete playerOne;
 	//delete playerOne;
 	//delete theAIOne;
 	//delete theAITwo;
+
+	//playerOne = OM->manufacturer->CreateChineseMale();
+	//playerTwo = OM->manufacturer->CreateMalayFemale();
+	theAIOne = OM->manufacturer->CreateMalayMob();
+	theAITwo = OM->manufacturer->CreateChineseMob();
+	
+	playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
+	playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
+	theAIOne->SetPos(Vector3(624,80,0));
+	theAITwo->SetPos(Vector3(304,80,0));
+
+
+	CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
+	lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+	CDoor* door= OM->manufacturer->CreateObstacleDoor();
+	door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X"),LM->GetWithCheckNumber<float>("DOOR_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
+
+	lever->SetDoorLink(door);
+	door->AddTrigger(lever);
+
 	playerOne = OM->manufacturer->CreateChineseMale();
 	playerTwo = OM->manufacturer->CreateMalayFemale();
 
@@ -171,7 +192,7 @@ bool myApplication::ResetLevel(short level)
 
 
 
-	//Map->RunMap();
+	Map->RunMap();
 
 	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
 	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
@@ -826,7 +847,8 @@ bool myApplication::Update()
 		}
 		if(keyboard->myKeys['s'])
 		{
-		
+			//win->OnCollision(playerOne, false);
+			//win->OnCollision(playerOne, true);
 		}
 		if(keyboard->myKeys['a'] == false && keyboard->myKeys['d'] == false)
 			{
@@ -931,6 +953,7 @@ bool myApplication::Update()
 
 
 	Map->RunMap();
+	
 //	win->
 		
 	return true;
@@ -1170,6 +1193,7 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 		break;
 
 		case '2':
+			playerOne->hp.SetHealth(0);
 			//CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
 			//this->PrintDebugInformation();
 			//MS->PlayBgmTrack("bgm2.mp3");
@@ -1184,16 +1208,17 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 		break;
 		
 		case '3':
+			//MS->PrintSoundPoolList();
 			MS->PlayBgmTrack(MS->GetCurrentBgmTrackIndex());
 			//MS->TranverseSoundTrack();
 			
 			break;
 		case '4':
-			MS->PrintCurrentSoundTrack();
+		//	MS->PrintCurrentSoundTrack();
 			
 			break;
 		case '5':
-			MS->ResetSoundTrackPlayPosition(MS->currentSoundTrack);
+		//	MS->ResetSoundTrackPlayPosition(MS->currentSoundTrack);
 			break;
 		case '6':
 			//MS->PrintSoundTrackList();
@@ -1205,17 +1230,17 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//testmale->PrintDebugInformation();
 			//OM->PrintDebugAllActiveObjects();
 			//OM->objectList[0]->UpdateObjectTopLeftAndBottomRightPoint(false);
-			OM->PrintDebugAllInActiveObjects();
+			//OM->PrintDebugAllInActiveObjects();
 			break;
 		case '8':
 			//OM->PrintDebugInformation();
-			OM->PrintDebugAllActiveObjects();
+			//OM->PrintDebugAllActiveObjects();
 			break;
 		case '9':
 			//GSM->GoBackToPreviousState();
 			break;
 		case 'c':
-			system("cls");
+			//system("cls");
 			break;
 	}
 }

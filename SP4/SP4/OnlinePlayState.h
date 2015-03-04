@@ -41,7 +41,7 @@ public:
 	 void Render2D();
 	 void Render3D();
 	 void RenderScene(void);
-	 void PageTransitionTrigger(std::string buttonName);
+	 void ButtonTriggerCall(std::string buttonName);
 	 void RenderBackground();
 
 	 bool Update();
