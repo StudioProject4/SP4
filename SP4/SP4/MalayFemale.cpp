@@ -34,6 +34,7 @@ bool CMalayFemale :: Update()
 			//invulTimer->SetActive(false,refTime);
 		}
 	}
+	theSprite->LiveOn();
 	return true;
 }
 
@@ -43,8 +44,10 @@ bool CMalayFemale :: Init()
 	tag = "MalayFemale";
 	genericTag = "Character";
 
-	theSprite = new CSprite(1,1,0);
-	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("sonia2.tga"));
+	theSprite = new CSprite(10,4,0);
+	theSprite->SetFrameSpeed(2);
+	CImageManager::GetInstance()->RegisterTGA("Female.tga");
+	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("Female.tga"));
 	//theSprite->LoadTGA("sonia2.tga");
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY()));
@@ -83,6 +86,23 @@ bool CMalayFemale :: Render()
 		theSprite->SetAlpha(0.5f);
 	else
 		theSprite->SetAlpha(1.0f);
+		if(phys.vel.x == 0)
+		if(dir.x >= 0)
+		{
+			theSprite->SetAnimationLayer(1);
+		}
+		else
+		{
+			theSprite->SetAnimationLayer(2);
+		}
+	else if(phys.vel.x > 0)
+	{
+		theSprite->SetAnimationLayer(0);
+	}
+	else if(phys.vel.x < 0)
+	{
+		theSprite->SetAnimationLayer(3);
+	}
 	theSprite->Render();
 	glPopMatrix();
 

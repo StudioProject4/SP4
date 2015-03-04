@@ -98,10 +98,6 @@ void CAILogic :: FindPath ()
 			foundPath = true;
 		else if(state == AI_WANDER)
 			foundOriPath = true;
-		for(it = pathFinding.closeList.begin(); it < pathFinding.closeList.end(); ++it)
-			{
-				cout << it->index << endl;
-			}
 	}
 }
 
@@ -150,10 +146,12 @@ Vector3 CAILogic :: Update(Vector3 pos)//CPhysics & thePhysics)
 			if(pos.x < pathFinding.closeList.at(pathMovementCounter).x)
 			{
 				this->pos.x += 60*delta;
+				dir = 1;
 			}
 			if(pos.x > pathFinding.closeList.at(pathMovementCounter).x)
 			{
 				this->pos.x -= 60*delta;
+				dir = -1;
 			}
 			if(pos.y < pathFinding.closeList.at(pathMovementCounter).y)
 			{
@@ -193,10 +191,12 @@ Vector3 CAILogic :: Update(Vector3 pos)//CPhysics & thePhysics)
 			if(pos.x < pathFinding.closeList.at(pathMovementCounter).x)
 			{
 				this->pos.x += 60*delta;
+				dir = 1;
 			}
 			if(pos.x > pathFinding.closeList.at(pathMovementCounter).x)
 			{
 				this->pos.x -= 60*delta;
+				dir = -1;
 			}
 			if(pos.y < pathFinding.closeList.at(pathMovementCounter).y)
 			{

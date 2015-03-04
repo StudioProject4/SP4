@@ -61,6 +61,7 @@ bool CMalayMob :: Init()
 	AI.SetTag(tag);
 
 	theSprite = new CSprite(1,1,0);
+	CImageManager::GetInstance()->RegisterTGA("rockyground.tga");
 	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("rockyground.tga"));
 	//theSprite->LoadTGA("rockyground.tga");
 	
@@ -83,6 +84,14 @@ bool CMalayMob :: Render()
 {
 	glPushMatrix();
 	glTranslatef(pos.x,pos.y,pos.z);
+	if(dir.x > 0)
+	{
+		theSprite->SetAnimationLayer(0);
+	}
+	else if(dir.x < 0)
+	{
+		theSprite->SetAnimationLayer(0);
+	}
 	theSprite->Render();
 	glPopMatrix();
 

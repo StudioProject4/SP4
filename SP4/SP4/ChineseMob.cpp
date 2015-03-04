@@ -64,6 +64,7 @@ bool CChineseMob :: Init()
 	AI.SetID(id);
 
 	theSprite = new CSprite(1,1,0);
+	CImageManager::GetInstance()->RegisterTGA("tenri.tga");
 	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("tenri.tga"));
 	//theSprite->LoadTGA("tenri.tga");
 
@@ -94,6 +95,7 @@ bool CChineseMob :: Render()
 {
 	glPushMatrix();
 	glTranslatef(pos.x,pos.y,pos.z);
+
 	theSprite->Render();
 	glPopMatrix();
 
