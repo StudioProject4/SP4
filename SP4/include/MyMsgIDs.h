@@ -16,6 +16,7 @@ enum MyMsgIDs
 	ID_COLLISION,
 	ID_JOIN_GAME,
 	ID_POINTS,
+	ID_REQUEST_MAP_CLEAR,
 	//hold all players new position
 	ID_NEW_PLAYER,
 	ID_NEW_MAP,

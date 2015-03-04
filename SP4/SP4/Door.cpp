@@ -24,8 +24,8 @@ bool CDoor::Init(Vector3 pos,Vector3 size)
 
 	this->pos=pos;
 	theSprite=new CSprite(1);
-	CImageManager::GetInstance()->RegisterTGA("guy2.tga");
-	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("guy2.tga"));
+	CImageManager::GetInstance()->RegisterTGA("BlackWalls.tga");
+	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("BlackWalls.tga"));
 	this->phys.size=Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY());
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 	triggered=false;
@@ -90,6 +90,9 @@ bool CDoor::Update()
 bool CDoor::OnCollision2(CBaseObject* obj,bool again)
 {
 	if(active&&!triggered)
-		obj->phys.vel.x=0;
+	{
+		if(obj->phys.vel.Dot(obj->pos-pos)<0)
+			obj->phys.vel.x=0;
+	}
 	return false;
 }

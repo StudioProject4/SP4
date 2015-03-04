@@ -28,10 +28,10 @@ public:
 
 	CMalayFemale* MF;
 	CChineseMale* CM;
-
+	bool  MalayFemaleIn;
 private:
 
-	bool ChineseMaleIn, MalayFemaleIn;		//player got into the door		
+	bool ChineseMaleIn;		//player got into the door		
 
 };
 
