@@ -17,7 +17,7 @@ public:
 	bool active;
 	Vector3 pos;
 	Vector3 dir;
-
+	//unsigned short numberOfTimeCollided;
 	CSprite * theSprite;
 	short cellvectorindex;
 	Cell* ownerCell;
@@ -37,6 +37,7 @@ public:
 		,cellvectorindex(-1)
 		,lastCall(0)
 		,frame(false)
+		//,numberOfTimeCollided(0)
 	{};
 	virtual ~CBaseObject(){};
 	

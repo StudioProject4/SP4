@@ -84,43 +84,29 @@ bool CChineseMale :: Render()
 	glPushMatrix();
 	glTranslatef(pos.x,pos.y,pos.z);
 	if(GetIsInvulnerable() == true)
+	{
 		theSprite->SetAlpha(0.5f);
+	}
 	else
+	{
 		theSprite->SetAlpha(1.0f);
+	}	
 	if(phys.vel.x == 0)
+	{
 		if(dir.x >= 0)
 			theSprite->SetAnimationLayer(1);
 		else
 			theSprite->SetAnimationLayer(2);
+	}
 	else if(phys.vel.x > 0)
+	{
 		theSprite->SetAnimationLayer(0);
+	}
 	else if(phys.vel.x < 0)
+	{
 		theSprite->SetAnimationLayer(3);
+	}
 	theSprite->Render();
 	glPopMatrix();
-	
-	//glPushMatrix();
-	//glColor3f(0,1,0);
-	//	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	//	glTranslatef(pos.x,pos.y,0);
-	//	//glRotatef(curAngle,0,0,1);
-	//	glScalef(this->phys.size.x,this->phys.size.y,0);
-	//	//glBindTexture(GL_TEXTURE_2D,this->testimage.texID);
-	//	glBegin (GL_TRIANGLE_STRIP);
-	//		glNormal3f(0,0,1);
-	//		glTexCoord2f(0,0);
-	//		glVertex3f(-0.5, 0.5, 0);
-	//	
-	//		glTexCoord2f(0,1.0);
-	//		glVertex3f(-0.5,-0.5,0);
-
-	//		glTexCoord2f(1.0,0.0);
-	//		glVertex3f(0.5,0.5,0);
-
-	//		glTexCoord2f(1.0,1.0);
-	//		glVertex3f(0.5,-0.5,0);
-	//	glEnd();
-	//	glPopMatrix();
-	//glPushMatrix();
 	return true;
 }

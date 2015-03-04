@@ -81,12 +81,17 @@ bool CMalayFemale :: Render()
 {
 	
 	glPushMatrix();
+
 	glTranslatef(pos.x,pos.y,pos.z);
 	if(GetIsInvulnerable() == true)
+	{
 		theSprite->SetAlpha(0.5f);
+	}
 	else
+	{
 		theSprite->SetAlpha(1.0f);
-		if(phys.vel.x == 0)
+	}
+	if(phys.vel.x == 0)
 		if(dir.x >= 0)
 		{
 			theSprite->SetAnimationLayer(1);
@@ -104,6 +109,7 @@ bool CMalayFemale :: Render()
 		theSprite->SetAnimationLayer(3);
 	}
 	theSprite->Render();
+
 	glPopMatrix();
 
 	return true;

@@ -7,8 +7,8 @@ CMusicSystem* CMusicSystem::instance = 0;
 
 CMusicSystem::CMusicSystem(void)
 	:engine(0)
-	,currentBgmTrack(-1)
-	,currentSoundTrack(-1)
+	,currentBgmTrack(0)
+	,currentSoundTrack(0)
 	,allSoundPaused(false)
 	,allSoundMuted(false)
 {
@@ -42,7 +42,6 @@ CAudio* CMusicSystem::FetchSound()
 				{
 					(*it)->Drop();
 				}
-
 				a_audio = (*it);
 				break;
 			}
@@ -355,23 +354,22 @@ bool CMusicSystem::PlaySoundPoolTrack2D(std::string trackname,bool setLoop,bool 
 {
 	
 	CAudio* a_audio = FetchSound();
-	//std::cout<<"before"<<std::endl;a_audio->PrintDebugInformation();
 	if(a_audio)
 	{
 		CAudio* sample_audio = FindSound(trackname);
 		if(sample_audio)
 		{
 			(*a_audio) = (*sample_audio); 
-			//if(a_audio->GetDimension() == 2)
-			//{
+
+			if(a_audio->GetDimension() == 2)
+			{
 				a_audio->Init(this->CreateSampleAudio2D(a_audio->GetFileName().c_str(),setLoop,audioEffect),a_audio->GetFileName().c_str(),a_audio->GetAudioName());
-			//}
+			}
 			
 			a_audio->ResetPlayPosition();
 			a_audio->SetIsPaused(false);
 			a_audio->active = true;
-			//std::cout<<"after"<<std::endl;
-			//a_audio->PrintDebugInformation();
+
 			return true;
 		}
 	}
