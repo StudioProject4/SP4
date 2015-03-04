@@ -287,7 +287,7 @@ bool COnlinePlayState::Update()
 		if(buttonList[i]->ColisionCheck(mouse))
 		{
 			//std::cout<<"Button COllided"<<std::endl;
-			PageTransitionTrigger(buttonList[i]->name);
+			ButtonTriggerCall(buttonList[i]->name);
 		}else
 		{
 			//std::cout<<"=D "<<std::endl;
@@ -436,7 +436,7 @@ void COnlinePlayState::RenderBackground()
 	glPopMatrix();
 }
 
-void COnlinePlayState::PageTransitionTrigger(std::string buttonName)
+void COnlinePlayState::ButtonTriggerCall(std::string buttonName)
 {
 	if(mouse->CheckLeftButtonReleased())
 	{
