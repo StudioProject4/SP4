@@ -680,7 +680,14 @@ bool myApplication::Update()
 							OM->AddObject(temp);
 						}
 					}
-
+					else if(thing=="WC")
+					{
+						CWinCondition * temp = CManufactureManager::GetInstance()->CreateWinCondition();
+						temp->Init(Vector3(x,y,z),Vector3(32,32));
+						temp->id = id;
+						temp->levelChange=Map;
+						OM->AddObject(temp);
+					}
 				}
 				delete[256] tag;
 				delete[256] genTag; 

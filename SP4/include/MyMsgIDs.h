@@ -18,6 +18,7 @@ enum MyMsgIDs
 	ID_POINTS,
 	//hold all players new position
 	ID_NEW_PLAYER,
+	ID_NEW_MAP,
 
 	ID_MOVEMENT,
 	//move a player
