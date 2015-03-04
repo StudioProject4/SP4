@@ -1,4 +1,5 @@
 #include "ObjectManager.h"
+#include "MusicSystem\MusicSystem.h"
 #include "Map.h"
 #include "SpatialPartion.h"
 #include "WindowManager.h"
@@ -89,6 +90,9 @@ void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObje
 					//std::cout<<"Checking collision "<<a_obj->name <<" with "<< otherObject->name<<"!!!"<<std::endl;
 					if(a_obj->phys.TestCol(otherObject->pos,OtherSize))
 					{
+						//++a_obj->numberOfTimeCollided;
+						//++otherObject->numberOfTimeCollided;
+
 						//std::cout<<"COLLISION RESPONE ACTIVATED "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
 						if(gen1=="Character")
 							if(!otherObject->OnCollision(a_obj,frame))
@@ -96,7 +100,13 @@ void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObje
 						else 
 							if(!a_obj->OnCollision(a_obj,frame))
 								break;
-					}
+
+						
+					}/*else
+					{
+						a_obj->numberOfTimeCollided = 0;
+						otherObject->numberOfTimeCollided = 0;
+					}*/
 				}
 			}
 		}

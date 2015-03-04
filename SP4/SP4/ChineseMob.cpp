@@ -37,7 +37,6 @@ bool CChineseMob :: Update()
 		dir = AI.GetDir();
 		//pos.x = 
 		pos = AI.Update(pos);//,phys);
-		refTime = MVCTime::GetInstance()->PushNewTime(1000);
 		if(MVCTime::GetInstance()->TestTime(refTime))
 		{
 			RakNet::BitStream bs;
@@ -69,12 +68,14 @@ bool CChineseMob :: Init()
 	AI.SetID(id);
 
 	theSprite = new CSprite(1,1,0);
+	CImageManager::GetInstance()->RegisterTGA("tenri.tga");
 	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("tenri.tga"));
 	//theSprite->LoadTGA("tenri.tga");
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 
+	refTime = MVCTime::GetInstance()->PushNewTime(1000);
 	//setting up timer class
 	//Timer = MVCTime :: GetInstance();
 	//refTime = Timer->PushNewTime(1000);
@@ -98,6 +99,7 @@ bool CChineseMob :: Render()
 {
 	glPushMatrix();
 	glTranslatef(pos.x,pos.y,pos.z);
+
 	theSprite->Render();
 	glPopMatrix();
 
@@ -111,13 +113,11 @@ bool CChineseMob :: OnCollision2(CBaseObject* a_obj,bool again)
 		if(a_obj->tag == "MalayFemale")
 		{
 			CCharacter* temp=(CCharacter*)a_obj;
-			if(!temp->isInvulnerable)
+			if(temp->GetIsInvulnerable() == false)
 			{
 				temp->hp.TakeDMG();
 				temp->SetIsInvulnerable(true);
-				temp->invulTimer->SetActive(true, temp->refTime);
-				temp->invulTimer->SetLimit(temp->refTime, 5000);
-				temp->invulTimer->ResetTime(refTime);
+				//temp->invulTimer->ResetTime(refTime);
 				
 				unsigned char msgID=ID_OBJ_UPDATE;
 				RakNet::BitStream bs;

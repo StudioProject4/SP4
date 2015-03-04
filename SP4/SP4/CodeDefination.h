@@ -1,6 +1,7 @@
 #pragma once
 
 //#define DEBUG_MODE
+#define PRELOAD_TEXTURE
 
 #define SP_V2
 

@@ -300,11 +300,15 @@ bool CCreditState::Init()
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
+#ifndef PRELOAD_TEXTURE
+	IM->RegisterTGA("kaede.tga");
 	IM->RegisterTGA("BackButton.tga");
+	IM->RegisterTGA("credit.tga");
+#endif
 
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
-	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("kaede.tga"));
+	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("credit.tga"));
 
 	CUIButton* a_button = 0;
 

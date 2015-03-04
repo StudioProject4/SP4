@@ -1,5 +1,9 @@
 #pragma once
+#include "CodeDefination.h"
+
+
 #include "Entity.h"
+
 
 class CGameStateManager;
 class CFrameRateManager;

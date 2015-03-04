@@ -17,6 +17,7 @@ protected:
 public:
 	CDoor(void);
 	~CDoor(void);
+	Vector3 color;
 	bool Init(Vector3 pos,Vector3 size);
 	bool Update();
 	bool Render();

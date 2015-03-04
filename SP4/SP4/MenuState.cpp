@@ -299,9 +299,14 @@ bool CMenuState::Init()
 	genericTag = "CGameState";
 
 	MS = CMusicSystem::GetInstance();
-	//MS->ResetBgmTrackPlayPosition(MS->currentBgmTrack);
-	//MS->PauseBgmTrack(MS->currentBgmTrack);
-	MS->PlayBgmTrack("underthemoon.mp3");
+
+	if(MS->GetCurrentBgm()->audioname != "underthemoon.mp3")
+	{
+		if(MS->StopCurrentBGM())
+		{
+			MS->PlayBgmTrack("underthemoon.mp3");
+		}
+	}
 
 	IM = CImageManager::GetInstance();
 	FRM = CFrameRateManager::GetInstance();
@@ -315,15 +320,17 @@ bool CMenuState::Init()
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
+#ifndef PRELOAD_TEXTURE
 	IM->RegisterTGA("MultiPlayerButton.tga");
 	IM->RegisterTGA("OptionButton.tga");
 	IM->RegisterTGA("SettingButton.tga");
 	IM->RegisterTGA("SinglePlayerButton.tga");
 	IM->RegisterTGA("ExitButton.tga");
-	IM->RegisterTGA("ExitButton.tga");
 	IM->RegisterTGA("CreditButton.tga");
 	IM->RegisterTGA("BackButton.tga");
+	IM->RegisterTGA("sonia2.tga");
 
+#endif
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));

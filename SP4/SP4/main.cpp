@@ -86,12 +86,32 @@ int main(int argc, char **argv )
 		WM->Init(LM->GetWithCheckNumber<int>("WINDOW_WIDTH"),LM->GetWithCheckNumber<int>("WINDOW_HEIGHT"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"),LM->GetWithCheckBoolean("FULLSCREEN"),LM->GetWithCheckString("PROGRAM_NAME").c_str());
 		
 		myApplication::argv=argv;
-		
+
+#ifdef PRELOAD_TEXTURE
 		IM->RegisterTGA("sonia2.tga");
 		IM->RegisterTGA("kanon.tga");
 		IM->RegisterTGA("kaede.tga");
 		IM->RegisterTGA("tenri.tga");
 		IM->RegisterTGA("rockyground.tga");
+		IM->RegisterTGA("flare.tga");
+		IM->RegisterTGA("MuteButton.tga");
+		IM->RegisterTGA("UnMuteButton.tga");
+		IM->RegisterTGA("BackButton.tga");
+		IM->RegisterTGA("ExitButton.tga");
+		IM->RegisterTGA("CreateGameButton.tga");
+		IM->RegisterTGA("JoinGameButton.tga");
+		IM->RegisterTGA("MultiPlayerButton.tga");
+		IM->RegisterTGA("OptionButton.tga");
+		IM->RegisterTGA("SettingButton.tga");
+		IM->RegisterTGA("SinglePlayerButton.tga");
+		IM->RegisterTGA("CreditButton.tga");
+		IM->RegisterTGA("BackButton.tga");
+		IM->RegisterTGA("pointIcon.tga");
+		IM->RegisterTGA("health.tga");
+		IM->RegisterTGA("background.tga");
+		IM->RegisterTGA("credit.tga");
+#endif
+		//IM->RegisterTGA("pointIcon.tga");
 
 		//GSM->ChangeState(CSplashState::GetInstance());
 		GSM->ChangeState(CMenuState::GetInstance());

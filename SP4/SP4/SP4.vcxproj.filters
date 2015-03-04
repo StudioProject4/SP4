@@ -114,9 +114,6 @@
     <ClCompile Include="MusicSystem\MusicSystem.cpp">
       <Filter>MusicSystem</Filter>
     </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Header Files\Helper\RenderHelper</Filter>
-    </ClCompile>
     <ClCompile Include="HealthSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -323,6 +320,9 @@
     </ClCompile>
     <ClCompile Include="SpriteFadeExtend.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

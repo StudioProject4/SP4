@@ -9,6 +9,7 @@ using namespace RakNet;
 #endif
 
 #include "myApplication.h"
+#include "OptionState.h"
 #include "ManufactureManager.h"
 #include "LeverDoor.h"
 #include "Door.h"
@@ -40,6 +41,7 @@ myApplication* myApplication::GetInstance(bool multiplayer,string ip)
 	}
 	instance->isMultiplayer=multiplayer;
 	instance->serverip=ip;
+	
 	return instance;
 }
 
@@ -105,6 +107,7 @@ bool myApplication::Reset()
 }
 bool myApplication::ResetLevel(short level)
 {
+
 	OM->LoadingSetup();
 	Map->Level=level;
 	Map->RunMap();
@@ -148,7 +151,6 @@ bool myApplication::ResetLevel(short level)
 			OM->AddObject(lever2);
 			OM->AddObject(door);
 			OM->AddObject(door2);
-
 
 		}
 
@@ -260,7 +262,7 @@ bool myApplication::ResetLevel(short level)
 bool myApplication::Init()
 {
 	inited = true;
-
+	points=CPointSystem::GetInstance();
 #ifdef NETWORK_CODE
 	
 	//startupServer("server.exe");
@@ -328,25 +330,43 @@ bool myApplication::Init()
 	GSM = CGameStateManager::GetInstance();
 	IM = CImageManager::GetInstance();
 	OM = new CObjectManager();
+
+#ifndef PRELOAD_TEXTURE
 	IM->RegisterTGA("background.tga");
+	IM->RegisterTGA("rockyground.tga");
+	IM->RegisterTGA("health.tga");
+	IM->RegisterTGA("pointIcon.tga");
+
+	//test image
+	IM->RegisterTGA("sonia2.tga");
+	IM->RegisterTGA("tenri.tga");
+#endif
 	tempimage = IM->GetTGAImage("background.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
 
-	if(MS->StopCurrentBGM())
+	if(MS->GetCurrentBgm()->audioname != "bgm6.mp3")
 	{
-		MS->PlayBgmTrack("bgm6.mp3");
-		if(MS->FindBgm("bgm6.mp3")->EnableAudioEffectControl())
+		if(MS->StopCurrentBGM())
 		{
-			MS->FindBgm("bgm6.mp3")->EnableChorusEffect();
-		}else
-		{
+			MS->PlayBgmTrack("bgm6.mp3");
+			//std::cout<<"finding"<<MS->FindBgm("bgm6.mp3")<<std::endl;
+			if(MS->FindBgm("bgm6.mp3")->EnableAudioEffectControl())
+			{
+				MS->FindBgm("bgm6.mp3")->EnableChorusEffect();
+			}
 		}
-
 	}
 
-	IM->RegisterTGA("health.tga");
+
+	
 	HeartShape.Init(1);
 	HeartShape.OverrideTGATexture(IM->GetTGAImage("health.tga"));
+	PointIcon.Init(1);
+	PointIcon.OverrideTGATexture(IM->GetTGAImage("pointIcon.tga"));
+	GameLose.Init(1);
+	GameLose.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	GameWin.Init(1);
+	GameWin.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
 
 	playerOne = OM->manufacturer->CreateChineseMale();
 	playerTwo = OM->manufacturer->CreateMalayFemale();
@@ -434,9 +454,20 @@ bool myApplication::Init()
 	return true;
 }
 
+void myApplication::StateChangeMusicCheck()
+{
+	if(MS->GetCurrentBgm()->audioname != "bgm6.mp3")
+	{
+		if(MS->StopCurrentBGM())
+		{
+			MS->PlayBgmTrack("bgm6.mp3");
+		}
+	}
+};
 
 bool myApplication::Update()
 {
+	StateChangeMusicCheck();
 	//use for debugging spatial partition inside myApplication
 #ifdef DEBUG_MODE
 	if(keyboard->myKeys['a'])
@@ -1001,7 +1032,7 @@ bool myApplication::Update()
 
 		if(keyboard->myKeys[VK_ESCAPE] == true)
 		{
-			GSM->ExitApplication();
+			GSM->ChangeState(COptionState::GetInstance());
 		}
 		
 		if(FRM->UpdateAndCheckTimeThreehold())
@@ -1116,6 +1147,16 @@ void myApplication::RenderCharacterHealthHud(CCharacter* a_character,float start
 	}
 }
 
+void myApplication::RenderPointHUD()
+{
+	glPushMatrix();
+
+	glTranslatef(WM->GetOriginalWindowWidth()*0.5f,PointIcon.GetImageSizeY()*0.5f,0);
+			PointIcon.Render();
+	glPopMatrix();
+			printw(WM->GetOriginalWindowWidth()*0.5f-PointIcon.GetImageSizeX()*0.35f,PointIcon.GetImageSizeY()*1.5f,0," %d",this->points->GetPoints());
+}
+
 void myApplication::RenderPlayerOneHUD()
 {
 	glPushMatrix();
@@ -1142,23 +1183,49 @@ void myApplication::RenderPlayerTwoHUD()
 			RenderCharacterHealthHud( playerTwo, WM->GetOriginalWindowWidth()*0.9f - playerTwoHud->GetImageSizeX()*0.5f, playerTwoHud->GetImageSizeY()*0.5f,playerTwo->theSprite->GetImageSizeX(),false);
 	glPopMatrix();
 }
+
+void myApplication::RenderLoseResult()
+{
+	glPushMatrix();
+		glTranslatef(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.5f,0);
+			GameWin.Render();
+	glPopMatrix();
+}
+
+void myApplication::RenderWinResult()
+{
+	glPushMatrix();
+		glTranslatef(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.5f,0);
+			GameLose.Render();
+	glPopMatrix();
+}
+void myApplication::RenderGameResult(bool gameresult)
+{
+	if(gameresult == true)
+	{
+		RenderWinResult();
+	}else
+	{
+		RenderLoseResult();
+	}
+}
 void myApplication::Render2D()
 {	
 	
 	RenderBackground();
 	RenderTileMap();
 	
+
 	RenderPlayerOneHUD();
 	RenderPlayerTwoHUD();
-
 #ifdef DEBUG_CODE
 	//uncomment this to render the spatial partition grid
 
 	this->OM->SP->RenderGrid();
 #endif
 
-
 	OM->Render();
+	RenderPointHUD();
 	FRM->drawFPS();
 }
 void myApplication::Render3D()

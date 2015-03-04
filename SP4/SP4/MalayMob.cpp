@@ -33,7 +33,6 @@ bool CMalayMob :: Update()
 		dir = AI.GetDir();
 		//pos.x = 
 		pos = AI.Update(pos);//,phys);
-		refTime = MVCTime::GetInstance()->PushNewTime(1000);
 		if(MVCTime::GetInstance()->TestTime(refTime))
 		{
 			RakNet::BitStream bs;
@@ -64,11 +63,13 @@ bool CMalayMob :: Init()
 	AI.SetTag(tag);
 
 	theSprite = new CSprite(1,1,0);
+	CImageManager::GetInstance()->RegisterTGA("rockyground.tga");
 	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("rockyground.tga"));
 	//theSprite->LoadTGA("rockyground.tga");
 	
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
+	refTime = MVCTime::GetInstance()->PushNewTime(1000);
 
 	return true;
 }	
@@ -85,6 +86,14 @@ bool CMalayMob :: Render()
 {
 	glPushMatrix();
 	glTranslatef(pos.x,pos.y,pos.z);
+	if(dir.x > 0)
+	{
+		theSprite->SetAnimationLayer(0);
+	}
+	else if(dir.x < 0)
+	{
+		theSprite->SetAnimationLayer(0);
+	}
 	theSprite->Render();
 	glPopMatrix();
 
@@ -98,13 +107,11 @@ bool CMalayMob :: OnCollision2(CBaseObject* a_obj,bool again)
 		if(a_obj->tag == "ChineseMale")
 		{
 			CCharacter* temp=(CCharacter*)a_obj;
-			if(!temp->isInvulnerable)
+			if(temp->GetIsInvulnerable() == false)
 			{
 				temp->hp.TakeDMG();
 				temp->SetIsInvulnerable(true);
-				temp->invulTimer->SetActive(true, temp->refTime);
-				temp->invulTimer->SetLimit(temp->refTime, 5000);
-				temp->invulTimer->ResetTime(refTime);
+				//temp->invulTimer->ResetTime(refTime);
 
 				unsigned char msgID=ID_OBJ_UPDATE;
 				RakNet::BitStream bs;

@@ -17,6 +17,7 @@ public:
 	{
 		doorLink=ndoor;
 	}
+	Vector3 color;
 	virtual bool Init(Vector3 pos,Vector3 size)=0;
 	virtual bool Update()=0;
 	virtual bool Render()=0;

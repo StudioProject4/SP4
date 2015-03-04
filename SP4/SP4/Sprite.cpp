@@ -145,6 +145,12 @@ void CSprite::TogglePause(void)
 	pause = !pause;
 }
 
+void CSprite::SetFrozenAtCertainFrame(unsigned short framenumber)
+{
+	this->currentframe = framenumber;
+	pause = true;
+}
+
 void CSprite::LiveOn(float dt)
 {
 	if(!pause)
@@ -208,6 +214,8 @@ void CSprite::Render(void)
 				glEnd();
 			glPopMatrix();
 		}
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
 	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glPopMatrix();
 }
