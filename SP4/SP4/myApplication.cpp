@@ -153,6 +153,8 @@ bool myApplication::ResetLevel(short level)
 	// Map->Level = level;
 	// Map->RunMap();
 
+	OM->LoadingSetup();
+
 	switch(level)
 	{
 	case 1:
@@ -187,8 +189,6 @@ bool myApplication::ResetLevel(short level)
 
 		break;
 	}
-	OM->AddObject(playerOne);
-	OM->AddObject(playerTwo);
 
 
 
@@ -276,14 +276,11 @@ bool myApplication::Init()
 	if(MS->StopCurrentBGM())
 	{
 		MS->PlayBgmTrack("bgm6.mp3");
-		std::cout<<"finding"<<MS->FindBgm("bgm6.mp3")<<std::endl;
 		if(MS->FindBgm("bgm6.mp3")->EnableAudioEffectControl())
 		{
 			MS->FindBgm("bgm6.mp3")->EnableChorusEffect();
-			cout<<"hello"<<std::endl;
 		}else
 		{
-			cout<<"huh"<<std::endl;
 		}
 
 	}

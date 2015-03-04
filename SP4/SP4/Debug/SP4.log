@@ -1,10 +1,15 @@
-﻿Build started 4/3/2015 2:56:40 PM.
+﻿Build started 4/3/2015 3:49:30 PM.
      1>Project "C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\SP4\SP4.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SP4.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\includes /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt PointsAddPU.cpp
-         PointsAddPU.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\includes /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt WinCondition.cpp
+         WinCondition.cpp
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\sherwyn\desktop\sp44444\sp4\sp4\sp4\musicsystem\audio.h(237): warning C4172: returning address of local variable or temporary
        ManifestResourceCompile:
          All outputs are up-to-date.
        Link:
@@ -89,4 +94,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:08.12
+Time Elapsed 00:00:04.04

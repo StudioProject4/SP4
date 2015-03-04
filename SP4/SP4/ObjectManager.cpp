@@ -91,9 +91,11 @@ void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObje
 					{
 						//std::cout<<"COLLISION RESPONE ACTIVATED "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
 						if(gen1=="Character")
-							otherObject->OnCollision(a_obj,frame);
+							if(!otherObject->OnCollision(a_obj,frame))
+								break;
 						else 
-							a_obj->OnCollision(otherObject,frame);
+							if(!a_obj->OnCollision(a_obj,frame))
+								break;
 					}
 				}
 			}
@@ -447,7 +449,6 @@ CBaseObject* CObjectManager::FetchObjectWithName(std::string objectName)
 
 	}else
 	{
-		std::cout<<"<FATAL ERROR> Cannot Find inactive gameobject to recycle"<<std::endl;
 	}
 	return a_obj;
 }
@@ -476,7 +477,6 @@ CBaseObject* CObjectManager::FetchObjectWithTag(std::string objectTag)
 		}
 	}else
 	{
-		std::cout<<"<FATAL ERROR> Cannot Find inactive gameobject to recycle"<<std::endl;
 	}
 	return a_obj;
 }
@@ -504,7 +504,6 @@ CBaseObject* CObjectManager::FetchObjectWithGenericTag(std::string objectTag)
 
 	}else
 	{
-		std::cout<<"<FATAL ERROR> Cannot Find inactive gameobject to recycle"<<std::endl;
 	}
 	return a_obj;
 }
@@ -633,14 +632,11 @@ void CObjectManager::UpdateGridCheckCall()
 						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(ownX,ownY)->objectList,0);
 					}
 				}
-				//int nexttimecalled = a_ball->timecalled;
-				//std::cout<<"time called diff"<<nexttimecalled-lasttimecalled<<std::endl;
 				////call neighbouring cells.
 				if( a_obj->TopLeftCellIndex.y-1 >= 0)//nested celling cells check
 				{
 					for(int topX = (int)a_obj->TopLeftCellIndex.x; topX<=(int)a_obj->BottomRightCellIndex.x;++topX )//loop through all top celling cells
 					{	
-						//std::cout<<"testing top cells"<<std::endl;
 						//a_ball->UpdateCollision( SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectList,0);
 						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectList,0);
 					}
