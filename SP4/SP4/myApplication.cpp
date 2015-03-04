@@ -108,6 +108,8 @@ bool myApplication::Reset()
 bool myApplication::ResetLevel(short level)
 {
 
+	OM->LoadingSetup();
+
 	switch(level)
 	{
 	case 1:
@@ -142,8 +144,6 @@ bool myApplication::ResetLevel(short level)
 
 		break;
 	}
-	OM->AddObject(playerOne);
-	OM->AddObject(playerTwo);
 
 
 

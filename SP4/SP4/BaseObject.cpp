@@ -33,6 +33,6 @@ bool CBaseObject::OnCollision(CBaseObject* a_obj,bool frame2)
 	}
 	else
 	{
-		return false;
+		return true;
 	}
 }

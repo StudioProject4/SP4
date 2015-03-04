@@ -1,14 +1,14 @@
-﻿Build started 4/3/2015 2:56:40 PM.
-     1>Project "C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\SP4\SP4.vcxproj" on node 2 (build target(s)).
+﻿Build started 3/4/2015 4:04:03 PM.
+     1>Project "C:\Users\m308\Documents\GitHub\SP4\SP4\SP4\SP4.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SP4.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\includes /IC:\Users\sherwyn\Desktop\SP44444\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt PointsAddPU.cpp
-         PointsAddPU.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\m308\Documents\GitHub\SP4\SP4\includes /IC:\Users\m308\Documents\GitHub\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ChineseMale.cpp
+         ChineseMale.cpp
        ManifestResourceCompile:
          All outputs are up-to-date.
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\Debug\SP4.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\lib freeglut.lib winmm.lib irrklang.lib lua5.1.lib Timer.lib ws2_32.lib RakNet_VS2008_DLL_Debug_Win32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libc.lib /MANIFEST /ManifestFile:"Debug\SP4.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\Debug\SP4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\Debug\SP4.lib" /MACHINE:X86 Debug\SP4.exe.embed.manifest.res
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\m308\Documents\GitHub\SP4\SP4\lib freeglut.lib winmm.lib irrklang.lib lua5.1.lib Timer.lib ws2_32.lib RakNet_VS2008_DLL_Debug_Win32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libc.lib /MANIFEST /ManifestFile:"Debug\SP4.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.lib" /MACHINE:X86 Debug\SP4.exe.embed.manifest.res
          Debug\AI.obj
          Debug\AIMobBuilder.obj
          Debug\AIMobFactory.obj
@@ -81,12 +81,12 @@
          All outputs are up-to-date.
        LinkEmbedManifest:
          All outputs are up-to-date.
-         SP4.vcxproj -> C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\Debug\SP4.exe
+         SP4.vcxproj -> C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.exe
        FinalizeBuildStatus:
          Deleting file "Debug\SP4.unsuccessfulbuild".
          Touching "Debug\SP4.lastbuildstate".
-     1>Done Building Project "C:\Users\sherwyn\Desktop\SP44444\SP4\SP4\SP4\SP4.vcxproj" (build target(s)).
+     1>Done Building Project "C:\Users\m308\Documents\GitHub\SP4\SP4\SP4\SP4.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:08.12
+Time Elapsed 00:00:01.24
