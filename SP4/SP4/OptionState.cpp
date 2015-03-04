@@ -334,7 +334,8 @@ bool COptionState::Init()
 
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
-	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
+	CImageManager::GetInstance()->RegisterTGA("optionpage.tga");
+	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("optionpage.tga"));
 
 	CUIButton* a_button = 0;
 

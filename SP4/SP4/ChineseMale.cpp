@@ -48,7 +48,7 @@ bool CChineseMale :: Init()
 	tag = "ChineseMale";
 	genericTag = "Character";
 
-	theSprite = new CSprite(10,4,0);
+	theSprite = new CSprite(10,4,1);
 	theSprite->SetFrameSpeed(2);
 	CImageManager::GetInstance()->RegisterTGA("male.tga");
 	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("male.tga"));

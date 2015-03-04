@@ -333,7 +333,8 @@ bool CMenuState::Init()
 #endif
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
-	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	CImageManager::GetInstance()->RegisterTGA("mainmenu.tga");
+	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("mainmenu.tga"));
 	//testdecorator = &backgroundImage[0];
 	testdecorator = new CSpriteFadeExtend(&backgroundImage[0]);
 	//testdecorator->SetFrameSpeed(100);
