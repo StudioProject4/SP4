@@ -33,7 +33,7 @@ bool CChineseMob :: Update()
 		dir = AI.GetDir();
 		//pos.x = 
 		pos = AI.Update(pos);//,phys);
-		refTime = MVCTime::GetInstance()->PushNewTime(1000);
+
 		if(MVCTime::GetInstance()->TestTime(refTime))
 		{
 			RakNet::BitStream bs;
