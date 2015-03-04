@@ -16,6 +16,7 @@ private:
 
 private:
 	COptionState(void);
+	void StateChangeMusicCheck();
 public:
 	static COptionState* GetInstance();
 	
@@ -37,6 +38,7 @@ public:
 	 void ButtonTriggerCall(CUIButton* theButton);
 	 void ButtonTriggerCall(std::string buttonName);
 	 void RenderBackground();
+	
 
 	 bool Update();
 	 bool Init();

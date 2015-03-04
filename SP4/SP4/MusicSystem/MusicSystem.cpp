@@ -7,8 +7,8 @@ CMusicSystem* CMusicSystem::instance = 0;
 
 CMusicSystem::CMusicSystem(void)
 	:engine(0)
-	,currentBgmTrack(-1)
-	,currentSoundTrack(-1)
+	,currentBgmTrack(0)
+	,currentSoundTrack(0)
 	,allSoundPaused(false)
 	,allSoundMuted(false)
 {

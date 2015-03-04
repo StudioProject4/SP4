@@ -79,32 +79,31 @@ bool CChineseMale :: OnCollision2(CBaseObject* a_obj,bool again)
 bool CChineseMale :: Render()
 {
 	glPushMatrix();
-	glTranslatef(pos.x,pos.y,pos.z);
-	theSprite->Render();
+		glTranslatef(pos.x,pos.y,pos.z);
+		theSprite->Render();
 	glPopMatrix();
 	
 	glPushMatrix();
-	glColor3f(0,1,0);
-		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-		glTranslatef(pos.x,pos.y,0);
-		//glRotatef(curAngle,0,0,1);
-		glScalef(this->phys.size.x,this->phys.size.y,0);
-		//glBindTexture(GL_TEXTURE_2D,this->testimage.texID);
-		glBegin (GL_TRIANGLE_STRIP);
-			glNormal3f(0,0,1);
-			glTexCoord2f(0,0);
-			glVertex3f(-0.5, 0.5, 0);
+		glColor3f(0,1,0);
+			glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+			glTranslatef(pos.x,pos.y,0);
+			//glRotatef(curAngle,0,0,1);
+			glScalef(this->phys.size.x,this->phys.size.y,0);
+			//glBindTexture(GL_TEXTURE_2D,this->testimage.texID);
+			glBegin (GL_TRIANGLE_STRIP);
+				glNormal3f(0,0,1);
+				glTexCoord2f(0,0);
+				glVertex3f(-0.5, 0.5, 0);
 		
-			glTexCoord2f(0,1.0);
-			glVertex3f(-0.5,-0.5,0);
+				glTexCoord2f(0,1.0);
+				glVertex3f(-0.5,-0.5,0);
 
-			glTexCoord2f(1.0,0.0);
-			glVertex3f(0.5,0.5,0);
+				glTexCoord2f(1.0,0.0);
+				glVertex3f(0.5,0.5,0);
 
-			glTexCoord2f(1.0,1.0);
-			glVertex3f(0.5,-0.5,0);
-		glEnd();
-		glPopMatrix();
-	glPushMatrix();
+				glTexCoord2f(1.0,1.0);
+				glVertex3f(0.5,-0.5,0);
+			glEnd();
+	glPopMatrix();
 	return true;
 }

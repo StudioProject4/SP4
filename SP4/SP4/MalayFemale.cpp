@@ -71,8 +71,8 @@ bool CMalayFemale :: OnCollision2(CBaseObject* a_obj,bool again)
 bool CMalayFemale :: Render()
 {
 	glPushMatrix();
-	glTranslatef(pos.x,pos.y,pos.z);
-	theSprite->Render();
+		glTranslatef(pos.x,pos.y,pos.z);
+		theSprite->Render();
 	glPopMatrix();
 
 	return true;

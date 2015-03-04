@@ -9,6 +9,7 @@ using namespace RakNet;
 #endif
 
 #include "myApplication.h"
+#include "OptionState.h"
 #include "ManufactureManager.h"
 #include "LeverDoor.h"
 #include "Door.h"
@@ -40,6 +41,7 @@ myApplication* myApplication::GetInstance(bool multiplayer,string ip)
 	}
 	instance->isMultiplayer=multiplayer;
 	instance->serverip=ip;
+	
 	return instance;
 }
 
@@ -105,53 +107,6 @@ bool myApplication::Reset()
 }
 bool myApplication::ResetLevel(short level)
 {
-	//if(OM  != 0)
-	//{
-	//	//delete OM;
-	//	//OM = new CObjectManager();
-	//}
-	//OM->LoadingSetup();
-	////delete playerOne;
-	////delete playerOne;
-	////delete theAIOne;
-	////delete theAITwo;
-
-	////playerOne = OM->manufacturer->CreateChineseMale();
-	////playerTwo = OM->manufacturer->CreateMalayFemale();
-	//theAIOne = OM->manufacturer->CreateMalayMob();
-	//theAITwo = OM->manufacturer->CreateChineseMob();
-	//
-	//playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
-	//playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
-	//theAIOne->SetPos(Vector3(624,80,0));
-	//theAITwo->SetPos(Vector3(304,80,0));
-
-
-	//CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
-	//lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
-	//CDoor* door= OM->manufacturer->CreateObstacleDoor();
-	//door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X"),LM->GetWithCheckNumber<float>("DOOR_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
-
-	//lever->SetDoorLink(door);
-	//door->AddTrigger(lever);
-
-	//playerOne = OM->manufacturer->CreateChineseMale();
-	//playerTwo = OM->manufacturer->CreateMalayFemale();
-
-	//playerTwo->phys.map=Map;
-	//playerOne->phys.map=Map;
-	//
-	// mapOffset_x =  mapOffset_y=
-	// tileOffset_x =tileOffset_y=
-	// mapFineOffset_x= mapFineOffset_y=
-	// theNumOfTiles_Height
-	//= theNumOfTiles_Width
-	//= rearWallOffset_x=rearWallOffset_y
-	// =rearWalltileOffset_x= rearWalltileOffset_y
-	//= rearWallFineOffset_x= rearWallFineOffset_y = 0;
-
-	// Map->Level = level;
-	// Map->RunMap();
 
 	switch(level)
 	{
@@ -204,7 +159,7 @@ bool myApplication::ResetLevel(short level)
 bool myApplication::Init()
 {
 	inited = true;
-
+	points=CPointSystem::GetInstance();
 #ifdef NETWORK_CODE
 	
 	//startupServer("server.exe");
@@ -273,24 +228,27 @@ bool myApplication::Init()
 	tempimage = IM->GetTGAImage("background.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
 
-	if(MS->StopCurrentBGM())
+	if(MS->GetCurrentBgm()->audioname != "bgm6.mp3")
 	{
-		MS->PlayBgmTrack("bgm6.mp3");
-		std::cout<<"finding"<<MS->FindBgm("bgm6.mp3")<<std::endl;
-		if(MS->FindBgm("bgm6.mp3")->EnableAudioEffectControl())
+		if(MS->StopCurrentBGM())
 		{
-			MS->FindBgm("bgm6.mp3")->EnableChorusEffect();
-			cout<<"hello"<<std::endl;
-		}else
-		{
-			cout<<"huh"<<std::endl;
+			MS->PlayBgmTrack("bgm6.mp3");
+			//std::cout<<"finding"<<MS->FindBgm("bgm6.mp3")<<std::endl;
+			if(MS->FindBgm("bgm6.mp3")->EnableAudioEffectControl())
+			{
+				MS->FindBgm("bgm6.mp3")->EnableChorusEffect();
+			}
 		}
-
 	}
+
 
 	IM->RegisterTGA("health.tga");
 	HeartShape.Init(1);
 	HeartShape.OverrideTGATexture(IM->GetTGAImage("health.tga"));
+
+	IM->RegisterTGA("pointIcon.tga");
+	PointIcon.Init(1);
+	PointIcon.OverrideTGATexture(IM->GetTGAImage("pointIcon.tga"));
 
 	playerOne = OM->manufacturer->CreateChineseMale();
 	playerTwo = OM->manufacturer->CreateMalayFemale();
@@ -378,9 +336,20 @@ bool myApplication::Init()
 	return true;
 }
 
+void myApplication::StateChangeMusicCheck()
+{
+	if(MS->GetCurrentBgm()->audioname != "bgm6.mp3")
+	{
+		if(MS->StopCurrentBGM())
+		{
+			MS->PlayBgmTrack("bgm6.mp3");
+		}
+	}
+};
 
 bool myApplication::Update()
 {
+	StateChangeMusicCheck();
 	//use for debugging spatial partition inside myApplication
 #ifdef DEBUG_MODE
 	if(keyboard->myKeys['a'])
@@ -945,7 +914,7 @@ bool myApplication::Update()
 
 		if(keyboard->myKeys[VK_ESCAPE] == true)
 		{
-			GSM->ExitApplication();
+			GSM->ChangeState(COptionState::GetInstance());
 		}
 		
 		if(FRM->UpdateAndCheckTimeThreehold())
@@ -1058,6 +1027,16 @@ void myApplication::RenderCharacterHealthHud(CCharacter* a_character,float start
 	}
 }
 
+void myApplication::RenderPointHUD()
+{
+	glPushMatrix();
+
+	glTranslatef(WM->GetOriginalWindowWidth()*0.5f,PointIcon.GetImageSizeY()*0.5f,0);
+			PointIcon.Render();
+	glPopMatrix();
+			printw(WM->GetOriginalWindowWidth()*0.5f-PointIcon.GetImageSizeX()*0.35f,PointIcon.GetImageSizeY()*1.5f,0," %d",this->points->GetPoints());
+}
+
 void myApplication::RenderPlayerOneHUD()
 {
 	glPushMatrix();
@@ -1092,15 +1071,14 @@ void myApplication::Render2D()
 	
 	RenderPlayerOneHUD();
 	RenderPlayerTwoHUD();
-
 #ifdef DEBUG_CODE
 	//uncomment this to render the spatial partition grid
 
 	this->OM->SP->RenderGrid();
 #endif
 
-
 	OM->Render();
+	RenderPointHUD();
 	FRM->drawFPS();
 }
 void myApplication::Render3D()

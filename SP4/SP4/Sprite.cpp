@@ -208,6 +208,8 @@ void CSprite::Render(void)
 				glEnd();
 			glPopMatrix();
 		}
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
 	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glPopMatrix();
 }

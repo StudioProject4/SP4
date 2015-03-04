@@ -167,9 +167,11 @@ private:
 	CSprite* playerOneHud;
 	CSprite* playerTwoHud;
 	CSprite HeartShape;
+	CSprite PointIcon;
 
 	void RenderTileMap();
 	void RenderBackground();
+	void RenderPointHUD();
 	void RenderPlayerOneHUD();
 	void RenderPlayerTwoHUD();
 	void RenderCharacterHealthHud(CCharacter* a_character,float startingPosX,float startingPosY,float paddingX,bool buildToRight = true);
@@ -183,5 +185,9 @@ private:
 
 	typedef std::vector<ball*> TBallVector;
 	TBallVector ballList;
+
+
+	void StateChangeMusicCheck();
+
 };
 
