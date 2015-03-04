@@ -38,10 +38,10 @@ CAudio* CMusicSystem::FetchSound()
 		{
 			if((*it)->CheckIsFinished() == true)
 			{
-				//if(a_audio->CheckValidAudioPtr())
-				//{
-				//	a_audio->Drop();
-				//}
+				if((*it)->CheckValidAudioPtr())
+				{
+					(*it)->Drop();
+				}
 
 				a_audio = (*it);
 				break;
