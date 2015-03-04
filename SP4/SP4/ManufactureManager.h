@@ -19,6 +19,10 @@ class CLeverDoor;
 class CDoor;
 class CChinesePoints;
 class CMalayPoints;
+class CChineseHpReduce;
+class CMalayHpReduce;
+class CWinCondition;
+
 
 class CManufactureManager
 {
@@ -49,5 +53,8 @@ public:
 	CDoor* CreateObstacleDoor();
 	CChinesePoints* CreateChinesePoints();
 	CMalayPoints* CreateMalayPoints();
+	CWinCondition* CreateWinCondition();
+	CChineseHpReduce* CreateChineseHpReduce();
+	CMalayHpReduce* CreateMalayHpReduce();
 };
 

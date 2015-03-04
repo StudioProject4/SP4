@@ -228,7 +228,8 @@ bool CObjectManager::Update(int multiplayerMode)
 		if( objectList[it]->active == true)
 		{
 			objectList[it]->Update();
-
+			if(it<objectList.size())
+			{
 #ifdef SP_V1
 			SP->UpdateObjectOwnerCell(objectList[it]);
 #endif
@@ -237,6 +238,7 @@ bool CObjectManager::Update(int multiplayerMode)
 			SP->UpdateObjectTopLeftAndBottomRightCell(objectList[it]);
 			SP->UpdateObjectMultipleCells(objectList[it]);
 #endif	
+			}
 
 			//(*it)->Render();
 			}else

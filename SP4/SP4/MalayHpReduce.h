@@ -15,5 +15,7 @@ public:
 	bool Render();
 	bool Update();
 	bool OnCollision2(CBaseObject* a_obj,bool again=false);
+
+	bool ChHpTaken, MlHpTaken;
 };
 

@@ -82,7 +82,7 @@ bool CChineseMob :: OnCollision2(CBaseObject* a_obj,bool again)
 			bs.Write(this->tag);
 			bs.Write(this->id);
 			bs.Write(a_obj->id);
-			bs.Write(temp->hp.GetHealth());
+			//bs.Write(temp->hp.GetHealth());
 			RakNet::RakPeerInterface::GetInstance()->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,RakNet::UNASSIGNED_SYSTEM_ADDRESS,true);
 		}
 	}

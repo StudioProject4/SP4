@@ -104,15 +104,16 @@ bool myApplication::ResetLevel(short level)
 {
 	if(OM  != 0)
 	{
-		delete OM;
-		OM = new CObjectManager();
+		//delete OM;
+		//OM = new CObjectManager();
 	}
+	OM->LoadingSetup();
 	//delete playerOne;
 	//delete playerOne;
 	//delete theAIOne;
 	//delete theAITwo;
-	playerOne = OM->manufacturer->CreateChineseMale();
-	playerTwo = OM->manufacturer->CreateMalayFemale();
+	//playerOne = OM->manufacturer->CreateChineseMale();
+	//playerTwo = OM->manufacturer->CreateMalayFemale();
 	theAIOne = OM->manufacturer->CreateMalayMob();
 	theAITwo = OM->manufacturer->CreateChineseMob();
 	
@@ -155,7 +156,7 @@ bool myApplication::ResetLevel(short level)
 
 #endif
 
-	//Map->RunMap();
+	Map->RunMap();
 
 	theNumOfTiles_Height = Map->getNumOfTiles_ScreenHeight();
 	theNumOfTiles_Width = Map->getNumOfTiles_ScreenWidth();
@@ -749,7 +750,8 @@ bool myApplication::Update()
 		}
 		if(keyboard->myKeys['s'])
 		{
-		
+			//win->OnCollision(playerOne, false);
+			//win->OnCollision(playerOne, true);
 		}
 		if(keyboard->myKeys['a'] == false && keyboard->myKeys['d'] == false)
 			{
@@ -859,6 +861,7 @@ bool myApplication::Update()
 #endif
 
 	Map->RunMap();
+	
 //	win->
 		
 	return true;
@@ -1098,6 +1101,7 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 		break;
 
 		case '2':
+			playerOne->hp.SetHealth(0);
 			//CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
 			//this->PrintDebugInformation();
 			//MS->PlayBgmTrack("bgm2.mp3");
@@ -1110,16 +1114,16 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 		break;
 		
 		case '3':
-			MS->PrintSoundPoolList();
+			//MS->PrintSoundPoolList();
 			//MS->TranverseSoundTrack();
 			
 			break;
 		case '4':
-			MS->PrintCurrentSoundTrack();
+		//	MS->PrintCurrentSoundTrack();
 			
 			break;
 		case '5':
-			MS->ResetSoundTrackPlayPosition(MS->currentSoundTrack);
+		//	MS->ResetSoundTrackPlayPosition(MS->currentSoundTrack);
 			break;
 		case '6':
 			//MS->PrintSoundTrackList();
@@ -1131,17 +1135,17 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//testmale->PrintDebugInformation();
 			//OM->PrintDebugAllActiveObjects();
 			//OM->objectList[0]->UpdateObjectTopLeftAndBottomRightPoint(false);
-			OM->PrintDebugAllInActiveObjects();
+			//OM->PrintDebugAllInActiveObjects();
 			break;
 		case '8':
 			//OM->PrintDebugInformation();
-			OM->PrintDebugAllActiveObjects();
+			//OM->PrintDebugAllActiveObjects();
 			break;
 		case '9':
 			//GSM->GoBackToPreviousState();
 			break;
 		case 'c':
-			system("cls");
+			//system("cls");
 			break;
 	}
 }

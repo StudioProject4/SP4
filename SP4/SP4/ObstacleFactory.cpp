@@ -7,6 +7,7 @@
 #include "MalayPoints.h"
 #include "ChineseHpReduce.h"
 #include "MalayHpReduce.h"
+#include "WinCondition.h"
 
 CObstacleFactory::CObstacleFactory(void)
 	: currentManufactureType(OBSTACLE_NONE)
@@ -56,6 +57,9 @@ void CObstacleFactory::CreateProduct()
 		case OBSTACLE_MALAYHP:
 			product = new CMalayHpReduce();
 			break;
+		case OBSTACLE_WINLOSE:
+			product = new CWinCondition();
+			break;
 	}
 }
 	
@@ -101,4 +105,9 @@ void CObstacleFactory::SetManufactureChineseHp()
 void CObstacleFactory::SetManufactureMalayHp()
 {
 	currentManufactureType = this->OBSTACLE_MALAYHP;
+}
+
+void CObstacleFactory::SetManufactureWinLoseCondition()
+{
+	currentManufactureType = this->OBSTACLE_WINLOSE;
 }
