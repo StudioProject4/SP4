@@ -126,12 +126,12 @@ void CMenuState::MouseClick(int button, int state, int x, int y)
 			switch(state)
 			{
 				case GLUT_DOWN:
-					std::cout<<"glut down"<<std::endl;
+					
 					//mouse->mLButtonUp = true;	
 					mouse->SetLeftButton(true);
 					break;
 				case GLUT_UP:
-					std::cout<<"glut up"<<std::endl;
+					
 					//mouse->mLButtonUp = false;	
 					mouse->SetLeftButton(false);
 					break;
