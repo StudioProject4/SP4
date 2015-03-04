@@ -145,6 +145,12 @@ void CSprite::TogglePause(void)
 	pause = !pause;
 }
 
+void CSprite::SetFrozenAtCertainFrame(unsigned short framenumber)
+{
+	this->currentframe = framenumber;
+	pause = true;
+}
+
 void CSprite::LiveOn(float dt)
 {
 	if(!pause)

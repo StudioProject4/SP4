@@ -135,23 +135,23 @@ bool myApplication::ResetLevel(short level)
 	//lever->SetDoorLink(door);
 	//door->AddTrigger(lever);
 
-	lever->SetDoorLink(door);
-	door->AddTrigger(lever);
+	//lever->SetDoorLink(door);
+	//door->AddTrigger(lever);
 
-	//playerOne = OM->manufacturer->CreateChineseMale();
-	//playerTwo = OM->manufacturer->CreateMalayFemale();
+	////playerOne = OM->manufacturer->CreateChineseMale();
+	////playerTwo = OM->manufacturer->CreateMalayFemale();
 
-	playerTwo->phys.map=Map;
-	playerOne->phys.map=Map;
-	
-	 mapOffset_x =  mapOffset_y=
-	 tileOffset_x =tileOffset_y=
-	 mapFineOffset_x= mapFineOffset_y=
-	 theNumOfTiles_Height
-	= theNumOfTiles_Width
-	= rearWallOffset_x=rearWallOffset_y
-	 =rearWalltileOffset_x= rearWalltileOffset_y
-	= rearWallFineOffset_x= rearWallFineOffset_y = 0;
+	//playerTwo->phys.map=Map;
+	//playerOne->phys.map=Map;
+	//
+	// mapOffset_x =  mapOffset_y=
+	// tileOffset_x =tileOffset_y=
+	// mapFineOffset_x= mapFineOffset_y=
+	// theNumOfTiles_Height
+	//= theNumOfTiles_Width
+	//= rearWallOffset_x=rearWallOffset_y
+	// =rearWalltileOffset_x= rearWalltileOffset_y
+	//= rearWallFineOffset_x= rearWallFineOffset_y = 0;
 
 	//playerTwo->phys.map=Map;
 	//playerOne->phys.map=Map;

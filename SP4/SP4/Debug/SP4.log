@@ -1,10 +1,10 @@
-﻿Build started 3/4/2015 2:59:09 PM.
+﻿Build started 3/4/2015 4:04:03 PM.
      1>Project "C:\Users\m308\Documents\GitHub\SP4\SP4\SP4\SP4.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SP4.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\m308\Documents\GitHub\SP4\SP4\includes /IC:\Users\m308\Documents\GitHub\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt MalayFemale.cpp
-         MalayFemale.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\m308\Documents\GitHub\SP4\SP4\includes /IC:\Users\m308\Documents\GitHub\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ChineseMale.cpp
+         ChineseMale.cpp
        ManifestResourceCompile:
          All outputs are up-to-date.
        Link:
@@ -89,4 +89,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.27
+Time Elapsed 00:00:01.24
