@@ -33,8 +33,8 @@ bool CChineseMale :: Update()
 	{
 		if(invulTimer->TestTime(refTime))
 		{
-			SetIsInvulnerable(true);
-			invulTimer->SetActive(false,refTime);
+			SetIsInvulnerable(false);
+			//invulTimer->SetActive(false,refTime);
 		}
 	}
 	return true;
@@ -74,10 +74,7 @@ bool CChineseMale :: CleanUp()
 }
 bool CChineseMale :: OnCollision2(CBaseObject* a_obj,bool again)
 {
-	if(invulTimer->TestTime(refTime))
-	{
-		SetIsInvulnerable(false);
-	}
+	
 	return true;
 }
 bool CChineseMale :: Render()

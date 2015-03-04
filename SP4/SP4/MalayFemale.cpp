@@ -26,6 +26,13 @@ bool CMalayFemale :: Init(Vector3 newPos,Vector3 newDir,int entityID)
 bool CMalayFemale :: Update()
 {
 	pos = phys.Update(pos);
+	if(GetIsInvulnerable() == true)
+	{
+		if(invulTimer->TestTime(refTime))
+		{
+			SetIsInvulnerable(false);
+		}
+	}
 	return true;
 }
 
@@ -61,10 +68,6 @@ bool CMalayFemale :: CleanUp()
 
 bool CMalayFemale :: OnCollision2(CBaseObject* a_obj,bool again)
 {
-	if(invulTimer->TestTime(refTime))
-	{
-		SetIsInvulnerable(false);
-	}
 	return true;
 }
 
