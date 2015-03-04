@@ -10,7 +10,10 @@
 #include "InvinciblePU.h"
 #include "ChinesePoints.h"
 #include "MalayPoints.h"
+#include "MalayHpReduce.h"
+#include "ChineseHpReduce.h"
 #include "WinCondition.h"
+
 
 #include <iostream>
 CMap::CMap(CObjectManager* theObjectManager)
@@ -384,9 +387,11 @@ bool CMap::LoadFile(const string mapName)
 					istringstream iss(aLineOfText);
 					CHealthPU* temph = nullptr;
 					CPointsAddPU* tempPT = nullptr;
-					CSpeedPU* tempSpd = nullptr;
+					//CSpeedPU* tempSpd = nullptr;
+					CMalayHpReduce* tempSpd = nullptr;
 					CInvinciblePU* tempIn = nullptr;
-					CJumpPU* tempJp = nullptr;
+					CChineseHpReduce* tempJp = nullptr;
+					//CJumpPU* tempJp = nullptr;
 					CChinesePoints* tempCpt = nullptr;
 					CMalayPoints* tempMpt = nullptr;
 					CWinCondition* tempWc = nullptr;
@@ -409,9 +414,10 @@ bool CMap::LoadFile(const string mapName)
 						case 4:			//speed
 							theScreenMap[theLineCounter][theColumnCounter++] = 1;
 							//call factory to create a power up at this pos
-							tempSpd = CManufactureManager::GetInstance()->CreatePowerUpSpeedUp();
+							//tempSpd = CManufactureManager::GetInstance()->CreatePowerUpSpeedUp();
+							tempSpd = CManufactureManager::GetInstance()->CreateMalayHpReduce();
 							tempSpd->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
-							tempSpd->Init();
+							tempSpd->Init(tempSpd->pos, tempSpd->phys.size);
 							OM->AddObject(tempSpd);
 							
 							break;
@@ -436,9 +442,10 @@ bool CMap::LoadFile(const string mapName)
 						case 7:			//jump
 							theScreenMap[theLineCounter][theColumnCounter++] = 1;
 							//call factory to create a power up at this pos
-							tempJp = CManufactureManager::GetInstance()->CreatePowerUpJumpHigh();
+							//tempJp = CManufactureManager::GetInstance()->CreatePowerUpJumpHigh();
+							tempJp = CManufactureManager::GetInstance()->CreateChineseHpReduce();
 							tempJp->pos = this->lookupIndex(theColumnCounter-1, theLineCounter);
-							tempJp->Init();
+							tempJp->Init(tempJp->pos, tempJp->phys.size);
 							OM->AddObject(tempJp);	
 
 							break;
@@ -608,7 +615,7 @@ std::vector<SContainer2D> CMap::FindValidNearbyGrid(Vector3 centreposition)
 void CMap::RunMap()
 {
 	//load map
-	if(Level != LevelCount)
+	//if(Level != LevelCount)
 	{
 		char* templv=new char[16];
 		sprintf(templv,"Level1_%d.csv",Level);
