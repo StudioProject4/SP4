@@ -15,6 +15,7 @@ enum MyMsgIDs
 	ID_GAME_PACKAGE,
 	ID_COLLISION,
 	ID_JOIN_GAME,
+	ID_POINTS,
 	//hold all players new position
 	ID_NEW_PLAYER,
 

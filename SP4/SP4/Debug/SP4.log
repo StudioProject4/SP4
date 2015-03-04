@@ -1,177 +1,33 @@
-﻿Build started 4/3/2015 7:16:18 AM.
-     1>Project "C:\Users\KeeYang\Documents\GitHub\SP4\SP4\SP4\SP4.vcxproj" on node 3 (rebuild target(s)).
-     1>_PrepareForClean:
-         Deleting file "Debug\SP4.lastbuildstate".
-       InitializeBuildStatus:
+﻿Build started 3/4/2015 10:53:43 AM.
+     1>Project "C:\Users\m308\Documents\GitHub\SP4\SP4\SP4\SP4.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
          Creating "Debug\SP4.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\KeeYang\Documents\GitHub\SP4\SP4\includes /IC:\Users\KeeYang\Documents\GitHub\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt AI.cpp AIMobBuilder.cpp AIMobFactory.cpp AStarPathfinding.cpp BaseObject.cpp Character.cpp CharacterBuilder.cpp CharacterFactory.cpp ChineseHpReduce.cpp ChineseMale.cpp ChineseMob.cpp ChinesePoints.cpp CreditState.cpp Door.cpp FrameRateManager.cpp GameState.cpp GameStateManager.cpp HealthPU.cpp HealthSystem.cpp ImageManager.cpp InvinciblePU.cpp JumpPU.cpp KeeYangTestState.cpp KennardTestState.cpp Keyboard.cpp LeverDoor.cpp LuaManager.cpp main.cpp MalayFemale.cpp MalayHpReduce.cpp MalayMob.cpp MalayPoints.cpp ManufactureManager.cpp Map.cpp Matrix4x4.cpp MenuState.cpp Mouse.cpp MusicSystem\MusicSystem.cpp myApplication.cpp ObjectManager.cpp ObstacleBase.cpp ObstacleBuilder.cpp ObstacleFactory.cpp OnlinePlayState.cpp OptionState.cpp Physics.cpp PointsAddPU.cpp PowerUp.cpp PointSystem.cpp PowerUpBuilder.cpp PowerUpFactory.cpp RandomGeneratorSystem\RandomGenerator.cpp RenderUntility.cpp SpatialPartion.cpp SpeedPU.cpp SplashState.cpp Sprite.cpp SpriteFadeExtend.cpp TestBallObject.cpp TestObject.cpp TriggerBase.cpp UIButton.cpp UIButtonCircle.cpp UIButtonRectangle.cpp Vector3.cpp WinCondition.cpp WindowManager.cpp
-         WindowManager.cpp
-         WinCondition.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\musicsystem\audio.h(248): warning C4172: returning address of local variable or temporary
-         Vector3.cpp
-         UIButtonRectangle.cpp
-         UIButtonCircle.cpp
-         UIButton.cpp
-         TriggerBase.cpp
-         TestObject.cpp
-         TestBallObject.cpp
-         SpriteFadeExtend.cpp
-         Sprite.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\sprite.cpp(74): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
-         SplashState.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\musicsystem\audio.h(248): warning C4172: returning address of local variable or temporary
-         SpeedPU.cpp
-         SpatialPartion.cpp
-         RenderUntility.cpp
-         RandomGenerator.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(54): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned long', possible loss of data
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(101): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned long', possible loss of data
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\randomgeneratorsystem\randomgenerator.cpp(158): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned long', possible loss of data
-         PowerUpFactory.cpp
-         PowerUpBuilder.cpp
-         PointSystem.cpp
-         PowerUp.cpp
-         Generating Code...
-         Compiling...
-         PointsAddPU.cpp
-         Physics.cpp
-         OptionState.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\musicsystem\audio.h(248): warning C4172: returning address of local variable or temporary
-         OnlinePlayState.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\musicsystem\audio.h(248): warning C4172: returning address of local variable or temporary
-         ObstacleFactory.cpp
-         ObstacleBuilder.cpp
-         ObstacleBase.cpp
-         ObjectManager.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\KeeYang\Documents\Visual Studio 2010\Projects\SP4\includes" /IC:\Users\m308\Documents\GitHub\SP4\SP4\includes /IC:\Users\m308\Documents\GitHub\SP4\SP4\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt BaseObject.cpp ChineseMob.cpp LeverDoor.cpp MalayMob.cpp WinCondition.cpp myApplication.cpp
          myApplication.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\musicsystem\audio.h(248): warning C4172: returning address of local variable or temporary
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\myapplication.cpp(196): warning C4805: '==' : unsafe mix of type 'bool' and type 'RakNet::ConnectionAttemptResult' in operation
-         MusicSystem.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\musicsystem\audio.h(248): warning C4172: returning address of local variable or temporary
-         Mouse.cpp
-         MenuState.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\musicsystem\audio.h(248): warning C4172: returning address of local variable or temporary
-         Matrix4x4.cpp
-         Map.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\map.cpp(325): warning C4258: 'y' : definition from the for loop is ignored; the definition from the enclosing scope is used
-                 c:\users\keeyang\documents\github\sp4\sp4\sp4\map.cpp(301) : definition of 'y' ignored
-                 c:\users\keeyang\documents\github\sp4\sp4\sp4\map.cpp(286) : definition of 'y' used
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\map.cpp(604): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
-         ManufactureManager.cpp
-         MalayPoints.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\audio.h(237): warning C4172: returning address of local variable or temporary
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\myapplication.cpp(197): warning C4805: '==' : unsafe mix of type 'bool' and type 'RakNet::ConnectionAttemptResult' in operation
+         Generating Code...
+         Compiling...
+         WinCondition.cpp
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\m308\documents\github\sp4\sp4\sp4\musicsystem\audio.h(237): warning C4172: returning address of local variable or temporary
          MalayMob.cpp
-         MalayHpReduce.cpp
-         MalayFemale.cpp
-         main.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\musicsystem\audio.h(248): warning C4172: returning address of local variable or temporary
-         Generating Code...
-         Compiling...
-         LuaManager.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.cpp(65): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.cpp(68): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.cpp(71): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.cpp(74): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.cpp(77): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.cpp(80): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.cpp(87): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
          LeverDoor.cpp
-         Keyboard.cpp
-         KennardTestState.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-         KeeYangTestState.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\musicsystem\audio.h(248): warning C4172: returning address of local variable or temporary
-         JumpPU.cpp
-         InvinciblePU.cpp
-         ImageManager.cpp
-         HealthSystem.cpp
-         HealthPU.cpp
-         GameStateManager.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\musicsystem\audio.h(248): warning C4172: returning address of local variable or temporary
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-         GameState.cpp
-         FrameRateManager.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\frameratemanager.cpp(41): warning C4244: '=' : conversion from 'unsigned long' to 'float', possible loss of data
-         Door.cpp
-         CreditState.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(64): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(72): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(80): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\luamanager.h(84): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\musicsystem\audio.h(248): warning C4172: returning address of local variable or temporary
-         ChinesePoints.cpp
          ChineseMob.cpp
-         ChineseMale.cpp
-         ChineseHpReduce.cpp
-         CharacterFactory.cpp
-         Generating Code...
-         Compiling...
-         CharacterBuilder.cpp
-         Character.cpp
          BaseObject.cpp
-         AStarPathfinding.cpp
-         AIMobFactory.cpp
-         AIMobBuilder.cpp
-         AI.cpp
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\ai.cpp(154): warning C4018: '>=' : signed/unsigned mismatch
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\ai.cpp(193): warning C4018: '>=' : signed/unsigned mismatch
          Generating Code...
-     1>c:\users\keeyang\documents\github\sp4\sp4\sp4\astarpathfinding.cpp(401): warning C4715: 'CAStarPathFinding::GetCurrentNode' : not all control paths return a value
        ManifestResourceCompile:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\SP4.exe.embed.manifest.res" Debug\SP4_manifest.rc 
+         All outputs are up-to-date.
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\KeeYang\Documents\GitHub\SP4\SP4\Debug\SP4.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\KeeYang\Documents\GitHub\SP4\SP4\lib freeglut.lib winmm.lib irrklang.lib lua5.1.lib Timer.lib ws2_32.lib RakNet_VS2008_DLL_Debug_Win32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libc.lib /MANIFEST /ManifestFile:"Debug\SP4.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\KeeYang\Documents\GitHub\SP4\SP4\Debug\SP4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\KeeYang\Documents\GitHub\SP4\SP4\Debug\SP4.lib" /MACHINE:X86 Debug\SP4.exe.embed.manifest.res
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\m308\Documents\GitHub\SP4\SP4\lib freeglut.lib winmm.lib irrklang.lib lua5.1.lib Timer.lib ws2_32.lib RakNet_VS2008_DLL_Debug_Win32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libc.lib /MANIFEST /ManifestFile:"Debug\SP4.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.lib" /MACHINE:X86 Debug\SP4.exe.embed.manifest.res
          Debug\AI.obj
          Debug\AIMobBuilder.obj
          Debug\AIMobFactory.obj
@@ -240,84 +96,16 @@
          Debug\WinCondition.obj
          Debug\WindowManager.obj
        Manifest:
-         Deleting file "Debug\SP4.exe.embed.manifest".
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\SP4.exe.embed.manifest" /manifest Debug\SP4.exe.intermediate.manifest
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\SP4.exe.embed.manifest.res" Debug\SP4_manifest.rc 
+         All outputs are up-to-date.
        LinkEmbedManifest:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\KeeYang\Documents\GitHub\SP4\SP4\Debug\SP4.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\KeeYang\Documents\GitHub\SP4\SP4\lib freeglut.lib winmm.lib irrklang.lib lua5.1.lib Timer.lib ws2_32.lib RakNet_VS2008_DLL_Debug_Win32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libc.lib /MANIFEST /ManifestFile:"Debug\SP4.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\KeeYang\Documents\GitHub\SP4\SP4\Debug\SP4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\KeeYang\Documents\GitHub\SP4\SP4\Debug\SP4.lib" /MACHINE:X86 Debug\SP4.exe.embed.manifest.res
-         Debug\AI.obj
-         Debug\AIMobBuilder.obj
-         Debug\AIMobFactory.obj
-         Debug\AStarPathfinding.obj
-         Debug\BaseObject.obj
-         Debug\Character.obj
-         Debug\CharacterBuilder.obj
-         Debug\CharacterFactory.obj
-         Debug\ChineseHpReduce.obj
-         Debug\ChineseMale.obj
-         Debug\ChineseMob.obj
-         Debug\ChinesePoints.obj
-         Debug\CreditState.obj
-         Debug\Door.obj
-         Debug\FrameRateManager.obj
-         Debug\GameState.obj
-         Debug\GameStateManager.obj
-         Debug\HealthPU.obj
-         Debug\HealthSystem.obj
-         Debug\ImageManager.obj
-         Debug\InvinciblePU.obj
-         Debug\JumpPU.obj
-         Debug\KeeYangTestState.obj
-         Debug\KennardTestState.obj
-         Debug\Keyboard.obj
-         Debug\LeverDoor.obj
-         Debug\LuaManager.obj
-         Debug\main.obj
-         Debug\MalayFemale.obj
-         Debug\MalayHpReduce.obj
-         Debug\MalayMob.obj
-         Debug\MalayPoints.obj
-         Debug\ManufactureManager.obj
-         Debug\Map.obj
-         Debug\Matrix4x4.obj
-         Debug\MenuState.obj
-         Debug\Mouse.obj
-         Debug\MusicSystem.obj
-         Debug\myApplication.obj
-         Debug\ObjectManager.obj
-         Debug\ObstacleBase.obj
-         Debug\ObstacleBuilder.obj
-         Debug\ObstacleFactory.obj
-         Debug\OnlinePlayState.obj
-         Debug\OptionState.obj
-         Debug\Physics.obj
-         Debug\PointsAddPU.obj
-         Debug\PowerUp.obj
-         Debug\PointSystem.obj
-         Debug\PowerUpBuilder.obj
-         Debug\PowerUpFactory.obj
-         Debug\RandomGenerator.obj
-         Debug\RenderUntility.obj
-         Debug\SpatialPartion.obj
-         Debug\SpeedPU.obj
-         Debug\SplashState.obj
-         Debug\Sprite.obj
-         Debug\SpriteFadeExtend.obj
-         Debug\TestBallObject.obj
-         Debug\TestObject.obj
-         Debug\TriggerBase.obj
-         Debug\UIButton.obj
-         Debug\UIButtonCircle.obj
-         Debug\UIButtonRectangle.obj
-         Debug\Vector3.obj
-         Debug\WinCondition.obj
-         Debug\WindowManager.obj
-         SP4.vcxproj -> C:\Users\KeeYang\Documents\GitHub\SP4\SP4\Debug\SP4.exe
+         All outputs are up-to-date.
+         SP4.vcxproj -> C:\Users\m308\Documents\GitHub\SP4\SP4\Debug\SP4.exe
        FinalizeBuildStatus:
          Deleting file "Debug\SP4.unsuccessfulbuild".
          Touching "Debug\SP4.lastbuildstate".
-     1>Done Building Project "C:\Users\KeeYang\Documents\GitHub\SP4\SP4\SP4\SP4.vcxproj" (rebuild target(s)).
+     1>Done Building Project "C:\Users\m308\Documents\GitHub\SP4\SP4\SP4\SP4.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:37.76
+Time Elapsed 00:00:05.65
