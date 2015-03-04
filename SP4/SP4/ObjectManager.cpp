@@ -72,6 +72,7 @@ void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObje
 
 			if(otherObject == a_obj)//avoid self check
 				continue;
+
 			string gen1=a_obj->genericTag;
 			string gen2=otherObject->genericTag;
 			string tag1=a_obj->tag;
@@ -88,9 +89,9 @@ void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObje
 					{
 						//std::cout<<"COLLISION RESPONE ACTIVATED "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
 						if(gen1=="Character")
-							otherObject->OnCollision(a_obj,false);
+							otherObject->OnCollision(a_obj,frame);
 						else 
-							a_obj->OnCollision(otherObject,false);
+							a_obj->OnCollision(otherObject,frame);
 					}
 				}
 			}
