@@ -313,7 +313,7 @@ bool COptionState::Init()
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
-	std::cout<<"OptioState init"<<std::endl;
+
 	if(MS->GetCurrentBgm()->audioname != "underthemoon.mp3")
 	{
 		if(MS->StopCurrentBGM())
@@ -321,15 +321,21 @@ bool COptionState::Init()
 			MS->PlayBgmTrack("underthemoon.mp3");
 		}
 	}
-
+#ifndef PRELOAD_TEXTURE
 	IM->RegisterTGA("MuteButton.tga");
 	IM->RegisterTGA("UnMuteButton.tga");
 	IM->RegisterTGA("BackButton.tga");
 	IM->RegisterTGA("ExitButton.tga");
+	IM->RegisterTGA("tenri.tga");
+
+
+
+#endif
 
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
-	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
+	CImageManager::GetInstance()->RegisterTGA("optionpage.tga");
+	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("optionpage.tga"));
 
 	CUIButton* a_button = 0;
 

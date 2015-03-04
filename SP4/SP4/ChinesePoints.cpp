@@ -63,11 +63,9 @@ bool CChinesePoints::OnCollision2(CBaseObject* a_obj,bool again)
 				{			
 					if(ChPtsTaken == false)
 					{
-						pts->PointsReceive(30);
+						pts->PointsReceive(-30);
 						this->active = false;
 						std::cout << "Chinese Points: " << pts->GetPoints() << std::endl;
-						std::cout << "Chinese Points Added" << std::endl;
-						std::cout << "Chinese Addpts: " << pts->GetPoints() << std::endl;
 						ChPtsTaken = true;
 					}else
 					if(ChPtsTaken == true)

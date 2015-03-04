@@ -8,6 +8,8 @@
 #include "MyMsgIDs.h"
 #endif
 
+#include "myApplication.h"
+
 #include "ChineseMob.h"
 #include "Character.h"
 #include "ImageManager.h"
@@ -28,6 +30,8 @@ CChineseMob::~CChineseMob()
 }
 bool CChineseMob :: Update()
 {	
+	
+	AI.SetCharacterPos(myApplication::GetInstance()->playerTwo->pos);
 	if(charControl==1||charControl==3)
 	{
 		dir = AI.GetDir();
@@ -95,6 +99,7 @@ bool CChineseMob :: Render()
 {
 	glPushMatrix();
 	glTranslatef(pos.x,pos.y,pos.z);
+
 	theSprite->Render();
 	glPopMatrix();
 

@@ -24,7 +24,7 @@ bool CChineseHpReduce::Init(Vector3 pos, Vector3 size)
 	name = "ChineseHp";
 	
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("HalalSign.tga");
+	theSprite->LoadTGA("Jump.tga");
 
 	phys.Init(pos, Vector3(theSprite->GetImageSizeX(), theSprite->GetImageSizeY()));
 
@@ -60,11 +60,9 @@ bool CChineseHpReduce::OnCollision2(CBaseObject* a_obj,bool again)
 			{			
 				if(ChHpTaken == false)
 				{
-					tempCM->hp.RecoverHealth();
-					//this->active = false;
+					tempCM->hp.TakeDMG();
+					this->active = false;
 					std::cout << "Chinese Health: " << tempCM->hp.GetHealth() << std::endl;
-					std::cout << "Chinese HEAlth Added" << std::endl;
-					std::cout << "Chinese Add: " << tempCM->hp.GetHealth() << std::endl;
 					ChHpTaken = true;
 				}else
 				if(ChHpTaken == true)

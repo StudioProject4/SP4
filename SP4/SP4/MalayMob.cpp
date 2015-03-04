@@ -10,6 +10,7 @@
 #include "MalayMob.h"
 #include "Character.h"
 #include "ImageManager.h"
+#include "myApplication.h"
 extern RakNet::RakPeerInterface* rakPeerGlobal;
 
 CMalayMob :: CMalayMob()
@@ -26,6 +27,7 @@ CMalayMob :: ~CMalayMob()
 }
 bool CMalayMob :: Update()
 {
+	AI.SetCharacterPos(myApplication::GetInstance()->playerOne->pos);
 	if(charControl==1||charControl==3)
 	{
 		dir = AI.GetDir();
@@ -60,11 +62,10 @@ bool CMalayMob :: Init()
 	genericTag = "Enemy";
 
 	AI.SetTag(tag);
-	
 	theSprite = new CSprite(8,2,0);
 	CImageManager::GetInstance()->RegisterTGA("mobMalay.tga");
 	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("mobMalay.tga"));
-	
+
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 	refTime = MVCTime::GetInstance()->PushNewTime(1000);
@@ -84,6 +85,14 @@ bool CMalayMob :: Render()
 {
 	glPushMatrix();
 	glTranslatef(pos.x,pos.y,pos.z);
+	if(dir.x > 0)
+	{
+		theSprite->SetAnimationLayer(0);
+	}
+	else if(dir.x < 0)
+	{
+		theSprite->SetAnimationLayer(0);
+	}
 	theSprite->Render();
 	glPopMatrix();
 

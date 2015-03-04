@@ -47,7 +47,7 @@ Vector3 CPhysics::getTileV(Vector3 thePos)
 }
 bool CPhysics::Init(Vector3 pos,Vector3 size)
 {
-	gravity = 20;
+	gravity = 60;
 	vel.Set();
 	this->size=size;
 	this->pos=pos;
@@ -68,7 +68,7 @@ void CPhysics::Jump()
 {
 	if(!inAir)
 	{
-		vel.y=-80;
+		vel.y=-130;
 	}
 }
 

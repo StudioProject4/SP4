@@ -48,10 +48,10 @@ bool CChineseMale :: Init()
 	tag = "ChineseMale";
 	genericTag = "Character";
 
-	theSprite = new CSprite(3,4,2);
+	theSprite = new CSprite(10,4,1);
 	theSprite->SetFrameSpeed(2);
-	CImageManager::GetInstance()->RegisterTGA("guy2.tga");
-	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("guy2.tga"));
+	CImageManager::GetInstance()->RegisterTGA("male.tga");
+	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("male.tga"));
 	//theSprite->LoadTGA("sonia2.tga");
 	
 	SetIsInvulnerable(false);
@@ -82,8 +82,31 @@ bool CChineseMale :: OnCollision2(CBaseObject* a_obj,bool again)
 bool CChineseMale :: Render()
 {
 	glPushMatrix();
-		glTranslatef(pos.x,pos.y,pos.z);
-		theSprite->Render();
+	glTranslatef(pos.x,pos.y,pos.z);
+	if(GetIsInvulnerable() == true)
+	{
+		theSprite->SetAlpha(0.5f);
+	}
+	else
+	{
+		theSprite->SetAlpha(1.0f);
+	}	
+	if(phys.vel.x == 0)
+	{
+		if(dir.x >= 0)
+			theSprite->SetAnimationLayer(1);
+		else
+			theSprite->SetAnimationLayer(2);
+	}
+	else if(phys.vel.x > 0)
+	{
+		theSprite->SetAnimationLayer(0);
+	}
+	else if(phys.vel.x < 0)
+	{
+		theSprite->SetAnimationLayer(3);
+	}
+	theSprite->Render();
 	glPopMatrix();
 	return true;
 }

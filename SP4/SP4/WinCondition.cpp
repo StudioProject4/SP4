@@ -42,7 +42,9 @@ bool CWinCondition::Update()
 {
 	if(CM->hp.GetHealth() == 0 || MF->hp.GetHealth() == 0)
 	{
-		myApplication::GetInstance()->ResetLevel(1);
+		CM->hp.SetHealth(3);
+		MF->hp.SetHealth(3);
+		myApplication::GetInstance()->ResetLevel(levelChange->Level);
 	}
 
 	return true;
@@ -131,8 +133,8 @@ void CWinCondition::LevelChange()
 
 void CWinCondition::LoseGame()
 {
-	if(CM->hp.GetHealth() <= 0 || MF->hp.GetHealth() <= 0)
-	{
-		myApplication::GetInstance()->ResetLevel(1);
-	}
+	//if(CM->hp.GetHealth() <= 0 || MF->hp.GetHealth() <= 0)
+	//{
+	//	myApplication::GetInstance()->ResetLevel(1);
+	//}
 }
