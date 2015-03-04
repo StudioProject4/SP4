@@ -50,6 +50,7 @@ bool CMalayMob :: Update()
 			pos.x = phys.Update(pos).x;
 		}*/
 	}
+	theSprite->LiveOn(4);
 	return true;
 }
 bool CMalayMob :: Init()
@@ -59,10 +60,10 @@ bool CMalayMob :: Init()
 	genericTag = "Enemy";
 
 	AI.SetTag(tag);
-
-	theSprite = new CSprite(1,1,0);
-	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("rockyground.tga"));
-	//theSprite->LoadTGA("rockyground.tga");
+	
+	theSprite = new CSprite(8,2,0);
+	CImageManager::GetInstance()->RegisterTGA("mobMalay.tga");
+	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("mobMalay.tga"));
 	
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);

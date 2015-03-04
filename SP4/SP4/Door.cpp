@@ -2,6 +2,8 @@
 #include "Sprite.h"
 #include "TriggerBase.h"
 
+#include "ImageManager.h"
+
 
 CDoor::CDoor(void)//:
 //theSprite(NULL)
@@ -22,6 +24,8 @@ bool CDoor::Init(Vector3 pos,Vector3 size)
 
 	this->pos=pos;
 	theSprite=new CSprite(1);
+	CImageManager::GetInstance()->RegisterTGA("guy2.tga");
+	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("guy2.tga"));
 	this->phys.size=Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY());
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 	triggered=false;

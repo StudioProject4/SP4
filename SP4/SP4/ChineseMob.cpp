@@ -51,6 +51,7 @@ bool CChineseMob :: Update()
 		{
 			pos.x = phys.Update(pos).x;
 		}*/
+		theSprite->LiveOn(4);
 	}
 	return true;
 }
@@ -63,9 +64,9 @@ bool CChineseMob :: Init()
 	AI.SetTag(tag);
 	AI.SetID(id);
 
-	theSprite = new CSprite(1,1,0);
-	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("tenri.tga"));
-	//theSprite->LoadTGA("tenri.tga");
+	theSprite = new CSprite(8,2,0);
+	CImageManager::GetInstance()->RegisterTGA("mobChinese.tga");
+	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("mobChinese.tga"));
 
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
