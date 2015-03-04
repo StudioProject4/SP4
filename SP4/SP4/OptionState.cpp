@@ -295,11 +295,11 @@ void COptionState::StateChangeMusicCheck()
 {
 	CMusicSystem * MS = CMusicSystem::GetInstance();
 
-	if(MS->GetCurrentBgm()->audioname != "underthemoon.mp3")
+	if(MS->GetCurrentBgm()->audioname != LM->GetWithCheckString("MENU_BGM"))
 	{
 		if(MS->StopCurrentBGM())
 		{
-			MS->PlayBgmTrack("underthemoon.mp3");
+			MS->PlayBgmTrack(LM->GetWithCheckString("MENU_BGM"));
 		}
 	}
 }
@@ -325,11 +325,11 @@ bool COptionState::Init()
 	glEnable(GL_TEXTURE_2D);
 
 
-	if(MS->GetCurrentBgm()->audioname != "underthemoon.mp3")
+	if(MS->GetCurrentBgm()->audioname != LM->GetWithCheckString("MENU_BGM"))
 	{
 		if(MS->StopCurrentBGM())
 		{
-			MS->PlayBgmTrack("underthemoon.mp3");
+			MS->PlayBgmTrack(LM->GetWithCheckString("MENU_BGM"));
 		}
 	}
 #ifndef PRELOAD_TEXTURE

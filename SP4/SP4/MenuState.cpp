@@ -309,21 +309,20 @@ bool CMenuState::Init()
 	genericTag = "CGameState";
 
 	MS = CMusicSystem::GetInstance();
-
-	if(MS->GetCurrentBgm()->audioname != "underthemoon.mp3")
-	{
-		if(MS->StopCurrentBGM())
-		{
-			MS->PlayBgmTrack("underthemoon.mp3");
-		}
-	}
-
 	IM = CImageManager::GetInstance();
 	FRM = CFrameRateManager::GetInstance();
 	LM = CLuaManager::GetInstance();
 	mouse = CMouse::GetInstance();
 	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
+
+	if(MS->GetCurrentBgm()->audioname != LM->GetWithCheckString("MENU_BGM"))
+	{
+		if(MS->StopCurrentBGM())
+		{
+			MS->PlayBgmTrack(LM->GetWithCheckString("MENU_BGM"));
+		}
+	}
 
 	OM = new CObjectManager();
 	GSM = CGameStateManager::GetInstance();

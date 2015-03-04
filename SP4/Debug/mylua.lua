@@ -151,6 +151,14 @@ AITWO_POS_X_Lv5 = 650
 AITWO_POS_Y_Lv5 = 430
 print("Finish obstacle variable")
 
+print("initing sound files")
+TEST_SOUND = "sound1.mp3"
+MENU_BGM = "persona.mp3"
+MAIN_GAME_BGM = "underthemoon.mp3"
+INTRO_SCENE_BGM = "FilmRolling.mp3"
+print("Finish sound files")
+
+
 print("initing lua function")
 function add(v1,v2)
 return v1+v2

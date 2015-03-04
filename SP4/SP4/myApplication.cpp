@@ -346,16 +346,16 @@ bool myApplication::Init()
 	tempimage = IM->GetTGAImage("background.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
 
-	if(MS->GetCurrentBgm()->audioname != "bgm6.mp3")
+	if(MS->GetCurrentBgm()->audioname != "underthemoon.mp3")
 	{
 		if(MS->StopCurrentBGM())
 		{
-			MS->PlayBgmTrack("bgm6.mp3");
+			MS->PlayBgmTrack("underthemoon.mp3");
 			//std::cout<<"finding"<<MS->FindBgm("bgm6.mp3")<<std::endl;
-			if(MS->FindBgm("bgm6.mp3")->EnableAudioEffectControl())
-			{
-				MS->FindBgm("bgm6.mp3")->EnableChorusEffect();
-			}
+			//if(MS->FindBgm("underthemoon.mp3")->EnableAudioEffectControl())
+			//{
+			//	MS->FindBgm("underthemoon.mp3")->EnableChorusEffect();
+			//}
 		}
 	}
 
@@ -458,11 +458,11 @@ bool myApplication::Init()
 
 void myApplication::StateChangeMusicCheck()
 {
-	if(MS->GetCurrentBgm()->audioname != "bgm6.mp3")
+	if(MS->GetCurrentBgm()->audioname != "underthemoon.mp3")
 	{
 		if(MS->StopCurrentBGM())
 		{
-			MS->PlayBgmTrack("bgm6.mp3");
+			MS->PlayBgmTrack("underthemoon.mp3");
 		}
 	}
 };

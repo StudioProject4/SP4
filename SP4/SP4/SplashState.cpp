@@ -334,7 +334,7 @@ bool CSplashState::Init()
 	IM->RegisterTGA("IntroScene.tga");
 	IM->RegisterTGA("sonia2.tga");
 #endif
-	MS->PlayBgmTrack("FilmRolling.mp3");
+	MS->PlayBgmTrack(LM->GetWithCheckString("INTRO_SCENE_BGM"));
 	MS->GetCurrentBgm()->SetVolume(0.f);
 	backgroundImage[0].Init(5,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());

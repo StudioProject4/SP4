@@ -66,21 +66,17 @@ int main(int argc, char **argv )
 		CMusicSystem* MS = CMusicSystem::GetInstance();
 		CImageManager* IM = CImageManager::GetInstance();
 
-
-
-		MS->RegisterSound2D("sound1.mp3");
-		MS->RegisterSound2D("sound2.mp3");
-		MS->RegisterBgm2D("bgm1.mp3");
-		MS->RegisterBgm2D("bgm2.mp3");
-		MS->RegisterBgm2D("bgm3.mp3");
-		MS->RegisterBgm2D("bgm4.mp3");
-		MS->RegisterBgm2D("bgm5.mp3");
-		MS->RegisterBgm2D("bgm6.mp3");
-		MS->RegisterBgm2D("bgm7.mp3");
-		MS->RegisterBgm2D("underthemoon.mp3");
-		MS->RegisterBgm2D("FilmRolling.mp3");
 		LM->Init("mylua.lua");
-		
+
+		MS->RegisterSound2D(LM->GetWithCheckString("TEST_SOUND"));
+		MS->RegisterBgm2D(LM->GetWithCheckString("MENU_BGM"));
+		MS->RegisterBgm2D(LM->GetWithCheckString("MAIN_GAME_BGM"));
+		MS->RegisterBgm2D(LM->GetWithCheckString("INTRO_SCENE_BGM"));
+
+		//MS->RegisterSound2D("sound1.mp3");
+		//MS->RegisterBgm2D("persona.mp3");
+		//MS->RegisterBgm2D("underthemoon.mp3");
+		//MS->RegisterBgm2D("FilmRolling.mp3");
 
 		glutInit(&argc, argv);
 		glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
