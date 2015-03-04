@@ -102,10 +102,11 @@ void CSplashState::MouseMove (int x, int y)
 	int diffX = x - mouse->lastX;
 	int diffY = y - mouse->lastY;
 
-	mouse->lastX = x;
-	mouse->lastY = y;
-	mouse->gameX=mouse->lastX/WM->GetWindowRatioDifferenceX();
-	mouse->gameY=mouse->lastY/WM->GetWindowRatioDifferenceY();
+	mouse->MoveAndUpdateGameMousePosition(x,y,WM->GetWindowRatioDifferenceX(),WM->GetWindowRatioDifferenceY());
+	if(diffX >2  || diffY >2)
+	{
+		mouse->ResetAllLastButtonStateBoolean();
+	}
 }
 
 void CSplashState::MouseClick(int button, int state, int x, int y)
@@ -295,7 +296,7 @@ bool CSplashState::Update()
 
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
-		OM->Update();
+		//OM->Update();
 	}
 	return true;
 }
@@ -322,6 +323,7 @@ bool CSplashState::Init()
 
 #ifndef PRELOAD_TEXTURE
 	IM->RegisterTGA("flare.tga");
+	IM->RegisterTGA("IntroScene.tga");
 	IM->RegisterTGA("sonia2.tga");
 #endif
 
@@ -331,7 +333,7 @@ bool CSplashState::Init()
 
 	backgroundImage[1].Init(1,1,0);
 	backgroundImage[1].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
-	backgroundImage[1].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	backgroundImage[1].OverrideTGATexture(IM->GetTGAImage("IntroScene.tga"));
 
 
 	backgroundFade = new CSpriteFadeExtend(&backgroundImage[0]);

@@ -113,11 +113,12 @@ int main(int argc, char **argv )
 		IM->RegisterTGA("InstructionButton.tga");
 		IM->RegisterTGA("Instruction.tga");
 		IM->RegisterTGA("optionpage.tga");
+		IM->RegisterTGA("IntroScene.tga");
 #endif
 		//IM->RegisterTGA("pointIcon.tga");
 
-		//GSM->ChangeState(CSplashState::GetInstance());
-		GSM->ChangeState(CMenuState::GetInstance());
+		GSM->ChangeState(CSplashState::GetInstance());
+		//GSM->ChangeState(CMenuState::GetInstance());
 
 		//GSM->ChangeState(CSplashState::GetInstance());
 		//GSM->ChangeState(CMenuState::GetInstance());

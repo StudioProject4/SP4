@@ -103,10 +103,11 @@ void COptionState::MouseMove (int x, int y)
 	int diffX = x - mouse->lastX;
 	int diffY = y - mouse->lastY;
 
-	mouse->lastX = x;
-	mouse->lastY = y;
-	mouse->gameX=mouse->lastX/WM->GetWindowRatioDifferenceX();
-	mouse->gameY=mouse->lastY/WM->GetWindowRatioDifferenceY();
+	mouse->MoveAndUpdateGameMousePosition(x,y,WM->GetWindowRatioDifferenceX(),WM->GetWindowRatioDifferenceY());
+	if(diffX >2  || diffY >2)
+	{
+		mouse->ResetAllLastButtonStateBoolean();
+	}
 }
 
 void COptionState::MouseClick(int button, int state, int x, int y)
@@ -121,11 +122,12 @@ void COptionState::MouseClick(int button, int state, int x, int y)
 					
 					mouse->SetLeftButton(true);
 
-					//onInstructionDisplay = false;
+					
 					break;
 				case GLUT_UP:
 					//mouse->mLButtonUp = false;	
 					mouse->SetLeftButton(false);
+					onInstructionDisplay = false;
 					break;
 			}
 			break;
@@ -226,7 +228,7 @@ void COptionState::Render2D()
 	{
 		(*it)->Render();
 	}
-	//this->RenderInstruction();
+	this->RenderInstruction();
 
 	FRM->drawFPS();
 }
@@ -259,21 +261,25 @@ void COptionState::RenderScene(void)
 
 bool COptionState::Update()
 {
+	
 	StateChangeMusicCheck();
-	for(unsigned short i = 0 ; i< buttonList.size();++i)
+
+	if(onInstructionDisplay == false)
 	{
-		buttonList[i]->Update();
-		if(buttonList[i]->ColisionCheck(mouse))
+		for(unsigned short i = 0 ; i< buttonList.size();++i)
 		{
-			//std::cout<<"Button COllided"<<std::endl;
-			//ButtonTriggerCall(buttonList[i]->name);
-			ButtonTriggerCall(buttonList[i]);
-		}else
-		{
-			//std::cout<<"=D "<<std::endl;
+			buttonList[i]->Update();
+			if(buttonList[i]->ColisionCheck(mouse))
+			{
+				//std::cout<<"Button COllided"<<std::endl;
+				//ButtonTriggerCall(buttonList[i]->name);
+				ButtonTriggerCall(buttonList[i]);
+			}else
+			{
+				//std::cout<<"=D "<<std::endl;
+			}
 		}
 	}
-
 	//if(keyboard->myKeys[VK_ESCAPE] == true)
 	//{
 	//	GSM->ExitApplication();
@@ -281,7 +287,7 @@ bool COptionState::Update()
 
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
-		OM->Update();
+		//OM->Update();
 	}
 	return true;
 }
@@ -392,7 +398,7 @@ bool COptionState::Init()
 	a_button->ownTexture.Init(1);
 	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("InstructionButton.tga"));
 	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.25f,WM->GetOriginalWindowHeight()*0.4f);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08f,WM->GetOriginalWindowHeight()*0.08f);
 	a_button->name ="InstructionButton";
 	buttonList.push_back(a_button);
 
@@ -449,23 +455,26 @@ void COptionState::RenderBackground()
 	//glPopMatrix();
 	//glDisable(GL_TEXTURE_2D);
 	glPushMatrix();
-	glTranslatef(400,300,0);
+	glTranslatef(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.5f,0);
 	backgroundImage[0].Render();
 	glPopMatrix();
 }
 void COptionState::RenderInstruction()
 {
+	glPushMatrix();
 	if(this->onInstructionDisplay)
 	{
+		glTranslatef(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.5f,0);
 		backgroundImage[1].Render();
 	}
+	glPopMatrix();
 }
 void COptionState::ButtonTriggerCall(CUIButton* theButton)
 {
 
 	if(mouse->CheckLeftButtonReleased())
 	{
-		mouse->PrintDebugInformation();
+		//mouse->PrintDebugInformation();
 		MS->PlaySoundPoolTrack2D("sound1.mp3");
 
 		if(theButton->name == "BackButton")
@@ -476,36 +485,39 @@ void COptionState::ButtonTriggerCall(CUIButton* theButton)
 			{
 				GSM->ExitApplication();
 			}else
-				if(theButton->name = "InstructionButton")
+				if(theButton->name == "InstructionButton")
 				{
 					onInstructionDisplay = true;
+					//mouse->Reset();
 				}else
-				if(theButton->name == "MuteButton")
-				{
-					switch(theButton->triggermode)
+					if(theButton->name == "MuteButton")
 					{
-					default:
-						std::cout<<"Unknow MuteButton trigger mod requsted"<<std::endl;
-						break;
+						switch(theButton->triggermode)
+						{
+						default:
+							std::cout<<"Unknow MuteButton trigger mod requsted"<<std::endl;
+							break;
 
-					case 0:
-						theButton->ownTexture.OverrideTGATexture(IM->GetTGAImage("MuteButton.tga"));
-						theButton->triggermode = 1;
-						mouse->Reset();
-						MS->Mute();
-						break;
-					case 1:
-						theButton->ownTexture.OverrideTGATexture(IM->GetTGAImage("UnMuteButton.tga"));
-						theButton->triggermode = 0;
-						mouse->Reset();
-						MS->UnMute();
-						break;
+						case 0:
+							//std::cout<<" MuteButton trigger mod 0requsted"<<std::endl;
+							theButton->ownTexture.OverrideTGATexture(IM->GetTGAImage("MuteButton.tga"));
+							theButton->triggermode = 1;
+							//mouse->Reset();
+							MS->Mute();
+							break;
+						case 1:
+							//std::cout<<" MuteButton trigger mod 1requsted"<<std::endl;
+							theButton->ownTexture.OverrideTGATexture(IM->GetTGAImage("UnMuteButton.tga"));
+							theButton->triggermode = 0;
+							//mouse->Reset();
+							MS->UnMute();
+							break;
 
+						}
 					}
-				}
 	}
 }
- void COptionState::ButtonTriggerCall(std::string buttonName)
+ /*void COptionState::ButtonTriggerCall(std::string buttonName)
  {
 	 if(mouse->CheckLeftButtonReleased())
 	 {
@@ -516,4 +528,4 @@ void COptionState::ButtonTriggerCall(CUIButton* theButton)
 				 GSM->GoToPreviousState();
 			 }
 	 }
- }
+ }*/

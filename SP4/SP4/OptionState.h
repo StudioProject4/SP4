@@ -36,7 +36,7 @@ public:
 	 void Render3D();
 	 void RenderScene(void);
 	 void ButtonTriggerCall(CUIButton* theButton);
-	 void ButtonTriggerCall(std::string buttonName);
+	 //void ButtonTriggerCall(std::string buttonName);
 	 void RenderBackground();
 	 void RenderInstruction();
 	

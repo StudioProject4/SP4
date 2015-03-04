@@ -45,7 +45,26 @@ bool CMouse::Init()
 	sensitivity = 0.5f;
 	return true;
 }
+void CMouse::ResetAllLastButtonStateBoolean()
+{
+	lastRButtonState = lastMiddleButtonState = lastLButtonState = false;
 
+}
+void CMouse::MoveAndUpdateGameMousePosition(int posX,int posY,float windowRatioX,float windowRatioY)
+{
+	this->lastX = posX;
+	this->lastY = posY;
+	this->gameX=this->lastX/windowRatioX;
+	this->gameY=this->lastY/windowRatioY;
+	//lastRButtonState = lastMiddleButtonState = lastLButtonState = false;
+}
+void CMouse::Move(int posX,int posY)
+{
+	this->lastX = posX;
+	this->lastY = posY;
+
+	//lastRButtonState = lastMiddleButtonState = lastLButtonState = false;
+}
 void CMouse::SetLeftButton(bool down)
 {
 	if(lastLButtonState != this->mLButtonUp)
@@ -81,6 +100,8 @@ bool CMouse::CheckLeftButtonReleased()
 
 	if(lastLButtonState == true && this->mLButtonUp == false)
 	{
+	
+		lastLButtonState = false;
 		return true;
 	}
 	return false;
@@ -155,7 +176,7 @@ void CMouse::PrintDebugInformation()
 	printf("\n mLButtonUp: %s",mLButtonUp?"true":"false");
 	printf("\n mRButtonUp: %s",mRButtonUp?"true":"false");
 	printf("\n lastleftmousestate: %s",this->lastLButtonState?"true":"false");
-	printf("\n LeftMouseReleased: %s",CheckLeftButtonReleased()?"true":"false");
+	//printf("\n LeftMouseReleased: %s",CheckLeftButtonReleased()?"true":"false");
 	printf("\n lastX,lastY %d,%d",lastX,lastY);
 	printf("\n Sensitivity %f",sensitivity); 
 }

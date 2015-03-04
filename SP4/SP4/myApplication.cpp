@@ -341,6 +341,8 @@ bool myApplication::Init()
 	IM->RegisterTGA("sonia2.tga");
 	IM->RegisterTGA("tenri.tga");
 #endif
+
+
 	tempimage = IM->GetTGAImage("background.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
 
