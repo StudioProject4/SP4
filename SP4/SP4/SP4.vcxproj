@@ -118,7 +118,6 @@
     <ClCompile Include="MusicSystem\MusicSystem.cpp" />
     <ClCompile Include="myApplication.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
-    <ClCompile Include="ObjLoader.c" />
     <ClCompile Include="ObstacleBase.cpp" />
     <ClCompile Include="ObstacleBuilder.cpp" />
     <ClCompile Include="ObstacleFactory.cpp" />
@@ -139,7 +138,6 @@
     <ClCompile Include="SpriteFadeExtend.cpp" />
     <ClCompile Include="TestBallObject.cpp" />
     <ClCompile Include="TestObject.cpp" />
-    <ClCompile Include="tgaLoader.c" />
     <ClCompile Include="TriggerBase.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIButtonCircle.cpp" />
@@ -195,7 +193,6 @@
     <ClInclude Include="myApplication.h" />
     <ClInclude Include="MyMath.h" />
     <ClInclude Include="ObjectManager.h" />
-    <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="ObstacleBase.h" />
     <ClInclude Include="ObstacleBuilder.h" />
     <ClInclude Include="ObstacleFactory.h" />
@@ -219,7 +216,6 @@
     <ClInclude Include="SystemDefination.h" />
     <ClInclude Include="TestBallObject.h" />
     <ClInclude Include="TextureImage.h" />
-    <ClInclude Include="tgaLoader.h" />
     <ClInclude Include="ToolLibrary.h" />
     <ClInclude Include="TriggerBase.h" />
     <ClInclude Include="UIButton.h" />

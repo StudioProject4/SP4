@@ -11,9 +11,9 @@ class CCharacter : public CBaseObject
 	public:
 		CCharacter()	
 		{
-			pos = (0,0,0);
-			dir = (0,0,0);
-			isInvulnerable == false;
+			pos = (0.f,0.f,0.f);
+			dir = (0.f,0.f,0.f);
+			isInvulnerable = false;
 			//invultimer = clock();
 		};
 		virtual ~CCharacter(){};

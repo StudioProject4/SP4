@@ -271,13 +271,13 @@ bool CMenuState::Update()
 		if(buttonList[i]->ColisionCheck(mouse))
 		{
 			//std::cout<<"Button COllided"<<std::endl;
-			PageTransitionTrigger(buttonList[i]->name);
+			ButtonTriggerCall(buttonList[i]->name);
 		}else
 		{
 			//std::cout<<"=D "<<std::endl;
 		}
 	}
-	backgroundImage[0].LiveOn(FRM->deltaTime*0.01);
+	backgroundImage[0].LiveOn(FRM->deltaTime*0.01f);
 	if(keyboard->myKeys[VK_ESCAPE] == true)
 	{
 		GSM->ExitApplication();
@@ -325,7 +325,7 @@ bool CMenuState::Init()
 	IM->RegisterTGA("BackButton.tga");
 
 	backgroundImage[0].Init(1,1,0);
-	backgroundImage[0].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
+	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
 	//testdecorator = &backgroundImage[0];
 	testdecorator = new CSpriteFadeExtend(&backgroundImage[0]);
@@ -337,24 +337,24 @@ bool CMenuState::Init()
 	a_button = new CUIButtonRectangle();
 	a_button->ownTexture.Init(1);
 	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("SinglePlayerButton.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.35);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.35f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45f,WM->GetOriginalWindowHeight()*0.2f);
 	a_button->name ="SinglePlayerButton";
 	buttonList.push_back(a_button);
 
 	a_button = new CUIButtonRectangle();
 	a_button->ownTexture.Init(1);
 	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("MultiPlayerButton.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.6);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.6f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45f,WM->GetOriginalWindowHeight()*0.2f);
 	a_button->name ="MultiPlayerButton";
 	buttonList.push_back(a_button);
 
 	a_button = new CUIButtonRectangle();
 	a_button->ownTexture.Init(1);
 	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("OptionButton.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.85);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.85f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45f,WM->GetOriginalWindowHeight()*0.2f);
 	a_button->name ="OptionButton";
 	buttonList.push_back(a_button);
 
@@ -362,16 +362,16 @@ bool CMenuState::Init()
 	a_button = new CUIButtonCircle();
 	a_button->ownTexture.Init(1);
 	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("CreditButton.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1,WM->GetOriginalWindowHeight()*0.9);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1f,WM->GetOriginalWindowHeight()*0.9f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08f,WM->GetOriginalWindowHeight()*0.08f);
 	a_button->name ="CreditButton";
 	buttonList.push_back(a_button);
 
 	a_button = new CUIButtonCircle();
 	a_button->ownTexture.Init(1);
 	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("ExitButton.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.9,WM->GetOriginalWindowHeight()*0.9);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.9f,WM->GetOriginalWindowHeight()*0.9f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08f,WM->GetOriginalWindowHeight()*0.08f);
 	a_button->name ="ExitButton";
 	buttonList.push_back(a_button);
 	
@@ -435,7 +435,7 @@ void CMenuState::RenderBackground()
 	//backgroundImage[0].Render();
 	glPopMatrix();
 }
- void CMenuState::PageTransitionTrigger(std::string buttonName)
+ void CMenuState::ButtonTriggerCall(std::string buttonName)
  {
 	 if(mouse->CheckLeftButtonReleased())
 	 {

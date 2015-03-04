@@ -13,27 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Helper">
-      <UniqueIdentifier>{6f678c0b-6237-4684-91ad-f2177d394c9f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Helper\MathHelper">
-      <UniqueIdentifier>{7322d515-c09a-4341-9595-4049a69feeb5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Helper\RenderHelper">
-      <UniqueIdentifier>{7dac4584-8f10-4194-864a-e4b2c8d6b83c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Helper\GenericCodeHelper">
-      <UniqueIdentifier>{427d0e18-b090-4ff9-82dd-3691a0da5461}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Helper\Defination">
-      <UniqueIdentifier>{96aa740b-b870-4ce1-b6db-97dc7ac57b50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Helper\CustomDataType">
-      <UniqueIdentifier>{985bb204-a305-4649-8c14-13f7766b365c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Helper\RandomGenerator">
-      <UniqueIdentifier>{38787029-4425-4412-ab33-f318a693dede}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Character">
       <UniqueIdentifier>{067bc28f-dbf4-4ee3-8e88-78fa346dfd50}</UniqueIdentifier>
     </Filter>
@@ -76,6 +55,27 @@
     <Filter Include="ObjectManagement\Interface\SpatialPartition">
       <UniqueIdentifier>{02a9a800-d3e6-49eb-8f2f-6922f298f3e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Helper">
+      <UniqueIdentifier>{6f678c0b-6237-4684-91ad-f2177d394c9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helper\MathHelper">
+      <UniqueIdentifier>{7322d515-c09a-4341-9595-4049a69feeb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helper\RenderHelper">
+      <UniqueIdentifier>{7dac4584-8f10-4194-864a-e4b2c8d6b83c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helper\GenericCodeHelper">
+      <UniqueIdentifier>{427d0e18-b090-4ff9-82dd-3691a0da5461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helper\Defination">
+      <UniqueIdentifier>{96aa740b-b870-4ce1-b6db-97dc7ac57b50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helper\CustomDataType">
+      <UniqueIdentifier>{985bb204-a305-4649-8c14-13f7766b365c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helper\RandomGenerator">
+      <UniqueIdentifier>{38787029-4425-4412-ab33-f318a693dede}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -88,19 +88,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
-      <Filter>Helper\MathHelper</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjLoader.c">
-      <Filter>Helper\RenderHelper</Filter>
-    </ClCompile>
-    <ClCompile Include="tgaLoader.c">
-      <Filter>Helper\RenderHelper</Filter>
+      <Filter>Header Files\Helper\MathHelper</Filter>
     </ClCompile>
     <ClCompile Include="Matrix4x4.cpp">
-      <Filter>Helper\MathHelper</Filter>
+      <Filter>Header Files\Helper\MathHelper</Filter>
     </ClCompile>
     <ClCompile Include="RandomGeneratorSystem\RandomGenerator.cpp">
-      <Filter>Helper\RandomGenerator</Filter>
+      <Filter>Header Files\Helper\RandomGenerator</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
@@ -115,13 +109,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RenderUntility.cpp">
-      <Filter>Helper\RenderHelper</Filter>
+      <Filter>Header Files\Helper\RenderHelper</Filter>
     </ClCompile>
     <ClCompile Include="MusicSystem\MusicSystem.cpp">
       <Filter>MusicSystem</Filter>
     </ClCompile>
     <ClCompile Include="Character.cpp">
-      <Filter>Helper\RenderHelper</Filter>
+      <Filter>Header Files\Helper\RenderHelper</Filter>
     </ClCompile>
     <ClCompile Include="HealthSystem.cpp">
       <Filter>Source Files</Filter>
@@ -336,25 +330,19 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RenderUntilty.h">
-      <Filter>Helper\RenderHelper</Filter>
+      <Filter>Header Files\Helper\RenderHelper</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
-      <Filter>Helper\MathHelper</Filter>
-    </ClInclude>
-    <ClInclude Include="tgaLoader.h">
-      <Filter>Helper\RenderHelper</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjLoader.h">
-      <Filter>Helper\RenderHelper</Filter>
+      <Filter>Header Files\Helper\MathHelper</Filter>
     </ClInclude>
     <ClInclude Include="TextureImage.h">
-      <Filter>Helper\RenderHelper</Filter>
+      <Filter>Header Files\Helper\RenderHelper</Filter>
     </ClInclude>
     <ClInclude Include="MyMath.h">
-      <Filter>Helper\MathHelper</Filter>
+      <Filter>Header Files\Helper\MathHelper</Filter>
     </ClInclude>
     <ClInclude Include="Matrix4x4.h">
-      <Filter>Helper\MathHelper</Filter>
+      <Filter>Header Files\Helper\MathHelper</Filter>
     </ClInclude>
     <ClInclude Include="FrameRateManager.h">
       <Filter>Header Files</Filter>
@@ -369,28 +357,28 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ToolLibrary.h">
-      <Filter>Helper\GenericCodeHelper</Filter>
+      <Filter>Header Files\Helper\GenericCodeHelper</Filter>
     </ClInclude>
     <ClInclude Include="DatabaseLibrary.h">
-      <Filter>Helper\GenericCodeHelper</Filter>
+      <Filter>Header Files\Helper\GenericCodeHelper</Filter>
     </ClInclude>
     <ClInclude Include="DatatypeDefination.h">
-      <Filter>Helper\Defination</Filter>
+      <Filter>Header Files\Helper\Defination</Filter>
     </ClInclude>
     <ClInclude Include="SystemDefination.h">
-      <Filter>Helper\Defination</Filter>
+      <Filter>Header Files\Helper\Defination</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Helper\CustomDataType</Filter>
+      <Filter>Header Files\Helper\CustomDataType</Filter>
     </ClInclude>
     <ClInclude Include="SContainer2D.h">
-      <Filter>Helper\CustomDataType</Filter>
+      <Filter>Header Files\Helper\CustomDataType</Filter>
     </ClInclude>
     <ClInclude Include="RandomGeneratorSystem\MathPlus.h">
-      <Filter>Helper\RandomGenerator</Filter>
+      <Filter>Header Files\Helper\RandomGenerator</Filter>
     </ClInclude>
     <ClInclude Include="RandomGeneratorSystem\RandomGenerator.h">
-      <Filter>Helper\RandomGenerator</Filter>
+      <Filter>Header Files\Helper\RandomGenerator</Filter>
     </ClInclude>
     <ClInclude Include="BaseObject.h">
       <Filter>Header Files</Filter>
@@ -521,9 +509,6 @@
     <ClInclude Include="GameStateManager.h">
       <Filter>GameStates</Filter>
     </ClInclude>
-    <ClInclude Include="KeeYangTestState.h">
-      <Filter>GameStates</Filter>
-    </ClInclude>
     <ClInclude Include="KennardTestState.h">
       <Filter>GameStates</Filter>
     </ClInclude>
@@ -575,10 +560,13 @@
     <ClInclude Include="SpriteFadeExtend.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="KeeYangTestState.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="RandomGeneratorSystem\Note.txt">
-      <Filter>Helper\RandomGenerator</Filter>
+      <Filter>Header Files\Helper\RandomGenerator</Filter>
     </None>
     <None Include="..\Debug\CreateGameButton.tga">
       <Filter>Resource Files</Filter>

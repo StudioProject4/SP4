@@ -79,7 +79,7 @@ private:
 	//TextureImage testimage;
 public:
 	static char** argv;
-	static myApplication* GetInstance();
+	static myApplication* GetInstance(bool multiplayerMode=false,std::string ip="127.0.0.1");
 	~myApplication(void);
 
 	void InputKey(int key, int x, int y);
@@ -100,11 +100,6 @@ public:
 	void Render2D();
 	void Render3D();
 	void RenderScene();
-
-#ifdef NETWORK_CODE
-	void startupServer(LPCTSTR lpApplicationName);
-	void closeServer(void);
-#endif
 	//CFrameRateManager* FRM;
 	//CLuaManager* LM;
 	//CMouse* mouse;
@@ -136,10 +131,6 @@ private:
 
 	int timeRef;
 
-	int x, y;
-	
-	int Scr;
-
 #ifdef NETWORK_CODE
 	STARTUPINFO si;     
 	PROCESS_INFORMATION pi;
@@ -147,6 +138,7 @@ private:
 
 	//multiplayer stuff
 	bool isMultiplayer;
+	std::string serverip;
 	
 	short charControl;//1: player 1,2: player 2,3: both players
 

@@ -15,7 +15,8 @@
 #include "myApplication.h"
 COnlinePlayState* COnlinePlayState::instance = 0;
 
-COnlinePlayState::COnlinePlayState(void)
+COnlinePlayState::COnlinePlayState(void):
+internalState(0)
 {
 }
 
@@ -69,32 +70,51 @@ void COnlinePlayState::InputUpKey(int key, int x, int y)
 void COnlinePlayState::KeyboardDown(unsigned char key, int x, int y)
 {
 	keyboard->myKeys[key] = true;
-	switch(key)
+	if(internalState==0)
 	{
-		case 't':
-			//backgroundImage[0].CheckUp();
-			//buttonList.front()->PrintDebugInformation();
-			mouse->PrintDebugInformation();
-			break;
-		case '2':
-			//mouse->PrintDebugInformation();
-			//GSM->PrintDebugInformation();
-			GSM->ChangeState(myApplication::GetInstance());
-			break;
-		case 'n':
-			//SP->GetCell(0,1)->PrintDebugInformation();
-			GSM->GoBackLastState();
-			break;
-		case 'm':
-			//SP->GetCell(1,1)->PrintDebugInformation();
-			GSM->GoToPreviousState();
-			break;
+		switch(key)
+		{
+			case 't':
+				//backgroundImage[0].CheckUp();
+				//buttonList.front()->PrintDebugInformation();
+				mouse->PrintDebugInformation();
+				break;
+			case '2':
+				//mouse->PrintDebugInformation();
+				//GSM->PrintDebugInformation();
+				GSM->ChangeState(myApplication::GetInstance());
+				break;
+			case 'n':
+				//SP->GetCell(0,1)->PrintDebugInformation();
+				GSM->GoBackLastState();
+				break;
+			case 'm':
+				//SP->GetCell(1,1)->PrintDebugInformation();
+				GSM->GoToPreviousState();
+				break;
+		}
 	}
 }
 
 void COnlinePlayState::KeyboardUp(unsigned char key, int x, int y)
 {
 	keyboard->myKeys[key] = false;
+	if(internalState==1)
+	{
+		if(key==8)
+			ip.pop_back();
+		else if(key==13)
+		{
+			if(ip=="")
+			{
+				GSM->ChangeState(myApplication::GetInstance(true));
+			}
+			else
+				GSM->ChangeState(myApplication::GetInstance(true,ip));
+		}
+		else
+			ip+=key;
+	}
 }
 
 void COnlinePlayState::MouseMove (int x, int y)
@@ -218,12 +238,18 @@ void COnlinePlayState::SetHUD(bool m_bHUDmode)
 void COnlinePlayState::Render2D()
 {
 	RenderBackground();
-
-	for(TButtonList::iterator it = buttonList.begin(); it != buttonList.end(); ++it)
+	switch(internalState)
 	{
-		(*it)->Render();
+	case 0:
+		for(TButtonList::iterator it = buttonList.begin(); it != buttonList.end(); ++it)
+		{
+			(*it)->Render();
+		}
+		break;
+	case 1:
+		printw(500,200,0,"IP :%s",ip.c_str());
+		break;
 	}
-
 	FRM->drawFPS();
 }
 
@@ -261,7 +287,7 @@ bool COnlinePlayState::Update()
 		if(buttonList[i]->ColisionCheck(mouse))
 		{
 			//std::cout<<"Button COllided"<<std::endl;
-			PageTransitionTrigger(buttonList[i]->name);
+			ButtonTriggerCall(buttonList[i]->name);
 		}else
 		{
 			//std::cout<<"=D "<<std::endl;
@@ -305,7 +331,7 @@ bool COnlinePlayState::Init()
 	IM->RegisterTGA("JoinGameButton.tga");
 
 	backgroundImage[0].Init(1,1,0);
-	backgroundImage[0].SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
+	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
 
 	CUIButton* a_button = 0;
@@ -313,16 +339,16 @@ bool COnlinePlayState::Init()
 	a_button = new CUIButtonRectangle();
 	a_button->ownTexture.Init(1);
 	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("CreateGameButton.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.35);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.35f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45f,WM->GetOriginalWindowHeight()*0.2f);
 	a_button->name ="CreateGameButton";
 	buttonList.push_back(a_button);
 
 	a_button = new CUIButtonRectangle();
 	a_button->ownTexture.Init(1);
 	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("JoinGameButton.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5,WM->GetOriginalWindowHeight()*0.6);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45,WM->GetOriginalWindowHeight()*0.2);
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.6f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.45f,WM->GetOriginalWindowHeight()*0.2f);
 	a_button->name ="JoinGameButton";
 	buttonList.push_back(a_button);
 
@@ -338,8 +364,8 @@ bool COnlinePlayState::Init()
 	a_button = new CUIButtonCircle();
 	a_button->ownTexture.Init(1);
 	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("BackButton.tga"));
-	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1,WM->GetOriginalWindowHeight()*0.9);
-	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.1f,WM->GetOriginalWindowHeight()*0.9f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08f,WM->GetOriginalWindowHeight()*0.08f);
 	a_button->name ="BackButton";
 	buttonList.push_back(a_button);
 
@@ -409,29 +435,56 @@ void COnlinePlayState::RenderBackground()
 	backgroundImage[0].Render();
 	glPopMatrix();
 }
- void COnlinePlayState::PageTransitionTrigger(std::string buttonName)
- {
-	 if(mouse->CheckLeftButtonReleased())
-	 {
-		 MS->PlaySoundPoolTrack2D("sound1.mp3");
-		 if(buttonName == "CreateGameButton")
-		 {
-			 //if(mouse->CheckLeftButtonReleased())
-			 // {
-			 // GSM->ChangeState(myApplication::GetInstance());
-			 // }
-		 }else
-			 if(buttonName == "JoinGameButton")
-			 {
-				 // if(mouse->CheckLeftButtonReleased())
-				 // {
-				 //GSM->ChangeState(myApplication::GetInstance());
-				 //}
-			 }else
-				 if(buttonName == "BackButton")
-				 {
-					 GSM->GoToPreviousState();
-				 }
 
-	 }
- }
+void COnlinePlayState::ButtonTriggerCall(std::string buttonName)
+{
+	if(mouse->CheckLeftButtonReleased())
+	{
+		MS->PlaySoundPoolTrack2D("sound1.mp3");
+		if(buttonName == "CreateGameButton")
+		{
+			startupServer("server.exe");
+			GSM->ChangeState(myApplication::GetInstance(true));
+		}
+		else if(buttonName == "JoinGameButton")
+		{
+			internalState=1;
+			//GSM->ChangeState(myApplication::GetInstance(true));
+		}
+		else if(buttonName == "BackButton")
+		{
+			GSM->GoToPreviousState();
+		}
+
+	}
+}
+
+
+void COnlinePlayState::startupServer(LPCTSTR lpApplicationName)
+{
+	// additional information
+	
+	// set the size of the structures
+	ZeroMemory( &si, sizeof(si) );
+	si.cb = sizeof(si);
+	ZeroMemory( &pi, sizeof(pi) );
+
+	// start the program up
+	CreateProcess( lpApplicationName,   // the path
+		NULL,			// Command line
+		NULL,           // Process handle not inheritable
+		NULL,           // Thread handle not inheritable
+		FALSE,          // Set handle inheritance to FALSE
+		0,              // No creation flags
+		NULL,           // Use parent's environment block
+		NULL,           // Use parent's starting directory 
+		&si,            // Pointer to STARTUPINFO structure
+		&pi );          // Pointer to PROCESS_INFORMATION structure
+}
+
+void COnlinePlayState::closeServer()
+{
+	// Close process and thread handles. 
+	CloseHandle( pi.hProcess );
+	CloseHandle( pi.hThread );
+}

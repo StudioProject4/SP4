@@ -45,7 +45,7 @@ bool CMalayFemale :: Init()
 
 	invulTimer = MVCTime :: GetInstance();
 	refTime = invulTimer->PushNewTime(1000);
-	invulTimer->SetActive(false,refTime);
+	invulTimer->SetActive(true,refTime);
 	
 	return true;
 }
@@ -62,29 +62,7 @@ bool CMalayFemale :: CleanUp()
 
 bool CMalayFemale :: OnCollision2(CBaseObject* a_obj,bool again)
 {
-	//if(a_obj->genericTag = "Character")
-	//{
-	//	//nothing
-	//}
-	//if(a_obj->genericTag = "Enemy")
-	//{
-	//	if(a_obj->tag = "ChineseMob")
-	//	{
-	//		if(clock() - invultimer > 5000)
-	//		{
-	//			hp.TakeDMG();
-	//			std :: cout << "MalayFemale's HP : " << hp.GetHealth() << std :: endl;
-	//		}
-	//	}
-	//}
-	//if(a_obj->genericTag = "Powerup")
-	//{
-	//	//to be continued when powerups are done
-	//}
-	//if(a_obj->genericTag = "Obstacle")
-	//{
-	//	//to be continued when powerups are done
-	//}
+
 	return true;
 }
 

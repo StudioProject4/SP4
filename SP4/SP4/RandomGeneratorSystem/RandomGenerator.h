@@ -42,7 +42,7 @@ class CRandomGenerator
 		vector <int> ResultList;
 		RNG_TYPE randomtype;
 		RNG_MODE randommode;
-		double immediateresult;
+		int immediateresult;
 		CRandomGenerator static * Instance;
 	protected:
 		CRandomGenerator();
@@ -52,16 +52,16 @@ class CRandomGenerator
 		static CRandomGenerator * GetInstance();
 		~CRandomGenerator();
 		void Init(RNG_MODE mode,RNG_TYPE type);
-		double getImmediateResult(double min,double max);
+		int getImmediateResult(int min,int max);
 		void setRNGMode(RNG_MODE mode);
 		void setRNGType(RNG_TYPE type);
 		RNG_MODE getRNGMode();
 		RNG_TYPE getRNGType();
-		void PopulateResult(double size,  double min, double max,RNG_MODE mode, RNG_TYPE type);
-		void PopulateResult(double size, double min, double max);
+		void PopulateResult(int size,  int min, int max,RNG_MODE mode, RNG_TYPE type);
+		void PopulateResult(int size, int min, int max);
 		
 		void RecordResult();
-		void RecordResult(double result);
+		void RecordResult(int result);
 		void PrintResultList();
 		string PrintModeText();
 		string PrintTypeText();

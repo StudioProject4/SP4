@@ -66,8 +66,8 @@ bool CUIButtonRectangle::CollisionCheckColliderBox(Vector3& pos)
 }
 void CUIButtonRectangle::CalculateTopLeftAndBottomRightPoint()
 {
-	TopLeft.Set(position.x - ownTexture.GetImageSizeX() *0.5,position.y - ownTexture.GetImageSizeY()*0.5);
-	BottomRight.Set(position.x + ownTexture.GetImageSizeX()*0.5,position.y + ownTexture.GetImageSizeY()*0.5);
+	TopLeft.Set(position.x - ownTexture.GetImageSizeX() *0.5f,position.y - ownTexture.GetImageSizeY()*0.5f);
+	BottomRight.Set(position.x + ownTexture.GetImageSizeX()*0.5f,position.y + ownTexture.GetImageSizeY()*0.5f);
 };
 
 void CUIButtonRectangle::SetSize(Vector3& Size)

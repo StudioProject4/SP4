@@ -81,8 +81,8 @@ public:
 	bool rotatedCheck();
 	bool gluInvertMatrix()
 		{
-			double inv[16], det;
-			int i;
+			float inv[16], det;
+			unsigned short i;
 
 			inv[0] = matrix[5]  * matrix[10] * matrix[15] - 
 					 matrix[5]  * matrix[11] * matrix[14] - 
@@ -201,7 +201,7 @@ public:
 			if (det == 0)
 				return false;
 
-			det = 1.0 / det;
+			det = 1.0f / det;
 
 			for (i = 0; i < 16; i++)
 				matrix[i] = inv[i] * det;

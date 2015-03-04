@@ -38,10 +38,10 @@ CAudio* CMusicSystem::FetchSound()
 		{
 			if((*it)->CheckIsFinished() == true)
 			{
-				//if(a_audio->CheckValidAudioPtr())
-				//{
-				//	a_audio->Drop();
-				//}
+				if((*it)->CheckValidAudioPtr())
+				{
+					(*it)->Drop();
+				}
 
 				a_audio = (*it);
 				break;
@@ -366,6 +366,7 @@ bool CMusicSystem::PlaySoundPoolTrack2D(std::string trackname,bool setLoop,bool 
 			//{
 				a_audio->Init(this->CreateSampleAudio2D(a_audio->GetFileName().c_str(),setLoop,audioEffect),a_audio->GetFileName().c_str(),a_audio->GetAudioName());
 			//}
+			
 			a_audio->ResetPlayPosition();
 			a_audio->SetIsPaused(false);
 			a_audio->active = true;
@@ -374,7 +375,9 @@ bool CMusicSystem::PlaySoundPoolTrack2D(std::string trackname,bool setLoop,bool 
 			return true;
 		}
 	}
+	return false;
 }
+
 bool CMusicSystem::PlaySoundPoolTrack3D(std::string trackname,irrklang::vec3df pos,bool setLoop,bool audioEffect)
 {
 	CAudio* a_audio = FetchSound();
@@ -394,6 +397,7 @@ bool CMusicSystem::PlaySoundPoolTrack3D(std::string trackname,irrklang::vec3df p
 			return true;
 		}
 	}
+	return false;
 }
 
 bool CMusicSystem::PauseSoundTrack(std::string trackname,bool pause)
@@ -673,13 +677,13 @@ bool CMusicSystem::TranverseBgmTrack(bool forward,bool warp)
 	{
 		if(forward)
 		{
-			ResetBgmTrackPlayPosition(currentBgmTrack);
+			ResetBgmTrackPlayPosition((unsigned short)currentBgmTrack);
 			PauseBgmTrack(currentBgmTrack);
 			++currentBgmTrack;
 
 			if(warp)
 			{
-				if(currentBgmTrack>=bgmTrackList.size())
+				if((unsigned short)currentBgmTrack>=bgmTrackList.size())
 				{
 					currentBgmTrack = 0;
 				}
@@ -721,7 +725,7 @@ bool CMusicSystem::TranverseSoundTrack(bool forward,bool warp)
 			if(warp)
 			{
 				//std::cout<<"Current sound Track warping"<<currentSoundTrack<<std::endl;
-				if(currentSoundTrack>=soundTrackList.size())
+				if((unsigned short)currentSoundTrack>=soundTrackList.size())
 				{
 					//std::cout<<"Setting current sound index to 0"<<std::endl;
 					currentSoundTrack = 0;
@@ -747,7 +751,16 @@ bool CMusicSystem::TranverseSoundTrack(bool forward,bool warp)
 	}
 	return false;
 }
-
+bool CMusicSystem::StopCurrentBGM()
+{
+	if(engine)
+	{
+		this->PauseBgmTrack(currentBgmTrack);
+		this->ResetBgmTrackPlayPosition(currentBgmTrack);
+		return true;
+	}
+	return false;
+}
 bool CMusicSystem::CheckAudioIsPlaying(std::string audioname)
 {
 	if(engine)
@@ -900,7 +913,7 @@ irrklang::ISound* CMusicSystem::CreateIrrklangISound3D(const char* filename,irrk
 short CMusicSystem::GetCurrentBgmTrackIndex()
 {
 	return this->currentBgmTrack;
-}
+};
 
 short CMusicSystem::GetCurrentSoundTrackIndex()
 {
@@ -912,7 +925,7 @@ void CMusicSystem::PrintCurrentBgmTrack()
 	//std::cout<<currentBgmTrack<<std::endl;
 	//std::cout<<bgmTrackList.size()<<std::endl;
 	std::cout<<std::endl;
-	if(currentBgmTrack >=0 && currentBgmTrack<bgmTrackList.size())
+	if((unsigned short)currentBgmTrack >=0 && (unsigned short)currentBgmTrack<bgmTrackList.size())
 	{
 		CAudio *a_audio = FindBgm(bgmTrackList[currentBgmTrack]);
 		if(a_audio)
@@ -948,9 +961,9 @@ void CMusicSystem::PrintCurrentSoundTrack()
 	//std::cout<<currentBgmTrack<<std::endl;
 	//std::cout<<bgmTrackList.size()<<std::endl;
 	std::cout<<std::endl;
-	if(currentSoundTrack >=0 && currentSoundTrack<soundTrackList.size())
+	if((unsigned short)currentSoundTrack >=0 && (unsigned short)currentSoundTrack<soundTrackList.size())
 	{
-		CAudio *a_audio = FindSound(soundTrackList[currentSoundTrack]);
+		CAudio *a_audio = FindSound(soundTrackList[(unsigned short)currentSoundTrack]);
 		if(a_audio)
 		{
 			a_audio->PrintDebugPointer();

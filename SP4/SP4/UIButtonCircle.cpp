@@ -77,10 +77,10 @@ void CUIButtonCircle::CalculateRadius()
 	float x = this->ownTexture.GetImageSizeX();
 	float y = this->ownTexture.GetImageSizeY();
 	//std::cout<<"Size X: "<<x<<" y "<< y<<std::endl;
-	this->radius = (x+y)*0.5;
+	this->radius = (x+y)*0.5f;
 
 	//std::cout<<"Radius: "<<radius<<std::endl;
-	this->ownTexture.SetImageSize(radius*1.8,radius*1.8);
+	this->ownTexture.SetImageSize(radius*1.8f,radius*1.8f);
 }
 
 bool CUIButtonCircle::CollisionCheckColliderSphere(Vector3& pos)

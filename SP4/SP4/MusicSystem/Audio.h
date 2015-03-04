@@ -136,7 +136,10 @@ public:
 	{
 		if(audio)
 		{
-			return audio->drop();
+			audio->drop();
+			audioEffectControl = 0;
+			audio = 0;
+			return true;
 		}
 		return false;
 	}
@@ -144,18 +147,10 @@ public:
 	{
 		if(audio)
 		{
-			Stop();
-			Drop();
-			audio = 0;
-			return true;
-
-			//if(audio->drop())
-			//{
-			//	audio = 0;
-			//	std::cout<<"dropped"<<std::endl;
-			//	return true;
-			//}
-			//return false;
+			if(Stop()&& Drop())
+			{
+				return true;
+			}
 		}
 		return false;
 	}
@@ -164,13 +159,7 @@ public:
 		if(audio)
 		{
 			Drop();
-			audio = 0;
 			return true;
-			//if(Drop())
-			//{
-			//	audio = 0;
-			//	return true;
-			//}
 		}
 		return false;
 	};

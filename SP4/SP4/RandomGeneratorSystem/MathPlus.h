@@ -40,12 +40,12 @@ namespace MathPlus//This file purpose is to add on to Mr Tang's MyMath library
 	inline float PokemonHpStatFormula(float base, float ImplictValue, float ExplictValue, float level)
 	{
 
-		return ((ImplictValue + 2 * base + (ExplictValue *0.25)) * level / 100) + 10 + level;
+		return ((ImplictValue + 2 * base + (ExplictValue *0.25f)) * level / 100) + 10 + level;
 
 	}
 	inline float PokemonStatFormula(float base, float ImplictValue, float ExplictValue, float level, float boost)
 	{
-		return (((ImplictValue + 2 * base + (ExplictValue *0.25)) * level / 100) + 5) * boost;
+		return (((ImplictValue + 2 * base + (ExplictValue *0.25f)) * level / 100) + 5) * boost;
 	}
 }
 

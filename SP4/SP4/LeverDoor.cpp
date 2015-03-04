@@ -28,19 +28,19 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj,bool again)
 	//assuming hyp(length)=1
 	//cos(angle)=adjacent=x
 	//same logic for sin
-	normal.x=cos(curAngle/360*2*3.142);
-	normal.y=sin(curAngle/360*2*3.142);	
+	normal.x=cos(curAngle/360*2*3.142f);
+	normal.y=sin(curAngle/360*2*3.142f);	
 
 	//do more precise collision checkingVector3 w0=go2->pos;
 
 	Vector3 w0=this->pos;
 	Vector3 b1=obj->pos;
 	Vector3 N=this->normal;
-	w0+=Vector3(0,length*0.5,0);
+	w0+=Vector3(0,length*0.5f,0);
 	Vector3 NP(-N.y,N.x,0);
 	NP.Normalize();
 	//w0=w0-NP*(length*0.5);
-	float r=obj->phys.size.y*0.6;
+	float r=obj->phys.size.y*0.6f;
 	float h=this->width;
 	float l=this->length;
 
@@ -55,7 +55,7 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj,bool again)
 		//return false;
 	}
 	//*/
-	w0=w0-N*(r+h*0.5);//offset the wall to a point by radius and width of wall
+	w0=w0-N*(r+h*0.5f);//offset the wall to a point by radius and width of wall
 	float dist=(obj->pos-w0).Dot(N);
 	float spd=obj->phys.vel.Dot(N);
 	if(!spd)
@@ -91,7 +91,7 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj,bool again)
 	float nYpos=0;
 	
 	float tempAngle=-curAngle;
-	nYpos=cos(tempAngle*3.1415/180)*-(offset);//get y pos based on the angle and the offset
+	nYpos=cos(tempAngle*3.1415f/180)*-(offset);//get y pos based on the angle and the offset
 	//offset it based on height of object
 	nYpos+=pos.y+2;
 
@@ -99,8 +99,8 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj,bool again)
 	//dir the object is relative to me(wheather is to the left or to the right)
 
 	//change angle based on direction the object is in
-	float delta=0.0166;
-	float leverGrav=200;
+	float delta=0.0166f;
+	float leverGrav=200.f;
 	
 	bool modded=false;
 
@@ -180,7 +180,7 @@ bool CLeverDoor::OnCollision2(CBaseObject* obj,bool again)
 
 bool CLeverDoor::Update()
 {
-	float delta=0.0166;
+	float delta=0.0166f;
 	//pos=phys.Update(pos);
 	float leverGrav=-200;
 	if(curAngle>-70&&curAngle<70)
@@ -192,8 +192,8 @@ bool CLeverDoor::Update()
 	}
 	applyGrav=true;
 	curAngle+=angleVel*delta;
-	normal.x=cos(curAngle/360*2*3.142);
-	normal.y=sin(curAngle/360*2*3.142);	
+	normal.x=cos(curAngle/360*2*3.142f);
+	normal.y=sin(curAngle/360*2*3.142f);	
 	
 	if(curAngle>maxAngle)
 	{

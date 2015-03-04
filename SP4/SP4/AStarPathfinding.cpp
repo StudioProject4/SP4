@@ -45,8 +45,8 @@ void CAStarPathFinding ::SetUpGraph(CMap theMap)
 			//setup graph
 			
 			//temp setup till i get the map
-			tempMap[i][j].x = ((j * TILE_SIZE) + TILE_SIZE/2);
-			tempMap[i][j].y = ((i * TILE_SIZE) + TILE_SIZE/2);
+			tempMap[i][j].x = ((j * TILE_SIZE) + TILE_SIZE/2.f);
+			tempMap[i][j].y = ((i * TILE_SIZE) + TILE_SIZE/2.f);
 			tempMap[i][j].tileCost = 1;
 			if(theMap.theScreenMap[i][j] == 0)
 			{
@@ -68,11 +68,11 @@ void CAStarPathFinding :: SetUpPath(Vector3 startPosition,Vector3 endPosition)
 		{
 			for(int j = 0 ; j < this->maxHorizontalTile ; j++)
 			{
-				if((startPosition.x > (tempMap[i][j].x - TILE_SIZE/2)) && (startPosition.x < (tempMap[i][j].x + TILE_SIZE/2)) && (startPosition.y > (tempMap[i][j].y - TILE_SIZE/2)) && (startPosition.y < (tempMap[i][j].y + TILE_SIZE/2)))
+				if((startPosition.x > (tempMap[i][j].x - TILE_SIZE/2)) && (startPosition.x < (tempMap[i][j].x + TILE_SIZE/2)) && (startPosition.y > (tempMap[i][j].y - TILE_SIZE/2)) && (startPosition.y < (tempMap[i][j].y + TILE_SIZE/2)) || (startPosition.x == tempMap[i][j].x) && (startPosition.y == tempMap[i][j].y))
 				{
 					start = tempMap[i][j];
 				}
-				if((endPosition.x >  (tempMap[i][j].x - TILE_SIZE/2)) && (endPosition.x < (tempMap[i][j].x + TILE_SIZE/2)) && (endPosition.y > (tempMap[i][j].y - TILE_SIZE/2)) && (endPosition.y < (tempMap[i][j].y + TILE_SIZE/2)))
+				if((endPosition.x >  (tempMap[i][j].x - TILE_SIZE/2)) && (endPosition.x < (tempMap[i][j].x + TILE_SIZE/2)) && (endPosition.y > (tempMap[i][j].y - TILE_SIZE/2)) && (endPosition.y < (tempMap[i][j].y + TILE_SIZE/2))|| (endPosition.x == tempMap[i][j].x) && (endPosition.y == tempMap[i][j].y))
 				{
 					end = tempMap[i][j];
 				}
@@ -377,24 +377,24 @@ node CAStarPathFinding :: GetCurrentNode (Vector3 myPosition,int choice)
 	{
 		for(int j = 0 ; j < this->maxHorizontalTile ; j++)
 		{
-			if((myPosition.x > (tempMap[i][j].x - TILE_SIZE/2)) && (myPosition.x < (tempMap[i][j].x + TILE_SIZE/2)) && (myPosition.y > (tempMap[i][j].y - TILE_SIZE/2)) && (myPosition.y < (tempMap[i][j].y + TILE_SIZE/2)))
+			if( ((myPosition.x > (tempMap[i][j].x - TILE_SIZE/2)) && (myPosition.x < (tempMap[i][j].x + TILE_SIZE/2)) && (myPosition.y > (tempMap[i][j].y - TILE_SIZE/2)) && (myPosition.y < (tempMap[i][j].y + TILE_SIZE/2))) || (myPosition.x == tempMap[i][j].x) && (myPosition.y == tempMap[i][j].y))
 			{
 				if(choice == 0) //look left
-					{
-						return tempMap[i][j-1];//.isNotWall;
-					}
-					if(choice == 1) //look right
-					{
-						return tempMap[i][j+1];//.isNotWall;
-					}
-					if(choice == 2) //look top
-					{
-						return tempMap[i-1][j];//.isNotWall;
-					}
-					if(choice == 3) //look bottom
-					{
-						return tempMap[i+1][j];//.isNotWall;
-					}
+				{
+					return tempMap[i][j-1];//.isNotWall;
+				}
+				if(choice == 1) //look right
+				{
+					return tempMap[i][j+1];//.isNotWall;
+				}
+				if(choice == 2) //look top
+				{
+					return tempMap[i-1][j];//.isNotWall;
+				}
+				if(choice == 3) //look bottom
+				{
+					return tempMap[i+1][j];//.isNotWall;
+				}
 			}
 		}
 	}

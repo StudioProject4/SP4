@@ -56,8 +56,8 @@ public:
 			BottomRight.Set(pos.x + phys.size.x,pos.y + phys.size.y);
 		}else
 		{
-			TopLeft.Set(pos.x - phys.size.x *0.5,pos.y - phys.size.y*0.5);
-			BottomRight.Set(pos.x + phys.size.x*0.5,pos.y + phys.size.y*0.5);
+			TopLeft.Set(pos.x - phys.size.x *0.5f,pos.y - phys.size.y*0.5f);
+			BottomRight.Set(pos.x + phys.size.x*0.5f,pos.y + phys.size.y*0.5f);
 		}
 	};
 protected:

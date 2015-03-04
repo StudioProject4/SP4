@@ -31,12 +31,15 @@ myApplication::myApplication(void)
 {
 	//Init();
 }
-myApplication* myApplication::GetInstance()
+myApplication* myApplication::GetInstance(bool multiplayer,string ip)
 {
 	if(instance==NULL)
 	{
 		instance = new myApplication();
+		
 	}
+	instance->isMultiplayer=multiplayer;
+	instance->serverip=ip;
 	return instance;
 }
 
@@ -112,6 +115,7 @@ bool myApplication::ResetLevel(short level)
 	//delete playerOne;
 	//delete theAIOne;
 	//delete theAITwo;
+
 	//playerOne = OM->manufacturer->CreateChineseMale();
 	//playerTwo = OM->manufacturer->CreateMalayFemale();
 	theAIOne = OM->manufacturer->CreateMalayMob();
@@ -131,6 +135,12 @@ bool myApplication::ResetLevel(short level)
 	lever->SetDoorLink(door);
 	door->AddTrigger(lever);
 
+	playerOne = OM->manufacturer->CreateChineseMale();
+	playerTwo = OM->manufacturer->CreateMalayFemale();
+
+	playerTwo->phys.map=Map;
+	playerOne->phys.map=Map;
+	
 	 mapOffset_x =  mapOffset_y=
 	 tileOffset_x =tileOffset_y=
 	 mapFineOffset_x= mapFineOffset_y=
@@ -143,18 +153,44 @@ bool myApplication::ResetLevel(short level)
 	 Map->Level = level;
 	 Map->RunMap();
 
-	playerTwo->phys.map=Map;
-	playerOne->phys.map=Map;
-	theAIOne->SetUpMap(*Map);
-	theAITwo->SetUpMap(*Map);
-	theAIOne->phys.map=Map;
-	theAITwo->phys.map=Map;
+	switch(level)
+	{
+	case 1:
+		{
+		
+			theAIOne = OM->manufacturer->CreateMalayMob();
+			theAITwo = OM->manufacturer->CreateChineseMob();
+			playerOne->Init(Vector3(64,64),Vector3(0,0,0),0);
+			playerTwo->Init(Vector3(84,20,0),Vector3(0,0,0),0);
+			theAIOne->SetPos(Vector3(624,80,0));
+			theAITwo->SetPos(Vector3(304,80,0));
+			theAIOne->SetUpMap(*Map);
+			theAITwo->SetUpMap(*Map);
+			theAIOne->phys.map=Map;
+			theAITwo->phys.map=Map;
 
-#ifdef NETWORK_CODE
-	isMultiplayer = false;
-		charControl=3;
+			CLeverDoor* lever= OM->manufacturer->CreateObstacleLeverDoor();
+			lever->Init(Vector3(LM->GetWithCheckNumber<float>("LEVER_POS_X"),LM->GetWithCheckNumber<float>("LEVER_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("LEVER_SIZE_X"),LM->GetWithCheckNumber<float>("LEVER_SIZE_Y")));
+			CDoor* door= OM->manufacturer->CreateObstacleDoor();
+			door->Init(Vector3(LM->GetWithCheckNumber<float>("DOOR_POS_X"),LM->GetWithCheckNumber<float>("DOOR_POS_Y")),Vector3(LM->GetWithCheckNumber<float>("DOOR_SIZE_X"),LM->GetWithCheckNumber<float>("DOOR_SIZE_Y")));
 
-#endif
+			lever->SetDoorLink(door);
+			door->AddTrigger(lever);
+			
+			OM->AddObject(theAIOne);
+			OM->AddObject(theAITwo);
+		}
+
+		break;
+	case 2:
+
+
+		break;
+	}
+	OM->AddObject(playerOne);
+	OM->AddObject(playerTwo);
+
+
 
 	Map->RunMap();
 
@@ -170,29 +206,30 @@ bool myApplication::Init()
 	inited = true;
 
 #ifdef NETWORK_CODE
-	std::ifstream inData;	
-	std::string serverip;
-
-	inData.open("serverip.txt");
-
-	inData >> serverip;
 	
 	//startupServer("server.exe");
 
 	//*
-	if (RAKNET_STARTED == rakpeer_->Startup(1,&SocketDescriptor(), 1))
+	if(isMultiplayer)
 	{
-		rakpeer_->SetOccasionalPing(true);
-		if (!RAKNET_STARTED == rakpeer_->Connect(serverip.c_str(), 1691, 0, 0))
+		if (RAKNET_STARTED == rakpeer_->Startup(1,&SocketDescriptor(), 1))
 		{
-			cout<<"failed";
-			//return false;
+			rakpeer_->SetOccasionalPing(true);
+			if (!RAKNET_STARTED == rakpeer_->Connect(serverip.c_str(), 1691, 0, 0))
+			{
+				cout<<"failed";
+				//return false;
+			}
 		}
+	}
+	else
+	{
+		rakpeer_->Shutdown(100);
 	}
 	rakPeerGlobal=rakpeer_;
 	if(timeRef==-1)
 	{
-		timeRef=MVCTime::GetInstance()->PushNewTime(50);
+		timeRef=MVCTime::GetInstance()->PushNewTime(80);
 	}
 #endif
 	tag = "application";
@@ -232,9 +269,24 @@ bool myApplication::Init()
 	GSM = CGameStateManager::GetInstance();
 	IM = CImageManager::GetInstance();
 	OM = new CObjectManager();
-	IM->RegisterTGA("back.tga");
-	tempimage = IM->GetTGAImage("back.tga");
+	IM->RegisterTGA("background.tga");
+	tempimage = IM->GetTGAImage("background.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
+
+	if(MS->StopCurrentBGM())
+	{
+		MS->PlayBgmTrack("bgm6.mp3");
+		std::cout<<"finding"<<MS->FindBgm("bgm6.mp3")<<std::endl;
+		if(MS->FindBgm("bgm6.mp3")->EnableAudioEffectControl())
+		{
+			MS->FindBgm("bgm6.mp3")->EnableChorusEffect();
+			cout<<"hello"<<std::endl;
+		}else
+		{
+			cout<<"huh"<<std::endl;
+		}
+
+	}
 
 	IM->RegisterTGA("health.tga");
 	HeartShape.Init(1);
@@ -314,7 +366,6 @@ bool myApplication::Init()
 	theAITwo->phys.map=Map;
 
 #ifdef NETWORK_CODE
-	isMultiplayer = false;
 		charControl=3;
 
 #endif
@@ -362,7 +413,6 @@ bool myApplication::Update()
 	}
 #endif
 
-#ifdef NETWORK_CODE
 	if (Packet* packet = rakpeer_->Receive())
 	{
 		RakNet::BitStream bs(packet->data, packet->length, false);
@@ -522,6 +572,32 @@ bool myApplication::Update()
 						OM->AddObject(temp);
 						speedList.push_back(temp);
 					}
+					else if(thing == "Enemy")
+					{
+						if(thing2 == "MalayMob")
+						{
+							CMalayMob * temp =  CManufactureManager::GetInstance()->CreateMalayMob(); 
+							temp->Init();
+							temp->SetUpMap(*Map);
+							//temp->AI.SetEnemyPos(Vector3(x,y,z));
+							//temp->pos.Set(x,y,z);
+							temp->SetPos(Vector3(x,y,z));
+							temp->id = id;
+							OM->AddObject(temp);
+						}
+						else if(thing2 == "ChineseMob")
+						{
+							CChineseMob * temp = CManufactureManager::GetInstance()->CreateChineseMob();
+							temp->Init();
+							temp->SetUpMap(*Map);
+							//temp->AI.SetEnemyPos(Vector3(x,y,z));
+							//temp->pos.Set(x,y,z);
+							temp->SetPos(Vector3(x,y,z));
+							temp->id = id;
+							OM->AddObject(temp);
+						}
+					}
+
 				}
 				delete[256] tag;
 				delete[256] genTag; 
@@ -633,6 +709,12 @@ bool myApplication::Update()
 					bs.Read(z);
 					other->phys.vel.Set(x,y,z);
 				}
+
+				else if(temp2=="ENEMY")
+				{
+					//read pos
+					//set pos
+				}
 				else if(temp2=="ChineseMob")
 				{
 					unsigned short id1,id2;
@@ -659,6 +741,7 @@ bool myApplication::Update()
 						}
 					}
 					character->hp.SetHealth(hp);
+
 				}
 			}
 			break;
@@ -701,6 +784,7 @@ bool myApplication::Update()
 	{
 		if(keyboard->myKeys['a'])
 		{
+			
 			if(charControl==1||charControl==3)
 			{
 				//if(playerOne->phys.vel.x>=0)
@@ -835,7 +919,7 @@ bool myApplication::Update()
 		}
 		sendPos=true;
 	}
-#endif
+
 
 		if(keyboard->myKeys[VK_ESCAPE] == true)
 		{
@@ -854,11 +938,6 @@ bool myApplication::Update()
 		MVCTime::GetInstance()->UpdateTime();
 		OM->Update(charControl);
 
-
-
-#ifdef NETWORK_CODE
-	//OM->Update(charControl);
-#endif
 
 	Map->RunMap();
 	
@@ -912,12 +991,12 @@ void myApplication::RenderBackground()
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 		//glBindTexture(GL_TEXTURE_2D, BackgroundTexture[0].texID);
-		glBindTexture(GL_TEXTURE_2D, IM->GetTGAImage("back.tga")->texID);
+		glBindTexture(GL_TEXTURE_2D, IM->GetTGAImage("background.tga")->texID);
 		
 		//glBindTexture(GL_TEXTURE_2D, tempimage->texID);
 		glPushMatrix();
 			glBegin(GL_QUADS);
-				int height = 100 * 1.333/1.5;
+				//int height = 100 * 1.333f/1.5f;
 				glTexCoord2f(0,0); glVertex2f(0,800);
 				glTexCoord2f(1,0); glVertex2f(1024,800);
 				glTexCoord2f(1,1); glVertex2f(1024,0);
@@ -962,12 +1041,12 @@ void myApplication::RenderPlayerOneHUD()
 	glPushMatrix();
 
 			glPushMatrix();
-				playerOneHud->SetImageSize(TILE_SIZE*1.5,TILE_SIZE*1.5);
-				glTranslatef(WM->GetOriginalWindowWidth()*0.1,playerOneHud->GetImageSizeY()*0.5,0);
+				playerOneHud->SetImageSize(TILE_SIZE*1.5f,TILE_SIZE*1.5f);
+				glTranslatef(WM->GetOriginalWindowWidth()*0.1f,playerOneHud->GetImageSizeY()*0.5f,0);
 				playerOneHud->Render();
 			glPopMatrix();
 
-			RenderCharacterHealthHud(playerOne,WM->GetOriginalWindowWidth()*0.1 +playerOneHud->GetImageSizeX()*0.5,playerOneHud->GetImageSizeY()*0.5,playerOne->theSprite->GetImageSizeX(),true);
+			RenderCharacterHealthHud(playerOne,WM->GetOriginalWindowWidth()*0.1f +playerOneHud->GetImageSizeX()*0.5f,playerOneHud->GetImageSizeY()*0.5f,playerOne->theSprite->GetImageSizeX(),true);
 	glPopMatrix();
 }
 void myApplication::RenderPlayerTwoHUD()
@@ -975,12 +1054,12 @@ void myApplication::RenderPlayerTwoHUD()
 	glPushMatrix();
 
 			glPushMatrix();
-				playerTwoHud->SetImageSize(TILE_SIZE*1.5,TILE_SIZE*1.5);
-				glTranslatef(WM->GetOriginalWindowWidth()*0.9,playerTwoHud->GetImageSizeY()*0.5,0);
+				playerTwoHud->SetImageSize(TILE_SIZE*1.5f,TILE_SIZE*1.5f);
+				glTranslatef(WM->GetOriginalWindowWidth()*0.9f,playerTwoHud->GetImageSizeY()*0.5f,0);
 				playerTwoHud->Render();
 			glPopMatrix();
 
-			RenderCharacterHealthHud( playerTwo, WM->GetOriginalWindowWidth()*0.9 - playerTwoHud->GetImageSizeX()*0.5, playerTwoHud->GetImageSizeY()*0.5,playerTwo->theSprite->GetImageSizeX(),false);
+			RenderCharacterHealthHud( playerTwo, WM->GetOriginalWindowWidth()*0.9f - playerTwoHud->GetImageSizeX()*0.5f, playerTwoHud->GetImageSizeY()*0.5f,playerTwo->theSprite->GetImageSizeX(),false);
 	glPopMatrix();
 }
 void myApplication::Render2D()
@@ -1111,10 +1190,13 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//ballList[0]->active = false;
 			//temp = OM->FindObjectWithName("ball");
 			//temp->active = false;
+			MS->StopCurrentBGM();
+			
 		break;
 		
 		case '3':
 			//MS->PrintSoundPoolList();
+			MS->PlayBgmTrack(MS->GetCurrentBgmTrackIndex());
 			//MS->TranverseSoundTrack();
 			
 			break;
@@ -1271,33 +1353,3 @@ void myApplication::SetHUD(bool m_bHUDmode)
 	}
 };
 
-#ifdef NETWORK_CODE
-void myApplication::startupServer(LPCTSTR lpApplicationName)
-{
-	// additional information
-	
-	// set the size of the structures
-	ZeroMemory( &si, sizeof(si) );
-	si.cb = sizeof(si);
-	ZeroMemory( &pi, sizeof(pi) );
-
-	// start the program up
-	CreateProcess( lpApplicationName,   // the path
-		NULL,			// Command line
-		NULL,           // Process handle not inheritable
-		NULL,           // Thread handle not inheritable
-		FALSE,          // Set handle inheritance to FALSE
-		0,              // No creation flags
-		NULL,           // Use parent's environment block
-		NULL,           // Use parent's starting directory 
-		&si,            // Pointer to STARTUPINFO structure
-		&pi );          // Pointer to PROCESS_INFORMATION structure
-}
-
-void myApplication::closeServer()
-{
-	// Close process and thread handles. 
-	CloseHandle( pi.hProcess );
-	CloseHandle( pi.hThread );
-}
-#endif

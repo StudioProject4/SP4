@@ -150,22 +150,6 @@ public:
 		lua_pushnumber(L,number);
 	}
 
-	void testfunction()
-	{
-		//GetGlobal("add");
-		//PushNumber(10);
-		//PushNumber(10);
-		//PCall(2,1);
-		//return (float)lua_tointeger(L, -1);
-
-		std::vector<int> arglist;
-		arglist.push_back(10.11);
-		arglist.push_back(2.33);
-		//const char* type = typeid(int).name();
-
-		printf("%i ",CallLuaFunctionNumber<int>("add",arglist));
-	}
-
 	template <typename type>
 	inline type CallLuaFunctionNumber(char * functionname,std::vector<type>arglist)
 	{

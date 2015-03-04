@@ -67,17 +67,21 @@ class CAILogic
 		void ChangeState(AIState state);
 		void StateCheck();
 		void DetectionCheck();
+		void OriginCheck();
 		void FindPath();
 		void IdleWanderRandomizer();
 		void SetEnemyPos(Vector3 & enemyPos);
+		void SetOriPos(Vector3 thePosition);
 		Vector3 GetDir();
 
-		Vector3 Update(Vector3 pos,CPhysics & thePhysics);
+		Vector3 Update(Vector3 pos);//,CPhysics & thePhysics);
 		bool Init();
 
 		CAStarPathFinding pathFinding;
 	private:
-		bool foundPath;
+		bool outOfOrigin;
+		bool foundPath;//to enemy
+		bool foundOriPath;
 		Vector3 pos;
 		Vector3 dir;
 		AIState state;
@@ -88,5 +92,8 @@ class CAILogic
 		clock_t idleWanderTimer;
 		clock_t wanderTimer;
 		int pathMovementCounter;
-		bool reachDest;
+		Vector3 oriPos;
+		//bool reachDest;
+		//int wanderRefInt;
+		//node wanderRefNode;
 };
