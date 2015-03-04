@@ -103,11 +103,14 @@ bool CWinCondition::OnCollision(CBaseObject* a_obj, bool frame2)
 			}
 			if(ChineseMaleIn == true && MalayFemaleIn == true)
 			{
+				std::cout << "Level change" << std::endl;
 				levelChange->Level += 1;
 				myApplication::GetInstance()->ResetLevel(levelChange->Level);
 				std::cout << "Level plus: " << levelChange->Level << std::endl;
 			}
 		}
+		
+		
 
 	return OnCollision2(a_obj, true);
 }

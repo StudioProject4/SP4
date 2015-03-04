@@ -39,7 +39,7 @@ void CPointSystem :: PointsReceive(int points)
 	//else
 	//{
 
-	this->points = this->points + points;
+	this->points += this->points + points;
 //	}
 }
 

@@ -36,7 +36,8 @@ bool CChinesePoints::Init(Vector3 pos,Vector3 size)
 	theSprite->LoadTGA("ChineseSign.tga");
 
 	phys.Init(pos, Vector3(theSprite->GetImageSizeX(), theSprite->GetImageSizeY()));
-
+	pts = CPointSystem::GetInstance();
+	
 	return true;
 }
 	
