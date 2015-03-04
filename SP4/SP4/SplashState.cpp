@@ -320,7 +320,11 @@ bool CSplashState::Init()
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
+#ifndef PRELOAD_TEXTURE
 	IM->RegisterTGA("flare.tga");
+	IM->RegisterTGA("sonia2.tga");
+#endif
+
 	backgroundImage[0].Init(5,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("flare.tga"));

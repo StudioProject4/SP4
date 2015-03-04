@@ -224,7 +224,17 @@ bool myApplication::Init()
 	GSM = CGameStateManager::GetInstance();
 	IM = CImageManager::GetInstance();
 	OM = new CObjectManager();
+
+#ifndef PRELOAD_TEXTURE
 	IM->RegisterTGA("background.tga");
+	IM->RegisterTGA("rockyground.tga");
+	IM->RegisterTGA("health.tga");
+	IM->RegisterTGA("pointIcon.tga");
+
+	//test image
+	IM->RegisterTGA("sonia2.tga");
+	IM->RegisterTGA("tenri.tga");
+#endif
 	tempimage = IM->GetTGAImage("background.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
 
@@ -242,13 +252,15 @@ bool myApplication::Init()
 	}
 
 
-	IM->RegisterTGA("health.tga");
+	
 	HeartShape.Init(1);
 	HeartShape.OverrideTGATexture(IM->GetTGAImage("health.tga"));
-
-	IM->RegisterTGA("pointIcon.tga");
 	PointIcon.Init(1);
 	PointIcon.OverrideTGATexture(IM->GetTGAImage("pointIcon.tga"));
+	GameLose.Init(1);
+	GameLose.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	GameWin.Init(1);
+	GameWin.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
 
 	playerOne = OM->manufacturer->CreateChineseMale();
 	playerTwo = OM->manufacturer->CreateMalayFemale();
@@ -1063,12 +1075,39 @@ void myApplication::RenderPlayerTwoHUD()
 			RenderCharacterHealthHud( playerTwo, WM->GetOriginalWindowWidth()*0.9f - playerTwoHud->GetImageSizeX()*0.5f, playerTwoHud->GetImageSizeY()*0.5f,playerTwo->theSprite->GetImageSizeX(),false);
 	glPopMatrix();
 }
+
+void myApplication::RenderLoseResult()
+{
+	glPushMatrix();
+		glTranslatef(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.5f,0);
+			GameWin.Render();
+	glPopMatrix();
+}
+
+void myApplication::RenderWinResult()
+{
+	glPushMatrix();
+		glTranslatef(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.5f,0);
+			GameLose.Render();
+	glPopMatrix();
+}
+void myApplication::RenderGameResult(bool gameresult)
+{
+	if(gameresult == true)
+	{
+		RenderWinResult();
+	}else
+	{
+		RenderLoseResult();
+	}
+}
 void myApplication::Render2D()
 {	
 	
 	RenderBackground();
 	RenderTileMap();
 	
+
 	RenderPlayerOneHUD();
 	RenderPlayerTwoHUD();
 #ifdef DEBUG_CODE

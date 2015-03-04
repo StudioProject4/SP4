@@ -329,9 +329,13 @@ bool COnlinePlayState::Init()
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
+#ifndef PRELOAD_TEXTURE
 	IM->RegisterTGA("BackButton.tga");
 	IM->RegisterTGA("CreateGameButton.tga");
 	IM->RegisterTGA("JoinGameButton.tga");
+	IM->RegisterTGA("kanon.tga");
+
+#endif
 
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());

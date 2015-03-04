@@ -168,7 +168,12 @@ private:
 	CSprite* playerTwoHud;
 	CSprite HeartShape;
 	CSprite PointIcon;
+	CSprite GameLose;
+	CSprite GameWin;
 
+	void RenderGameResult(bool gameresult);
+	void RenderLoseResult();
+	void RenderWinResult();
 	void RenderTileMap();
 	void RenderBackground();
 	void RenderPointHUD();
