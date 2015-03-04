@@ -87,7 +87,7 @@ bool CMalayMob :: Render()
 	glTranslatef(pos.x,pos.y,pos.z);
 	if(dir.x > 0)
 	{
-		theSprite->SetAnimationLayer(0);
+		theSprite->SetAnimationLayer(1);
 	}
 	else if(dir.x < 0)
 	{
