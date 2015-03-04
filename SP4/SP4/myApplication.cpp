@@ -845,8 +845,16 @@ bool myApplication::Update()
 				playerTwo->Jump();
 			}
 		}
-		if(keyboard->myKeys['s'])
+		if(keyboard->myKeys['p'])
 		{
+			if(charControl==1||charControl==3)
+			{
+				
+			}
+			else if(charControl==2)
+			{
+				
+			}
 			//win->OnCollision(playerOne, false);
 			//win->OnCollision(playerOne, true);
 		}
@@ -882,9 +890,9 @@ bool myApplication::Update()
 					velChanged=true;
 				playerTwo->Jump();
 			}
-			if(keyboard->myKeys['k'] == true)
+			if(keyboard->myKeys['p'] == true)
 			{
-		
+				
 			}
 			if(keyboard->myKeys['j'] == false && keyboard->myKeys['l'] == false)
 			{
