@@ -142,36 +142,54 @@ Vector3 CAILogic :: Update(Vector3 pos)//CPhysics & thePhysics)
 		}
 		else if(foundPath == true)
 		{
-
+			static bool dirSet = false;
 			if(pos.x < pathFinding.closeList.at(pathMovementCounter).x)
 			{
 				this->pos.x += 60*delta;
-				dir = 1;
+				if(dirSet == false)
+				{
+					dir.x = 1;
+					dirSet = true;
+				}
 			}
 			if(pos.x > pathFinding.closeList.at(pathMovementCounter).x)
 			{
 				this->pos.x -= 60*delta;
-				dir = -1;
+				if(dirSet == false)
+				{
+					dir.x = -1;
+					dirSet = true;
+				}
 			}
 			if(pos.y < pathFinding.closeList.at(pathMovementCounter).y)
 			{
 				this->pos.y += 60*delta;
-				//thePhysics.Jump();
+				if(dirSet == false)
+				{
+					dir.x = 1;
+					dirSet = true;
+				}
 			}
-			if(pos.y > pathFinding.closeList.at(pathMovementCounter).y)
+			else if(pos.y > pathFinding.closeList.at(pathMovementCounter).y)
 			{
 				this->pos.y -= 60*delta;
+				if(dirSet == false)
+				{
+					dir.x = -1;
+					dirSet = true;
+				}
 			}
-			if((pos.x > pathFinding.closeList.at(pathMovementCounter).x-1)
-				&& (pos.x < pathFinding.closeList.at(pathMovementCounter).x+1)
-				&& (pos.y > pathFinding.closeList.at(pathMovementCounter).y-1)
-				&& (pos.y < pathFinding.closeList.at(pathMovementCounter).y+1) )
+			if((pos.x > pathFinding.closeList.at(pathMovementCounter).x-0.5)
+				&& (pos.x < pathFinding.closeList.at(pathMovementCounter).x+0.5)
+				&& (pos.y > pathFinding.closeList.at(pathMovementCounter).y-0.5)
+				&& (pos.y < pathFinding.closeList.at(pathMovementCounter).y+0.5) )
 			{
 				pathMovementCounter++;
 				if(pathMovementCounter >= pathFinding.closeList.size())
 				{
 					foundPath = false;
 					pathMovementCounter = 1;
+					dirSet = false;
 				}
 			}
 		}
@@ -188,34 +206,54 @@ Vector3 CAILogic :: Update(Vector3 pos)//CPhysics & thePhysics)
 		}
 		else if(foundOriPath == true)
 		{
+			static bool dirSet2 = false;
 			if(pos.x < pathFinding.closeList.at(pathMovementCounter).x)
 			{
 				this->pos.x += 60*delta;
-				dir = 1;
+				if(dirSet2 == false)
+				{
+					dir.x = 1;
+					dirSet2 = true;
+				}
 			}
-			if(pos.x > pathFinding.closeList.at(pathMovementCounter).x)
+			else if(pos.x > pathFinding.closeList.at(pathMovementCounter).x)
 			{
 				this->pos.x -= 60*delta;
-				dir = -1;
+				if(dirSet2 == false)
+				{
+					dir.x = -1;
+					dirSet2 = true;
+				}
 			}
 			if(pos.y < pathFinding.closeList.at(pathMovementCounter).y)
 			{
 				this->pos.y += 60*delta;
+				if(dirSet2 == false)
+				{
+					dir.x = 1;
+					dirSet2 = true;
+				}
 			}
 			if(pos.y > pathFinding.closeList.at(pathMovementCounter).y)
 			{
 				this->pos.y -= 60*delta;
+				if(dirSet2 == false)
+				{
+					dir.x = -1;
+					dirSet2 = true;
+				}
 			}
-			if((pos.x > pathFinding.closeList.at(pathMovementCounter).x-1)
-				&& (pos.x < pathFinding.closeList.at(pathMovementCounter).x+1)
-				&& (pos.y > pathFinding.closeList.at(pathMovementCounter).y-1)
-				&& (pos.y < pathFinding.closeList.at(pathMovementCounter).y+1) )
+			if((pos.x > pathFinding.closeList.at(pathMovementCounter).x-0.5)
+				&& (pos.x < pathFinding.closeList.at(pathMovementCounter).x+0.5)
+				&& (pos.y > pathFinding.closeList.at(pathMovementCounter).y-0.5)
+				&& (pos.y < pathFinding.closeList.at(pathMovementCounter).y+0.5) )
 			{
 				pathMovementCounter++;
 				if(pathMovementCounter >= pathFinding.closeList.size())
 				{
 					foundOriPath = false;
 					pathMovementCounter = 1;
+					dirSet2 = false;
 				}
 			}
 		}
