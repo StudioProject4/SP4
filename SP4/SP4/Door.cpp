@@ -5,6 +5,7 @@
 
 CDoor::CDoor(void)//:
 //theSprite(NULL)
+:color(1,1,1)
 {
 }
 
@@ -50,6 +51,7 @@ void CDoor::Trigger()
 {
 	for(vector<CTriggerBase*>::iterator it=triggerList.begin();it!=triggerList.end();++it)
 	{
+		(*it)->color=color;
 		if(!(*it)->GetTriggered())
 		{
 			if(triggered=true)
