@@ -254,7 +254,7 @@ void COptionState::RenderScene(void)
 
 bool COptionState::Update()
 {
-	
+	StateChangeMusicCheck();
 	for(unsigned short i = 0 ; i< buttonList.size();++i)
 	{
 		buttonList[i]->Update();
@@ -269,16 +269,28 @@ bool COptionState::Update()
 		}
 	}
 
-	if(keyboard->myKeys[VK_ESCAPE] == true)
-	{
-		GSM->ExitApplication();
-	}
+	//if(keyboard->myKeys[VK_ESCAPE] == true)
+	//{
+	//	GSM->ExitApplication();
+	//}
 
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
 		OM->Update();
 	}
 	return true;
+}
+void COptionState::StateChangeMusicCheck()
+{
+	CMusicSystem * MS = CMusicSystem::GetInstance();
+
+	if(MS->GetCurrentBgm()->audioname != "underthemoon.mp3")
+	{
+		if(MS->StopCurrentBGM())
+		{
+			MS->PlayBgmTrack("underthemoon.mp3");
+		}
+	}
 }
 
 bool COptionState::Init()
@@ -301,9 +313,19 @@ bool COptionState::Init()
 	GSM->currentState = GSM->STATE_MENU;
 	glEnable(GL_TEXTURE_2D);
 
+	std::cout<<"OptioState init"<<std::endl;
+	if(MS->GetCurrentBgm()->audioname != "underthemoon.mp3")
+	{
+		if(MS->StopCurrentBGM())
+		{
+			MS->PlayBgmTrack("underthemoon.mp3");
+		}
+	}
+
 	IM->RegisterTGA("MuteButton.tga");
 	IM->RegisterTGA("UnMuteButton.tga");
 	IM->RegisterTGA("BackButton.tga");
+	IM->RegisterTGA("ExitButton.tga");
 
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
@@ -317,6 +339,14 @@ bool COptionState::Init()
 	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.25f,WM->GetOriginalWindowHeight()*0.20f);
 	a_button->SetSize(WM->GetOriginalWindowWidth()*0.1f,WM->GetOriginalWindowHeight()*0.1f);
 	a_button->name ="MuteButton";
+	buttonList.push_back(a_button);
+
+	a_button = new CUIButtonCircle();
+	a_button->ownTexture.Init(1);
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("ExitButton.tga"));
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.9f,WM->GetOriginalWindowHeight()*0.9f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08f,WM->GetOriginalWindowHeight()*0.08f);
+	a_button->name ="ExitButton";
 	buttonList.push_back(a_button);
 
 	//a_button = new CUIButtonRectangle();
@@ -421,29 +451,33 @@ void COptionState::ButtonTriggerCall(CUIButton* theButton)
 		{
 			GSM->GoToPreviousState();
 		}else
-			if(theButton->name == "MuteButton")
+			if(theButton->name == "ExitButton")
 			{
-				switch(theButton->triggermode)
+				GSM->ExitApplication();
+			}else
+				if(theButton->name == "MuteButton")
 				{
-				default:
-					std::cout<<"Unknow MuteButton trigger mod requsted"<<std::endl;
-					break;
+					switch(theButton->triggermode)
+					{
+					default:
+						std::cout<<"Unknow MuteButton trigger mod requsted"<<std::endl;
+						break;
 
-				case 0:
-					theButton->ownTexture.OverrideTGATexture(IM->GetTGAImage("MuteButton.tga"));
-					theButton->triggermode = 1;
-					mouse->Reset();
-					MS->Mute();
-					break;
-				case 1:
-					theButton->ownTexture.OverrideTGATexture(IM->GetTGAImage("UnMuteButton.tga"));
-					theButton->triggermode = 0;
-					mouse->Reset();
-					MS->UnMute();
-					break;
+					case 0:
+						theButton->ownTexture.OverrideTGATexture(IM->GetTGAImage("MuteButton.tga"));
+						theButton->triggermode = 1;
+						mouse->Reset();
+						MS->Mute();
+						break;
+					case 1:
+						theButton->ownTexture.OverrideTGATexture(IM->GetTGAImage("UnMuteButton.tga"));
+						theButton->triggermode = 0;
+						mouse->Reset();
+						MS->UnMute();
+						break;
 
+					}
 				}
-			}
 	}
 }
  void COptionState::ButtonTriggerCall(std::string buttonName)

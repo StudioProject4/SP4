@@ -92,6 +92,7 @@ int main(int argc, char **argv )
 		IM->RegisterTGA("kaede.tga");
 		IM->RegisterTGA("tenri.tga");
 		IM->RegisterTGA("rockyground.tga");
+		//IM->RegisterTGA("pointIcon.tga");
 
 		//GSM->ChangeState(CSplashState::GetInstance());
 		GSM->ChangeState(CMenuState::GetInstance());

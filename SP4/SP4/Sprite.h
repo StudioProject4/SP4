@@ -50,6 +50,7 @@ public:
 	void SetImageSize(float x,float y);
 	void SetColour4f(float red= 1.f,float green= 1.f,float blue= 1.f,float alpha = 1.f);
 	void SetVitalInformation(ushort maxframe,ushort numberoflayer);
+	void SetFrozenAtCertainFrame(unsigned short framenumber);
 	float GetAlpha();
 	void SetAlpha(float newAlpha = 1.f);
 	void OverrideTGATexture(TextureImage* newTexture);

@@ -88,26 +88,35 @@ bool CWinCondition::OnCollision(CBaseObject* a_obj, bool frame2)
 
 		if(this->active == true)
 		{
-			if(ChineseMaleIn == false && MalayFemaleIn == false)
+			//if(ChineseMaleIn == false && MalayFemaleIn == false)
 			{
 				if(a_obj->tag == "ChineseMale")
 				{
 					ChineseMaleIn = true;
-					std::cout << "Chinese In" << std::endl;
 				}
 				if(a_obj->tag == "MalayFemale")
 				{
 					MalayFemaleIn = true;
-					std::cout << "Malay In" << std::endl;
 				}
 			}
+
+			
+		}
+		
 			if(ChineseMaleIn == true && MalayFemaleIn == true)
 			{
-				levelChange->Level += 1;
-				myApplication::GetInstance()->ResetLevel(levelChange->Level);
-				std::cout << "Level plus: " << levelChange->Level << std::endl;
+				if(levelChange->Level >= 1 && levelChange->Level < 5)
+				{
+					levelChange->Level += 1;
+					myApplication::GetInstance()->ResetLevel(levelChange->Level);
+					return false;
+				}else
+				if(levelChange->Level >5)
+				{
+					levelChange->Level = 5;
+					return false;
+				}
 			}
-		}
 
 	return OnCollision2(a_obj, true);
 }

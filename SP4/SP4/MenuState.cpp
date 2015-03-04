@@ -301,7 +301,14 @@ bool CMenuState::Init()
 	MS = CMusicSystem::GetInstance();
 	//MS->ResetBgmTrackPlayPosition(MS->currentBgmTrack);
 	//MS->PauseBgmTrack(MS->currentBgmTrack);
-	MS->PlayBgmTrack("underthemoon.mp3");
+	std::cout<<"MenuState init"<<std::endl;
+	if(MS->GetCurrentBgm()->audioname != "underthemoon.mp3")
+	{
+		if(MS->StopCurrentBGM())
+		{
+			MS->PlayBgmTrack("underthemoon.mp3");
+		}
+	}
 
 	IM = CImageManager::GetInstance();
 	FRM = CFrameRateManager::GetInstance();
@@ -319,7 +326,6 @@ bool CMenuState::Init()
 	IM->RegisterTGA("OptionButton.tga");
 	IM->RegisterTGA("SettingButton.tga");
 	IM->RegisterTGA("SinglePlayerButton.tga");
-	IM->RegisterTGA("ExitButton.tga");
 	IM->RegisterTGA("ExitButton.tga");
 	IM->RegisterTGA("CreditButton.tga");
 	IM->RegisterTGA("BackButton.tga");

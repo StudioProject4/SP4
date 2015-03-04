@@ -21,8 +21,9 @@ void CPointSystem :: Drop(void)
 CPointSystem * CPointSystem :: s_instance = NULL;
 
 CPointSystem :: CPointSystem()
+	:points(0)
 {
-	points = 0;	
+	//points = 0;	
 }
 
 CPointSystem :: ~CPointSystem()
@@ -39,7 +40,7 @@ void CPointSystem :: PointsReceive(int points)
 	//else
 	//{
 
-	this->points = this->points + points;
+	this->points += this->points + points;
 //	}
 }
 

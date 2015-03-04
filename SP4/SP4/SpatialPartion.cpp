@@ -308,6 +308,28 @@ void CSpatialPartion::RenderGrid()
 	glPopMatrix();
 }
 
+void CSpatialPartion::CleanUpAllObjectExceptCharacter()
+{
+	for(TCellVector::iterator it = cellList.begin(); it!= cellList.end();++it)
+	{
+		if(!(*it).objectList.empty())//if the cell objectlist is not empty,meaning got object inside
+		{
+			(*it).CleanUpAllExceptCharacter();
+		}
+	}
+}
+
+void CSpatialPartion::CleanUpAllObject()
+{
+	for(TCellVector::iterator it = cellList.begin(); it!= cellList.end();++it)
+	{
+		if(!(*it).objectList.empty())//if the cell objectlist is not empty,meaning got object inside
+		{
+			(*it).CleanUp();
+		}
+	}
+}
+
 void CSpatialPartion::PrintDebugInformation()
 {
 	/*

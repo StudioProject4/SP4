@@ -91,9 +91,11 @@ void CObjectManager::CheckCollisionCharacterWithObject(CBaseObject* a_obj, TObje
 					{
 						//std::cout<<"COLLISION RESPONE ACTIVATED "<<a_obj->name <<"with"<< otherObject->name<<std::endl;
 						if(gen1=="Character")
-							otherObject->OnCollision(a_obj,frame);
+							if(!otherObject->OnCollision(a_obj,frame))
+								break;
 						else 
-							a_obj->OnCollision(otherObject,frame);
+							if(!a_obj->OnCollision(a_obj,frame))
+								break;
 					}
 				}
 			}
@@ -193,13 +195,12 @@ bool CObjectManager::LoadingSetup()
 			(*it)->active=false;
 			
 			inactiveObjectList.push_back(*it);
-			//objectList.erase(it);
-			//using swapping method to delete element.
 			it=objectList.erase(it);
 			continue;
 		}
 	++it;
 	}
+	SP->CleanUpAllObjectExceptCharacter();
 	return true;
 }
 
@@ -263,9 +264,6 @@ bool CObjectManager::Update(int multiplayerMode)
 			}else
 		{
 			inactiveObjectList.push_back(objectList[it]);
-			//objectList.erase(it);
-			//using swapping method to delete element.
-			//swap(objectList[it],objectList.back());
 			objectList[it] = objectList.back();
 			objectList.pop_back();
 		}
@@ -451,7 +449,6 @@ CBaseObject* CObjectManager::FetchObjectWithName(std::string objectName)
 
 	}else
 	{
-		std::cout<<"<FATAL ERROR> Cannot Find inactive gameobject to recycle"<<std::endl;
 	}
 	return a_obj;
 }
@@ -480,7 +477,6 @@ CBaseObject* CObjectManager::FetchObjectWithTag(std::string objectTag)
 		}
 	}else
 	{
-		std::cout<<"<FATAL ERROR> Cannot Find inactive gameobject to recycle"<<std::endl;
 	}
 	return a_obj;
 }
@@ -508,7 +504,6 @@ CBaseObject* CObjectManager::FetchObjectWithGenericTag(std::string objectTag)
 
 	}else
 	{
-		std::cout<<"<FATAL ERROR> Cannot Find inactive gameobject to recycle"<<std::endl;
 	}
 	return a_obj;
 }
@@ -637,14 +632,11 @@ void CObjectManager::UpdateGridCheckCall()
 						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(ownX,ownY)->objectList,0);
 					}
 				}
-				//int nexttimecalled = a_ball->timecalled;
-				//std::cout<<"time called diff"<<nexttimecalled-lasttimecalled<<std::endl;
 				////call neighbouring cells.
 				if( a_obj->TopLeftCellIndex.y-1 >= 0)//nested celling cells check
 				{
 					for(int topX = (int)a_obj->TopLeftCellIndex.x; topX<=(int)a_obj->BottomRightCellIndex.x;++topX )//loop through all top celling cells
 					{	
-						//std::cout<<"testing top cells"<<std::endl;
 						//a_ball->UpdateCollision( SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectList,0);
 						CheckCollisionCharacterWithObject(a_obj,SP->GetCell(topX,((int)a_obj->TopLeftCellIndex.y-1))->objectList,0);
 					}
