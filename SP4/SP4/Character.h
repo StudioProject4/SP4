@@ -41,8 +41,8 @@ class CCharacter : public CBaseObject
 			std::cout<<" Top Left Cell Index"<<TopLeftCellIndex<<std::endl;
 			std::cout<<" Bottom Right Cell Index"<<BottomRightCellIndex<<std::endl;
 		};
-		bool isInvulnerable;
 	private:
 		int playerID;	
+		bool isInvulnerable;
 		
 };

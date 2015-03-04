@@ -58,7 +58,7 @@ bool CChineseMale :: Init()
 	SetPlayerID(1);
 
 	invulTimer = MVCTime :: GetInstance();
-	refTime = invulTimer->PushNewTime(1000);
+	refTime = invulTimer->PushNewTime(5000);
 	
 	return true;
 }

@@ -135,8 +135,8 @@ bool myApplication::ResetLevel(short level)
 	lever->SetDoorLink(door);
 	door->AddTrigger(lever);
 
-	playerOne = OM->manufacturer->CreateChineseMale();
-	playerTwo = OM->manufacturer->CreateMalayFemale();
+	//playerOne = OM->manufacturer->CreateChineseMale();
+	//playerTwo = OM->manufacturer->CreateMalayFemale();
 
 	playerTwo->phys.map=Map;
 	playerOne->phys.map=Map;

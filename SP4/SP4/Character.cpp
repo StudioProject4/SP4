@@ -31,6 +31,10 @@ void CCharacter :: SetPlayerID(int theID)
 void CCharacter :: SetIsInvulnerable(bool set)
 {
 	isInvulnerable = set;
+	if(set==true)
+	{
+		MVCTime::GetInstance()->ResetTime(refTime);
+	}
 }
 
 bool CCharacter :: GetIsInvulnerable()

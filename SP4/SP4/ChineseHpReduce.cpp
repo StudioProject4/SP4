@@ -77,14 +77,6 @@ bool CChineseHpReduce::OnCollision2(CBaseObject* a_obj,bool again)
 		{
 			if(this->active == true)
 			{
-				//not valid	
-				//tempMF->hp.TakeDMG();
-				//this->active = false;
-				//std::cout << "Malay Health: " << tempMF->hp.GetHealth() << std::endl;
-				//std::cout << "Malay Health Minus" << std::endl;
-				//std::cout << "MalayMinus: " << tempMF->hp.GetHealth() << std::endl;	
-				//MlHpTaken = true;
-		
 			}
 		}
 		

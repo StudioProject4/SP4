@@ -200,6 +200,7 @@ bool CObjectManager::LoadingSetup()
 		}
 	++it;
 	}
+	
 	return true;
 }
 
