@@ -78,6 +78,7 @@ int main(int argc, char **argv )
 		MS->RegisterBgm2D("bgm6.mp3");
 		MS->RegisterBgm2D("bgm7.mp3");
 		MS->RegisterBgm2D("underthemoon.mp3");
+		MS->RegisterBgm2D("FilmRolling.mp3");
 		LM->Init("mylua.lua");
 		
 

@@ -1368,7 +1368,8 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//{
 			//	std::cout<<"nothing came out"<<std::endl;
 			//}
-			GSM->ExitApplication();
+			//GSM->ExitApplication();
+			
 		break;
 
 		case '2':

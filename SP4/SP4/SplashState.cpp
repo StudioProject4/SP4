@@ -277,9 +277,17 @@ bool CSplashState::Update()
 
 	if(IntroFade->GetAlpha() >= 1.0f)
 	{
+
 		IntroFade->SetFadeOutMode();
 	}
-
+	if(backgroundFade->CheckIfFadingIn())
+	{
+		MS->GetCurrentBgm()->SetVolume(MS->GetCurrentBgm()->GetVolume() + 0.0035f);
+	}
+	if(IntroFade->CheckIfFadingOut())
+	{
+		MS->GetCurrentBgm()->SetVolume(MS->GetCurrentBgm()->GetVolume() - 0.0045f);
+	}
 	if(IntroFade->GetAlpha() <= 0.0f)
 	{
 		GSM->ChangeState(CMenuState::GetInstance());
@@ -326,7 +334,8 @@ bool CSplashState::Init()
 	IM->RegisterTGA("IntroScene.tga");
 	IM->RegisterTGA("sonia2.tga");
 #endif
-
+	MS->PlayBgmTrack("FilmRolling.mp3");
+	MS->GetCurrentBgm()->SetVolume(0.f);
 	backgroundImage[0].Init(5,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("flare.tga"));
