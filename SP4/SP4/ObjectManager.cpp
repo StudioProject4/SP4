@@ -579,6 +579,10 @@ void CObjectManager::WriteAllObjects(RakNet::BitStream &bs)
 		{
 
 		}
+		else if(temp->tag=="WC")
+		{
+			int i=0;
+		}
 	}
 }
 #endif

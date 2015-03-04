@@ -54,7 +54,7 @@ bool CWinCondition::Init(Vector3 pos, Vector3 size)
 {
 	theSprite = new CSprite(1,1,0);
 	theSprite->LoadTGA("MalayVillage.tga");
-
+	this->pos=pos;
 	phys.Init(pos, Vector3(theSprite->GetImageSizeX(), theSprite->GetImageSizeY()));
 
 	MF = myApplication::GetInstance()->playerTwo;
@@ -81,6 +81,15 @@ bool CWinCondition::OnCollision(CBaseObject* a_obj, bool frame2)
 				bs.Write(a_obj->id);
 				rakPeerGlobal->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
 				lastCall=now;
+				
+				if(a_obj->tag=="MalayFemale")//means that it can win
+				{
+					bs.Reset();
+					msgID=ID_REQUEST_MAP_CLEAR;
+					bs.Write(msgID);
+					bs.Write(this->id);
+					rakPeerGlobal->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+				}
 			}
 		#endif
 		frame = frame2;
@@ -88,7 +97,7 @@ bool CWinCondition::OnCollision(CBaseObject* a_obj, bool frame2)
 	{	
 	}
 
-		if(this->active == true)
+		//if(this->active == true)
 		{
 			//if(ChineseMaleIn == false && MalayFemaleIn == false)
 			{
@@ -111,13 +120,18 @@ bool CWinCondition::OnCollision(CBaseObject* a_obj, bool frame2)
 				{
 					levelChange->Level += 1;
 					myApplication::GetInstance()->ResetLevel(levelChange->Level);
-					return false;
 				}else
 				if(levelChange->Level >5)
 				{
 					levelChange->Level = 5;
-					return false;
 				}
+
+				RakNet::BitStream bs;
+				unsigned char msgid=ID_NEW_MAP;
+				bs.Write(msgid);
+				bs.Write(levelChange->Level);
+				rakPeerGlobal->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+				return false;
 			}
 
 	return OnCollision2(a_obj, true);

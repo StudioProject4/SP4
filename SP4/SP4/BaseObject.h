@@ -61,9 +61,9 @@ public:
 			BottomRight.Set(pos.x + phys.size.x*0.5f,pos.y + phys.size.y*0.5f);
 		}
 	};
+	bool frame;
 protected:
 	long lastCall;
-	bool frame;
 };
 
 

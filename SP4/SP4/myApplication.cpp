@@ -563,13 +563,15 @@ bool myApplication::Update()
 						bs.Read(currentHp);
 						if(thing2=="ChineseMale")
 						{
-							playerOne->pos.Set(x,y,z);
+							//playerOne->pos.Set(x,y,z);
 							playerOne->hp.SetHealth(currentHp);
+							playerOne->id=id;
 						}
 						else if(thing2=="MalayFemale")
 						{
-							playerTwo->pos.Set(x,y,z);
+							//playerTwo->pos.Set(x,y,z);
 							playerTwo->hp.SetHealth(currentHp);
+							playerTwo->id=id;
 						}
 					}
 					else if(thing2=="CLeverDoor")
@@ -682,7 +684,7 @@ bool myApplication::Update()
 							OM->AddObject(temp);
 						}
 					}
-					else if(thing=="WC")
+					else if(thing2=="WC")
 					{
 						CWinCondition * temp = CManufactureManager::GetInstance()->CreateWinCondition();
 						temp->Init(Vector3(x,y,z),Vector3(32,32));
@@ -766,6 +768,7 @@ bool myApplication::Update()
 					unsigned short id1,id2;
 					bs.Read(id1);
 					bs.Read(id2);
+					cout<<"id of the objects"<<id1<<" "<<id2<<"\n";
 					CLeverDoor* lever=NULL;
 					CBaseObject* other=NULL;
 					for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
@@ -783,6 +786,8 @@ bool myApplication::Update()
 							break;
 						}
 					}
+					if(lever==0||other==0)
+						break;
 
 					float x,y,z;
 					
@@ -885,6 +890,37 @@ bool myApplication::Update()
 					assert(true);
 					int i=0;
 				}
+			}
+			break;
+		case ID_REQUEST_MAP_CLEAR:
+			{
+				unsigned short id;
+				bs.Read(id);
+				CWinCondition* temp=0;
+				for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
+				{
+					if(id==(*it)->id)
+					{
+						temp=(CWinCondition*)(*it);
+						break;
+					}
+				}
+				if(temp==0)
+					break;
+				temp->MalayFemaleIn=true;
+				temp->frame=OM->frame;
+			}
+			break;
+		case ID_NEW_MAP:
+			{
+				int newLevel;
+				bs.Read(newLevel);
+				Map->Level =newLevel;
+				ResetLevel(Map->Level);
+				RakNet::BitStream bs2;
+				unsigned char msgid=ID_NEW_PLAYER;
+				bs2.Write(msgid);
+				rakpeer_->Send(&bs2,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
 			}
 			break;
 		}
