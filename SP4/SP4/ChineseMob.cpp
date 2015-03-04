@@ -11,6 +11,9 @@
 #include "ChineseMob.h"
 #include "Character.h"
 #include "ImageManager.h"
+
+extern RakNet::RakPeerInterface* rakPeerGlobal;
+
 CChineseMob::CChineseMob()
 {
 	Init();
@@ -25,13 +28,31 @@ CChineseMob::~CChineseMob()
 }
 bool CChineseMob :: Update()
 {	
-	dir = AI.GetDir();
-	//pos.x = 
-	pos = AI.Update(pos);//,phys);
-	/*if(AI.state == AI_WANDER)
+	if(charControl==1||charControl==3)
 	{
-		pos.x = phys.Update(pos).x;
-	}*/
+		dir = AI.GetDir();
+		//pos.x = 
+		pos = AI.Update(pos);//,phys);
+
+		if(MVCTime::GetInstance()->TestTime(refTime))
+		{
+			RakNet::BitStream bs;
+			unsigned char msgid=ID_OBJ_UPDATE;
+
+			bs.Write(msgid);
+			bs.Write(genericTag);
+			bs.Write(true);//mode;
+			bs.Write(this->id);
+			bs.Write(pos.x);
+			bs.Write(pos.y);
+		
+			rakPeerGlobal->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,RakNet::UNASSIGNED_SYSTEM_ADDRESS,true);
+		}
+		/*if(AI.state == AI_WANDER)
+		{
+			pos.x = phys.Update(pos).x;
+		}*/
+	}
 	return true;
 }
 bool CChineseMob :: Init()
@@ -40,6 +61,9 @@ bool CChineseMob :: Init()
 	tag = "ChineseMob";
 	genericTag = "Enemy";
 
+	AI.SetTag(tag);
+	AI.SetID(id);
+
 	theSprite = new CSprite(1,1,0);
 	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("tenri.tga"));
 	//theSprite->LoadTGA("tenri.tga");
@@ -47,9 +71,9 @@ bool CChineseMob :: Init()
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 
-	timer = clock();
-	Timer = MVCTime :: GetInstance();
-	refTime = Timer->PushNewTime(5000);
+	//setting up timer class
+	//Timer = MVCTime :: GetInstance();
+	//refTime = Timer->PushNewTime(1000);
 	
 	//if i want reset timer
 	//Timer->SetActive(false,refTime);
@@ -78,30 +102,31 @@ bool CChineseMob :: Render()
 
 bool CChineseMob :: OnCollision2(CBaseObject* a_obj,bool again)
 {
-	if(Timer->TestTime(refTime))
-	//if(clock() - timer > 5000)
-	{
-
-#ifdef NETWORK_CODE
 	if(a_obj->genericTag == "Character")
 	{
 		if(a_obj->tag == "MalayFemale")
 		{
 			CCharacter* temp=(CCharacter*)a_obj;
-				temp->hp.TakeDMG();		
-			cout << temp->hp.GetHealth() << endl;
-			unsigned char msgID=ID_OBJ_UPDATE;
-			RakNet::BitStream bs;
-			bs.Write(msgID);
-			bs.Write(this->tag);
-			bs.Write(this->id);
-			bs.Write(a_obj->id);
-			bs.Write(temp->hp.GetHealth());
-			RakNet::RakPeerInterface::GetInstance()->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,RakNet::UNASSIGNED_SYSTEM_ADDRESS,true);
+			if(!temp->isInvulnerable)
+			{
+				temp->hp.TakeDMG();
+				temp->SetIsInvulnerable(true);
+				temp->invulTimer->SetActive(true, temp->refTime);
+				temp->invulTimer->SetLimit(temp->refTime, 5000);
+				temp->invulTimer->ResetTime(refTime);
+				
+				unsigned char msgID=ID_OBJ_UPDATE;
+				RakNet::BitStream bs;
+				bs.Write(msgID);
+				bs.Write(genericTag);
+				bs.Write(false);//mode
+				bs.Write(this->tag);
+				bs.Write(this->id);
+				bs.Write(a_obj->id);
+				bs.Write(temp->hp.GetHealth());
+				rakPeerGlobal->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,RakNet::UNASSIGNED_SYSTEM_ADDRESS,true);
+			}
 		}
-	}
-#endif
-	timer = clock();
 	}
 	return true;
 }

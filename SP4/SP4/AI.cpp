@@ -1,3 +1,10 @@
+#include "CodeDefination.h"
+#ifdef NETWORK_CODE
+#include "RakNet\WindowsIncludes.h"
+#include "RakNet\RakPeerInterface.h"
+#include "RakNet\BitStream.h"
+#include "MyMsgIDs.h"
+#endif
 #include "AI.h"
 #include "MVCtime.h"
 
@@ -37,7 +44,11 @@ void CAILogic :: OriginCheck()
 					wanderTimer = clock(); 
 				}	
 		}
-	if(pos == oriPos && state == AI_WANDER)
+	if((pos.x > oriPos.x-1)
+				&& (pos.x < oriPos.x+1)
+				&& (pos.y > oriPos.y-1)
+				&& (pos.y < oriPos.y+1)
+				&& state == AI_WANDER)
 	{
 		outOfOrigin = false;
 	}
@@ -55,7 +66,11 @@ void CAILogic :: DetectionCheck ()
 			//foundPath = false;		
 		}
 	}
-	else if(pos == Vector3(pathFinding.end.x,pathFinding.end.y,0) && state == AI_PURSUE)
+	else if((pos.x > pathFinding.end.x-1)
+				&& (pos.x < pathFinding.end.x+1)
+				&& (pos.y > pathFinding.end.y-1)
+				&& (pos.y < pathFinding.end.y+1)
+				&& state == AI_PURSUE)
 	{
 		ChangeState(AI_IDLE);
 		foundPath = false;
@@ -127,6 +142,7 @@ Vector3 CAILogic :: Update(Vector3 pos)//CPhysics & thePhysics)
 			pathFinding.openList.clear();
 			pathFinding.notCorrectPath.clear();
 			FindPath();
+			pathMovementCounter = 0; 
 		}
 		else if(foundPath == true)
 		{
@@ -148,7 +164,10 @@ Vector3 CAILogic :: Update(Vector3 pos)//CPhysics & thePhysics)
 			{
 				this->pos.y -= 60*delta;
 			}
-			if((pos.x > pathFinding.closeList.at(pathMovementCounter).x-8) && (pos.x < pathFinding.closeList.at(pathMovementCounter).x+8) && (pos.y > pathFinding.closeList.at(pathMovementCounter).y-8) && (pos.y < pathFinding.closeList.at(pathMovementCounter).y+8) )//Vector3(,pathFinding.closeList.at(pathMovementCounter).y,0))
+			if((pos.x > pathFinding.closeList.at(pathMovementCounter).x-1)
+				&& (pos.x < pathFinding.closeList.at(pathMovementCounter).x+1)
+				&& (pos.y > pathFinding.closeList.at(pathMovementCounter).y-1)
+				&& (pos.y < pathFinding.closeList.at(pathMovementCounter).y+1) )
 			{
 				pathMovementCounter++;
 				if(pathMovementCounter >= pathFinding.closeList.size())
@@ -167,27 +186,30 @@ Vector3 CAILogic :: Update(Vector3 pos)//CPhysics & thePhysics)
 			pathFinding.openList.clear();
 			pathFinding.notCorrectPath.clear();
 			FindPath();
+			pathMovementCounter = 1;
 		}
 		else if(foundOriPath == true)
 		{
 			if(pos.x < pathFinding.closeList.at(pathMovementCounter).x)
 			{
-				this->pos.x += 1;//60*delta;
+				this->pos.x += 60*delta;
 			}
 			if(pos.x > pathFinding.closeList.at(pathMovementCounter).x)
 			{
-				this->pos.x -= 1;//60*delta;
+				this->pos.x -= 60*delta;
 			}
 			if(pos.y < pathFinding.closeList.at(pathMovementCounter).y)
 			{
-				this->pos.y += 1;//60*delta;
-				//thePhysics.Jump();
+				this->pos.y += 60*delta;
 			}
 			if(pos.y > pathFinding.closeList.at(pathMovementCounter).y)
 			{
-				this->pos.y -= 1;//60*delta;
+				this->pos.y -= 60*delta;
 			}
-			if(pos == Vector3(pathFinding.closeList.at(pathMovementCounter).x,pathFinding.closeList.at(pathMovementCounter).y,0))
+			if((pos.x > pathFinding.closeList.at(pathMovementCounter).x-1)
+				&& (pos.x < pathFinding.closeList.at(pathMovementCounter).x+1)
+				&& (pos.y > pathFinding.closeList.at(pathMovementCounter).y-1)
+				&& (pos.y < pathFinding.closeList.at(pathMovementCounter).y+1) )
 			{
 				pathMovementCounter++;
 				if(pathMovementCounter >= pathFinding.closeList.size())
@@ -198,12 +220,6 @@ Vector3 CAILogic :: Update(Vector3 pos)//CPhysics & thePhysics)
 			}
 		}
 
-	}
-	if(tempPos!=pos)
-	{
-		//send object update
-		//bs.write(gentag)
-		//write pos
 	}
 	return this->pos;
 }
@@ -233,7 +249,7 @@ bool CAILogic :: Init()
 	return true;
 }
 
-void CAILogic :: SetEnemyPos(Vector3 & enemyPos)
+void CAILogic :: SetCharacterPos(Vector3 & enemyPos)
 {
 	this->enemyPos = enemyPos;
 }
@@ -246,4 +262,14 @@ Vector3 CAILogic :: GetDir()
 void CAILogic :: SetOriPos (Vector3 thePosition)
 {
 	oriPos = thePosition;
+}
+
+void CAILogic :: SetTag(string tag)
+{
+	this->tag = tag;
+}
+
+void CAILogic :: SetID(unsigned short id)
+{
+	this->id = id;
 }

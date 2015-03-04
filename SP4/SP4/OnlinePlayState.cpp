@@ -388,6 +388,7 @@ bool COnlinePlayState::Reset()
 
 bool COnlinePlayState::CleanUp()
 {
+	closeServer();
 	for(TButtonList::iterator it = buttonList.begin(); it != buttonList.end(); ++it)
 	{
 		if((*it) != 0)

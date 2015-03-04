@@ -3,6 +3,7 @@
 #include "AI.h"
 #include "Sprite.h"
 #include <time.h>
+#include "MVCtime.h"
 
 class CMalayMob : public CBaseObject
 {
@@ -15,6 +16,7 @@ class CMalayMob : public CBaseObject
 		bool Reset();
 		bool CleanUp();
 		bool Render();
+		int charControl;
 
 		bool OnCollision2(CBaseObject* a_obj,bool again=false);
 
@@ -23,6 +25,9 @@ class CMalayMob : public CBaseObject
 
 		CAILogic AI;
 		//CSprite * theSprite;
+
+		MVCTime * Timer ;
+		int refTime;
 
 		clock_t timer;
 	private:

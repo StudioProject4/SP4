@@ -70,9 +70,11 @@ class CAILogic
 		void OriginCheck();
 		void FindPath();
 		void IdleWanderRandomizer();
-		void SetEnemyPos(Vector3 & enemyPos);
+		void SetCharacterPos(Vector3 & enemyPos);
 		void SetOriPos(Vector3 thePosition);
 		Vector3 GetDir();
+		void SetTag(string tag);
+		void SetID(unsigned short id);
 
 		Vector3 Update(Vector3 pos);//,CPhysics & thePhysics);
 		bool Init();
@@ -93,6 +95,9 @@ class CAILogic
 		clock_t wanderTimer;
 		int pathMovementCounter;
 		Vector3 oriPos;
+		string tag;
+		unsigned short id;
+
 		//bool reachDest;
 		//int wanderRefInt;
 		//node wanderRefNode;
