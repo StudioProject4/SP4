@@ -110,6 +110,9 @@ int main(int argc, char **argv )
 		IM->RegisterTGA("health.tga");
 		IM->RegisterTGA("background.tga");
 		IM->RegisterTGA("credit.tga");
+		IM->RegisterTGA("InstructionButton.tga");
+		IM->RegisterTGA("Instruction.tga");
+		IM->RegisterTGA("optionpage.tga");
 #endif
 		//IM->RegisterTGA("pointIcon.tga");
 

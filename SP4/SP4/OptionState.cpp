@@ -16,6 +16,7 @@
 COptionState* COptionState::instance = 0;
 
 COptionState::COptionState(void)
+	:onInstructionDisplay(false)
 {
 }
 
@@ -117,7 +118,10 @@ void COptionState::MouseClick(int button, int state, int x, int y)
 			{
 				case GLUT_DOWN:
 					//mouse->mLButtonUp = true;	
+					
 					mouse->SetLeftButton(true);
+
+					//onInstructionDisplay = false;
 					break;
 				case GLUT_UP:
 					//mouse->mLButtonUp = false;	
@@ -222,6 +226,7 @@ void COptionState::Render2D()
 	{
 		(*it)->Render();
 	}
+	//this->RenderInstruction();
 
 	FRM->drawFPS();
 }
@@ -327,15 +332,18 @@ bool COptionState::Init()
 	IM->RegisterTGA("BackButton.tga");
 	IM->RegisterTGA("ExitButton.tga");
 	IM->RegisterTGA("tenri.tga");
-
-
-
+	IM->RegisterTGA("InstructionButton.tga");
+	IM->RegisterTGA("Instruction.tga");
+	IM->RegisterTGA("optionpage.tga");
 #endif
 
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
-	CImageManager::GetInstance()->RegisterTGA("optionpage.tga");
 	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("optionpage.tga"));
+
+	backgroundImage[1].Init(1,1,0);
+	backgroundImage[1].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
+	backgroundImage[1].OverrideTGATexture(IM->GetTGAImage("Instruction.tga"));
 
 	CUIButton* a_button = 0;
 
@@ -380,13 +388,13 @@ bool COptionState::Init()
 	a_button->name ="BackButton";
 	buttonList.push_back(a_button);
 
-	//a_button = new CUIButtonCircle();
-	//a_button->ownTexture.Init(1);
-	//a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
-	//a_button->SetPosition(WM->GetOriginalWindowWidth()*0.9,WM->GetOriginalWindowHeight()*0.9);
-	//a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
-	//a_button->name ="ExitButton";
-	//buttonList.push_back(a_button);
+	a_button = new CUIButtonCircle();
+	a_button->ownTexture.Init(1);
+	a_button->ownTexture.OverrideTGATexture(IM->GetTGAImage("InstructionButton.tga"));
+	a_button->SetPosition(WM->GetOriginalWindowWidth()*0.25f,WM->GetOriginalWindowHeight()*0.4f);
+	a_button->SetSize(WM->GetOriginalWindowWidth()*0.08,WM->GetOriginalWindowHeight()*0.08);
+	a_button->name ="InstructionButton";
+	buttonList.push_back(a_button);
 
 	return true;
 }
@@ -445,6 +453,13 @@ void COptionState::RenderBackground()
 	backgroundImage[0].Render();
 	glPopMatrix();
 }
+void COptionState::RenderInstruction()
+{
+	if(this->onInstructionDisplay)
+	{
+		backgroundImage[1].Render();
+	}
+}
 void COptionState::ButtonTriggerCall(CUIButton* theButton)
 {
 
@@ -461,6 +476,10 @@ void COptionState::ButtonTriggerCall(CUIButton* theButton)
 			{
 				GSM->ExitApplication();
 			}else
+				if(theButton->name = "InstructionButton")
+				{
+					onInstructionDisplay = true;
+				}else
 				if(theButton->name == "MuteButton")
 				{
 					switch(theButton->triggermode)

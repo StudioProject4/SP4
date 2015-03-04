@@ -10,10 +10,10 @@ class COptionState :
 public:
 	static COptionState* instance;
 private:
-	CSprite backgroundImage[1];
+	CSprite backgroundImage[2];
 	typedef std::vector<CUIButton*> TButtonList;
 	TButtonList buttonList;
-
+	bool onInstructionDisplay;
 private:
 	COptionState(void);
 	void StateChangeMusicCheck();
@@ -38,6 +38,7 @@ public:
 	 void ButtonTriggerCall(CUIButton* theButton);
 	 void ButtonTriggerCall(std::string buttonName);
 	 void RenderBackground();
+	 void RenderInstruction();
 	
 
 	 bool Update();
