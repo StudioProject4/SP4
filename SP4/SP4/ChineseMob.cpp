@@ -101,11 +101,11 @@ bool CChineseMob :: Render()
 	glTranslatef(pos.x,pos.y,pos.z);
 	if(dir.x > 0)
 	{
-		theSprite->SetAnimationLayer(1);
+		theSprite->SetAnimationLayer(0);
 	}
 	else if(dir.x < 0)
 	{
-		theSprite->SetAnimationLayer(0);
+		theSprite->SetAnimationLayer(1);
 	}
 	theSprite->Render();
 	glPopMatrix();
