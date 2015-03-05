@@ -25,6 +25,7 @@ myApplication* myApplication::instance = NULL;
 
 myApplication::myApplication(void)
 	: Map(NULL)
+	,gameStateWin(false)
 #ifdef NETWORK_CODE
 	,rakpeer_(RakPeerInterface::GetInstance())
 	,timeRef(-1)
@@ -366,8 +367,10 @@ bool myApplication::Init()
 	PointIcon.Init(1);
 	PointIcon.OverrideTGATexture(IM->GetTGAImage("pointIcon.tga"));
 	GameLose.Init(1);
+	GameLose.SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
 	GameLose.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
 	GameWin.Init(1);
+	GameWin.SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
 	GameWin.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
 
 	playerOne = OM->manufacturer->CreateChineseMale();
@@ -1233,7 +1236,7 @@ void myApplication::RenderLoseResult()
 {
 	glPushMatrix();
 		glTranslatef(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.5f,0);
-			GameWin.Render();
+			GameLose.Render();
 	glPopMatrix();
 }
 
@@ -1241,7 +1244,7 @@ void myApplication::RenderWinResult()
 {
 	glPushMatrix();
 		glTranslatef(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.5f,0);
-			GameLose.Render();
+			GameWin.Render();
 	glPopMatrix();
 }
 void myApplication::RenderGameResult(bool gameresult)
@@ -1271,6 +1274,12 @@ void myApplication::Render2D()
 
 	OM->Render();
 	RenderPointHUD();
+
+	if(this->gameStateWin == true)
+	{
+		this->RenderWinResult();
+	}
+
 	FRM->drawFPS();
 }
 void myApplication::Render3D()
@@ -1369,11 +1378,11 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//	std::cout<<"nothing came out"<<std::endl;
 			//}
 			//GSM->ExitApplication();
-			
+			this->gameStateWin = true;
 		break;
 
 		case '2':
-			playerOne->hp.SetHealth(0);
+			//playerOne->hp.SetHealth(0);
 			//CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
 			//this->PrintDebugInformation();
 			//MS->PlayBgmTrack("bgm2.mp3");
@@ -1383,8 +1392,8 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//ballList[0]->active = false;
 			//temp = OM->FindObjectWithName("ball");
 			//temp->active = false;
-			MS->StopCurrentBGM();
-			
+			//MS->StopCurrentBGM();
+			this->gameStateWin = false;
 		break;
 		
 		case '3':
@@ -1452,10 +1461,16 @@ void myApplication::MouseClick(int button, int state, int x, int y)
 				case GLUT_DOWN:
 					//mouse->mLButtonUp = true;	
 					mouse->SetLeftButton(true);
+
 					break;
 				case GLUT_UP:
 					//mouse->mLButtonUp = false;	
 					mouse->SetLeftButton(false);
+
+					if(this->gameStateWin == true)
+					{
+						GSM->ExitApplication();
+					}
 					break;
 			}
 			break;

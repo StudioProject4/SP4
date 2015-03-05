@@ -124,6 +124,7 @@ bool CWinCondition::OnCollision(CBaseObject* a_obj, bool frame2)
 				if(levelChange->Level >5)
 				{
 					levelChange->Level = 5;
+					myApplication::GetInstance()->gameStateWin = true;
 				}
 
 				RakNet::BitStream bs;
