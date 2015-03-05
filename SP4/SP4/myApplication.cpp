@@ -845,7 +845,8 @@ bool myApplication::Update()
 								break;
 							}
 						}
-						temp->pos.Set(x,y,0);
+						if(temp!=0)
+							temp->pos.Set(x,y,0);
 						//set pos
 
 					}
