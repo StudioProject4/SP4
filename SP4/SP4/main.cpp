@@ -128,10 +128,10 @@ int main(int argc, char **argv )
 		//glutInitWindowPosition(LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"));
 		//glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 		//glutCreateWindow(LM->GetWithCheckString("PROGRAM_NAME").c_str());
-		//if(LM->GetWithCheckBoolean("FULLSCREEN") == true)
-		//{
-		//	glutFullScreen();
-		//}
+		if(LM->GetWithCheckBoolean("FULLSCREEN") == true)
+		{
+			glutFullScreen();
+		}
 		atexit(CleanUpUponExit);
 
 		glutReshapeFunc(changeSize);

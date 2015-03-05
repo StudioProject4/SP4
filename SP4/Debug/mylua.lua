@@ -12,7 +12,7 @@ print("Finish all Test variable")
 print("initing lua global variable")
 PROGRAM_NAME= "SP4"
 PROGRAM_VERSION = 1
-FULLSCREEN = false
+FULLSCREEN = true
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 WINDOW_POSITION_X = 250
