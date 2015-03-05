@@ -24,7 +24,7 @@ bool CMalayHpReduce::Init(Vector3 pos, Vector3 size)
 	name = "MalayHp";
 
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("SpeedUp.tga");
+	theSprite->LoadTGA("HalalSign.tga");
 
 	phys.Init(pos, Vector3(theSprite->GetImageSizeX(), theSprite->GetImageSizeY()));
 

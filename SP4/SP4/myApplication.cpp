@@ -541,6 +541,8 @@ bool myApplication::Update()
 				vector<CSpeedPU* > speedList;
 				vector<CChinesePoints* > chinaptsList;
 				vector<CMalayPoints* > malayptsList;
+				vector<CChineseHpReduce* > chineseHpList;
+				vector<CMalayHpReduce*> malayHpList;
 
 				charControl=2;//if you recieve this u are for sure player 2
 
@@ -619,12 +621,21 @@ bool myApplication::Update()
 					}
 					else if(thing2 == "CHp")
 					{
-						//CChineseHpReduce* temp = CManufactureManager::GetInstance()->cre
-
+						CChineseHpReduce* temp = CManufactureManager::GetInstance()->CreateChineseHpReduce();
+						temp->Init(Vector3(x,y,z), Vector3(temp->phys.size));
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						chineseHpList.push_back(temp);
 					}
 					else if(thing2 == "MHp")
 					{
-
+						CMalayHpReduce* temp = CManufactureManager::GetInstance()->CreateMalayHpReduce();
+						temp->Init(Vector3(x,y,z), Vector3(temp->phys.size));
+						temp->pos.Set(x,y,z);
+						temp->id = id; 
+						OM->AddObject(temp);
+						malayHpList.push_back(temp);
 					}
 					else if(thing2 == "HpAdd")
 					{

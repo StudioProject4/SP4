@@ -32,7 +32,7 @@ bool CMalayPoints::Init(Vector3 pos,Vector3 size)
 	genericTag = "Targeted Obstacles";
 	
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("HalalSign.tga");
+	theSprite->LoadTGA("SpeedUp.tga");
 
 	phys.Init(pos, Vector3(theSprite->GetImageSizeX(), theSprite->GetImageSizeY()));
 	pts = CPointSystem::GetInstance();

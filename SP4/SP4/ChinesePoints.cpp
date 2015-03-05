@@ -33,7 +33,7 @@ bool CChinesePoints::Init(Vector3 pos,Vector3 size)
 	genericTag = "Targeted Obstacles"; 
 		
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("ChineseSign.tga");
+	theSprite->LoadTGA("Jump.tga");
 
 	phys.Init(pos, Vector3(theSprite->GetImageSizeX(), theSprite->GetImageSizeY()));
 	pts = CPointSystem::GetInstance();
