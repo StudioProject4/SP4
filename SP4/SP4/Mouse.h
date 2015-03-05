@@ -19,6 +19,8 @@ public:
 	static CMouse* GetInstance();
 	CMouse(void);
 	~CMouse(void);
+	void MoveAndUpdateGameMousePosition(int posX,int posY,float windowRatioX =1.f,float windowRatioY = 1.f);
+	void Move(int posX,int posY);
 	bool Reset();
 	bool Update();
 	bool Init() ;
@@ -33,6 +35,7 @@ public:
 	bool CheckLeftButtonDown();
 	bool CheckRightButtonDown();
 	bool CheckMiddleButtonDown();
+	void ResetAllLastButtonStateBoolean();
 	void PrintDebugInformation();
 };
 

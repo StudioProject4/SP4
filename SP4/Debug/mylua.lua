@@ -97,7 +97,7 @@ PLAYERONE_POS_X_Lv3 = 64
 PLAYERONE_POS_Y_Lv3 = 528
 PLAYERTWO_POS_X_Lv3 = 725 
 PLAYERTWO_POS_Y_Lv3 = 528
-AIONE_POS_X_Lv3 = 64
+AIONE_POS_X_Lv3 = 65
 AIONE_POS_Y_Lv3 = 430
 AITWO_POS_X_Lv3 = 725
 AITWO_POS_Y_Lv3 = 430
@@ -119,9 +119,9 @@ DOOR_SIZE_Lv4 = 32
 DOOR_SIZE_Lv4 = 32
 PLAYERONE_POS_X_Lv4 = 300
 PLAYERONE_POS_Y_Lv4 = 240
-PLAYERTWO_POS_X_Lv4 = 435 
+PLAYERTWO_POS_X_Lv4 = 440 
 PLAYERTWO_POS_Y_Lv4 = 240
-AIONE_POS_X_Lv4 = 270
+AIONE_POS_X_Lv4 = 265
 AIONE_POS_Y_Lv4 = 370
 AITWO_POS_X_Lv4 = 470
 AITWO_POS_Y_Lv4 = 370
@@ -146,10 +146,18 @@ PLAYERONE_POS_Y_Lv5 = 400
 PLAYERTWO_POS_X_Lv5 = 64 
 PLAYERTWO_POS_Y_Lv5 = 405
 AIONE_POS_X_Lv5 = 145
-AIONE_POS_Y_Lv5 = 480
+AIONE_POS_Y_Lv5 = 485
 AITWO_POS_X_Lv5 = 650
 AITWO_POS_Y_Lv5 = 430
 print("Finish obstacle variable")
+
+print("initing sound files")
+TEST_SOUND = "sound1.mp3"
+MENU_BGM = "persona.mp3"
+MAIN_GAME_BGM = "underthemoon.mp3"
+INTRO_SCENE_BGM = "FilmRolling.mp3"
+print("Finish sound files")
+
 
 print("initing lua function")
 function add(v1,v2)

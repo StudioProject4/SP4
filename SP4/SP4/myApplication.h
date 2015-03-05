@@ -66,6 +66,7 @@ class myApplication:public CGameState
 {
 public:
 	static myApplication* instance;
+	bool gameStateWin;
 private:
 	//bool myKeys[255];
 	//void *font_style;

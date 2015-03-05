@@ -52,6 +52,7 @@ bool CMalayMob :: Update()
 			pos.x = phys.Update(pos).x;
 		}*/
 	}
+	theSprite->LiveOn(4);
 	return true;
 }
 bool CMalayMob :: Init()
@@ -61,12 +62,10 @@ bool CMalayMob :: Init()
 	genericTag = "Enemy";
 
 	AI.SetTag(tag);
+	theSprite = new CSprite(8,2,0);
+	CImageManager::GetInstance()->RegisterTGA("mobMalay.tga");
+	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("mobMalay.tga"));
 
-	theSprite = new CSprite(1,1,0);
-	CImageManager::GetInstance()->RegisterTGA("rockyground.tga");
-	theSprite->OverrideTGATexture(CImageManager::GetInstance()->GetTGAImage("rockyground.tga"));
-	//theSprite->LoadTGA("rockyground.tga");
-	
 	phys.Init(pos,Vector3(theSprite->GetImageSizeX(),theSprite->GetImageSizeY(),1));
 	this->UpdateObjectTopLeftAndBottomRightPoint(false);
 	refTime = MVCTime::GetInstance()->PushNewTime(1000);
@@ -92,7 +91,7 @@ bool CMalayMob :: Render()
 	}
 	else if(dir.x < 0)
 	{
-		theSprite->SetAnimationLayer(0);
+		theSprite->SetAnimationLayer(1);
 	}
 	theSprite->Render();
 	glPopMatrix();

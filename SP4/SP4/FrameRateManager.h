@@ -36,5 +36,15 @@ public:
 	void drawFPS(float xpos = 25.f,float ypos = 25.f);
 	void CalculateFPS();
 	//void printw (float x, float y, float z, char* format, ...);
+
+	inline float GetDeltaTime()
+	{
+		float temp = deltaTime;
+		while(temp>1)
+		{
+			temp *= 0.1;
+		}
+		return temp;
+	};
 };
 

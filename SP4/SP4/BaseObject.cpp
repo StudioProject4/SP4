@@ -42,6 +42,7 @@ bool CBaseObject::OnCollision(CBaseObject* a_obj,bool frame2)
 				bs.Write(this->id);
 				bs.Write(a_obj->id);
 				rakPeerGlobal->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
+
 				lastCall=now;
 			}
 		#endif

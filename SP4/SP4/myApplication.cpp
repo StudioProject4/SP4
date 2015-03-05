@@ -25,6 +25,7 @@ myApplication* myApplication::instance = NULL;
 
 myApplication::myApplication(void)
 	: Map(NULL)
+	,gameStateWin(false)
 #ifdef NETWORK_CODE
 	,rakpeer_(RakPeerInterface::GetInstance())
 	,timeRef(-1)
@@ -341,19 +342,21 @@ bool myApplication::Init()
 	IM->RegisterTGA("sonia2.tga");
 	IM->RegisterTGA("tenri.tga");
 #endif
+
+
 	tempimage = IM->GetTGAImage("background.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
 
-	if(MS->GetCurrentBgm()->audioname != "bgm6.mp3")
+	if(MS->GetCurrentBgm()->audioname != "underthemoon.mp3")
 	{
 		if(MS->StopCurrentBGM())
 		{
-			MS->PlayBgmTrack("bgm6.mp3");
+			MS->PlayBgmTrack("underthemoon.mp3");
 			//std::cout<<"finding"<<MS->FindBgm("bgm6.mp3")<<std::endl;
-			if(MS->FindBgm("bgm6.mp3")->EnableAudioEffectControl())
-			{
-				MS->FindBgm("bgm6.mp3")->EnableChorusEffect();
-			}
+			//if(MS->FindBgm("underthemoon.mp3")->EnableAudioEffectControl())
+			//{
+			//	MS->FindBgm("underthemoon.mp3")->EnableChorusEffect();
+			//}
 		}
 	}
 
@@ -364,8 +367,10 @@ bool myApplication::Init()
 	PointIcon.Init(1);
 	PointIcon.OverrideTGATexture(IM->GetTGAImage("pointIcon.tga"));
 	GameLose.Init(1);
+	GameLose.SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
 	GameLose.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
 	GameWin.Init(1);
+	GameWin.SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
 	GameWin.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
 
 	playerOne = OM->manufacturer->CreateChineseMale();
@@ -456,11 +461,11 @@ bool myApplication::Init()
 
 void myApplication::StateChangeMusicCheck()
 {
-	if(MS->GetCurrentBgm()->audioname != "bgm6.mp3")
+	if(MS->GetCurrentBgm()->audioname != "underthemoon.mp3")
 	{
 		if(MS->StopCurrentBGM())
 		{
-			MS->PlayBgmTrack("bgm6.mp3");
+			MS->PlayBgmTrack("underthemoon.mp3");
 		}
 	}
 };
@@ -561,13 +566,15 @@ bool myApplication::Update()
 						bs.Read(currentHp);
 						if(thing2=="ChineseMale")
 						{
-							playerOne->pos.Set(x,y,z);
+							//playerOne->pos.Set(x,y,z);
 							playerOne->hp.SetHealth(currentHp);
+							playerOne->id=id;
 						}
 						else if(thing2=="MalayFemale")
 						{
-							playerTwo->pos.Set(x,y,z);
+							//playerTwo->pos.Set(x,y,z);
 							playerTwo->hp.SetHealth(currentHp);
+							playerTwo->id=id;
 						}
 					}
 					else if(thing2=="CLeverDoor")
@@ -681,7 +688,14 @@ bool myApplication::Update()
 							OM->AddObject(temp);
 						}
 					}
-
+					else if(thing2=="WC")
+					{
+						CWinCondition * temp = CManufactureManager::GetInstance()->CreateWinCondition();
+						temp->Init(Vector3(x,y,z),Vector3(32,32));
+						temp->id = id;
+						temp->levelChange=Map;
+						OM->AddObject(temp);
+					}
 				}
 				delete[256] tag;
 				delete[256] genTag; 
@@ -758,6 +772,7 @@ bool myApplication::Update()
 					unsigned short id1,id2;
 					bs.Read(id1);
 					bs.Read(id2);
+					cout<<"id of the objects"<<id1<<" "<<id2<<"\n";
 					CLeverDoor* lever=NULL;
 					CBaseObject* other=NULL;
 					for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
@@ -775,6 +790,8 @@ bool myApplication::Update()
 							break;
 						}
 					}
+					if(lever==0||other==0)
+						break;
 
 					float x,y,z;
 					
@@ -877,6 +894,37 @@ bool myApplication::Update()
 					assert(true);
 					int i=0;
 				}
+			}
+			break;
+		case ID_REQUEST_MAP_CLEAR:
+			{
+				unsigned short id;
+				bs.Read(id);
+				CWinCondition* temp=0;
+				for(vector<CBaseObject*>::iterator it=OM->objectList.begin();it!=OM->objectList.end();++it)
+				{
+					if(id==(*it)->id)
+					{
+						temp=(CWinCondition*)(*it);
+						break;
+					}
+				}
+				if(temp==0)
+					break;
+				temp->MalayFemaleIn=true;
+				temp->frame=OM->frame;
+			}
+			break;
+		case ID_NEW_MAP:
+			{
+				int newLevel;
+				bs.Read(newLevel);
+				Map->Level =newLevel;
+				ResetLevel(Map->Level);
+				RakNet::BitStream bs2;
+				unsigned char msgid=ID_NEW_PLAYER;
+				bs2.Write(msgid);
+				rakpeer_->Send(&bs2,HIGH_PRIORITY,RELIABLE_ORDERED,0,UNASSIGNED_SYSTEM_ADDRESS,true);
 			}
 			break;
 		}
@@ -1189,7 +1237,7 @@ void myApplication::RenderLoseResult()
 {
 	glPushMatrix();
 		glTranslatef(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.5f,0);
-			GameWin.Render();
+			GameLose.Render();
 	glPopMatrix();
 }
 
@@ -1197,7 +1245,7 @@ void myApplication::RenderWinResult()
 {
 	glPushMatrix();
 		glTranslatef(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.5f,0);
-			GameLose.Render();
+			GameWin.Render();
 	glPopMatrix();
 }
 void myApplication::RenderGameResult(bool gameresult)
@@ -1227,6 +1275,12 @@ void myApplication::Render2D()
 
 	OM->Render();
 	RenderPointHUD();
+
+	if(this->gameStateWin == true)
+	{
+		this->RenderWinResult();
+	}
+
 	FRM->drawFPS();
 }
 void myApplication::Render3D()
@@ -1324,11 +1378,12 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//{
 			//	std::cout<<"nothing came out"<<std::endl;
 			//}
-			GSM->ExitApplication();
+			//GSM->ExitApplication();
+			this->gameStateWin = true;
 		break;
 
 		case '2':
-			playerOne->hp.SetHealth(0);
+			//playerOne->hp.SetHealth(0);
 			//CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
 			//this->PrintDebugInformation();
 			//MS->PlayBgmTrack("bgm2.mp3");
@@ -1338,8 +1393,8 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//ballList[0]->active = false;
 			//temp = OM->FindObjectWithName("ball");
 			//temp->active = false;
-			MS->StopCurrentBGM();
-			
+			//MS->StopCurrentBGM();
+			this->gameStateWin = false;
 		break;
 		
 		case '3':
@@ -1407,10 +1462,16 @@ void myApplication::MouseClick(int button, int state, int x, int y)
 				case GLUT_DOWN:
 					//mouse->mLButtonUp = true;	
 					mouse->SetLeftButton(true);
+
 					break;
 				case GLUT_UP:
 					//mouse->mLButtonUp = false;	
 					mouse->SetLeftButton(false);
+
+					if(this->gameStateWin == true)
+					{
+						GSM->ExitApplication();
+					}
 					break;
 			}
 			break;

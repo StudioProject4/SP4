@@ -111,10 +111,11 @@ void CMenuState::MouseMove (int x, int y)
 	int diffX = x - mouse->lastX;
 	int diffY = y - mouse->lastY;
 
-	mouse->lastX = x;
-	mouse->lastY = y;
-	mouse->gameX=mouse->lastX/WM->GetWindowRatioDifferenceX();
-	mouse->gameY=mouse->lastY/WM->GetWindowRatioDifferenceY();
+	mouse->MoveAndUpdateGameMousePosition(x,y,WM->GetWindowRatioDifferenceX(),WM->GetWindowRatioDifferenceY());
+	if(diffX >2  || diffY >2)
+	{
+		mouse->ResetAllLastButtonStateBoolean();
+	}
 }
 
 void CMenuState::MouseClick(int button, int state, int x, int y)
@@ -125,10 +126,12 @@ void CMenuState::MouseClick(int button, int state, int x, int y)
 			switch(state)
 			{
 				case GLUT_DOWN:
+					
 					//mouse->mLButtonUp = true;	
 					mouse->SetLeftButton(true);
 					break;
 				case GLUT_UP:
+					
 					//mouse->mLButtonUp = false;	
 					mouse->SetLeftButton(false);
 					break;
@@ -234,6 +237,8 @@ void CMenuState::Render2D()
 	}
 
 	FRM->drawFPS();
+	//printw(WM->GetOriginalWindowWidth()*0.3f,WM->GetOriginalWindowHeight()*0.1f,0,"Peace And Harmony");
+
 }
 
 void CMenuState::Render3D()
@@ -264,6 +269,7 @@ void CMenuState::RenderScene(void)
 
 bool CMenuState::Update()
 {
+	//mouse->PrintDebugInformation();
 
 	for(unsigned short i = 0 ; i< buttonList.size();++i)
 	{
@@ -271,7 +277,11 @@ bool CMenuState::Update()
 		if(buttonList[i]->ColisionCheck(mouse))
 		{
 			//std::cout<<"Button COllided"<<std::endl;
-			ButtonTriggerCall(buttonList[i]->name);
+
+		
+				ButtonTriggerCall(buttonList[i]->name);
+		
+			
 		}else
 		{
 			//std::cout<<"=D "<<std::endl;
@@ -299,21 +309,20 @@ bool CMenuState::Init()
 	genericTag = "CGameState";
 
 	MS = CMusicSystem::GetInstance();
-
-	if(MS->GetCurrentBgm()->audioname != "underthemoon.mp3")
-	{
-		if(MS->StopCurrentBGM())
-		{
-			MS->PlayBgmTrack("underthemoon.mp3");
-		}
-	}
-
 	IM = CImageManager::GetInstance();
 	FRM = CFrameRateManager::GetInstance();
 	LM = CLuaManager::GetInstance();
 	mouse = CMouse::GetInstance();
 	keyboard = CKeyboard::GetInstance();
 	WM = CWindowManager::GetInstance();
+
+	if(MS->GetCurrentBgm()->audioname != LM->GetWithCheckString("MENU_BGM"))
+	{
+		if(MS->StopCurrentBGM())
+		{
+			MS->PlayBgmTrack(LM->GetWithCheckString("MENU_BGM"));
+		}
+	}
 
 	OM = new CObjectManager();
 	GSM = CGameStateManager::GetInstance();
@@ -333,7 +342,8 @@ bool CMenuState::Init()
 #endif
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
-	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	CImageManager::GetInstance()->RegisterTGA("mainmenu2.tga");
+	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("mainmenu2.tga"));
 	//testdecorator = &backgroundImage[0];
 	testdecorator = new CSpriteFadeExtend(&backgroundImage[0]);
 	//testdecorator->SetFrameSpeed(100);
@@ -435,7 +445,7 @@ void CMenuState::RenderBackground()
 	//	glPopMatrix();
 	//	glDisable(GL_BLEND);
 	//glPopMatrix();
-	//glDisable(GL_TEXTURE_2D);
+
 	glPushMatrix();
 	glTranslatef(400,300,0);
 	testdecorator->Render(FRM->deltaTime);
@@ -446,6 +456,7 @@ void CMenuState::RenderBackground()
  {
 	 if(mouse->CheckLeftButtonReleased())
 	 {
+		 std::cout<<"left button release"<<std::endl;
 		 MS->PlaySoundPoolTrack2D("sound1.mp3");
 		 if(buttonName == "SinglePlayerButton")
 		 {

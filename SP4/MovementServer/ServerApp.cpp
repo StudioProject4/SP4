@@ -41,7 +41,7 @@ void ServerApp::Loop()
 		RakNet::Time timestamp = 0;
 
 		bs.Read(msgid);
-		cout<<"handling msg "<<(int)(msgid)<<" num "<<proc++<<endl;
+		//cout<<"handling msg "<<(int)(msgid)<<" num "<<proc++<<endl;
 		if (msgid == ID_TIMESTAMP)
 		{
 			bs.Read(timestamp);
@@ -105,6 +105,8 @@ void ServerApp::Loop()
 		case ID_NEW_PLAYER:
 		case ID_MOVEMENT:
 		case ID_VEL_CHANGED:
+		case ID_NEW_MAP:
+		case ID_REQUEST_MAP_CLEAR:
 			bs.ResetReadPointer();
 			rakpeer_->Send(&bs,HIGH_PRIORITY,RELIABLE_ORDERED,0,packet->systemAddress,true);
 			break;

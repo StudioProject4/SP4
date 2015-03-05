@@ -37,6 +37,14 @@ public:
 		originalObject->SetAlpha(startingAlpha);
 		fademode = true;
 	}
+	bool CheckIfFadingOut()
+	{
+		return fademode;
+	}
+	bool CheckIfFadingIn()
+	{
+		return !fademode;
+	}
 	void SetAnimationLayer(ushort newlayer);
 	void SetFrameSpeed(float newframespeed);
 	void SetFrameInterval(float newframeinterval);

@@ -125,10 +125,11 @@ void COnlinePlayState::MouseMove (int x, int y)
 	int diffX = x - mouse->lastX;
 	int diffY = y - mouse->lastY;
 
-	mouse->lastX = x;
-	mouse->lastY = y;
-	mouse->gameX=mouse->lastX/WM->GetWindowRatioDifferenceX();
-	mouse->gameY=mouse->lastY/WM->GetWindowRatioDifferenceY();
+	mouse->MoveAndUpdateGameMousePosition(x,y,WM->GetWindowRatioDifferenceX(),WM->GetWindowRatioDifferenceY());
+	if(diffX >2  || diffY >2)
+	{
+		mouse->ResetAllLastButtonStateBoolean();
+	}
 }
 
 void COnlinePlayState::MouseClick(int button, int state, int x, int y)
@@ -304,7 +305,7 @@ bool COnlinePlayState::Update()
 
 	if(FRM->UpdateAndCheckTimeThreehold())
 	{
-		OM->Update();
+		//OM->Update();
 	}
 	return true;
 }
@@ -334,12 +335,12 @@ bool COnlinePlayState::Init()
 	IM->RegisterTGA("CreateGameButton.tga");
 	IM->RegisterTGA("JoinGameButton.tga");
 	IM->RegisterTGA("kanon.tga");
-
+	IM->RegisterTGA("mainmenu.tga");
 #endif
 
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
-	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
+	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("mainmenu.tga"));
 
 	CUIButton* a_button = 0;
 
