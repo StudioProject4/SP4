@@ -625,5 +625,95 @@
     <None Include="..\Debug\tile0_blank.tga">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\Debug\Alcohol.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\back.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\backButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\background.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\BlackWallCut.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\BlackWalls.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\blockage.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\ChineseSign.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\credit.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\Female.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\flare.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\GameOver.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\GameOverDisplay.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\health.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\Instruction.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\InstructionButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\IntroScene.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\mainmenu.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\mainmenu2.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\MalayEnemy.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\MalayVillage.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\Male.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\mobChinese.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\mobMalay.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\MultiPlayerButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\MuteButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\OptionButton.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\optionpage.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\pointIcon.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Debug\PointsAdd.tga">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

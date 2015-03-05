@@ -112,6 +112,8 @@ int main(int argc, char **argv )
 		IM->RegisterTGA("optionpage.tga");
 		IM->RegisterTGA("IntroScene.tga");
 		IM->RegisterTGA("mainmenu.tga");
+		IM->RegisterTGA("GameOver.tga");
+		IM->RegisterTGA("GameOverDisplay.tga");
 #endif
 		//IM->RegisterTGA("pointIcon.tga");
 

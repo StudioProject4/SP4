@@ -337,13 +337,13 @@ bool myApplication::Init()
 	IM->RegisterTGA("rockyground.tga");
 	IM->RegisterTGA("health.tga");
 	IM->RegisterTGA("pointIcon.tga");
-
+	IM->RegisterTGA("GameOver.tga");
+	IM->RegisterTGA("GameOverDisplay.tga");
 	//test image
 	IM->RegisterTGA("sonia2.tga");
 	IM->RegisterTGA("tenri.tga");
 #endif
-
-
+	LoadTGA(&gameoverTexture[0],"GameOverDisplay.tga");
 	tempimage = IM->GetTGAImage("background.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
 
@@ -366,12 +366,14 @@ bool myApplication::Init()
 	HeartShape.OverrideTGATexture(IM->GetTGAImage("health.tga"));
 	PointIcon.Init(1);
 	PointIcon.OverrideTGATexture(IM->GetTGAImage("pointIcon.tga"));
+
+	IM->RegisterTGA("GameOver.tga");
 	GameLose.Init(1);
-	GameLose.SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
-	GameLose.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	GameLose.SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
+	GameLose.OverrideTGATexture(IM->GetTGAImage("GameOverDisplay.tga"));
 	GameWin.Init(1);
-	GameWin.SetImageSize(WM->GetOriginalWindowWidth(),WM->GetOriginalWindowHeight());
-	GameWin.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
+	GameWin.SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
+	GameWin.OverrideTGATexture(IM->GetTGAImage("GameOverDisplay.tga"));
 
 	playerOne = OM->manufacturer->CreateChineseMale();
 	playerTwo = OM->manufacturer->CreateMalayFemale();

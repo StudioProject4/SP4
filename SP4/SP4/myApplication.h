@@ -154,6 +154,7 @@ private:
 
 	//Imagee
 	TextureImage BackgroundTexture[2];
+	TextureImage gameoverTexture[1];
 	TextureImage TileMapTexture[50];
 	TextureImage* tempimage;
 	int mapOffset_x, mapOffset_y;
