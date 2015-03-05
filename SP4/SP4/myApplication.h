@@ -66,6 +66,7 @@ class myApplication:public CGameState
 {
 public:
 	static myApplication* instance;
+	bool gameStateWin;
 private:
 	//bool myKeys[255];
 	//void *font_style;
@@ -153,6 +154,7 @@ private:
 
 	//Imagee
 	TextureImage BackgroundTexture[2];
+	TextureImage gameoverTexture[1];
 	TextureImage TileMapTexture[50];
 	TextureImage* tempimage;
 	int mapOffset_x, mapOffset_y;

@@ -24,7 +24,7 @@ bool CChineseHpReduce::Init(Vector3 pos, Vector3 size)
 	name = "ChineseHp";
 	
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("Jump.tga");
+	theSprite->LoadTGA("ChineseSign.tga");
 
 	phys.Init(pos, Vector3(theSprite->GetImageSizeX(), theSprite->GetImageSizeY()));
 

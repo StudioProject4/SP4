@@ -32,7 +32,7 @@ bool CMalayPoints::Init(Vector3 pos,Vector3 size)
 	genericTag = "Targeted Obstacles";
 	
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("HalalSign.tga");
+	theSprite->LoadTGA("SpeedUp.tga");
 
 	phys.Init(pos, Vector3(theSprite->GetImageSizeX(), theSprite->GetImageSizeY()));
 	pts = CPointSystem::GetInstance();
@@ -67,7 +67,7 @@ bool CMalayPoints::OnCollision2(CBaseObject* a_obj,bool again)
 				{			
 					if(MlPtsTaken == false)
 					{
-						pts->PointsReceive(-30);
+						pts->PointsReceive(30);
 						this->active = false;
 						std::cout << "Malay Points: " << pts->GetPoints() << std::endl;
 						MlPtsTaken = true;

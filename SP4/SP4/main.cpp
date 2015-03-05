@@ -112,6 +112,9 @@ int main(int argc, char **argv )
 		IM->RegisterTGA("Instruction.tga");
 		IM->RegisterTGA("optionpage.tga");
 		IM->RegisterTGA("IntroScene.tga");
+		IM->RegisterTGA("mainmenu.tga");
+		IM->RegisterTGA("GameOver.tga");
+		IM->RegisterTGA("GameOverDisplay.tga");
 #endif
 		//IM->RegisterTGA("pointIcon.tga");
 
@@ -126,10 +129,10 @@ int main(int argc, char **argv )
 		//glutInitWindowPosition(LM->GetWithCheckNumber<int>("WINDOW_POSITION_X"),LM->GetWithCheckNumber<int>("WINDOW_POSITION_Y"));
 		//glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 		//glutCreateWindow(LM->GetWithCheckString("PROGRAM_NAME").c_str());
-		//if(LM->GetWithCheckBoolean("FULLSCREEN") == true)
-		//{
-		//	glutFullScreen();
-		//}
+		if(LM->GetWithCheckBoolean("FULLSCREEN") == true)
+		{
+			glutFullScreen();
+		}
 		atexit(CleanUpUponExit);
 
 		glutReshapeFunc(changeSize);

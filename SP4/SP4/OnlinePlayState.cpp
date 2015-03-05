@@ -335,12 +335,12 @@ bool COnlinePlayState::Init()
 	IM->RegisterTGA("CreateGameButton.tga");
 	IM->RegisterTGA("JoinGameButton.tga");
 	IM->RegisterTGA("kanon.tga");
-
+	IM->RegisterTGA("mainmenu.tga");
 #endif
 
 	backgroundImage[0].Init(1,1,0);
 	backgroundImage[0].SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
-	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("kanon.tga"));
+	backgroundImage[0].OverrideTGATexture(IM->GetTGAImage("mainmenu.tga"));
 
 	CUIButton* a_button = 0;
 

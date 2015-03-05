@@ -33,7 +33,7 @@ bool CChinesePoints::Init(Vector3 pos,Vector3 size)
 	genericTag = "Targeted Obstacles"; 
 		
 	theSprite = new CSprite(1,1,0);
-	theSprite->LoadTGA("ChineseSign.tga");
+	theSprite->LoadTGA("Jump.tga");
 
 	phys.Init(pos, Vector3(theSprite->GetImageSizeX(), theSprite->GetImageSizeY()));
 	pts = CPointSystem::GetInstance();
@@ -63,7 +63,7 @@ bool CChinesePoints::OnCollision2(CBaseObject* a_obj,bool again)
 				{			
 					if(ChPtsTaken == false)
 					{
-						pts->PointsReceive(-30);
+						pts->PointsReceive(30);
 						this->active = false;
 						std::cout << "Chinese Points: " << pts->GetPoints() << std::endl;
 						ChPtsTaken = true;

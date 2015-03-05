@@ -25,6 +25,7 @@ myApplication* myApplication::instance = NULL;
 
 myApplication::myApplication(void)
 	: Map(NULL)
+	,gameStateWin(false)
 #ifdef NETWORK_CODE
 	,rakpeer_(RakPeerInterface::GetInstance())
 	,timeRef(-1)
@@ -336,13 +337,13 @@ bool myApplication::Init()
 	IM->RegisterTGA("rockyground.tga");
 	IM->RegisterTGA("health.tga");
 	IM->RegisterTGA("pointIcon.tga");
-
+	IM->RegisterTGA("GameOver.tga");
+	IM->RegisterTGA("GameOverDisplay.tga");
 	//test image
 	IM->RegisterTGA("sonia2.tga");
 	IM->RegisterTGA("tenri.tga");
 #endif
-
-
+	LoadTGA(&gameoverTexture[0],"GameOverDisplay.tga");
 	tempimage = IM->GetTGAImage("background.tga");
 	GSM->currentState = GSM->STATE_MYAPPLICATION;
 
@@ -365,10 +366,14 @@ bool myApplication::Init()
 	HeartShape.OverrideTGATexture(IM->GetTGAImage("health.tga"));
 	PointIcon.Init(1);
 	PointIcon.OverrideTGATexture(IM->GetTGAImage("pointIcon.tga"));
+
+	IM->RegisterTGA("GameOver.tga");
 	GameLose.Init(1);
-	GameLose.OverrideTGATexture(IM->GetTGAImage("sonia2.tga"));
+	GameLose.SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
+	GameLose.OverrideTGATexture(IM->GetTGAImage("GameOverDisplay.tga"));
 	GameWin.Init(1);
-	GameWin.OverrideTGATexture(IM->GetTGAImage("tenri.tga"));
+	GameWin.SetImageSize((float)WM->GetOriginalWindowWidth(),(float)WM->GetOriginalWindowHeight());
+	GameWin.OverrideTGATexture(IM->GetTGAImage("GameOverDisplay.tga"));
 
 	playerOne = OM->manufacturer->CreateChineseMale();
 	playerTwo = OM->manufacturer->CreateMalayFemale();
@@ -538,6 +543,8 @@ bool myApplication::Update()
 				vector<CSpeedPU* > speedList;
 				vector<CChinesePoints* > chinaptsList;
 				vector<CMalayPoints* > malayptsList;
+				vector<CChineseHpReduce* > chineseHpList;
+				vector<CMalayHpReduce*> malayHpList;
 
 				charControl=2;//if you recieve this u are for sure player 2
 
@@ -616,11 +623,21 @@ bool myApplication::Update()
 					}
 					else if(thing2 == "CHp")
 					{
-						//CChineseHpReduce* temp = CManufactureManager::GetInstance()->cre
+						CChineseHpReduce* temp = CManufactureManager::GetInstance()->CreateChineseHpReduce();
+						temp->Init(Vector3(x,y,z), Vector3(temp->phys.size));
+						temp->pos.Set(x,y,z);
+						temp->id = id;
+						OM->AddObject(temp);
+						chineseHpList.push_back(temp);
 					}
 					else if(thing2 == "MHp")
 					{
-
+						CMalayHpReduce* temp = CManufactureManager::GetInstance()->CreateMalayHpReduce();
+						temp->Init(Vector3(x,y,z), Vector3(temp->phys.size));
+						temp->pos.Set(x,y,z);
+						temp->id = id; 
+						OM->AddObject(temp);
+						malayHpList.push_back(temp);
 					}
 					else if(thing2 == "HpAdd")
 					{
@@ -830,7 +847,8 @@ bool myApplication::Update()
 								break;
 							}
 						}
-						temp->pos.Set(x,y,0);
+						if(temp!=0)
+							temp->pos.Set(x,y,0);
 						//set pos
 
 					}
@@ -1233,7 +1251,7 @@ void myApplication::RenderLoseResult()
 {
 	glPushMatrix();
 		glTranslatef(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.5f,0);
-			GameWin.Render();
+			GameLose.Render();
 	glPopMatrix();
 }
 
@@ -1241,7 +1259,7 @@ void myApplication::RenderWinResult()
 {
 	glPushMatrix();
 		glTranslatef(WM->GetOriginalWindowWidth()*0.5f,WM->GetOriginalWindowHeight()*0.5f,0);
-			GameLose.Render();
+			GameWin.Render();
 	glPopMatrix();
 }
 void myApplication::RenderGameResult(bool gameresult)
@@ -1271,6 +1289,12 @@ void myApplication::Render2D()
 
 	OM->Render();
 	RenderPointHUD();
+
+	if(this->gameStateWin == true)
+	{
+		this->RenderWinResult();
+	}
+
 	FRM->drawFPS();
 }
 void myApplication::Render3D()
@@ -1369,11 +1393,11 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//	std::cout<<"nothing came out"<<std::endl;
 			//}
 			//GSM->ExitApplication();
-			
+			this->gameStateWin = true;
 		break;
 
 		case '2':
-			playerOne->hp.SetHealth(0);
+			//playerOne->hp.SetHealth(0);
 			//CGameStateManager::GetInstance()->ChangeState(CMenuState::GetInstance());
 			//this->PrintDebugInformation();
 			//MS->PlayBgmTrack("bgm2.mp3");
@@ -1383,8 +1407,8 @@ void myApplication::KeyboardDown(unsigned char key, int x, int y)
 			//ballList[0]->active = false;
 			//temp = OM->FindObjectWithName("ball");
 			//temp->active = false;
-			MS->StopCurrentBGM();
-			
+			//MS->StopCurrentBGM();
+			this->gameStateWin = false;
 		break;
 		
 		case '3':
@@ -1452,10 +1476,16 @@ void myApplication::MouseClick(int button, int state, int x, int y)
 				case GLUT_DOWN:
 					//mouse->mLButtonUp = true;	
 					mouse->SetLeftButton(true);
+
 					break;
 				case GLUT_UP:
 					//mouse->mLButtonUp = false;	
 					mouse->SetLeftButton(false);
+
+					if(this->gameStateWin == true)
+					{
+						GSM->ExitApplication();
+					}
 					break;
 			}
 			break;
