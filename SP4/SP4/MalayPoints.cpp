@@ -67,7 +67,7 @@ bool CMalayPoints::OnCollision2(CBaseObject* a_obj,bool again)
 				{			
 					if(MlPtsTaken == false)
 					{
-						pts->PointsReceive(-30);
+						pts->PointsReceive(30);
 						this->active = false;
 						std::cout << "Malay Points: " << pts->GetPoints() << std::endl;
 						MlPtsTaken = true;

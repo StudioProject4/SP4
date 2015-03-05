@@ -613,6 +613,7 @@ bool myApplication::Update()
 					else if(thing2 == "CHp")
 					{
 						//CChineseHpReduce* temp = CManufactureManager::GetInstance()->cre
+
 					}
 					else if(thing2 == "MHp")
 					{
