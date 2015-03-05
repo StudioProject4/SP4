@@ -452,7 +452,7 @@ void COnlinePlayState::ButtonTriggerCall(std::string buttonName)
 		MS->PlaySoundPoolTrack2D("sound1.mp3");
 		if(buttonName == "CreateGameButton")
 		{
-			startupServer("server.exe");
+			startupServer((LPCTSTR)("server.exe"));
 			GSM->ChangeState(myApplication::GetInstance(true));
 		}
 		else if(buttonName == "JoinGameButton")

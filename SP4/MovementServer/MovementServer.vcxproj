@@ -78,6 +78,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>$(SolutionDir)includes;$(SolutionDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -88,6 +89,8 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalDependencies>RakNet_VS2008_DLL_Debug_Win32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
